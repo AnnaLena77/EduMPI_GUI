@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.VirtualKeyboard
 import QtQuick.Controls
+import Qt.db.qobjectSingleton 1.0
 
 Window {
     id: window
@@ -10,9 +11,28 @@ Window {
     property alias actualScreen: actualScreen
     title: qsTr("Hello World")
 
+    property bool p2p: true
+    property bool collective: true
+    property string option: "Send/Recv Ratio"
+
+    NodesList{
+        id: nodesList
+    }
+
     Sidebar {
         id: sidebar
     }
+
+    /*Cores2D {
+        id: cores2d
+        anchors {
+            left: sidebar.right
+            right: options.left
+            top: parent.top
+            bottom: parent.bottom
+        }
+
+    }*/
 
     Loader{
         id: actualScreen
@@ -37,5 +57,85 @@ Window {
         id: options
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
+    }
+
+
+    function get_send_ds(nodeIndex, modelIndex){
+        if(p2p && collective){
+            let sum1 = Number(nodesList.nodeAt(nodeIndex).rankAt(modelIndex).p2p_send_datasize);
+            let sum2 = Number(nodesList.nodeAt(nodeIndex).rankAt(modelIndex).coll_send_datasize);
+            let sum = sum1 + sum2;
+            return sum;
+        }
+        else if(p2p){
+            return nodesList.nodeAt(nodeIndex).rankAt(modelIndex).p2p_send_datasize;
+        }
+        else if(collective){
+            return nodesList.nodeAt(nodeIndex).rankAt(modelIndex).coll_send_datasize;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    function get_recv_ds(nodeIndex, modelIndex){
+        if(p2p && collective){
+            var sum = Number(nodesList.nodeAt(nodeIndex).rankAt(modelIndex).p2p_recv_datasize) + Number(nodesList.nodeAt(nodeIndex).rankAt(modelIndex).coll_recv_datasize);
+            return sum;
+        }
+        else if(p2p){
+            return nodesList.nodeAt(nodeIndex).rankAt(modelIndex).p2p_recv_datasize;
+        }
+        else if(collective){
+            return nodesList.nodeAt(nodeIndex).rankAt(modelIndex).coll_recv_datasize;
+        }
+        else {
+            return 0;
+        }
+    }
+
+    function createColor(send_ds, recv_ds){
+        var full_percent, send_percent, recv_percent = 1;
+        var red, green, blue = 255;
+        if(option == "Send/Recv Ratio"){
+            full_percent = Number(send_ds) + Number(recv_ds)
+            send_percent = send_ds / full_percent
+            recv_percent = recv_ds / full_percent
+
+            red = recv_percent * 255; // Je höher der Empfangsanteil, desto mehr Rot
+            green = send_percent * 255; // Je höher der Sendeanteil, desto mehr Grün
+            blue = 255 - (red + green); // Rest wird in Blau gemischt
+        }
+        else if(option == "Max Send Ratio"){
+            if(p2p && collective){
+                full_percent = Number(nodesList.coll_send_max) + Number(nodesList.p2p_send_max);
+            } else if(p2p){
+                full_percent = Number(nodesList.p2p_send_max);
+            } else if(collective){
+                full_percent = Number(nodesList.coll_send_max);
+            }
+            send_percent = send_ds / full_percent
+            green = 255;
+            red = 255 - send_percent*255; // Je höher der Empfangsanteil, desto mehr Rot
+            blue = 255 - send_percent*255; // Rest wird in Blau gemischt
+        }
+        /*else if(option == "Max Recv Ratio"){
+            if(p2p && collective){
+                full_percent = Number(nodesList.coll_send_max) + Number(nodesList.p2p_send_max);
+            } else if(p2p){
+                full_percent = Number(nodesList.p2p_send_max);
+            } else if(collective){
+                full_percent = Number(nodesList.coll_send_max);
+            }
+            send_percent = send_ds / full_percent
+        }*/
+        //console.log("Red: " + red + " Green: " + green + " Blue: " + blue)
+        return "#" + componentToHex(red) + componentToHex(green) + componentToHex(blue);
+    }
+
+    function componentToHex(c) {
+            //console.log("test");
+            var hex = Math.round(c).toString(16);
+            return hex.length == 1 ? "0" + hex : hex;
     }
 }

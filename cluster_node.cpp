@@ -1,19 +1,24 @@
 #include "cluster_node.h"
-#include "database_connection.h"
+#include <iostream>
+//#include "database_connection.h"
 
 Cluster_Node::Cluster_Node(QObject *parent) : QObject(parent)
 {
-    timerId = startTimer(5000);
+    //timerId = startTimer(5000);
+    //connect(this, &Cluster_Node::destroyed, this, &Cluster_Node::onDestroyed);
 }
 
 Cluster_Node::Cluster_Node(QObject *parent, std::string name) : QObject(parent), m_name(name)
 {
-    timerId = startTimer(5000);
+    //connect(this, &Cluster_Node::destroyed, this, &Cluster_Node::onDestroyed);
+    //timerId = startTimer(5000);
 }
 
-void Cluster_Node::updateCores(){
-    Database_Connection *db_conn = new Database_Connection;
-    using namespace bsoncxx::builder::basic;
+void Cluster_Node::updateRanks(){
+    //Database_Connection *db_conn = new Database_Connection;
+
+
+    /*using namespace bsoncxx::builder::basic;
 
     //std::cout << "Start_ID: " << m_start_id << std::endl;
 
@@ -46,59 +51,68 @@ void Cluster_Node::updateCores(){
         if(ident>m_start_id) m_start_id = ident;
         //std::cout << "Difference = " << id-first_id << "\n";
     m_cores[id-first_id]->setDatasize(datasize);
-    }
+    }*/
 }
 
-QVector<Cluster_Core *> Cluster_Node::cores(){
-    return m_cores;
+QVector<Cluster_Rank *> Cluster_Node::ranks(){
+    return m_ranks;
 }
 
-void Cluster_Node::setCores(QVector<Cluster_Core *> list){
+void Cluster_Node::setRanks(QVector<Cluster_Rank *> list){
 
 }
 
 //Destruktor, m_cores will be deleted
 Cluster_Node::~Cluster_Node()
 {
-    qDeleteAll(m_cores);
-    m_cores.clear();
+    //qDebug() << "Hier wird ein Node gelöscht!";
+    //qDeleteAll(m_ranks);
+    //m_ranks.clear();
 }
 
 int Cluster_Node::count() const
 {
-    return m_cores.count();
+    return m_ranks.count();
 }
 
 QString Cluster_Node::getName()const{
     return QString::fromStdString(this->m_name);
 }
 
-void Cluster_Node::addCore(Cluster_Core* core){
-    if(m_cores.empty()){
-        m_cores << core;
+int Cluster_Node::getSmalestRankId(){
+    return m_smalest_rank;
+}
+
+void Cluster_Node::addRank(Cluster_Rank* rank){
+    if(m_ranks.empty()){
+        m_ranks << rank;
+        m_smalest_rank = rank->getId();
+        m_biggest_rank = rank->getId();
     }
     else{
-        for(int i = 0; i<m_cores.size(); i++)
+        /*for(int i = 0; i<m_ranks.size(); i++)
         {
-            if(m_cores[i]->getId()>core->getId()){
-               m_cores.insert(i, core);
+            if(m_ranks[i]->getId()>rank->getId()){
+               m_ranks.insert(i, rank);
                return;
             }
-        }
-        m_cores.append(core);
+        }*/
+        if(m_smalest_rank>rank->getId()) m_smalest_rank = rank->getId();
+        if(m_biggest_rank<rank->getId()) m_biggest_rank = rank->getId();
+        m_ranks.append(rank);
     }
 }
 
-QObject* Cluster_Node::coreAt(int index)
+Cluster_Rank* Cluster_Node::rankAt(int index)
 {
-    if(index < 0 || index >= m_cores.count())
+    if(index < 0 || index >= m_ranks.count())
         return 0;
 
     //QQmlEngine::setObjectOwnership(m_cores[index], QQmlEngine::CppOwnership)
 
-    return m_cores[index];
+    return m_ranks[index];
 }
 
-void Cluster_Node::timerEvent(QTimerEvent* event){
-    updateCores();
-}
+/*void Cluster_Node::timerEvent(QTimerEvent* event){
+    //updateRanks();
+}*/

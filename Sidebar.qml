@@ -12,14 +12,15 @@ Item {
             y: 0
             width: parent.width
             height: parent.height
-            color: "#80b987"
+            color: "black"
 
             Text {
                 id: text1
                 x: 34
                 y: 18
-                text: qsTr("Das ist eine Test-Sidebar")
+                text: qsTr("Visualization Mode")
                 font.pixelSize: 12
+                color: "white"
             }
 
             Button {

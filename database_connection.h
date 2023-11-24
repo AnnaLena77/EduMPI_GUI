@@ -1,29 +1,49 @@
 #ifndef DATABASE_CONNECTION_H
 #define DATABASE_CONNECTION_H
 
-#include <bsoncxx/json.hpp>
-#include <mongocxx/client.hpp>
-#include <mongocxx/stdx.hpp>
-#include <mongocxx/uri.hpp>
-#include <mongocxx/instance.hpp>
-#include <bsoncxx/builder/stream/helpers.hpp>
-#include <bsoncxx/builder/stream/document.hpp>
-#include <bsoncxx/builder/stream/array.hpp>
-#include <bsoncxx/string/to_string.hpp>
+#include <QSqlDatabase>
+#include "cluster_node.h"
 
 
-class Database_Connection
+class Database_Connection;
+
+class Database_Connection : public QObject
 {
-public:
-    Database_Connection();
-    mongocxx::database getDB() const;
-    mongocxx::collection getColl() const;
-    mongocxx::collection getCluster() const;
-private:
-    mongocxx::database m_db;
-    mongocxx::collection m_coll;
-    mongocxx::collection m_cluster_info_coll;
+    Q_OBJECT
+    Q_PROPERTY(int count READ count CONSTANT)
+    Q_PROPERTY(long p2p_send_max MEMBER m_p2p_send_max NOTIFY p2p_send_max_changed)
+    Q_PROPERTY(long coll_send_max MEMBER m_coll_send_max NOTIFY coll_send_max_changed)
 
+public:
+    explicit Database_Connection(QObject *parent = nullptr);
+    ~Database_Connection();
+
+    int count() const;
+    Q_INVOKABLE Cluster_Node* nodeAt(int index);
+
+    //void buildClusterComponents();
+    void updateDatasize();
+    int timerId;
+    QVector<Cluster_Node*> get_nodeList();
+
+public slots:
+    void buildClusterComponents();
+
+signals:
+    void p2p_send_max_changed();
+    void coll_send_max_changed();
+
+
+
+private:
+    bool m_componentsBuilt = false;
+    QSqlDatabase m_db;
+    QVector<Cluster_Node*> m_nodes;
+    long m_p2p_send_max;
+    long m_coll_send_max;
+
+protected:
+    void timerEvent(QTimerEvent *event);
 };
 
 #endif // DATABASE_CONNECTION_H

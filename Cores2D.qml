@@ -1,62 +1,81 @@
 import QtQuick
+import QtQuick.Window
+import QtQuick.Controls 6.2
 
 Rectangle {
+    //Component.onCompleted: nodesList.buildClusterComponents();
+    id: screen
     height: parent.height
     color: "#bbbe8c"
 
-    Column {
-        anchors{
-            fill: parent
-            margins: 5
-        }
+    ScrollView{
+        anchors.fill: parent
 
-        spacing: 3
+        Column {
+            anchors{
+                margins: 5
+            }
 
-        Repeater {
+            spacing: 3
 
-            model: _nodesList.count
+            Repeater {
 
-            delegate: Rectangle {
-                width: parent.width
-                height: 200
-                color: "lightblue"
+                model: nodesList.count
 
-                Rectangle{
-                    width: parent.width
-                    height: 20
-                    Text {
-                        text: _nodesList.nodeAt(model.index).getName();
-                    }
-                }
+                delegate: Rectangle {
+                    width: screen.width
+                    height: 300
+                    color: "lightblue"
 
-                property int cores_in_node: _nodesList.nodeAt(model.index).count;
-                property int node_index: model.index
-                Grid{
-                    x: 5
-                    y: 30
-                    width: parent.width
-                    height: parent.height-20
-                    columns: 4
-                    spacing: calculate_spacing(cores_in_node, columns)
-
-                    function calculate_spacing(cores_in_node, columns){
-                       var spacing = cores_in_node/columns;
-                       return spacing >= 1 ? spacing : 1;
+                    Rectangle{
+                        width: parent.width
+                        height: 20
+                        Text {
+                            text: nodesList.nodeAt(model.index).getName();
+                        }
                     }
 
-                    Repeater{
-                        model: cores_in_node
+                    property int ranks_in_node: nodesList.nodeAt(model.index).count
+                    property int node_index: model.index
 
-                        delegate: Rectangle {
-                            height: (parent.height/parent.spacing)-(20/parent.spacing)
-                            width: parent.width/parent.columns-5
-                            color: "green"
-                            Text{
-                                text: _nodesList.nodeAt(node_index).coreAt(model.index).getId();
-                            }
-                            Text{
-                                y: 20
-                                text: _nodesList.nodeAt(node_index).coreAt(model.index).datasize
+                    Grid{
+                        x: 5
+                        y: 30
+                        width: parent.width
+                        height: parent.height-30 // Hoehe - 20 für den Namen
+                        columns: 10
+                        spacing: calculate_spacing(ranks_in_node, columns)
+
+                        function calculate_spacing(ranks_in_node, columns){
+                           var spacing = ranks_in_node/columns;
+                           return spacing >= 1 ? Math.ceil(spacing) : 1;
+                        }
+
+                        Repeater{
+                            model: ranks_in_node
+
+                            delegate: Rectangle {
+                                id: datarect
+
+                                property real send_ds: get_send_ds(node_index, model.index);//nodesList.nodeAt(node_index).rankAt(model.index).send_datasize
+                                property real recv_ds: get_recv_ds(node_index, model.index);//nodesList.nodeAt(node_index).rankAt(model.index).p2p_recv_datasize
+
+                                height: (parent.height/parent.spacing)-5
+                                width: parent.width/parent.columns-5
+
+                                Text{
+                                    text: nodesList.nodeAt(node_index).rankAt(model.index).getId()
+                                }
+                                Text{
+                                    y: 20
+                                    text: "Send: " + send_ds
+                                }
+                                Text{
+                                    y: 40
+                                    text: "Recv: " + recv_ds
+                                }
+
+                                color: createColor(send_ds, recv_ds)
                             }
                         }
                     }
