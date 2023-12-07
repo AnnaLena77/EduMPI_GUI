@@ -38,6 +38,30 @@ Item {
                     text: qsTr("Options")
                     color: "white"
                 }
+                GridLayout{
+                    width: parent.width
+                    columns: 2
+
+                    Button {
+                        text: "Start MPI-Program"
+                        onClicked:{
+                            if(nodesList.db_connection){
+                                nodesList.startBash(parseInt(np.text))
+                                nodesList.buildClusterComponents(parseInt(np.text))
+                            }
+                            else {
+
+                            }
+                        }
+                    }
+                    TextInput {
+                        id: np
+                        text: "400"
+                        inputMethodHints: "ImhFormattedNumbersOnly";
+                        color: "white"
+                    }
+                }
+
                 ComboBox {
                     //width: parent
                     implicitWidth: 160

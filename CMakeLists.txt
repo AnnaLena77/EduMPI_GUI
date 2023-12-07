@@ -5,19 +5,12 @@ project(GUI_Cluster VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 6.2 REQUIRED COMPONENTS Core Gui Quick Quick3D Sql)
-find_package(Qt6 COMPONENTS ShaderTools)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick Quick3D Sql)
 
 INCLUDE_DIRECTORIES("/usr/include/postgresql")
 LINK_DIRECTORIES("/usr/lib/postgresql/12/lib")
 
 qt6_add_resources(QML_RESOURCES resources.qrc)
-
-qt6_add_shaders(SHADER_RESOURCES
-    FILES
-        shaders/glass.frag
-        shaders/simple.vert
-)
 
 qt_add_executable(appGUI_Cluster
     main.cpp
@@ -43,11 +36,11 @@ qt_add_qml_module(appGUI_Cluster
         Cores3D.qml
         Sidebar.qml
         Options_Bar.qml
+        Menu_Bar.qml
+        Cluster_Connection_Formular.qml
+        DB_Connection_Formular.qml
+        Key_Gen_Guide.qml
         3D-Scene/Lights.qml
-    RESOURCES
-        maps/OpenfootageNET_garage-1024.hdr
-        shaders/glass.frag
-        shaders/simple.vert
 )
 
 set_target_properties(appGUI_Cluster PROPERTIES

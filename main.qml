@@ -1,27 +1,43 @@
 import QtQuick
-import QtQuick.VirtualKeyboard
 import QtQuick.Controls
+import QtQuick.Window
 import Qt.db.qobjectSingleton 1.0
 
 Window {
-    id: window
+    id: root
     width: 1920
     height: 1080
     visible: true
     property alias actualScreen: actualScreen
     title: qsTr("Hello World")
 
+    onClosing: {
+        nodesList.closeApp()
+    }
+
     property bool p2p: true
     property bool collective: true
     property string option: "Send/Recv Ratio"
+
+    property string db_host: ""
+    property string db_port: ""
+    property string db_name: ""
+    property string db_user: ""
+    property string db_password: ""
 
     NodesList{
         id: nodesList
     }
 
-    Sidebar {
-        id: sidebar
+    Menu_Bar{
+        id: menu
+
     }
+
+    /*Sidebar {
+        id: sidebar
+        anchors.top: menu.bottom
+    }*/
 
     /*Cores2D {
         id: cores2d
@@ -39,9 +55,9 @@ Window {
 
         focus: true
         anchors {
-            left: sidebar.right
+            left: parent.left
             right: options.left
-            top: parent.top
+            top: menu.bottom
             bottom: parent.bottom
         }
 
@@ -119,16 +135,20 @@ Window {
             red = 255 - send_percent*255; // Je höher der Empfangsanteil, desto mehr Rot
             blue = 255 - send_percent*255; // Rest wird in Blau gemischt
         }
-        /*else if(option == "Max Recv Ratio"){
+        else if(option == "Max Recv Ratio"){
             if(p2p && collective){
-                full_percent = Number(nodesList.coll_send_max) + Number(nodesList.p2p_send_max);
+                full_percent = Number(nodesList.coll_recv_max) + Number(nodesList.p2p_recv_max);
             } else if(p2p){
-                full_percent = Number(nodesList.p2p_send_max);
+                full_percent = Number(nodesList.p2p_recv_max);
             } else if(collective){
-                full_percent = Number(nodesList.coll_send_max);
+                full_percent = Number(nodesList.coll_recv_max);
             }
-            send_percent = send_ds / full_percent
-        }*/
+            recv_percent = recv_ds / full_percent
+            red = 255;
+            green = 255 - recv_percent*255;
+            blue = 255 - recv_percent*255;
+
+        }
         //console.log("Red: " + red + " Green: " + green + " Blue: " + blue)
         return "#" + componentToHex(red) + componentToHex(green) + componentToHex(blue);
     }

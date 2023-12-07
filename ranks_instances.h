@@ -1,4 +1,5 @@
-//#include "cluster_node.h"
+#include "cluster_node.h"
+#include "database_connection.h"
 #include <QtQuick3D/qquick3dinstancing.h>
 
 QT_FORWARD_DECLARE_CLASS(QRandomGenerator)
@@ -15,12 +16,12 @@ class Ranks_Instances : public QQuick3DInstancing
     Q_PROPERTY(int rowsColumns READ rowsColumns WRITE setRowsColumns NOTIFY rowsColumnsChanged)
     Q_PROPERTY(double innerCubeScale READ innerCubeScale WRITE setInnerCubeScale NOTIFY innerCubeScaleChanged)
     Q_PROPERTY(long send_datasize READ send_datasize WRITE set_sendDatasize NOTIFY send_datasizeChanged)
+
     Q_PROPERTY(bool p2p_show READ p2p_show WRITE set_p2pBool NOTIFY p2pBoolChanged)
     Q_PROPERTY(bool coll_show READ coll_show WRITE set_collBool NOTIFY collBoolChanged)
-
     Q_PROPERTY(QString combobox MEMBER m_combobox NOTIFY combobox_optionChanged)
-    Q_PROPERTY(float max_send MEMBER m_max_send NOTIFY max_sendChanged)
 
+    Q_PROPERTY(Database_Connection* nodes MEMBER m_nodes NOTIFY nodesChanged)
     Q_PROPERTY(Cluster_Node* instanceRanks READ instanceRanks WRITE setInstanceRanks NOTIFY instanceRanksChanged)
 
 
@@ -36,7 +37,7 @@ public:
     double innerCubeScale() const;
     //QByteArray outerInstanceData();
     //QVector<Cluster_Rank *> instanceRanks();
-    //Cluster_Node* instanceRanks();
+    Cluster_Node* instanceRanks();
     void timerRanksChanged();
     long send_datasize();
     bool p2p_show();
@@ -50,7 +51,7 @@ public slots:
     void setRowsColumns(int rowsColums);
     void setInnerCubeScale(double scale);
     //void setInstanceRanks(QVector<Cluster_Rank *> ranks);
-    //void setInstanceRanks(Cluster_Node* ranks);
+    void setInstanceRanks(Cluster_Node* ranks);
     void set_sendDatasize(long ds);
     //void setOuterInstanceData(QByteArray arr);
     void set_p2pBool(bool show);
@@ -65,12 +66,13 @@ signals:
     void innerCubeScaleChanged();
     void instanceRanksChanged();
     void send_datasizeChanged();
+
+    void nodesChanged();
     //void outerInstanceDataChanged();
+
     void p2pBoolChanged();
     void collBoolChanged();
-
     void combobox_optionChanged();
-    void max_sendChanged();
 
 protected:
     QByteArray getInstanceBuffer(int *instanceCount) override;
@@ -86,10 +88,11 @@ private:
     int m_rowsColumns = 0;
     double m_innerCubeScale = 0.0; // Berechnung der Skalierung des inneren Würfel
     //QVector<Cluster_Rank *> m_instanceRanks;
-    //Cluster_Node* m_instanceRanks;
+    Cluster_Node* m_instanceRanks;
+    Database_Connection* m_nodes;
+
     bool m_p2p_show;
     bool m_coll_show;
     QString m_combobox;
-    float m_max_send;
 };
 

@@ -1,6 +1,4 @@
 #include "database_connection.h"
-#include <QGuiApplication>
-#include <QQmlApplicationEngine>
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -9,14 +7,13 @@
 #include <QQuickWindow>
 
 #include <QQuickView>
-#include <iostream>
 
 #include <QtQuick3D/qquick3d.h>
 
 
 int main(int argc, char *argv[])
 {
-    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+    qputenv("QT_IM_MODULE", QByteArray());
 
     //QScopedPointer<Database_Connection> db(new Database_Connection);
 
@@ -27,11 +24,11 @@ int main(int argc, char *argv[])
     qmlRegisterType<Database_Connection>("Qt.db.qobjectSingleton", 1, 0, "NodesList");
 
     const QUrl url(u"qrc:/GUI_Cluster/main.qml"_qs);
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
+    /*QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
+    }, Qt::QueuedConnection);*/
     engine.load(url);
 
     //qmlRegisterSingletonInstance("Qt.db.qobjectSingleton", 1, 0, "NodesList", db.get());

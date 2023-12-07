@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>shaders/glass.frag</file>
         <file>shaders/simple.vert</file>
+        <file>3D-Scene/Menu_Bar.qml</file>
     </qresource>
 </RCC>
