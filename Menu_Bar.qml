@@ -33,7 +33,14 @@ Item {
                         window.show();
                 }
             }
-            Action { text: qsTr("&Manual Bash Skript") }
+            Action {
+                text: qsTr("&Manual Bash Skript")
+                onTriggered: {
+                    var component = Qt.createComponent("Bash_Skript_Manual.qml");
+                    var window = component.createObject(root);
+                    window.show();
+                }
+            }
             Action { text: qsTr("Save &As...") }
             MenuSeparator { }
             Action { text: qsTr("&Quit") }

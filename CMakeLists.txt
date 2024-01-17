@@ -22,6 +22,7 @@ qt_add_executable(appGUI_Cluster
     database_connection.cpp
     nodes_instances.h nodes_instances.cpp
     ranks_instances.h ranks_instances.cpp
+    database_thread.h database_thread.cpp
 
     ${QML_RESOURCES}
     ${SHADER_RESOURCES}
@@ -40,6 +41,7 @@ qt_add_qml_module(appGUI_Cluster
         Cluster_Connection_Formular.qml
         DB_Connection_Formular.qml
         Key_Gen_Guide.qml
+        Bash_Skript_Manual.qml
         3D-Scene/Lights.qml
 )
 

@@ -18,6 +18,7 @@ class Database_Connection : public QObject
     Q_PROPERTY(long coll_recv_max READ coll_recv_max WRITE set_coll_recv_max NOTIFY coll_recv_max_changed)
 
     Q_PROPERTY(bool db_connection  MEMBER m_connection_ready NOTIFY connectionChanged)
+    Q_PROPERTY(int time_display MEMBER m_time_display NOTIFY time_display_changed)
     QML_ELEMENT
 
 public:
@@ -40,6 +41,8 @@ public:
     Q_INVOKABLE void createBashSkript(QString host, QString username, QString edumpi_path, QString local_path, QString local_name, bool file);
     Q_INVOKABLE void closeApp();
     Q_INVOKABLE void startBash(int proc_num);
+    Q_INVOKABLE QString readBash();
+    Q_INVOKABLE void writeBash(QString content);
 
     Q_INVOKABLE Cluster_Node* nodeAt(int index);
 
@@ -54,6 +57,7 @@ signals:
     void p2p_recv_max_changed();
     void coll_recv_max_changed();
     void connectionChanged();
+    void time_display_changed();
 
 
 private:
@@ -65,6 +69,7 @@ private:
     long m_p2p_recv_max = 0;
     long m_coll_recv_max = 0;
     bool m_connection_ready = false;
+    int m_time_display = 0;
 
 protected:
     void timerEvent(QTimerEvent *event);

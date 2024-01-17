@@ -1,4 +1,6 @@
 #include "database_connection.h"
+#include "database_thread.h"
+#include "qevent.h"
 #include "ranks_instances.h"
 #include "cluster_node.h"
 #include <QSqlDatabase>
@@ -7,6 +9,8 @@
 #include <fstream>
 #include <iostream>
 #include <QProcess>
+#include <QFile>
+#include <qdatetime.h>
 
 #include <unistd.h>
 
@@ -27,6 +31,9 @@ void Database_Connection::connect(QString hostname, QString databasename, int po
     m_connection_ready = true;
 
     std::cout << "New Connection" << std::endl;
+
+    Database_Thread *db_th = new Database_Thread;
+    db_th->start();
 }
 
 void Database_Connection::buildClusterComponents(int proc_num){
@@ -37,6 +44,7 @@ void Database_Connection::buildClusterComponents(int proc_num){
     query.exec("SELECT * FROM cluster_information ORDER BY processorname, rank");
     while(query.size()<proc_num){
         query.exec("SELECT * FROM cluster_information ORDER BY processorname, rank");
+        sleep(1);
     }
     while(query.next()) {
         QString actual_name = query.value("processorname").toString();
@@ -110,7 +118,58 @@ void Database_Connection::updateDatasize(){
         return;
     }
     QSqlQuery query;
-    query.exec("SELECT processrank, processorname, communicationtype, SUM(sendDatasize) AS sum_send_ds, SUM(recvDatasize) AS sum_recv_ds FROM mpi_information GROUP BY processorname, processrank, communicationtype ORDER BY processrank ASC");
+    QSqlQuery queryy;
+    QSqlQuery queryyy;
+
+    QString queryString;
+
+    if(m_time_display == 0){
+        //query.exec("SELECT processrank, processorname, communicationtype, SUM(sendDatasize) AS sum_send_ds, SUM(recvDatasize) AS sum_recv_ds FROM mpi_information GROUP BY processorname, processrank, communicationtype ORDER BY processrank ASC");
+        //1970-01-01 01:00:00.000 +0100
+        QDateTime timestamp;
+        //auto first_query_start = std::chrono::high_resolution_clock::now();
+        queryy.exec("SELECT time_second FROM mpi_ds_secondly order by time_second DESC LIMIT 1");
+        //auto first_query_end = std::chrono::high_resolution_clock::now();
+        //auto duration = std::chrono::duration_cast<std::chrono::seconds>(first_query_end - first_query_start);
+        //std::cout << "Zeitdifferenz erster Query: " << duration.count() << " Sekunden." << std::endl;
+        if(queryy.next()){
+            timestamp = queryy.value(0).toDateTime();
+            std::cout << "Hypertable Max: " << timestamp.toString("yyyy-MM-dd HH:mm:ss").toStdString() << std::endl;
+            timestamp = timestamp.addSecs(-3);
+        }
+        else{
+            return;
+        }
+       /* //query.exec("SELECT processrank, processorname, communicationtype, SUM(sendDatasize) AS sum_send_ds, SUM(recvDatasize) AS sum_recv_ds FROM mpi_information GROUP BY processorname, processrank, communicationtype ORDER BY processrank ASC");
+        //1970-01-01 01:00:00.000 +0100
+        queryyy.exec("SELECT MAX(time_end) FROM mpi_information");
+        if(queryyy.next()){
+            QDateTime timestamp = queryyy.value(0).toDateTime();
+            std::cout << "Real Table Max: " << timestamp.toString("yyyy-MM-dd HH:mm:ss").toStdString() << std::endl;
+        }*/
+        //auto second_query_start = std::chrono::high_resolution_clock::now();
+        queryString = QString("SELECT * FROM mpi_ds_secondly WHERE time_second = '%1';").arg(timestamp.toString("yyyy-MM-dd HH:mm:ss"));
+        //auto second_query_end = std::chrono::high_resolution_clock::now();
+        //auto second_duration = std::chrono::duration_cast<std::chrono::seconds>(second_query_end - second_query_start);
+        //std::cout << "Zeitdifferenz zweiter Query: " << second_duration.count() << " Sekunden." << std::endl;
+        //query.exec("SELECT * FROM mpi_ds_secondly WHERE time_second = (SELECT MAX(time_second) - interval '1 second' FROM mpi_ds_secondly);");*/
+
+        for (Cluster_Node *n : m_nodes){
+            for(Cluster_Rank *r : n->ranks()){
+                r->set_coll_recvDatasize(0);
+                r->set_coll_sendDatasize(0);
+                r->set_p2p_recvDatasize(0);
+                r->set_p2p_sendDatasize(0);
+            }
+        }
+        set_p2p_recv_max(0);
+        set_p2p_send_max(0);
+    }
+    else if(m_time_display == 1){
+        queryString = "SELECT processrank, processorname, communicationtype, SUM(sendDatasize) AS send_ds, SUM(recvDatasize) AS recv_ds FROM mpi_information GROUP BY processorname, processrank, communicationtype ORDER BY processrank ASC";
+    }
+
+    query.exec(queryString);
 
     QString name = m_nodes[0]->getName();
     int index = 0;
@@ -119,8 +178,8 @@ void Database_Connection::updateDatasize(){
         QString proc_name = query.value("processorname").toString();
         QString comm_type = query.value("communicationtype").toString();
         int proc_rank = query.value("processrank").toInt();
-        long recv_datasize = query.value("sum_recv_ds").toLongLong();
-        long send_datasize = query.value("sum_send_ds").toLongLong();
+        long recv_datasize = query.value("recv_ds").toLongLong();
+        long send_datasize = query.value("send_ds").toLongLong();
 
         if(name != proc_name){
             //std::cout << "test" << std::endl;
@@ -189,13 +248,44 @@ void Database_Connection::createBashSkript(QString host, QString username, QStri
         } else {
             scriptFile << "scp -r \"$LOCAL_PATH\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/eduMPI_files/\"\n";
         }
-        scriptFile << "SSH_COMMAND=\"cd eduMPI_files; $'$REMOTE_DIR''$EDUMPI_PATH'/bin/mpicc -o $LOCAL_NAME $LOCAL_NAME.c; time '$REMOTE_DIR''$EDUMPI_PATH'/bin/mpirun -np $PROCESSOR_COUNT --map-by :PE=2 --hostfile /etc/mpi/hosts ./$LOCAL_NAME\"\n";
+        scriptFile << "SSH_COMMAND=\"cd eduMPI_files; $'$EDUMPI_PATH'/bin/mpicc -o $LOCAL_NAME $LOCAL_NAME.c; time '$EDUMPI_PATH'/bin/mpirun -np $PROCESSOR_COUNT --map-by :PE=2 --hostfile /etc/mpi/hosts ./$LOCAL_NAME\"\n";
 
         scriptFile << "ssh \"$REMOTE_USER@$REMOTE_HOST\" \"$SSH_COMMAND\"";
 
         scriptFile << "\nexec bash";
 
         scriptFile.close();
+    }
+}
+
+QString Database_Connection::readBash(){
+    const char *homeDir = getenv("HOME");
+    QString filePath = QString(homeDir) + "/skript.sh";
+
+    QFile file(filePath);
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        qDebug() << "Fehler beim Öffnen der Datei";
+        //return "0";
+    }
+    QTextStream in(&file);
+    QString fileContent = in.readAll();
+    file.close();
+    return fileContent;
+}
+
+void Database_Connection::writeBash(QString content){
+    const char *homeDir = getenv("HOME");
+    QString filePath = QString(homeDir) + "/skript.sh";
+
+    QFile file(filePath);
+    if(!file.open(QIODevice::WriteOnly | QIODevice::Text)){
+        qDebug() << "Fehler beim Öffnen der Datei";
+        //return "0";
+    }
+    else {
+        QTextStream stream(&file);
+        stream<<content;
+        file.close();
     }
 }
 
@@ -216,6 +306,8 @@ void Database_Connection::closeApp(){
     if(m_connection_ready){
         QSqlQuery query;
         query.exec("DELETE FROM cluster_information;");
+        sleep(1);
+        query.exec("CALL refresh_continuous_aggregate('mpi_ds_secondly', NULL, NULL);");
         query.exec("DELETE FROM mpi_information;");
     }
     db.close();
