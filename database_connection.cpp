@@ -3,9 +3,7 @@
 #include "qevent.h"
 #include "ranks_instances.h"
 #include "cluster_node.h"
-#include <QSqlDatabase>
 #include <iostream>
-#include <qsqlquery.h>
 #include <fstream>
 #include <iostream>
 #include <QProcess>
@@ -14,49 +12,52 @@
 
 #include <unistd.h>
 
-QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
 
 Database_Connection::Database_Connection(QObject *parent) : QObject(parent)
 {
-    //buildClusterComponents();
+    Database_Thread *dbt = new Database_Thread;
+    dbt->moveToThread(&database_thread);
+    Database_Thread::connect(&database_thread, &QThread::finished, dbt, &QObject::deleteLater);
+    Database_Thread::connect(this, &Database_Connection::signalToConnect, dbt, &Database_Thread::connectToDB);
+    Database_Thread::connect(dbt, &Database_Thread::connectedToDB, this, &Database_Connection::dbConnectionSuccessful);
+
+    Database_Thread::connect(this, &Database_Connection::signalToBuildComponents, dbt, &Database_Thread::threadbuildClusterComponents);
+    Database_Thread::connect(dbt, &Database_Thread::clusterComponentsReady, this, &Database_Connection::buildClusterComponents);
+
+    Database_Thread::connect(this, &Database_Connection::signalToUpdateData, dbt, &Database_Thread::updateData);
+    Database_Thread::connect(dbt, &Database_Thread::updateDataReady, this, &Database_Connection::updateDataToUI);
+
+    database_thread.start();
+}
+
+void Database_Connection::dbConnectionSuccessful(const bool &success){
+    std::cout << "Hello from dbConnectionSuccessful Signal : " << success << std::endl;
+    m_connection_ready = true;
+
 }
 
 void Database_Connection::connect(QString hostname, QString databasename, int port, QString username, QString password){
-    db.setHostName(hostname);
-    db.setPort(port);
-    db.setDatabaseName(databasename);
-    db.setUserName(username);
-    db.setPassword(password);
-    bool ok = db.open();
-    m_connection_ready = true;
-
-    std::cout << "New Connection" << std::endl;
-
-    Database_Thread *db_th = new Database_Thread;
-    db_th->start();
+    signalToConnect(hostname, databasename, port, username, password);
 }
 
-void Database_Connection::buildClusterComponents(int proc_num){
-    std::cout << "New Cluster Components" << std::endl;
-    QSqlQuery query;
-    QString name = "";
-    Cluster_Node* node;
-    query.exec("SELECT * FROM cluster_information ORDER BY processorname, rank");
-    while(query.size()<proc_num){
-        query.exec("SELECT * FROM cluster_information ORDER BY processorname, rank");
-        sleep(1);
-    }
-    while(query.next()) {
-        QString actual_name = query.value("processorname").toString();
-        if(actual_name!=name){
-            std::cout << "Name:" << actual_name.toStdString() << std::endl;
-            name = actual_name;
-            node = new Cluster_Node(this, name.toUtf8().constData());
+void Database_Connection::buildClusterComponents(const QMap<QString, QVector<int>> &map){
+    Cluster_Node *node;
+
+    if(map.isEmpty()){
+        std::cout << "FAILED!" << std::endl;
+    } else{
+        QMapIterator<QString, QVector<int>> iter(map);
+        while(iter.hasNext()){
+            iter.next();
+            //std::cout << iter.key().toStdString() << std::endl;
+            node = new Cluster_Node(this, iter.key().toUtf8().constData());
             m_nodes << node;
+            for(int i = 0; i<iter.value().length(); i++){
+                Cluster_Rank *rank = new Cluster_Rank(node, iter.value()[i]);
+                node->addRank(rank);
+                //std::cout << rank->getId() << std::endl;
+            }
         }
-        int actual_rank = query.value("rank").toInt();
-        Cluster_Rank *rank = new Cluster_Rank(node, actual_rank);
-        node->addRank(rank);
     }
     timerId = startTimer(1000);
     m_componentsBuilt = true;
@@ -64,6 +65,8 @@ void Database_Connection::buildClusterComponents(int proc_num){
 
 Database_Connection::~Database_Connection()
 {
+    database_thread.quit();
+    database_thread.wait();
     //qDebug() << "Hier wird die Database gelöscht!";
     //qDeleteAll(m_nodes);
     //m_nodes.clear();
@@ -113,112 +116,65 @@ QVector<Cluster_Node*> Database_Connection::get_nodeList(){
 }
 
 
-void Database_Connection::updateDatasize(){
-    if(!m_componentsBuilt){
-        return;
-    }
-    QSqlQuery query;
-    QSqlQuery queryy;
-    QSqlQuery queryyy;
+void Database_Connection::updateDataToUI(const QList<DataColumn> &list){
 
-    QString queryString;
 
-    if(m_time_display == 0){
-        //query.exec("SELECT processrank, processorname, communicationtype, SUM(sendDatasize) AS sum_send_ds, SUM(recvDatasize) AS sum_recv_ds FROM mpi_information GROUP BY processorname, processrank, communicationtype ORDER BY processrank ASC");
-        //1970-01-01 01:00:00.000 +0100
-        QDateTime timestamp;
-        //auto first_query_start = std::chrono::high_resolution_clock::now();
-        queryy.exec("SELECT time_second FROM mpi_ds_secondly order by time_second DESC LIMIT 1");
-        //auto first_query_end = std::chrono::high_resolution_clock::now();
-        //auto duration = std::chrono::duration_cast<std::chrono::seconds>(first_query_end - first_query_start);
-        //std::cout << "Zeitdifferenz erster Query: " << duration.count() << " Sekunden." << std::endl;
-        if(queryy.next()){
-            timestamp = queryy.value(0).toDateTime();
-            std::cout << "Hypertable Max: " << timestamp.toString("yyyy-MM-dd HH:mm:ss").toStdString() << std::endl;
-            timestamp = timestamp.addSecs(-3);
-        }
-        else{
-            return;
-        }
-       /* //query.exec("SELECT processrank, processorname, communicationtype, SUM(sendDatasize) AS sum_send_ds, SUM(recvDatasize) AS sum_recv_ds FROM mpi_information GROUP BY processorname, processrank, communicationtype ORDER BY processrank ASC");
-        //1970-01-01 01:00:00.000 +0100
-        queryyy.exec("SELECT MAX(time_end) FROM mpi_information");
-        if(queryyy.next()){
-            QDateTime timestamp = queryyy.value(0).toDateTime();
-            std::cout << "Real Table Max: " << timestamp.toString("yyyy-MM-dd HH:mm:ss").toStdString() << std::endl;
-        }*/
-        //auto second_query_start = std::chrono::high_resolution_clock::now();
-        queryString = QString("SELECT * FROM mpi_ds_secondly WHERE time_second = '%1';").arg(timestamp.toString("yyyy-MM-dd HH:mm:ss"));
-        //auto second_query_end = std::chrono::high_resolution_clock::now();
-        //auto second_duration = std::chrono::duration_cast<std::chrono::seconds>(second_query_end - second_query_start);
-        //std::cout << "Zeitdifferenz zweiter Query: " << second_duration.count() << " Sekunden." << std::endl;
-        //query.exec("SELECT * FROM mpi_ds_secondly WHERE time_second = (SELECT MAX(time_second) - interval '1 second' FROM mpi_ds_secondly);");*/
-
-        for (Cluster_Node *n : m_nodes){
+    for (Cluster_Node *n : m_nodes){
             for(Cluster_Rank *r : n->ranks()){
                 r->set_coll_recvDatasize(0);
                 r->set_coll_sendDatasize(0);
                 r->set_p2p_recvDatasize(0);
                 r->set_p2p_sendDatasize(0);
             }
-        }
-        set_p2p_recv_max(0);
-        set_p2p_send_max(0);
     }
-    else if(m_time_display == 1){
-        queryString = "SELECT processrank, processorname, communicationtype, SUM(sendDatasize) AS send_ds, SUM(recvDatasize) AS recv_ds FROM mpi_information GROUP BY processorname, processrank, communicationtype ORDER BY processrank ASC";
-    }
-
-    query.exec(queryString);
+    set_p2p_recv_max(0);
+    set_p2p_send_max(0);
+    set_coll_send_max(0);
+    set_coll_recv_max(0);
 
     QString name = m_nodes[0]->getName();
     int index = 0;
 
-    while(query.next()) {
-        QString proc_name = query.value("processorname").toString();
-        QString comm_type = query.value("communicationtype").toString();
-        int proc_rank = query.value("processrank").toInt();
-        long recv_datasize = query.value("recv_ds").toLongLong();
-        long send_datasize = query.value("send_ds").toLongLong();
-
-        if(name != proc_name){
-            //std::cout << "test" << std::endl;
+    for(int i = 0; i<list.count(); i++){
+        DataColumn dc = list[i];
+        if(name != dc.proc_name){
+                //std::cout << "test" << std::endl;
             for(int i=0; i<this->m_nodes.count(); i++){
-                if (this->m_nodes[i]->getName()==proc_name){
-                    name = proc_name;
+                if (this->m_nodes[i]->getName()==dc.proc_name){
+                    name = dc.proc_name;
                     index = i;
                     break;
                 }
             }
         }
-        //std::cout << "Index: " << index << " Datasize: " << datasize <<" Position " << proc_rank-this->m_nodes[index]->getSmalestRankId() << std::endl;
-        if(comm_type=="p2p"){
-            if(send_datasize>m_p2p_send_max){
-                set_p2p_send_max(send_datasize);
+        if(dc.comm_type=="p2p"){
+            if(dc.send_datasize>m_p2p_send_max){
+                set_p2p_send_max(dc.send_datasize);
             }
-            if(recv_datasize>m_p2p_recv_max){
-                set_p2p_recv_max(recv_datasize);
+            if(dc.recv_datasize>m_p2p_recv_max){
+                set_p2p_recv_max(dc.recv_datasize);
             }
-            this->m_nodes[index]->rankAt(proc_rank-this->m_nodes[index]->getSmalestRankId())->set_p2p_sendDatasize(send_datasize);
-            this->m_nodes[index]->rankAt(proc_rank-this->m_nodes[index]->getSmalestRankId())->set_p2p_recvDatasize(recv_datasize);
-        } else if(comm_type=="collective"){
-            if(send_datasize>m_coll_send_max){
-                set_coll_send_max(send_datasize);
+            this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_p2p_sendDatasize(dc.send_datasize);
+            this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_p2p_recvDatasize(dc.recv_datasize);
+        } else if(dc.comm_type=="collective"){
+            if(dc.send_datasize>m_coll_send_max){
+                set_coll_send_max(dc.send_datasize);
             }
-            if(recv_datasize>m_coll_recv_max){
-                set_coll_recv_max(recv_datasize);
+            if(dc.recv_datasize>m_coll_recv_max){
+                set_coll_recv_max(dc.recv_datasize);
             }
-            this->m_nodes[index]->rankAt(proc_rank-this->m_nodes[index]->getSmalestRankId())->set_coll_sendDatasize(send_datasize);
-            this->m_nodes[index]->rankAt(proc_rank-this->m_nodes[index]->getSmalestRankId())->set_coll_recvDatasize(recv_datasize);
+            this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_coll_sendDatasize(dc.send_datasize);
+            this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_coll_recvDatasize(dc.recv_datasize);
         } else{
-        std::cerr << "The communication_type " << comm_type.toStdString() << " is unknown!" << std::endl;
+        std::cerr << "The communication_type " << dc.comm_type.toStdString() << " is unknown!" << std::endl;
         }
     }
     return;
 }
 
 void Database_Connection::timerEvent(QTimerEvent* event){
-    updateDatasize();
+    signalToUpdateData(m_time_display);
+    //updateDatasize();
     //emit r
     //std::cout << "Name: " << m_nodes[0]->getName().toStdString() << std::endl;
 }
@@ -290,6 +246,7 @@ void Database_Connection::writeBash(QString content){
 }
 
 void Database_Connection::startBash(int proc_num){
+    signalToBuildComponents(proc_num);
     std::cout << "StartBash" << std::endl;
     QString homedir = getenv("HOME");
     QString dir = homedir + "/skript.sh";
@@ -302,7 +259,7 @@ void Database_Connection::startBash(int proc_num){
 }
 
 void Database_Connection::closeApp(){
-    std::cout << db.isOpen() << std::endl;
+    /*std::cout << db.isOpen() << std::endl;
     if(m_connection_ready){
         QSqlQuery query;
         query.exec("DELETE FROM cluster_information;");
@@ -310,5 +267,5 @@ void Database_Connection::closeApp(){
         query.exec("CALL refresh_continuous_aggregate('mpi_ds_secondly', NULL, NULL);");
         query.exec("DELETE FROM mpi_information;");
     }
-    db.close();
+    db.close();*/
 }

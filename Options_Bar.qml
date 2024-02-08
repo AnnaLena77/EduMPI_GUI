@@ -49,7 +49,7 @@ Item {
                         onClicked:{
                             if(nodesList.db_connection){
                                 nodesList.startBash(parseInt(np.text))
-                                nodesList.buildClusterComponents(parseInt(np.text))
+                                //nodesList.buildClusterComponents(parseInt(np.text))
                             }
                             else {
 
