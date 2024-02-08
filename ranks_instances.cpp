@@ -1,4 +1,5 @@
 #include "ranks_instances.h"
+#include "qdatetime.h"
 #include <QRandomGenerator>
 #include <iostream>
 #include <cmath>
@@ -107,6 +108,8 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
 {
     //std::cout << "test " << m_instanceRanks->rankAt(0)->recv_datasize() << std::endl;
     //std::cout << "m_rowsColumns " << m_rowsColumns << ": m_outerCubeLength= " << m_outerCubeLength << ", m_innerCubeSpacing =" << m_innerCubeSpacing << std::endl;
+    //std::cout << "test " << m_nodes->coll_send_max() << std::endl;
+
     m_instanceData.resize(0);
 
     int instanceNumber = 0;
@@ -119,12 +122,13 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
 
         float scale = m_innerCubeScale;
 
-        float send_data, recv_data;
+        long send_data, recv_data;
         float red, green, blue;
 
         if(m_p2p_show && m_coll_show){
             send_data = m_instanceRanks->rankAt(i)->p2p_send_datasize() + m_instanceRanks->rankAt(i)->coll_send_datasize();
             recv_data = m_instanceRanks->rankAt(i)->p2p_recv_datasize() + m_instanceRanks->rankAt(i)->coll_recv_datasize();
+            //max_send = m_instanceRanks.
         }
         else if(m_p2p_show){
             send_data = m_instanceRanks->rankAt(i)->p2p_send_datasize();
@@ -139,16 +143,48 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
             recv_data = 0;
         }
 
+        double full_percent = 0, send_percent = 0, recv_percent = 0;
+
         if(m_combobox == "Send/Recv Ratio"){
-            float full_percent = send_data + recv_data;
-            float send_percent = send_data / full_percent;
-            float recv_percent = recv_data / full_percent;
+            full_percent = static_cast<double>(send_data) + static_cast<double>(recv_data);
+            send_percent = send_data / full_percent;
+            recv_percent = recv_data / full_percent;
+
+            /*std::cout << "Full_Percent: " << full_percent << " Send_Percent: " << send_percent << " Recv_Percent: " << recv_percent << std::endl;
+            QDateTime current_time = QDateTime::currentDateTime();
+            std::cout << "Frontend-Time: " << current_time.toString("yyyy-MM-dd HH:mm:ss").toStdString() << std::endl;*/
 
             red = recv_percent * 255; // Je höher der Empfangsanteil, desto mehr Rot
             green = send_percent * 255; // Je höher der Sendeanteil, desto mehr Grün
             blue = 255 - (red + green); // Rest wird in Blau gemischt
         } else if(m_combobox == "Max Send Ratio"){
+            if(m_p2p_show && m_coll_show){
+                full_percent = static_cast<double>(m_nodes->coll_send_max()) + static_cast<double>(m_nodes->p2p_send_max());
+            } else if(m_p2p_show){
+                full_percent = static_cast<double>(m_nodes->p2p_send_max());
+            } else if(m_coll_show){
+                full_percent = static_cast<double>(m_nodes->coll_send_max());
+            }
+            send_percent = send_data / full_percent;
+            green = 255;
+            red = 255 - send_percent*255;
+            blue = 255 - send_percent*255;
 
+            //std::cout << "Send_data: " << send_data << " Full_Perc: " << full_percent << " Send_Perc: " << send_percent << " Coll_send_max: " << m_nodes->coll_send_max() << " p2p_send_max: " << m_nodes->p2p_send_max() << std::endl;
+
+        } else if(m_combobox == "Max Recv Ratio"){
+            if(m_p2p_show && m_coll_show){
+                full_percent = static_cast<double>(m_nodes->coll_recv_max()) + static_cast<double>(m_nodes->p2p_recv_max());
+            } else if(m_p2p_show){
+                full_percent = static_cast<double>(m_nodes->p2p_recv_max());
+            } else if(m_coll_show){
+                full_percent = static_cast<double>(m_nodes->coll_recv_max());
+            }
+            recv_percent = recv_data / full_percent;
+            //std::cout << "Recv_data: " << recv_data << " Full_Perc: " << full_percent << " Recv_Perc: " << recv_percent << std::endl;
+            red = 255;
+            green = 255 - recv_percent*255;
+            blue = 255 - recv_percent*255;
         }
 
         QColor col(red, green, blue);

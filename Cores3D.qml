@@ -116,6 +116,7 @@ Rectangle {
                             p2p_show: p2p
                             coll_show: collective
                             combobox: option
+                            nodes: nodesList
                             send_datasize: nodesList.nodeAt(model.index).rankAt(index).p2p_send_datasize; //Das ist noch keine perfekte Lösung!
                             instanceCount: nodesList.nodeAt(model.index).count
                             instanceRanks: nodesList.nodeAt(model.index)

@@ -38,6 +38,32 @@ Item {
                     text: qsTr("Options")
                     color: "white"
                 }
+                GridLayout{
+                    width: parent.width
+                    columns: 2
+                    Layout.topMargin: 40
+                    Layout.alignment: Qt.AlignHCenter
+
+                    Button {
+                        text: "Start MPI-Program"
+                        onClicked:{
+                            if(nodesList.db_connection){
+                                nodesList.startBash(parseInt(np.text))
+                                //nodesList.buildClusterComponents(parseInt(np.text))
+                            }
+                            else {
+
+                            }
+                        }
+                    }
+                    TextInput {
+                        id: np
+                        color: "white"
+                        text: "400"
+                        inputMethodHints: "ImhFormattedNumbersOnly";
+                    }
+                }
+
                 ComboBox {
                     //width: parent
                     implicitWidth: 160
@@ -86,6 +112,37 @@ Item {
                     checked: true
                     text: qsTr("One-Sided")
                 }*/
+
+                Text {
+                    id: text3
+                    text: qsTr("Time display:")
+                    color: "white"
+                    font.pointSize: 12
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.topMargin: 20
+                }
+                CheckBox {
+                    id: secondly_check
+                    Layout.alignment: Qt.AlignLeft
+                    Layout.leftMargin: 40
+                    checked: true
+                    text: qsTr("Secondly data")
+                    onCheckStateChanged: {
+                        if(secondly_check.checked == true) nodesList.time_display = 0;
+                        total_check.checked = !secondly_check.checked
+                    }
+                }
+                CheckBox {
+                    id: total_check
+                    Layout.alignment: Qt.AlignLeft
+                    Layout.leftMargin: 40
+                    checked: false
+                    text: qsTr("total data")
+                    onCheckStateChanged: {
+                        if(total_check.checked == true) nodesList.time_display = 1;
+                        secondly_check.checked = !total_check.checked
+                    }
+                }
             }
         }
 

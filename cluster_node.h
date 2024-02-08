@@ -5,7 +5,6 @@
 #include "qqmlintegration.h"
 #include <QObject>
 #include <QQmlListProperty>
-#include <ranks_instances.h>
 
 class Cluster_Node;
 
@@ -46,7 +45,6 @@ private:
     int m_start_id = 0;
     int m_smalest_rank = 0;
     int m_biggest_rank = 0;
-    Ranks_Instances m_ranks_instance_rendering;
 
 signals:
     void ranksChanged();
