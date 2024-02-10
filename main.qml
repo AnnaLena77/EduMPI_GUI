@@ -27,6 +27,9 @@ Window {
 
     NodesList{
         id: nodesList
+        onComponentsBuilt: {
+            actualScreen.source = "Cores3D.qml"
+        }
     }
 
     Menu_Bar{

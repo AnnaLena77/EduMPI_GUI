@@ -11,6 +11,7 @@
 #include <qdatetime.h>
 
 #include <unistd.h>
+#include <sys/stat.h>
 
 
 Database_Connection::Database_Connection(QObject *parent) : QObject(parent)
@@ -37,7 +38,7 @@ void Database_Connection::dbConnectionSuccessful(const bool &success){
 }
 
 void Database_Connection::connect(QString hostname, QString databasename, int port, QString username, QString password){
-    signalToConnect(hostname, databasename, port, username, password);
+    emit signalToConnect(hostname, databasename, port, username, password);
 }
 
 void Database_Connection::buildClusterComponents(const QMap<QString, QVector<int>> &map){
@@ -46,6 +47,7 @@ void Database_Connection::buildClusterComponents(const QMap<QString, QVector<int
     if(map.isEmpty()){
         std::cout << "FAILED!" << std::endl;
     } else{
+        emit componentsBuilt();
         QMapIterator<QString, QVector<int>> iter(map);
         while(iter.hasNext()){
             iter.next();
@@ -173,7 +175,7 @@ void Database_Connection::updateDataToUI(const QList<DataColumn> &list){
 }
 
 void Database_Connection::timerEvent(QTimerEvent* event){
-    signalToUpdateData(m_time_display);
+    emit signalToUpdateData(m_time_display);
     //updateDatasize();
     //emit r
     //std::cout << "Name: " << m_nodes[0]->getName().toStdString() << std::endl;
@@ -246,10 +248,11 @@ void Database_Connection::writeBash(QString content){
 }
 
 void Database_Connection::startBash(int proc_num){
-    signalToBuildComponents(proc_num);
+    emit signalToBuildComponents(proc_num);
     std::cout << "StartBash" << std::endl;
     QString homedir = getenv("HOME");
     QString dir = homedir + "/skript.sh";
+    chmod(dir.toStdString().c_str(), S_IRWXU | S_IRWXG | S_IRWXO);
     QProcess process;
 
     process.setProgram("gnome-terminal");

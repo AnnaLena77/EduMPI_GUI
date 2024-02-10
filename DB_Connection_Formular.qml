@@ -87,7 +87,6 @@ Window {
         }
         Keys.onPressed: (event)=> {
             if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                console.log("Click\n");
                 connectButton.clicked(); // Auslösen des Button-Klicks
             }
         }

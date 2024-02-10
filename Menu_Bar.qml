@@ -7,26 +7,36 @@ Item {
     width: parent.width
     height: 30
 
-    Rectangle{
-        anchors.fill: parent
-        color: "#808080"
-    }
     MenuBar{
         id: menu
         anchors.fill: parent
+
+        background: Rectangle{
+            color: Style.menuBackground
+        }
+
         Menu {
-            title: qsTr("&Settings")
+            id: menu1
+            title: qsTr("Settings")
+
+            background: Rectangle {
+                implicitWidth: 200
+                //implicitHeight: 20
+                color: Style.menuBackground
+                border.color: "black"
+            }
 
             Action {
-                text: qsTr("&Generate Skript (HS Fulda)")
+
+                text: "<font color=\"white\">Generate Skript (HS Fulda)</font>"
                 onTriggered: {
-                        var component = Qt.createComponent("Cluster_Connection_Formular.qml");
-                        var window = component.createObject(root);
-                        window.show();
+                    var component = Qt.createComponent("Cluster_Connection_Formular.qml");
+                    var window = component.createObject(root);
+                    window.show();
                 }
             }
             Action {
-                text: qsTr("&Timescale_DB")
+                text: "<font color=\"white\">Timescale_DB</font>"
                 onTriggered: {
                         var component = Qt.createComponent("DB_Connection_Formular.qml");
                         var window = component.createObject(root);
@@ -34,19 +44,28 @@ Item {
                 }
             }
             Action {
-                text: qsTr("&Manual Bash Skript")
+                text: "<font color=\"white\">Manual Bash Skript</font>"
                 onTriggered: {
                     var component = Qt.createComponent("Bash_Skript_Manual.qml");
                     var window = component.createObject(root);
                     window.show();
                 }
             }
-            Action { text: qsTr("Save &As...") }
+            Action { text: "<font color=\"white\">Save As...</font>"}
             MenuSeparator { }
-            Action { text: qsTr("&Quit") }
+            //Action { text: qsTr("&Quit") }
+
         }
         Menu {
-            title: qsTr("&Options")
+            title: qsTr("Options")
+
+            background: Rectangle {
+                implicitWidth: 200
+                //implicitHeight: 20
+                color: Style.menuBackground
+                border.color: "black"
+            }
+
             Action {
                 text: qsTr("Cu&t")
             }
@@ -54,7 +73,15 @@ Item {
             Action { text: qsTr("&Paste") }
         }
         Menu {
-            title: qsTr("&Windows")
+            title: qsTr("Windows")
+
+            background: Rectangle {
+                implicitWidth: 200
+                //implicitHeight: 20
+                color: Style.menuBackground
+                border.color: "black"
+            }
+
             Action {
                 text: qsTr("&2D-View")
                 onTriggered: actualScreen.source = "Cores2D.qml"
@@ -62,20 +89,40 @@ Item {
             Action {
                 text: qsTr("&3D-View")
                 onTriggered: actualScreen.source = "Cores3D.qml"
+
+
             }
         }
 
         Menu {
-            title: qsTr("&Help")
+            title: qsTr("Help")
+
+            background: Rectangle {
+                    implicitWidth: 200
+                    color: Style.menuBackground
+                    border.color: "black"
+                }
+
             Action {
-                text: qsTr("&SSH-Key-Gen Guide")
+                text: qsTr("SSH-Key-Gen Guide")
                 onTriggered: {
                     var component = Qt.createComponent("Key_Gen_Guide.qml");
                     var window = component.createObject(root);
                     window.show();
                 }
             }
-            Action { text: qsTr("&About") }
+            Action { text: qsTr("About") }
         }
+
+        delegate: MenuBarItem {
+            id: menuBarItem
+            contentItem: Text {
+                text: menuBarItem.text
+                font: menuBarItem.font
+                color: "white"
+            }
+
+        }
+
     }
 }

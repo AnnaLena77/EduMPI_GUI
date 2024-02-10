@@ -63,6 +63,8 @@ signals:
     void connectionChanged();
     void time_display_changed();
 
+    void componentsBuilt();
+
     //Signals for Thread
     void signalToConnect(const QString &, const QString &, const int &, const QString &, const QString &);
     void signalToBuildComponents(const int &);

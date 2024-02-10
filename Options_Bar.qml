@@ -14,7 +14,7 @@ Item {
             y: 0
             width: parent.width
             height: parent.height
-            color: "black"
+            color: Style.menuBackground
 
             ColumnLayout{
                 //anchors.
