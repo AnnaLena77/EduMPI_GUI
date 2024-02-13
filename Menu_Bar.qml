@@ -36,7 +36,7 @@ Item {
                 }
             }
             Action {
-                text: "<font color=\"white\">Timescale_DB</font>"
+                text: "<font color=\"white\">Database Connection</font>"
                 onTriggered: {
                         var component = Qt.createComponent("DB_Connection_Formular.qml");
                         var window = component.createObject(root);
@@ -51,12 +51,12 @@ Item {
                     window.show();
                 }
             }
-            Action { text: "<font color=\"white\">Save As...</font>"}
+            //Action { text: "<font color=\"white\">Save As...</font>"}
             MenuSeparator { }
             //Action { text: qsTr("&Quit") }
 
         }
-        Menu {
+        /*Menu {
             title: qsTr("Options")
 
             background: Rectangle {
@@ -71,7 +71,7 @@ Item {
             }
             Action { text: qsTr("&Copy") }
             Action { text: qsTr("&Paste") }
-        }
+        }*/
         Menu {
             title: qsTr("Windows")
 
@@ -111,7 +111,7 @@ Item {
                     window.show();
                 }
             }
-            Action { text: qsTr("About") }
+            //Action { text: qsTr("About") }
         }
 
         delegate: MenuBarItem {

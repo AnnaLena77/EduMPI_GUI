@@ -50,6 +50,10 @@ Item {
                         palette.buttonText: "white"
                         palette.button: "#666666"
 
+                        HoverHandler {
+                            cursorShape: Qt.PointingHandCursor
+                        }
+
                         onClicked:{
                             if(nodesList.db_connection){
                                 nodesList.startBash(parseInt(np.text))
@@ -74,25 +78,38 @@ Item {
                     }
                     Text {
                         color: "white"
-                        text: "Ranks"
+                        text: "Procs"
                     }
                 }
 
                 ComboBox {
                     //width: parent
-                    implicitWidth: 160
+                    implicitWidth: 230
                     Layout.topMargin: 20
                     // Layout.bottomMargin: 100
                     Layout.alignment: Qt.AlignHCenter
-                    font.pointSize: 12
+                    font.pointSize: 11
+                    HoverHandler {
+                        cursorShape: Qt.PointingHandCursor
+                    }
 
-                    palette.button: "white"
+                    palette.button: "#666666"
+                    palette.buttonText: "white"
 
                     model: ListModel {
                         id: model
-                        ListElement { text: "Send/Recv Ratio" }
-                        ListElement { text: "Max Send Ratio" }
-                        ListElement { text: "Max Recv Ratio" }
+                        ListElement {
+                            text: "Send/Recv Ratio (per Proc)"
+
+                        }
+                        ListElement {
+                            text: "Max Send Ratio (over all Procs)"
+                            //font.pointSize: 11
+                        }
+                        ListElement {
+                            text: "Max Recv Ratio (over all Procs)"
+                            //font.pointSize: 11
+                        }
                         //ListElement { text: "Wait Ratio" }
                     }
                     onActivated:{
@@ -165,6 +182,9 @@ Item {
                 }
                 CheckBox {
                     id: p2p_check
+                    HoverHandler {
+                        cursorShape: Qt.PointingHandCursor
+                    }
                     Layout.alignment: Qt.AlignLeft
                     Layout.leftMargin: 40
                     checked: true
@@ -175,6 +195,9 @@ Item {
                 }
                 CheckBox {
                     id: coll_check
+                    HoverHandler {
+                        cursorShape: Qt.PointingHandCursor
+                    }
                     Layout.alignment: Qt.AlignLeft
                     Layout.leftMargin: 40
                     checked: true
@@ -198,6 +221,9 @@ Item {
                 }
                 CheckBox {
                     id: secondly_check
+                    HoverHandler {
+                        cursorShape: Qt.PointingHandCursor
+                    }
                     Layout.alignment: Qt.AlignLeft
                     Layout.leftMargin: 40
                     checked: true
@@ -209,6 +235,9 @@ Item {
                 }
                 CheckBox {
                     id: total_check
+                    HoverHandler {
+                        cursorShape: Qt.PointingHandCursor
+                    }
                     Layout.alignment: Qt.AlignLeft
                     Layout.leftMargin: 40
                     checked: false

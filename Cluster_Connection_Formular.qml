@@ -25,6 +25,7 @@ Window {
 
             Label {
                 text: "Remote Hostname - HPC Cluster HS Fulda (10.32.47.10):"
+                color: "#999999"
             }
 
             TextField {
@@ -32,10 +33,14 @@ Window {
                 Layout.fillWidth: true
                 text: "10.32.47.10"
                 //placeholderText: "<Enter host running MQTT broker>"
+                background: Rectangle {
+                    color: "#4d4d4d"
+                }
             }
 
             Label {
                 text: "FDAI authentication key:"
+                color: "#999999"
             }
 
             TextField {
@@ -44,10 +49,14 @@ Window {
                 text: "fdai0231"
                 placeholderText: "<fd number>"
                 //inputMethodHints: Qt.ImhDigitsOnly
+                background: Rectangle {
+                    color: "#4d4d4d"
+                }
             }
 
             Label {
                 text: "EduMPI installation path (standard: /EduMPI_Install)"
+                color: "#999999"
             }
 
             TextField {
@@ -55,10 +64,14 @@ Window {
                 text: "/EduMPI_Testumgebung"
                 Layout.fillWidth: true
                 placeholderText: "<installation path>"
+                background: Rectangle {
+                    color: "#4d4d4d"
+                }
             }
 
             Label {
                 text: "Choose a .c file or a full folder that includes your program"
+                color: "#999999"
             }
 
             GridLayout{
@@ -77,11 +90,17 @@ Window {
                     id: fileButton
                     text: ".c File"
                     checked: true
+                    HoverHandler {
+                        cursorShape: Qt.PointingHandCursor
+                    }
                 }
                 RadioButton{
                     id: folderButton
                     text: "Folder"
                     checked: false
+                    HoverHandler {
+                        cursorShape: Qt.PointingHandCursor
+                    }
                 }
 
             }
@@ -116,6 +135,9 @@ Window {
                     //width: 400
                     id: uploadPath
                     text: ""
+                    background: Rectangle {
+                        color: "#4d4d4d"
+                    }
                 }
             }
 
@@ -132,6 +154,7 @@ Window {
 
             Label {
                 text: "name of the program to be executed"
+                color: "#999999"
             }
 
             GridLayout{
@@ -143,9 +166,13 @@ Window {
                     //text: ""
                     Layout.fillWidth: true
                     placeholderText: "<program name>"
+                    background: Rectangle {
+                        color: "#4d4d4d"
+                    }
                 }
                 Label {
                     text: ".c"
+                    color: "#999999"
                 }
 
             }
@@ -161,6 +188,11 @@ Window {
                 onClicked: {
                     nodesList.createBashSkript(hostnameField.text, fdaiField.text, installpathField.text, uploadPath.text, programNameField.text, fileButton.checked)
                     bashGeneration.close()
+                }
+            }
+            Keys.onPressed: (event)=> {
+                if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                    connectButton.clicked(); // Auslösen des Button-Klicks
                 }
             }
         }

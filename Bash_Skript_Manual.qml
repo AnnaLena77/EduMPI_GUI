@@ -56,6 +56,16 @@ Window {
                 nodesList.writeBash(textEdit.text)
                 bash_skript.close()
             }
+            HoverHandler {
+                cursorShape: Qt.PointingHandCursor
+            }
+            palette.buttonText: "white"
+            palette.button: "#666666"
+        }
+        Keys.onPressed: (event)=> {
+            if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                changeBashButton.clicked(); // Auslösen des Button-Klicks
+            }
         }
     }
 }

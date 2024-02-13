@@ -8,7 +8,7 @@ Window {
     visible: true
     width: 400
     height: 300
-    title: "Timescale Connection"
+    title: "Timescale Database Connection"
 
     GridLayout {
         anchors.fill: parent
@@ -97,6 +97,9 @@ Window {
 
         Button {
             id: connectButton
+            HoverHandler {
+                cursorShape: Qt.PointingHandCursor
+            }
             text: "confirm"
             Layout.columnSpan: 2
             Layout.fillWidth: true
