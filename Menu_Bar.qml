@@ -12,7 +12,7 @@ Item {
         anchors.fill: parent
 
         background: Rectangle{
-            color: Style.menuBackground
+            color: "#383936"
         }
 
         Menu {
@@ -22,7 +22,7 @@ Item {
             background: Rectangle {
                 implicitWidth: 200
                 //implicitHeight: 20
-                color: Style.menuBackground
+                color: "#383936"
                 border.color: "black"
             }
 
@@ -62,7 +62,7 @@ Item {
             background: Rectangle {
                 implicitWidth: 200
                 //implicitHeight: 20
-                color: Style.menuBackground
+                color: "#383936"
                 border.color: "black"
             }
 
@@ -78,7 +78,7 @@ Item {
             background: Rectangle {
                 implicitWidth: 200
                 //implicitHeight: 20
-                color: Style.menuBackground
+                color: "#383936"
                 border.color: "black"
             }
 
@@ -99,7 +99,7 @@ Item {
 
             background: Rectangle {
                     implicitWidth: 200
-                    color: Style.menuBackground
+                    color: "#383936"
                     border.color: "black"
                 }
 

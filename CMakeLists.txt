@@ -33,8 +33,8 @@ qt_add_qml_module(appGUI_Cluster
     VERSION 1.0
     QML_FILES
         main.qml
-        qmldir
-        Style.qml
+        #qmldir
+        #Style.qml
         Cores2D.qml
         Cores3D.qml
         Sidebar.qml

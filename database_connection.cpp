@@ -1,6 +1,7 @@
 #include "database_connection.h"
 #include "database_thread.h"
 #include "qevent.h"
+#include "qsqlquery.h"
 #include "ranks_instances.h"
 #include "cluster_node.h"
 #include <iostream>
@@ -47,7 +48,6 @@ void Database_Connection::buildClusterComponents(const QMap<QString, QVector<int
     if(map.isEmpty()){
         std::cout << "FAILED!" << std::endl;
     } else{
-        emit componentsBuilt();
         QMapIterator<QString, QVector<int>> iter(map);
         while(iter.hasNext()){
             iter.next();
@@ -62,6 +62,7 @@ void Database_Connection::buildClusterComponents(const QMap<QString, QVector<int
         }
     }
     timerId = startTimer(1000);
+    emit componentsBuilt();
     m_componentsBuilt = true;
 }
 

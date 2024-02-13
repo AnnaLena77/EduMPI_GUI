@@ -18,6 +18,10 @@ Window {
     property bool p2p: true
     property bool collective: true
     property string option: "Send/Recv Ratio"
+    property color gradient1: "green"
+    property color gradient2: "red"
+    property string gradient_text1: "Send"
+    property string gradient_text2: "Recv"
 
     property string db_host: ""
     property string db_port: ""
@@ -29,6 +33,7 @@ Window {
         id: nodesList
         onComponentsBuilt: {
             actualScreen.source = "Cores3D.qml"
+            console.log("Checki")
         }
     }
 
@@ -117,6 +122,8 @@ Window {
         var full_percent, send_percent, recv_percent = 1;
         var red, green, blue = 255;
         if(option == "Send/Recv Ratio"){
+            gradient1 = "green"
+            gradient2 = "red"
             full_percent = Number(send_ds) + Number(recv_ds)
             send_percent = send_ds / full_percent
             recv_percent = recv_ds / full_percent
@@ -126,6 +133,8 @@ Window {
             blue = 255 - (red + green); // Rest wird in Blau gemischt
         }
         else if(option == "Max Send Ratio"){
+            gradient1 = "green"
+            gradient2 = "white"
             if(p2p && collective){
                 full_percent = Number(nodesList.coll_send_max) + Number(nodesList.p2p_send_max);
             } else if(p2p){

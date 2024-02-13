@@ -4,7 +4,7 @@ import QtQuick.Controls 6.3
 
 Item {
         id: item
-        width: 200
+        width: 250
         height: parent.height
 
         Rectangle {
@@ -14,7 +14,7 @@ Item {
             y: 0
             width: parent.width
             height: parent.height
-            color: Style.menuBackground
+            color: "#383936"
 
             ColumnLayout{
                 //anchors.
@@ -40,12 +40,16 @@ Item {
                 }
                 GridLayout{
                     width: parent.width
-                    columns: 2
+                    columns: 3
                     Layout.topMargin: 40
                     Layout.alignment: Qt.AlignHCenter
 
                     Button {
+                        id: mpi_start_button
                         text: "Start MPI-Program"
+                        palette.buttonText: "white"
+                        palette.button: "#666666"
+
                         onClicked:{
                             if(nodesList.db_connection){
                                 nodesList.startBash(parseInt(np.text))
@@ -56,11 +60,21 @@ Item {
                             }
                         }
                     }
-                    TextInput {
+                    TextField {
                         id: np
-                        color: "white"
+                        color: "black"
+                        maximumLength: 3
+                        placeholderText: "400"
+                        rightPadding: 1
                         text: "400"
                         inputMethodHints: "ImhFormattedNumbersOnly";
+                        background: Rectangle {
+                            color: "white"
+                        }
+                    }
+                    Text {
+                        color: "white"
+                        text: "Ranks"
                     }
                 }
 
@@ -68,19 +82,80 @@ Item {
                     //width: parent
                     implicitWidth: 160
                     Layout.topMargin: 20
-                    Layout.bottomMargin: 100
+                    // Layout.bottomMargin: 100
                     Layout.alignment: Qt.AlignHCenter
                     font.pointSize: 12
+
+                    palette.button: "white"
+
                     model: ListModel {
                         id: model
                         ListElement { text: "Send/Recv Ratio" }
                         ListElement { text: "Max Send Ratio" }
                         ListElement { text: "Max Recv Ratio" }
-                        ListElement { text: "Wait Ratio" }
+                        //ListElement { text: "Wait Ratio" }
                     }
-                    onActivated:
+                    onActivated:{
                         option = currentValue;
+                        if(option == "Send/Recv Ratio"){
+                            gradient1 = "green"
+                            gradient2 = "red"
+                            gradient_text1 = "Send"
+                            gradient_text2 = "Recv"
+                        }
+                        else if (option == "Max Send Ratio"){
+                            gradient1 = "green"
+                            gradient2 = "white"
+                            gradient_text1 = "Max Send"
+                            gradient_text2 = "No Send"
+                        }
+                        else if(option == "Max Recv Ratio"){
+                            gradient1 = "white"
+                            gradient2 = "red"
+                            gradient_text1 = "No Recv"
+                            gradient_text2 = "Max Recv"
+                        }
+
+                    }
                 }
+                Rectangle{
+                    width: 10
+                    height: 200
+                    Layout.bottomMargin: -95
+                    rotation: 90
+                    gradient: Gradient {
+                        GradientStop { position: 0.0; color: gradient2 }
+                        GradientStop { position: 1.0; color: gradient1 }
+                    }
+                    Layout.alignment: Qt.AlignCenter
+
+                }
+                GridLayout{
+                    width: parent.width
+                    columns: 2
+                    Layout.bottomMargin: 20
+                    //Layout.alignment: Qt.AlignHCenter
+
+                    Text {
+                        text: gradient_text1
+                        color: "white"
+                        //anchors.left: parent.left
+                        leftPadding: 10
+                        Layout.fillWidth: true
+                        //horizontalAlignment: Qt.AlignHLeft
+                    }
+                    Text {
+                        text: gradient_text2
+                        color: "white"
+                        Layout.fillWidth: true
+                        horizontalAlignment: Text.AlignRight
+                        //anchors.right: parent.right
+                        rightPadding: 10
+                        //horizontalAlignment: Qt.AlignHRight
+                        //Layout.alignment: Qt.AlignHRight
+                    }
+                }
+
                 Text {
                     id: text2
                     text: qsTr("Communication-Type:")

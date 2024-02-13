@@ -25,6 +25,7 @@ void Database_Thread::threadbuildClusterComponents(const int &proc_num){
     if(!db.isOpen()){
         return;
     }
+
     std::cout << "New Cluster Components" << std::endl;
     QSqlQuery query(db);
     QString name = "";

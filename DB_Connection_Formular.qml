@@ -17,6 +17,7 @@ Window {
 
         Label {
             text: "Hostname:"
+            color: "#999999"
         }
 
         TextField {
@@ -24,10 +25,15 @@ Window {
             Layout.fillWidth: true
             text: "10.35.8.10"
             placeholderText: "<Enter host address>"
+            color: "white"
+            background: Rectangle {
+                color: "#4d4d4d"
+            }
         }
 
         Label {
             text: "Port:"
+            color: "#999999"
         }
 
         TextField {
@@ -36,10 +42,15 @@ Window {
             text: "5432"
             placeholderText: "<Enter port>"
             //inputMethodHints: Qt.ImhDigitsOnly
+            color: "white"
+            background: Rectangle {
+                color: "#4d4d4d"
+            }
         }
 
         Label {
             text: "Database:"
+            color: "#999999"
         }
 
         TextField {
@@ -47,10 +58,15 @@ Window {
             Layout.fillWidth: true
             text: "tsdb"
             placeholderText: "<Enter database name>"
+            color: "white"
+            background: Rectangle {
+                color: "#4d4d4d"
+            }
         }
 
         Label {
             text: "User:"
+            color: "#999999"
         }
 
         TextField {
@@ -58,16 +74,25 @@ Window {
             Layout.fillWidth: true
             text: "postgres"
             placeholderText: "<Enter user name>"
+            color: "white"
+            background: Rectangle {
+                color: "#4d4d4d"
+            }
         }
 
         Label {
             text: "Password"
+            color: "#999999"
         }
         TextField {
             id: passwordField
             echoMode: TextInput.Password
             Layout.fillWidth: true
             placeholderText: "<password>"
+            color: "white"
+            background: Rectangle {
+                color: "#4d4d4d"
+            }
         }
 
         Button {
@@ -75,6 +100,8 @@ Window {
             text: "confirm"
             Layout.columnSpan: 2
             Layout.fillWidth: true
+            palette.button: "#404040"
+            palette.buttonText: "white"
             onClicked: {
                 db_user = userField.text
                 db_password = passwordField.text
