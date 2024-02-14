@@ -29,12 +29,16 @@ Database_Connection::Database_Connection(QObject *parent) : QObject(parent)
     Database_Thread::connect(this, &Database_Connection::signalToUpdateData, dbt, &Database_Thread::updateData);
     Database_Thread::connect(dbt, &Database_Thread::updateDataReady, this, &Database_Connection::updateDataToUI);
 
+    Database_Thread::connect(this, &Database_Connection::signalToClearDB, dbt, &Database_Thread::clearDatabase);
+    Database_Thread::connect(dbt, &Database_Thread::dbCleared, this, &Database_Connection::removeClusterComponents);
+
     database_thread.start();
 }
 
 void Database_Connection::dbConnectionSuccessful(const bool &success){
     std::cout << "Hello from dbConnectionSuccessful Signal : " << success << std::endl;
     m_connection_ready = true;
+    emit connectionSignal(success);
 
 }
 
@@ -64,6 +68,13 @@ void Database_Connection::buildClusterComponents(const QMap<QString, QVector<int
     timerId = startTimer(1000);
     emit componentsBuilt();
     m_componentsBuilt = true;
+}
+
+void Database_Connection::removeClusterComponents(){
+    if(m_componentsBuilt){
+        m_nodes.clear();
+        std::cout << "Removed Cluster-Components" << std::endl;
+    }
 }
 
 Database_Connection::~Database_Connection()
@@ -118,9 +129,11 @@ QVector<Cluster_Node*> Database_Connection::get_nodeList(){
     return m_nodes;
 }
 
-
 void Database_Connection::updateDataToUI(const QList<DataColumn> &list){
 
+    if(!m_componentsBuilt){
+        return;
+    }
 
     for (Cluster_Node *n : m_nodes){
             for(Cluster_Rank *r : n->ranks()){
@@ -176,7 +189,10 @@ void Database_Connection::updateDataToUI(const QList<DataColumn> &list){
 }
 
 void Database_Connection::timerEvent(QTimerEvent* event){
-    emit signalToUpdateData(m_time_display);
+    if(m_componentsBuilt){
+        std::cout << "timer:Event, TRUE!" << std::endl;
+        emit signalToUpdateData(m_time_display);
+    }
     //updateDatasize();
     //emit r
     //std::cout << "Name: " << m_nodes[0]->getName().toStdString() << std::endl;
@@ -249,6 +265,11 @@ void Database_Connection::writeBash(QString content){
 }
 
 void Database_Connection::startBash(int proc_num){
+    if(m_componentsBuilt){
+        m_componentsBuilt = false;
+        std::cout << "Nach Start der Bash: False!" << std::endl;
+        emit signalToClearDB();
+    }
     emit signalToBuildComponents(proc_num);
     std::cout << "StartBash" << std::endl;
     QString homedir = getenv("HOME");

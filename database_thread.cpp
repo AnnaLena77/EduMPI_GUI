@@ -21,9 +21,26 @@ void Database_Thread::connectToDB(const QString &hostname, const QString &databa
     std::cout << "New Connection" << std::endl;
 }
 
+void Database_Thread::clearDatabase(){
+    m_clearingProc = true;
+    if(db.isOpen()){
+        QSqlQuery query(db);
+        query.exec("DELETE FROM cluster_information;");
+        query.exec("DELETE FROM mpi_information;");
+        sleep(1);
+        query.exec("CALL refresh_continuous_aggregate('mpi_ds_secondly', NULL, NULL);");
+        //db.close();
+        std::cout << "Database gecleard" << std::endl;
+    }
+    m_clearingProc = false;
+}
+
 void Database_Thread::threadbuildClusterComponents(const int &proc_num){
     if(!db.isOpen()){
         return;
+    }
+    while(m_clearingProc){
+
     }
 
     std::cout << "New Cluster Components" << std::endl;
@@ -72,7 +89,7 @@ void Database_Thread::updateData(const int &time_display){
         if(queryy.next()){
             timestamp = queryy.value(0).toDateTime();
             //std::cout << "Hypertable Max: " << timestamp.toString("yyyy-MM-dd HH:mm:ss").toStdString() << std::endl;
-            timestamp = timestamp.addSecs(-1);
+            timestamp = timestamp.addSecs(-2);
         }
         else{
             return;
@@ -113,8 +130,9 @@ void Database_Thread::updateData(const int &time_display){
         dc.send_datasize = query.value("send_ds").toLongLong();
         list.append(dc);
     }
-
+    std::cout << "Update Database" << std::endl;
     emit updateDataReady(list);
+
         /*QString proc_name = query.value("processorname").toString();
         QStandardItem *processor_item = new QStandardItem(proc_name);
         model->setItem(row, 0, processor_item);

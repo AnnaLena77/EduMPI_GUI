@@ -55,13 +55,13 @@ Window {
             }
 
             Label {
-                text: "EduMPI installation path (standard: /EduMPI_Install)"
+                text: "EduMPI installation path (standard: /opt/edumpi)"
                 color: "#999999"
             }
 
             TextField {
                 id: installpathField
-                text: "/EduMPI_Testumgebung"
+                text: "/opt/edumpi"
                 Layout.fillWidth: true
                 placeholderText: "<installation path>"
                 background: Rectangle {

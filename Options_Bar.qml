@@ -56,6 +56,7 @@ Item {
 
                         onClicked:{
                             if(nodesList.db_connection){
+                                nodesList.removeClusterComponents()
                                 nodesList.startBash(parseInt(np.text))
                                 //nodesList.buildClusterComponents(parseInt(np.text))
                             }
@@ -114,19 +115,19 @@ Item {
                     }
                     onActivated:{
                         option = currentValue;
-                        if(option == "Send/Recv Ratio"){
+                        if(option == "Send/Recv Ratio (per Proc)"){
                             gradient1 = "green"
                             gradient2 = "red"
                             gradient_text1 = "Send"
                             gradient_text2 = "Recv"
                         }
-                        else if (option == "Max Send Ratio"){
+                        else if (option == "Max Send Ratio (over all Procs)"){
                             gradient1 = "green"
                             gradient2 = "white"
                             gradient_text1 = "Max Send"
                             gradient_text2 = "No Send"
                         }
-                        else if(option == "Max Recv Ratio"){
+                        else if(option == "Max Recv Ratio (over all Procs)"){
                             gradient1 = "white"
                             gradient2 = "red"
                             gradient_text1 = "No Recv"

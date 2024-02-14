@@ -112,13 +112,20 @@ Window {
                 db_name = nameField.text
                 db_host = hostnameField.text
                 nodesList.connect(db_host, db_name, db_port , db_user, db_password)
-                dbFormular.close()
+                nodesList.signalToClearDB()
             }
         }
         Keys.onPressed: (event)=> {
             if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
                 connectButton.clicked(); // Auslösen des Button-Klicks
             }
+        }
+        Label {
+            Layout.topMargin: 2
+            id: successfield
+            text: success_text
+            color: success_color
+            Layout.fillWidth: true
         }
 
     }

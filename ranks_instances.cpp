@@ -145,7 +145,7 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
 
         double full_percent = 0, send_percent = 0, recv_percent = 0;
 
-        if(m_combobox == "Send/Recv Ratio"){
+        if(m_combobox == "Send/Recv Ratio (per Proc)"){
             full_percent = static_cast<double>(send_data) + static_cast<double>(recv_data);
             send_percent = send_data / full_percent;
             recv_percent = recv_data / full_percent;
@@ -157,7 +157,7 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
             red = recv_percent * 255; // Je höher der Empfangsanteil, desto mehr Rot
             green = send_percent * 255; // Je höher der Sendeanteil, desto mehr Grün
             blue = 255 - (red + green); // Rest wird in Blau gemischt
-        } else if(m_combobox == "Max Send Ratio"){
+        } else if(m_combobox == "Max Send Ratio (over all Procs)"){
             if(m_p2p_show && m_coll_show){
                 full_percent = static_cast<double>(m_nodes->coll_send_max()) + static_cast<double>(m_nodes->p2p_send_max());
             } else if(m_p2p_show){
@@ -172,7 +172,7 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
 
             //std::cout << "Send_data: " << send_data << " Full_Perc: " << full_percent << " Send_Perc: " << send_percent << " Coll_send_max: " << m_nodes->coll_send_max() << " p2p_send_max: " << m_nodes->p2p_send_max() << std::endl;
 
-        } else if(m_combobox == "Max Recv Ratio"){
+        } else if(m_combobox == "Max Recv Ratio (over all Procs)"){
             if(m_p2p_show && m_coll_show){
                 full_percent = static_cast<double>(m_nodes->coll_recv_max()) + static_cast<double>(m_nodes->p2p_recv_max());
             } else if(m_p2p_show){

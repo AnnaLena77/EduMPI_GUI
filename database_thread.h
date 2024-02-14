@@ -29,11 +29,16 @@ public slots:
     void connectToDB(const QString &hostname, const QString &databasename, const int &port, const QString &username, const QString &password);
     void threadbuildClusterComponents(const int &proc_num);
     void updateData(const int &time_display);
+    void clearDatabase();
 
 signals:
     void connectedToDB(const bool &success);
     void clusterComponentsReady(const QMap<QString, QVector<int>> &map);
     void updateDataReady(const QList<DataColumn> &list);
+    void dbCleared();
+
+private:
+    bool m_clearingProc = false;
 };
 
 #endif // DATABASE_THREAD_H

@@ -35,8 +35,8 @@ Window {
                       "<br> :~§ ssh-keygen -b 4096<br>" +
                       "<li>Enter file in which to save the key. You can confirm the default path specified here with enter. <br>
                            For your security, it makes sense to choose a passphrase and remember it. However, you can also continue without entering a passphrase by pressing the enter key.</li>" +
-                       "<br> :~$ cat ./ssh id_rsa <br>" +
-                       "<li>Copy the displayed key! </li>" +
+                       "<br> :~$ cat .ssh/id_rsa <br>" +
+                       "<li>Copy the displayed key! Please use right klick and Copy</li>" +
                        "<br> :~$ ssh-copy-id -i .ssh/id_rsa.pub user@host <br>" +
                        "<li>Now paste the generated key to the remote cluster. <br>
                             Enter your ID for 'user' (on the HS Fulda cluster this is your FD number: fdai$$$$) <br>

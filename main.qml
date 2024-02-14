@@ -17,7 +17,7 @@ Window {
 
     property bool p2p: true
     property bool collective: true
-    property string option: "Send/Recv Ratio"
+    property string option: "Send/Recv Ratio (per Proc)"
     property color gradient1: "green"
     property color gradient2: "red"
     property string gradient_text1: "Send"
@@ -28,12 +28,24 @@ Window {
     property string db_name: ""
     property string db_user: ""
     property string db_password: ""
+    property bool db_connection_success: false
+    property string success_text: ""
+    property color success_color: "white"
 
     NodesList{
         id: nodesList
         onComponentsBuilt: {
+            actualScreen.source = ""
             actualScreen.source = "Cores3D.qml"
-            console.log("Checki")
+        }
+        onConnectionSignal: (success)=>{
+            if(success){
+                success_color = "green"
+                success_text = "Database connection successfully established"
+            } else {
+                success_color = "red"
+                success_text = "Database connection failed. Try again!"
+            }
         }
     }
 
@@ -121,7 +133,7 @@ Window {
     function createColor(send_ds, recv_ds){
         var full_percent, send_percent, recv_percent = 1;
         var red, green, blue = 255;
-        if(option == "Send/Recv Ratio"){
+        if(option == "Send/Recv Ratio (per Proc)"){
             gradient1 = "green"
             gradient2 = "red"
             full_percent = Number(send_ds) + Number(recv_ds)
@@ -132,7 +144,7 @@ Window {
             green = send_percent * 255; // Je höher der Sendeanteil, desto mehr Grün
             blue = 255 - (red + green); // Rest wird in Blau gemischt
         }
-        else if(option == "Max Send Ratio"){
+        else if(option == "Max Send Ratio (over all Procs)"){
             gradient1 = "green"
             gradient2 = "white"
             if(p2p && collective){
@@ -147,7 +159,7 @@ Window {
             red = 255 - send_percent*255; // Je höher der Empfangsanteil, desto mehr Rot
             blue = 255 - send_percent*255; // Rest wird in Blau gemischt
         }
-        else if(option == "Max Recv Ratio"){
+        else if(option == "Max Recv Ratio (over all Procs)"){
             if(p2p && collective){
                 full_percent = Number(nodesList.coll_recv_max) + Number(nodesList.p2p_recv_max);
             } else if(p2p){

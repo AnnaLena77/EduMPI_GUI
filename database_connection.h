@@ -64,17 +64,20 @@ signals:
     void time_display_changed();
 
     void componentsBuilt();
+    void connectionSignal(bool success);
 
     //Signals for Thread
     void signalToConnect(const QString &, const QString &, const int &, const QString &, const QString &);
     void signalToBuildComponents(const int &);
     void signalToUpdateData(const int &);
+    void signalToClearDB();
 
 //Slots for Thread
 public slots:
     void dbConnectionSuccessful(const bool &);
     void buildClusterComponents(const QMap<QString, QVector<int>> &);
     void updateDataToUI(const QList<DataColumn> &);
+    void removeClusterComponents();
 
 private:
     bool m_componentsBuilt = false;
