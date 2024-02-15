@@ -90,6 +90,7 @@ Window {
                     id: fileButton
                     text: ".c File"
                     checked: true
+                    palette.buttonText: "#999999"
                     HoverHandler {
                         cursorShape: Qt.PointingHandCursor
                     }
@@ -98,6 +99,7 @@ Window {
                     id: folderButton
                     text: "Folder"
                     checked: false
+                    palette.buttonText: "#999999"
                     HoverHandler {
                         cursorShape: Qt.PointingHandCursor
                     }

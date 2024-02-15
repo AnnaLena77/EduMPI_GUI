@@ -9,7 +9,7 @@ Window {
     height: 1080
     visible: true
     property alias actualScreen: actualScreen
-    title: qsTr("Hello World")
+    title: qsTr("EduMPI")
 
     onClosing: {
         nodesList.closeApp()
