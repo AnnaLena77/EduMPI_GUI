@@ -32,11 +32,16 @@ Window {
     property string success_text: ""
     property color success_color: "white"
 
+    //Properties for timeline
+    property bool enable_timeline
+    property int startTime: 0
+
     NodesList{
         id: nodesList
         onComponentsBuilt: {
             actualScreen.source = ""
             actualScreen.source = "Cores3D.qml"
+            //playbutton.enabled = true
         }
         onConnectionSignal: (success)=>{
             if(success){
@@ -46,6 +51,11 @@ Window {
                 success_color = "red"
                 success_text = "Database connection failed. Try again!"
             }
+        }
+        onDataIn: (timestamp)=>{
+            startTime = timestamp;
+            enable_timeline = true;
+            console.log("startTime: "+ startTime)
         }
     }
 
@@ -93,6 +103,10 @@ Window {
         id: options
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
+    }
+    Bottom_Bar{
+        id: timeline_main
+        anchors.bottom: parent.bottom
     }
 
 

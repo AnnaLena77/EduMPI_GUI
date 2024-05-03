@@ -48,6 +48,7 @@ private:
 
 signals:
     void ranksChanged();
+    void timestampsChanged();
 
 /*protected:
     void timerEvent(QTimerEvent *event);

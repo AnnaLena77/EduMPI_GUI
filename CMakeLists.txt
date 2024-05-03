@@ -40,6 +40,7 @@ qt_add_qml_module(appGUI_Cluster
         Sidebar.qml
         Options_Bar.qml
         Menu_Bar.qml
+        Bottom_Bar.qml
         Cluster_Connection_Formular.qml
         DB_Connection_Formular.qml
         Key_Gen_Guide.qml

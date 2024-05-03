@@ -32,6 +32,10 @@ Database_Connection::Database_Connection(QObject *parent) : QObject(parent)
     Database_Thread::connect(this, &Database_Connection::signalToClearDB, dbt, &Database_Thread::clearDatabase);
     Database_Thread::connect(dbt, &Database_Thread::dbCleared, this, &Database_Connection::removeClusterComponents);
 
+    Database_Thread::connect(this, &Database_Connection::signalToShowTimestampData, dbt, &Database_Thread::showDataFromTimePeriod);
+
+    Database_Thread::connect(dbt, &Database_Thread::setTimestamp, this, &Database_Connection::handleTimestamp);
+
     database_thread.start();
 }
 
@@ -190,7 +194,7 @@ void Database_Connection::updateDataToUI(const QList<DataColumn> &list){
 
 void Database_Connection::timerEvent(QTimerEvent* event){
     if(m_componentsBuilt){
-        std::cout << "timer:Event, TRUE!" << std::endl;
+        //std::cout << "timer:Event, TRUE!" << std::endl;
         emit signalToUpdateData(m_time_display);
     }
     //updateDatasize();
@@ -281,6 +285,35 @@ void Database_Connection::startBash(int proc_num){
     process.setArguments(QStringList() << "--" << dir << QString::number(proc_num));
 
     process.startDetached();
+}
+
+//Functionality for timeline
+
+void Database_Connection::startAndStop(bool start){
+    if(start == true){
+        if(timerId != -1){
+            killTimer(timerId);
+        }
+    } else{
+        timerId = startTimer(1000);
+    }
+}
+
+void Database_Connection::handleTimestamp(QTime timestamp){
+    m_start_timestamp = timestamp;
+    QTime midnight;
+    midnight.setHMS(0,0,0);
+    int seconds = midnight.secsTo(timestamp);
+    emit dataIn(seconds);
+    //std::cout << "Seconds: " << seconds << std::endl;
+}
+
+void Database_Connection::showConditionAt(int timeSecondsA, int timeSecondsB){
+    QTime timestampA = m_start_timestamp.addSecs(timeSecondsA);
+    QTime timestampB = m_start_timestamp.addSecs(timeSecondsB);
+
+    emit signalToShowTimestampData(timestampA, timestampB);
+
 }
 
 void Database_Connection::closeApp(){

@@ -3,5 +3,9 @@
         <file>shaders/glass.frag</file>
         <file>shaders/simple.vert</file>
         <file>3D-Scene/Menu_Bar.qml</file>
+        <file>icons/play.png</file>
+        <file>icons/pause.png</file>
+        <file>icons/backward_step.png</file>
+        <file>icons/forward_step.png</file>
     </qresource>
 </RCC>

@@ -48,6 +48,11 @@ public:
     Q_INVOKABLE QString readBash();
     Q_INVOKABLE void writeBash(QString content);
 
+    //Invokables for Timeline
+    Q_INVOKABLE void showConditionAt(int timeSecondsA, int timeSecondsB);
+    Q_INVOKABLE void startAndStop(bool start);
+
+
     Q_INVOKABLE Cluster_Node* nodeAt(int index);
 
     //void buildClusterComponents();
@@ -63,14 +68,17 @@ signals:
     void connectionChanged();
     void time_display_changed();
 
+    //Signals for QML
     void componentsBuilt();
     void connectionSignal(bool success);
+    void dataIn(int timestamp);
 
     //Signals for Thread
     void signalToConnect(const QString &, const QString &, const int &, const QString &, const QString &);
     void signalToBuildComponents(const int &);
     void signalToUpdateData(const int &);
     void signalToClearDB();
+    void signalToShowTimestampData(const QTime timestampA, const QTime timestampB);
 
 //Slots for Thread
 public slots:
@@ -78,6 +86,7 @@ public slots:
     void buildClusterComponents(const QMap<QString, QVector<int>> &);
     void updateDataToUI(const QList<DataColumn> &);
     void removeClusterComponents();
+    void handleTimestamp(QTime timestamp);
 
 private:
     bool m_componentsBuilt = false;
@@ -88,6 +97,8 @@ private:
     long m_coll_recv_max = 0;
     bool m_connection_ready = false;
     int m_time_display = 0;
+
+    QTime m_start_timestamp;
 
 protected:
     void timerEvent(QTimerEvent *event);

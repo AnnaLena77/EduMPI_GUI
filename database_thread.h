@@ -1,6 +1,7 @@
 #ifndef DATABASE_THREAD_H
 #define DATABASE_THREAD_H
 
+#include "qdatetime.h"
 #include <QObject>
 #include <QThread>
 #include <iostream>
@@ -29,6 +30,7 @@ public slots:
     void connectToDB(const QString &hostname, const QString &databasename, const int &port, const QString &username, const QString &password);
     void threadbuildClusterComponents(const int &proc_num);
     void updateData(const int &time_display);
+    void showDataFromTimePeriod(const QTime timestampA, const QTime timestampB);
     void clearDatabase();
 
 signals:
@@ -36,9 +38,12 @@ signals:
     void clusterComponentsReady(const QMap<QString, QVector<int>> &map);
     void updateDataReady(const QList<DataColumn> &list);
     void dbCleared();
+    void setTimestamp(QTime timestamp);
 
 private:
     bool m_clearingProc = false;
+    QDateTime m_actualDBEntryTime;
+    QTime m_firstDBEntryTime;
 };
 
 #endif // DATABASE_THREAD_H

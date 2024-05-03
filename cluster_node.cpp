@@ -116,3 +116,4 @@ Cluster_Rank* Cluster_Node::rankAt(int index)
 /*void Cluster_Node::timerEvent(QTimerEvent* event){
     //updateRanks();
 }*/
+
