@@ -1,0 +1,174 @@
+{
+	"BUILD_DIR" : "/home/anna-lena/GUI_Cluster/appGUI_Cluster_autogen",
+	"CMAKE_BINARY_DIR" : "/home/anna-lena/GUI_Cluster",
+	"CMAKE_CURRENT_BINARY_DIR" : "/home/anna-lena/GUI_Cluster",
+	"CMAKE_CURRENT_SOURCE_DIR" : "/home/anna-lena/GUI_Cluster",
+	"CMAKE_EXECUTABLE" : "/usr/bin/cmake",
+	"CMAKE_SOURCE_DIR" : "/home/anna-lena/GUI_Cluster",
+	"HEADERS" : 
+	[
+		[
+			"/home/anna-lena/GUI_Cluster/bash_process_manager.h",
+			"Mu",
+			"EWIEGA46WW/moc_bash_process_manager.cpp"
+		],
+		[
+			"/home/anna-lena/GUI_Cluster/cluster_node.h",
+			"Mu",
+			"EWIEGA46WW/moc_cluster_node.cpp"
+		],
+		[
+			"/home/anna-lena/GUI_Cluster/cluster_rank.h",
+			"Mu",
+			"EWIEGA46WW/moc_cluster_rank.cpp"
+		],
+		[
+			"/home/anna-lena/GUI_Cluster/database_connection.h",
+			"Mu",
+			"EWIEGA46WW/moc_database_connection.cpp"
+		],
+		[
+			"/home/anna-lena/GUI_Cluster/database_thread.h",
+			"Mu",
+			"EWIEGA46WW/moc_database_thread.cpp"
+		],
+		[
+			"/home/anna-lena/GUI_Cluster/nodes_instances.h",
+			"Mu",
+			"EWIEGA46WW/moc_nodes_instances.cpp"
+		],
+		[
+			"/home/anna-lena/GUI_Cluster/ranks_instances.h",
+			"Mu",
+			"EWIEGA46WW/moc_ranks_instances.cpp"
+		]
+	],
+	"HEADER_EXTENSIONS" : [ "h", "hh", "h++", "hm", "hpp", "hxx", "in", "txx" ],
+	"INCLUDE_DIR" : "/home/anna-lena/GUI_Cluster/appGUI_Cluster_autogen/include",
+	"MOC_COMPILATION_FILE" : "/home/anna-lena/GUI_Cluster/appGUI_Cluster_autogen/mocs_compilation.cpp",
+	"MOC_DEFINITIONS" : 
+	[
+		"QT_CONCURRENT_LIB",
+		"QT_CORE_LIB",
+		"QT_GUI_LIB",
+		"QT_NETWORK_LIB",
+		"QT_NO_DEBUG",
+		"QT_OPENGL_LIB",
+		"QT_QMLINTEGRATION_LIB",
+		"QT_QMLMODELS_LIB",
+		"QT_QML_LIB",
+		"QT_QUICK3DRUNTIMERENDER_LIB",
+		"QT_QUICK3DUTILS_LIB",
+		"QT_QUICK3D_LIB",
+		"QT_QUICKCONTROLS2_LIB",
+		"QT_QUICK_LIB",
+		"QT_SHADERTOOLS_LIB",
+		"QT_SQL_LIB"
+	],
+	"MOC_DEPEND_FILTERS" : 
+	[
+		[
+			"Q_PLUGIN_METADATA",
+			"[\n][ \t]*Q_PLUGIN_METADATA[ \t]*\\([^\\)]*FILE[ \t]*\"([^\"]+)\""
+		]
+	],
+	"MOC_INCLUDES" : 
+	[
+		"/usr/include/postgresql",
+		"/home/anna-lena/GUI_Cluster",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQml/6.5.0",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQml/6.5.0/QtQml",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/6.5.0",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/6.5.0/QtCore",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/mkspecs/linux-g++",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQml",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQmlIntegration",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtNetwork",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQuick",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQmlModels",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtOpenGL",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQuickControls2",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQuick3D",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQuick3DRuntimeRender",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQuick3DUtils",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtShaderTools",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtConcurrent",
+		"/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtSql",
+		"/usr/include",
+		"/usr/include/c++/9",
+		"/usr/include/x86_64-linux-gnu/c++/9",
+		"/usr/include/c++/9/backward",
+		"/usr/lib/gcc/x86_64-linux-gnu/9/include",
+		"/usr/local/include",
+		"/usr/include/x86_64-linux-gnu"
+	],
+	"MOC_MACRO_NAMES" : 
+	[
+		"Q_OBJECT",
+		"Q_GADGET",
+		"Q_NAMESPACE",
+		"Q_GADGET_EXPORT",
+		"Q_NAMESPACE_EXPORT"
+	],
+	"MOC_OPTIONS" : [ "--output-json" ],
+	"MOC_PATH_PREFIX" : true,
+	"MOC_PREDEFS_CMD" : 
+	[
+		"/usr/bin/c++",
+		"-dM",
+		"-E",
+		"-c",
+		"/usr/share/cmake-3.16/Modules/CMakeCXXCompilerABI.cpp"
+	],
+	"MOC_PREDEFS_FILE" : "/home/anna-lena/GUI_Cluster/appGUI_Cluster_autogen/moc_predefs.h",
+	"MOC_RELAXED_MODE" : false,
+	"MOC_SKIP" : 
+	[
+		"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_Bash_Skript_Manual_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_Bottom_Bar_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_Cluster_Connection_Formular_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_Cores2D_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_Cores3D_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_Custom_BusyIndicator_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_DB_Connection_Formular_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_Error_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_Key_Gen_Guide_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_MPI_Application_Start_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_Menu_Bar_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_Options_Bar_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_Options_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_Sidebar_Item_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_Sidebar_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_main_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qrc_appGUI_Cluster_raw_qml_0.cpp",
+		"/home/anna-lena/GUI_Cluster/.rcc/qrc_qmake_GUI_Cluster.cpp",
+		"/home/anna-lena/GUI_Cluster/appgui_cluster_qmltyperegistrations.cpp",
+		"/home/anna-lena/GUI_Cluster/qrc_resources.cpp"
+	],
+	"MULTI_CONFIG" : false,
+	"PARALLEL" : 4,
+	"PARSE_CACHE_FILE" : "/home/anna-lena/GUI_Cluster/CMakeFiles/appGUI_Cluster_autogen.dir/ParseCache.txt",
+	"QT_MOC_EXECUTABLE" : "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/./libexec/moc",
+	"QT_UIC_EXECUTABLE" : "",
+	"QT_VERSION_MAJOR" : 6,
+	"SETTINGS_FILE" : "/home/anna-lena/GUI_Cluster/CMakeFiles/appGUI_Cluster_autogen.dir/AutogenUsed.txt",
+	"SOURCES" : 
+	[
+		[
+			"/home/anna-lena/GUI_Cluster/.rcc/qmlcache/appGUI_Cluster_qmlcache_loader.cpp",
+			"Mu"
+		],
+		[ "/home/anna-lena/GUI_Cluster/bash_process_manager.cpp", "Mu" ],
+		[ "/home/anna-lena/GUI_Cluster/cluster_node.cpp", "Mu" ],
+		[ "/home/anna-lena/GUI_Cluster/cluster_rank.cpp", "Mu" ],
+		[ "/home/anna-lena/GUI_Cluster/database_connection.cpp", "Mu" ],
+		[ "/home/anna-lena/GUI_Cluster/database_thread.cpp", "Mu" ],
+		[ "/home/anna-lena/GUI_Cluster/main.cpp", "Mu" ],
+		[ "/home/anna-lena/GUI_Cluster/nodes_instances.cpp", "Mu" ],
+		[ "/home/anna-lena/GUI_Cluster/ranks_instances.cpp", "Mu" ]
+	],
+	"VERBOSITY" : 0
+}

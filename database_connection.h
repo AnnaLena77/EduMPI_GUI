@@ -5,6 +5,8 @@
 #include "database_thread.h"
 #include "qstandarditemmodel.h"
 #include "qthread.h"
+#include <QJSValue>
+#include <QtConcurrent/QtConcurrent>
 
 
 class Database_Connection;
@@ -20,6 +22,7 @@ class Database_Connection : public QObject
     Q_PROPERTY(long coll_recv_max READ coll_recv_max WRITE set_coll_recv_max NOTIFY coll_recv_max_changed)
 
     Q_PROPERTY(bool db_connection  MEMBER m_connection_ready NOTIFY connectionChanged)
+    Q_PROPERTY(bool cluster_connection MEMBER m_cluster_connection_ready NOTIFY clusterConnectionChanged)
     Q_PROPERTY(int time_display MEMBER m_time_display NOTIFY time_display_changed)
     QML_ELEMENT
 
@@ -42,15 +45,22 @@ public:
 
     Q_INVOKABLE void connect(QString hostname, QString databasename, int port, QString UserName, QString password);
     //Q_INVOKABLE void buildClusterComponents(int proc_num);
-    Q_INVOKABLE void createBashSkript(QString host, QString username, QString edumpi_path, QString local_path, QString local_name, bool file);
+    Q_INVOKABLE void writeLocalBashFile(QString local_path, bool file, int proc_num);//QString local_path, QString local_name, bool file);
     Q_INVOKABLE void closeApp();
     Q_INVOKABLE void startBash(int proc_num);
     Q_INVOKABLE QString readBash();
     Q_INVOKABLE void writeBash(QString content);
 
+    Q_INVOKABLE bool checkFile(QString source, QString program, bool file);
+    Q_INVOKABLE void writeRemoteBashFile(QString program_name, int proc_num);
+
     //Invokables for Timeline
     Q_INVOKABLE void showConditionAt(int timeSecondsA, int timeSecondsB);
     Q_INVOKABLE void startAndStop(bool start);
+
+    //Asynchronous Callback for Cluster-Connection Check:
+    Q_INVOKABLE QString connectCluster(const QString &address, const QString &ident, const QString &path);
+    Q_INVOKABLE void connectClusterAsync(const QString &address, const QString &ident, const QString &path, QJSValue callback);
 
 
     Q_INVOKABLE Cluster_Node* nodeAt(int index);
@@ -66,6 +76,7 @@ signals:
     void p2p_recv_max_changed();
     void coll_recv_max_changed();
     void connectionChanged();
+    void clusterConnectionChanged();
     void time_display_changed();
 
     //Signals for QML
@@ -96,9 +107,16 @@ private:
     long m_p2p_recv_max = 0;
     long m_coll_recv_max = 0;
     bool m_connection_ready = false;
+    bool m_cluster_connection_ready = false;
     int m_time_display = 0;
 
     QTime m_start_timestamp;
+
+    //cluster identifications
+    QString m_cluster_address;
+    QString m_cluster_ident;
+    QString m_cluster_eduMPI_path;
+    QString m_remote_bash_path;
 
 protected:
     void timerEvent(QTimerEvent *event);

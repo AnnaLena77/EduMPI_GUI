@@ -49,7 +49,7 @@ Window {
                 success_text = "Database connection successfully established"
             } else {
                 success_color = "red"
-                success_text = "Database connection failed. Try again!"
+                success_text = "Database connection failed. Check the access data and password. Make sure that any necessary VPN connection is established."
             }
         }
         onDataIn: (timestamp)=>{
@@ -99,7 +99,7 @@ Window {
         //anchors.fill: parent
         //source: "Cores2D.qml"
     }
-    Options_Bar{
+    Sidebar{
         id: options
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter

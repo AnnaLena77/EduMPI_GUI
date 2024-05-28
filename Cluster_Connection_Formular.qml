@@ -1,22 +1,16 @@
 import QtQuick
 import QtQuick.Window
-import QtQuick.Controls
+import QtQuick.Controls 2.0
 import QtQuick.Layouts
 import QtQuick.Dialogs
 
 Window {
     id: bashGeneration
     visible: true
-    width: 600
-    height: 400
+    width: 550
+    height: 250
     title: "Login to HPC@HS-Fulda"
 
-    ScrollView{
-        anchors.fill: parent
-
-        Rectangle{
-            width: parent
-        }
         ColumnLayout {
             anchors.fill: parent
             Layout.fillWidth: true
@@ -24,27 +18,27 @@ Window {
             spacing: 4
 
             Label {
-                text: "Remote Hostname - HPC Cluster HS Fulda (10.32.47.10):"
+                text: "Remote Hostname or IP-Address (Cluster HS Fulda: hpc.informatik.hs-fulda.de):"
+                wrapMode: Text.WordWrap
                 color: "#999999"
             }
 
             TextField {
                 id: hostnameField
                 Layout.fillWidth: true
-                text: "10.32.47.10"
-                //placeholderText: "<Enter host running MQTT broker>"
+                text: "hpc.informatik.hs-fulda.de"
                 background: Rectangle {
                     color: "#4d4d4d"
                 }
             }
 
             Label {
-                text: "FDAI authentication key:"
+                text: "Authentication (FDAI authentication key):"
                 color: "#999999"
             }
 
             TextField {
-                id: fdaiField
+                id: authField
                 Layout.fillWidth: true
                 text: "fdai0231"
                 placeholderText: "<fd number>"
@@ -69,127 +63,28 @@ Window {
                 }
             }
 
-            Label {
-                text: "Choose a .c file or a full folder that includes your program"
-                color: "#999999"
-            }
-
-            GridLayout{
-                columns: 2
-
-                /*Label {
-                    text: ".c File"
-                }
-                Switch{
-                    text: "test"
-                }
-                Label {
-                    text: "Folder"
-                }*/
-                RadioButton{
-                    id: fileButton
-                    text: ".c File"
-                    checked: true
-                    palette.buttonText: "#999999"
-                    HoverHandler {
-                        cursorShape: Qt.PointingHandCursor
-                    }
-                }
-                RadioButton{
-                    id: folderButton
-                    text: "Folder"
-                    checked: false
-                    palette.buttonText: "#999999"
-                    HoverHandler {
-                        cursorShape: Qt.PointingHandCursor
-                    }
-                }
-
-            }
-
-            /*TextField {
-                id:
-                text: "/EduMPI_Testumgebung"
-                Layout.fillWidth: true
-                placeholderText: "<installation path>"
-            }*/
-            GridLayout{
-                width: bashGeneration.width
-                //width: bashGeneration.width
-                //anchors.right: parent
-                //anchors.margins: 5
-                columns: 2
-                Button {
-                    text: "Upload " + (fileButton.checked ? "File" : "Folder");
-                    background: Rectangle {
-                        color: "#C0C0C0"
-                    }
-                    HoverHandler {
-                            id: stylus
-                            cursorShape: Qt.PointingHandCursor
-                    }
-                    onClicked: {
-                        fileButton.checked ? fileDialog.open() : folderDialog.open()
-                    }
-                }
-                TextField{
-                    Layout.fillWidth: true
-                    //width: 400
-                    id: uploadPath
-                    text: ""
-                    background: Rectangle {
-                        color: "#4d4d4d"
-                    }
-                }
-            }
-
-            FileDialog {
-            id: fileDialog
-                //currentFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
-                onAccepted: uploadPath.text = selectedFile
-            }
-            FolderDialog {
-            id: folderDialog
-                //currentFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
-                onAccepted: uploadPath.text = selectedFolder
-            }
-
-            Label {
-                text: "name of the program to be executed"
-                color: "#999999"
-            }
-
-            GridLayout{
-                width: bashGeneration.width
-                columns: 2
-
-                TextField {
-                    id: programNameField
-                    //text: ""
-                    Layout.fillWidth: true
-                    placeholderText: "<program name>"
-                    background: Rectangle {
-                        color: "#4d4d4d"
-                    }
-                }
-                Label {
-                    text: ".c"
-                    color: "#999999"
-                }
-
-            }
-
             Button {
                 id: connectButton
-                text: "Generate Bash-Skript"
+                text: "Connect to HPC Cluster"
                 HoverHandler {
                         cursorShape: Qt.PointingHandCursor
                 }
                 Layout.columnSpan: 1
                 Layout.fillWidth: true
                 onClicked: {
-                    nodesList.createBashSkript(hostnameField.text, fdaiField.text, installpathField.text, uploadPath.text, programNameField.text, fileButton.checked)
-                    bashGeneration.close()
+                    busyindicator.running = true
+                    successfield.text = "";
+                    nodesList.connectClusterAsync(hostnameField.text, authField.text, installpathField.text, function(result) {
+                        //console.log(result);
+                        successfield.text = result;
+                        busyindicator.running = false;
+                        if(nodesList.cluster_connection){
+                            successfield.color="green";
+                        } else {
+                            successfield.color="red";
+                        }
+                    });
+
                 }
             }
             Keys.onPressed: (event)=> {
@@ -197,7 +92,26 @@ Window {
                     connectButton.clicked(); // Auslösen des Button-Klicks
                 }
             }
-        }
+
+            RowLayout{
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+
+                    Custom_BusyIndicator{
+                        id: busyindicator
+                        prop_height: 40
+                        prop_width: 40
+                        prop_color: "#00FF00"
+                        running: false
+                    }
+
+                    Label {
+                        Layout.topMargin: 2
+                        id: successfield
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                    }
+
+                }
 
     }
 }

@@ -3,9 +3,11 @@ cmake_minimum_required(VERSION 3.16)
 project(GUI_Cluster VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_PREFIX_PATH "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6" ${CMAKE_MODULE_PATH})
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick Quick3D Sql)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick QuickControls2 Quick3D Sql)
 
 INCLUDE_DIRECTORIES("/usr/include/postgresql")
 LINK_DIRECTORIES("/usr/lib/postgresql/12/lib")
@@ -23,6 +25,7 @@ qt_add_executable(appGUI_Cluster
     nodes_instances.h nodes_instances.cpp
     ranks_instances.h ranks_instances.cpp
     database_thread.h database_thread.cpp
+    bash_process_manager.h bash_process_manager.cpp
 
     ${QML_RESOURCES}
     ${SHADER_RESOURCES}
@@ -38,6 +41,9 @@ qt_add_qml_module(appGUI_Cluster
         Cores2D.qml
         Cores3D.qml
         Sidebar.qml
+        Sidebar_Item.qml
+        MPI_Application_Start.qml
+        Options.qml
         Options_Bar.qml
         Menu_Bar.qml
         Bottom_Bar.qml
@@ -45,7 +51,8 @@ qt_add_qml_module(appGUI_Cluster
         DB_Connection_Formular.qml
         Key_Gen_Guide.qml
         Bash_Skript_Manual.qml
-        3D-Scene/Lights.qml
+        Error.qml
+        Custom_BusyIndicator.qml
 )
 
 set_target_properties(appGUI_Cluster PROPERTIES
@@ -60,6 +67,7 @@ target_link_libraries(appGUI_Cluster PRIVATE
     Qt6::Core
     Qt6::Gui
     Qt6::Quick
+    Qt6::QuickControls2
     Qt6::Quick3D
     Qt6::Sql
 )
@@ -72,6 +80,7 @@ target_link_libraries(appGUI_Cluster PRIVATE
     Qt6::Core
     Qt6::Gui
     Qt6::Quick
+    Qt6::QuickControls2
     Qt6::Quick3D
     Qt6::Sql
 )

@@ -148,7 +148,7 @@ Item {
                             Component.onCompleted: {
                                 if(index===0 || index%5==0){
                                     second.height=timeline.height/1.5
-                                    console.log("CurrentTime : "+currentTime)
+                                    //console.log("CurrentTime : "+currentTime)
                                     var hours = Math.floor(currentTime / 3600);
                                     var minutes = Math.floor((currentTime % 3600) / 60);
                                     var seconds = currentTime % 60;

@@ -122,10 +122,12 @@ Window {
         }
         Label {
             Layout.topMargin: 2
+            Layout.columnSpan: 2
             id: successfield
             text: success_text
             color: success_color
             Layout.fillWidth: true
+            wrapMode: Text.WordWrap
         }
 
     }

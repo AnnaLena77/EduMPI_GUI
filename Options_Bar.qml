@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts 6.3
 import QtQuick.Controls 6.3
+import QtQuick.Dialogs
 
 Item {
         id: item
@@ -34,10 +35,55 @@ Item {
                     //bottomPadding: 20
                     horizontalAlignment: Text.AlignHCenter
                     font.family: "Helvetica"
-                    font.pointSize: 22
-                    text: qsTr("Options")
-                    color: "white"
+                    font.pointSize: 12
+                    text: qsTr("Choose MPI-Application")
+                    color: "Blue"
                 }
+
+                GridLayout{
+                    width: parent.width
+                    //width: bashGeneration.width
+                    //anchors.right: parent
+                    //anchors.margins: 5
+                    columns: 2
+                    Layout.topMargin: 40
+                    Layout.alignment: Qt.AlignHCenter
+                    Button {
+                        //text: "Upload " + (fileButton.checked ? "File" : "Folder");
+                        text: "Upload"
+                        background: Rectangle {
+                            color: "#C0C0C0"
+                        }
+                        HoverHandler {
+                                id: stylus
+                                cursorShape: Qt.PointingHandCursor
+                        }
+                        onClicked: {
+                            //fileButton.checked ? fileDialog.open() : folderDialog.open()
+                        }
+                    }
+                    TextField{
+                        //Layout.fillWidth: true
+                        //width: 400
+                        id: uploadPath
+                        text: ""
+                        background: Rectangle {
+                            color: "#4d4d4d"
+                        }
+                    }
+                }
+
+                FileDialog {
+                id: fileDialog
+                    //currentFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
+                    onAccepted: uploadPath.text = selectedFile
+                }
+                FolderDialog {
+                id: folderDialog
+                    //currentFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
+                    onAccepted: uploadPath.text = selectedFolder
+                }
+
                 GridLayout{
                     width: parent.width
                     columns: 3
@@ -55,14 +101,15 @@ Item {
                         }
 
                         onClicked:{
-                            if(nodesList.db_connection){
+                            nodesList.bashTest()
+                            /*if(nodesList.db_connection){
                                 nodesList.removeClusterComponents()
                                 nodesList.startBash(parseInt(np.text))
                                 //nodesList.buildClusterComponents(parseInt(np.text))
                             }
                             else {
 
-                            }
+                            }*/
                         }
                     }
                     TextField {

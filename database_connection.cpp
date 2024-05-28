@@ -1,4 +1,5 @@
 #include "database_connection.h"
+#include "bash_process_manager.h"
 #include "database_thread.h"
 #include "qevent.h"
 #include "qsqlquery.h"
@@ -10,6 +11,7 @@
 #include <QProcess>
 #include <QFile>
 #include <qdatetime.h>
+#include <QMetaObject>
 
 #include <unistd.h>
 #include <sys/stat.h>
@@ -202,39 +204,188 @@ void Database_Connection::timerEvent(QTimerEvent* event){
     //std::cout << "Name: " << m_nodes[0]->getName().toStdString() << std::endl;
 }
 
-void Database_Connection::createBashSkript(QString host, QString username, QString edumpi_path, QString local_path, QString local_name, bool file){
-    const char *homeDir = getenv("HOME");
-    std::string filePath = std::string(homeDir) + "/skript.sh";
+QString Database_Connection::connectCluster(const QString &address, const QString &ident, const QString &path){
 
-    if(local_name.endsWith(".c")){
-        local_name.chop(2);
+//QString Database_Connection::connectCluster(QString &address, QString &ident, QString &path){
+    m_cluster_address = address;
+    m_cluster_ident = ident;
+    m_cluster_eduMPI_path = path;
+
+    QString filePath = "/home/" + ident + "/eduMPI_files";
+
+    QProcess process;
+
+    QString sshCommand = QString("ssh %1@%2 '[ -d \"%3\" ] && echo \"exists\" || echo \"not exist\"; [ -d \"%4\" ] || mkdir -p \"%4\"'").arg(ident, address, path, filePath);
+
+    // Starten des SSH-Befehls
+    process.start("bash", QStringList() << "-c" << sshCommand);
+
+    // Warten, bis der Prozess gestartet ist
+    if (!process.waitForStarted()) {
+        process.kill();
+        return "Error! The SSH process could not be started. Please check all details and your network connection. A VPN connection may be necessary. Restart the application.";
     }
+
+    // Warten, bis der Prozess beendet ist
+    if (!process.waitForFinished()) {
+        process.kill();
+        //return "Error! The SSH process could not be started. Please check all details and your network connection. A VPN connection may be necessary. Restart the application.! ";
+    }
+
+    // Ausgabe des Prozesses lesen
+    QString output = process.readAllStandardOutput().trimmed();
+    QString errorOutput = process.readAllStandardError().trimmed();
+
+    // Überprüfen, ob der Pfad existiert
+    if (output == "exists") {
+        process.kill();
+        m_cluster_connection_ready = true;
+        return "Success! An SSH connection could be established and an EduMPI version exists under the specified path.";
+    } else if (output == "not exist") {
+        process.kill();
+        m_cluster_connection_ready = false;
+        return "Error! No EduMPI version could be found under the specified path.";
+    } else {
+        if (!errorOutput.isEmpty()) {
+            qDebug() << "Fehlerausgabe:" << errorOutput;
+            process.kill();
+            if(errorOutput.startsWith("ssh: connect to host")){
+                m_cluster_connection_ready = false;
+                return "Error! The specified host cannot be reached. Check your network connection. It may be necessary to establish a VPN connection.";
+            } else if(errorOutput.startsWith("ssh: Could not resolve hostname")){
+                m_cluster_connection_ready = false;
+                return "Error! There seems to be something wrong with your host information. Please check the name or IP address.";
+            }
+            m_cluster_connection_ready = false;
+            return "Error! There seems to be a problem with your ID. Before you can start an MPI application, you must generate an SSH key once for passwordless communication. Follow the instructions under: \nHelp > SSH-Key-Gen Guide.";
+        }
+        process.kill();
+        m_cluster_connection_ready = false;
+        return "Error! An error has occurred. Please check all details and your network connection. A VPN connection may be necessary.";
+    }
+
+    // Überprüfen auf Fehler
+}
+
+void Database_Connection::connectClusterAsync(const QString &address, const QString &ident, const QString &path, QJSValue callback){
+    QtConcurrent::run([=]() {
+        QString result = connectCluster(address, ident, path);
+
+        // Ensure the callback is invoked in the main thread
+        QMetaObject::invokeMethod(this, [=]() {
+                callback.call(QJSValueList() << result);
+            }, Qt::QueuedConnection);
+    });
+}
+
+void Database_Connection::writeLocalBashFile(QString local_path, bool file, int proc_num){
+
+    if(m_componentsBuilt){
+        m_componentsBuilt = false;
+        std::cout << "Nach Start der Bash: False!" << std::endl;
+        emit signalToClearDB();
+    }
+    emit signalToBuildComponents(proc_num);
+
     if(local_path.startsWith("file:///")){
         local_path.remove(0,7);
     }
-    std::ofstream scriptFile(filePath);
-    if(scriptFile.is_open()){
-        scriptFile << "#!/bin/bash\n";
-        scriptFile << "REMOTE_HOST=\"" + host.toStdString() + "\"\n";
-        scriptFile << "REMOTE_USER=\"" + username.toStdString() + "\"\n";
-        scriptFile << "REMOTE_DIR=\"/home/$REMOTE_USER\"\n";
-        scriptFile << "EDUMPI_PATH=\"" + edumpi_path.toStdString() + "\"\n";
-        scriptFile << "LOCAL_PATH=\"" + local_path.toStdString() + "\"\n";
-        scriptFile << "LOCAL_NAME=\"" + local_name.toStdString() + "\"\n";
-        scriptFile << "PROCESSOR_COUNT=\"$1\"\n";
-        if(file){
-            scriptFile << "scp \"$LOCAL_PATH\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/eduMPI_files/\"\n";
-        } else {
-            scriptFile << "scp -r \"$LOCAL_PATH\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/eduMPI_files/\"\n";
-        }
-        scriptFile << "SSH_COMMAND=\"cd eduMPI_files; $'$EDUMPI_PATH'/bin/mpicc -o $LOCAL_NAME $LOCAL_NAME.c; time '$EDUMPI_PATH'/bin/mpirun -np $PROCESSOR_COUNT --map-by :PE=2 --hostfile /etc/mpi/hosts ./$LOCAL_NAME\"\n";
 
-        scriptFile << "ssh \"$REMOTE_USER@$REMOTE_HOST\" \"$SSH_COMMAND\"";
+    QProcess bash_proc;
 
-        scriptFile << "\nexec bash";
+    QString resourcePath = ":/bash_files/local_bash_skript.sh";
 
-        scriptFile.close();
+    QString remote_dir_bash;
+
+    // Temporäre Datei erstellen
+    QFile f(resourcePath);
+    if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        qDebug() << "Fehler beim Öffnen der Ressource.";
+        return;
     }
+
+    QString tempFilePath = QDir::temp().absoluteFilePath("temp_bash_script.sh");
+    std::cout << "TempFile: " << tempFilePath.toStdString() << std::endl;
+    QFile tempFile(tempFilePath);
+
+    if (!tempFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        qDebug() << "Fehler beim Erstellen der temporären Datei.";
+        return;
+    }
+
+    int lineNumber = 0;
+
+    QTextStream in(&f);
+    QTextStream out(&tempFile);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        lineNumber++;
+        out << line << "\n";
+        if(lineNumber == 9) {
+            if(file){
+                out << "scp " + local_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
+                out << "scp " + m_remote_bash_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
+                remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files";
+            } else{
+                out << "scp -r" + local_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
+                int lastSlashIndex = local_path.lastIndexOf("/");
+                QString dir_name = local_path.mid(lastSlashIndex + 1);
+                out << "scp " + m_remote_bash_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/" + dir_name + "\"\n";
+                remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files/" + dir_name;
+            }
+        }
+    }
+
+    f.close();
+    tempFile.close();
+
+    // Ausführungsrechte für die temporäre Datei setzen
+    tempFile.setPermissions(tempFile.permissions() | QFile::ExeUser);
+
+    Bash_Process_Manager *process = new Bash_Process_Manager;
+    process->startProcess(QStringList() << "--" << tempFilePath << m_cluster_ident << m_cluster_address << remote_dir_bash << "remote_bash_eduMPI.sh" );
+
+}
+
+bool Database_Connection::checkFile(QString source, QString program, bool file){
+    if(source.startsWith("file:///")){
+        source.remove(0,7);
+    }
+    if(file){
+        if(source.endsWith(".c")){
+            QFile fileA(source);
+            if(!fileA.exists()){
+                return false;
+            }
+            int slashIndex = source.lastIndexOf('/');
+            QString trimmedSource = source.left(slashIndex);
+
+            if(!program.endsWith(".c")){
+                program += ".c";
+            }
+
+            trimmedSource = trimmedSource + "/" + program;
+            QFile fileB(trimmedSource);
+            if(!fileB.exists()){
+                return false;
+            }
+        } else {
+            return false;
+        }
+    } else {
+        if(!source.endsWith("/")){
+            source += "/";
+        }
+        if(!program.endsWith(".c")){
+            program += ".c";
+        }
+        source += program;
+        QFile fileA(source);
+        if(!fileA.exists()){
+            return false;
+        }
+    }
+    return true;
 }
 
 QString Database_Connection::readBash(){
@@ -285,6 +436,31 @@ void Database_Connection::startBash(int proc_num){
     process.setArguments(QStringList() << "--" << dir << QString::number(proc_num));
 
     process.startDetached();
+}
+
+void Database_Connection::writeRemoteBashFile(QString program_name, int proc_num){
+    const char *homeDir = getenv("HOME");
+    QString filePath = QString::fromUtf8(homeDir)  + "/remote_bash_eduMPI.sh";
+    m_remote_bash_path = filePath;
+
+
+    if(program_name.endsWith(".c")){
+        program_name.chop(2);
+    }
+
+    std::ofstream scriptFile(filePath.toStdString());
+    if(scriptFile.is_open()){
+        scriptFile << "#!/usr/bin/env bash\n";
+        scriptFile << "#SBATCH --partition=all\n";
+        scriptFile << "#SBATCH --ntasks=" << proc_num << "\n";
+        scriptFile << "#SBATCH --job-name=eduMPI\n";
+        scriptFile << "#SBATCH --cpus-per-task=2\n";
+
+        scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << "\n";
+        scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpirun -n " << proc_num << " --map-by :PE=2 ./"+program_name.toStdString();
+
+        scriptFile.close();
+    }
 }
 
 //Functionality for timeline
