@@ -1,0 +1,169 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-3429f6152930a3f5bff7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "GUI_Cluster",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint-Debug-f0e63d51257be39ce5b7.json",
+					"name" : "all_qmllint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint_json::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint_json-Debug-79ff55ee231aaf319aa0.json",
+					"name" : "all_qmllint_json",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmllint_module::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmllint_module-Debug-7191a5b23bb46d107cbd.json",
+					"name" : "all_qmllint_module",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "all_qmltyperegistrations::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-all_qmltyperegistrations-Debug-66eccee50a268ecfab11.json",
+					"name" : "all_qmltyperegistrations",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appGUI_Cluster::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appGUI_Cluster-Debug-bdf8b22168478eb2ff5a.json",
+					"name" : "appGUI_Cluster",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appGUI_Cluster_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appGUI_Cluster_autogen-Debug-00c7e28968fb89bf7480.json",
+					"name" : "appGUI_Cluster_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appGUI_Cluster_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appGUI_Cluster_autogen_timestamp_deps-Debug-f93daf76c1c5fb43b59b.json",
+					"name" : "appGUI_Cluster_autogen_timestamp_deps",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appGUI_Cluster_qmlimportscan::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appGUI_Cluster_qmlimportscan-Debug-13000bfd0c56b8d31c7b.json",
+					"name" : "appGUI_Cluster_qmlimportscan",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appGUI_Cluster_qmllint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appGUI_Cluster_qmllint-Debug-d1ddcef26601fd5bde28.json",
+					"name" : "appGUI_Cluster_qmllint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appGUI_Cluster_qmllint_json::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appGUI_Cluster_qmllint_json-Debug-e56312fea30c3295b6ef.json",
+					"name" : "appGUI_Cluster_qmllint_json",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appGUI_Cluster_qmllint_module::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appGUI_Cluster_qmllint_module-Debug-b0e2233f14ee88ee6aad.json",
+					"name" : "appGUI_Cluster_qmllint_module",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appGUI_Cluster_qmltyperegistration::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appGUI_Cluster_qmltyperegistration-Debug-3c0088f787e81bbbcabf.json",
+					"name" : "appGUI_Cluster_qmltyperegistration",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "appGUI_Cluster_tooling::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-appGUI_Cluster_tooling-Debug-35cb171b971a8c0bd454.json",
+					"name" : "appGUI_Cluster_tooling",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/anna-lena/GUI_Cluster/build/Desktop_Qt_5_15_16_GCC_64bit-Debug",
+		"source" : "/home/anna-lena/GUI_Cluster"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

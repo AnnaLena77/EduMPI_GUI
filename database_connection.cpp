@@ -20,12 +20,19 @@
 Database_Connection::Database_Connection(QObject *parent) : QObject(parent)
 {
     Database_Thread *dbt = new Database_Thread;
+    slurm_process = new Bash_Process_Manager;
+
     dbt->moveToThread(&database_thread);
+
+    QObject::connect(slurm_process, &Bash_Process_Manager::slurmIdReady, dbt, &Database_Thread::getSlurmId);
+    QObject::connect(slurm_process, &Bash_Process_Manager::slurmIdReady, this, &Database_Connection::getSlurmID);
+    QObject::connect(slurm_process, &Bash_Process_Manager::slurm_status_changed, this, &Database_Connection::slurm_status_changed);
+
     Database_Thread::connect(&database_thread, &QThread::finished, dbt, &QObject::deleteLater);
     Database_Thread::connect(this, &Database_Connection::signalToConnect, dbt, &Database_Thread::connectToDB);
     Database_Thread::connect(dbt, &Database_Thread::connectedToDB, this, &Database_Connection::dbConnectionSuccessful);
 
-    Database_Thread::connect(this, &Database_Connection::signalToBuildComponents, dbt, &Database_Thread::threadbuildClusterComponents);
+    Database_Thread::connect(this, &Database_Connection::setProcNum, dbt, &Database_Thread::getProcNum);
     Database_Thread::connect(dbt, &Database_Thread::clusterComponentsReady, this, &Database_Connection::buildClusterComponents);
 
     Database_Thread::connect(this, &Database_Connection::signalToUpdateData, dbt, &Database_Thread::updateData);
@@ -49,6 +56,30 @@ void Database_Connection::dbConnectionSuccessful(const bool &success){
 }
 
 void Database_Connection::connect(QString hostname, QString databasename, int port, QString username, QString password){
+    char tempFileTemplate[] = "/tmp/XXXXXX.env";
+    std::cout << "Temp file template: " << tempFileTemplate << std::endl;
+    int fd = mkstemps(tempFileTemplate, 4);
+    m_envFilePath = tempFileTemplate;
+    if (fd == -1) {
+        std::cerr << "Failed to create temporary file: " << strerror(errno) << std::endl;
+        return;
+    }
+    close(fd);
+
+    std::cout << "Temporary file created: " << m_envFilePath << std::endl;
+
+    std::ofstream tempFile(m_envFilePath,  std::ofstream::trunc);
+    if (!tempFile.is_open()) {
+        std::cerr << "Failed to open temporary file for writing: " << strerror(errno) << std::endl;
+        return;
+    }
+
+    tempFile << "DB_HOST=" << hostname.toStdString() << "\n";
+    tempFile << "DB_NAME=" << databasename.toStdString() << "\n";
+    tempFile << "DB_PORT=" << port << "\n";
+    tempFile << "DB_USER=" << username.toStdString() << "\n";
+    tempFile << "DB_PW=" << password.toStdString() << "\n";
+
     emit signalToConnect(hostname, databasename, port, username, password);
 }
 
@@ -137,6 +168,8 @@ QVector<Cluster_Node*> Database_Connection::get_nodeList(){
 
 void Database_Connection::updateDataToUI(const QList<DataColumn> &list){
 
+     //std::cout << "Update Database" << std::endl;
+
     if(!m_componentsBuilt){
         return;
     }
@@ -204,6 +237,31 @@ void Database_Connection::timerEvent(QTimerEvent* event){
     //std::cout << "Name: " << m_nodes[0]->getName().toStdString() << std::endl;
 }
 
+void Database_Connection::copyOutputFile(){
+    QProcess process;
+    const char *homeDir = getenv("HOME");
+    QString filePath = QString(homeDir);
+
+    QString sshCommand = QString("scp %1@%2:/home/%1/eduMPI_files/slurm-%3.out %4").arg(m_cluster_ident, m_cluster_address, QString::number(m_slurm_id), filePath);
+    std::cout << sshCommand.toStdString() << std::endl;
+
+    process.start("bash", QStringList() << "-c" << sshCommand);
+
+    // Warten, bis der Prozess gestartet ist
+    if (!process.waitForStarted()) {
+        process.kill();
+        //return "Error! The SSH process could not be started. Please check all details and your network connection. A VPN connection may be necessary. Restart the application.";
+    }
+
+    // Warten, bis der Prozess beendet ist
+    if (!process.waitForFinished()) {
+        process.kill();
+        //return "Error! The SSH process could not be started. Please check all details and your network connection. A VPN connection may be necessary. Restart the application.! ";
+    }
+    QString outputPath = filePath + "/slurm-" + QString::number(m_slurm_id) + ".out";
+    emit copiedOutputFile(outputPath);
+}
+
 QString Database_Connection::connectCluster(const QString &address, const QString &ident, const QString &path){
 
 //QString Database_Connection::connectCluster(QString &address, QString &ident, QString &path){
@@ -211,7 +269,7 @@ QString Database_Connection::connectCluster(const QString &address, const QStrin
     m_cluster_ident = ident;
     m_cluster_eduMPI_path = path;
 
-    QString filePath = "/home/" + ident + "/eduMPI_files";
+    QString filePath = "/home/" + ident + "/eduMPI_files/tmp/";
 
     QProcess process;
 
@@ -285,7 +343,7 @@ void Database_Connection::writeLocalBashFile(QString local_path, bool file, int 
         std::cout << "Nach Start der Bash: False!" << std::endl;
         emit signalToClearDB();
     }
-    emit signalToBuildComponents(proc_num);
+    emit setProcNum(proc_num);
 
     if(local_path.startsWith("file:///")){
         local_path.remove(0,7);
@@ -325,12 +383,14 @@ void Database_Connection::writeLocalBashFile(QString local_path, bool file, int 
             if(file){
                 out << "scp " + local_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 out << "scp " + m_remote_bash_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
+                out << "scp " + QString::fromStdString(m_envFilePath) + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
                 remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files";
             } else{
                 out << "scp -r" + local_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 int lastSlashIndex = local_path.lastIndexOf("/");
                 QString dir_name = local_path.mid(lastSlashIndex + 1);
                 out << "scp " + m_remote_bash_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/" + dir_name + "\"\n";
+                out << "scp " + QString::fromStdString(m_envFilePath) + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
                 remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files/" + dir_name;
             }
         }
@@ -342,9 +402,7 @@ void Database_Connection::writeLocalBashFile(QString local_path, bool file, int 
     // Ausführungsrechte für die temporäre Datei setzen
     tempFile.setPermissions(tempFile.permissions() | QFile::ExeUser);
 
-    Bash_Process_Manager *process = new Bash_Process_Manager;
-    process->startProcess(QStringList() << "--" << tempFilePath << m_cluster_ident << m_cluster_address << remote_dir_bash << "remote_bash_eduMPI.sh" );
-
+    slurm_process->startProcess(QStringList() << "--" << tempFilePath << m_cluster_ident << m_cluster_address << remote_dir_bash << "remote_bash_eduMPI.sh" );
 }
 
 bool Database_Connection::checkFile(QString source, QString program, bool file){
@@ -425,7 +483,7 @@ void Database_Connection::startBash(int proc_num){
         std::cout << "Nach Start der Bash: False!" << std::endl;
         emit signalToClearDB();
     }
-    emit signalToBuildComponents(proc_num);
+    //emit signalToBuildComponents(proc_num);
     std::cout << "StartBash" << std::endl;
     QString homedir = getenv("HOME");
     QString dir = homedir + "/skript.sh";
@@ -454,10 +512,14 @@ void Database_Connection::writeRemoteBashFile(QString program_name, int proc_num
         scriptFile << "#SBATCH --partition=all\n";
         scriptFile << "#SBATCH --ntasks=" << proc_num << "\n";
         scriptFile << "#SBATCH --job-name=eduMPI\n";
-        scriptFile << "#SBATCH --cpus-per-task=2\n";
+        scriptFile << "#SBATCH --cpus-per-task=2\n\n";
 
+        scriptFile << "source ." << m_envFilePath << "\n";
+        scriptFile << "export $(cut -d= -f1 ." << m_envFilePath << ")\n";
+        scriptFile << "#rm ." << m_envFilePath << "\n";
+        scriptFile << "export OMPI_MCA_coll_han_priority=0\n";
         scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << "\n";
-        scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpirun -n " << proc_num << " --map-by :PE=2 ./"+program_name.toStdString();
+        scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpirun -n " << proc_num << " --map-by :PE=2 --mca pml ob1 ./"+program_name.toStdString();
 
         scriptFile.close();
     }
@@ -466,6 +528,9 @@ void Database_Connection::writeRemoteBashFile(QString program_name, int proc_num
 //Functionality for timeline
 
 void Database_Connection::startAndStop(bool start){
+    if(!m_componentsBuilt){
+        return;
+    }
     if(start == true){
         if(timerId != -1){
             killTimer(timerId);
@@ -492,7 +557,26 @@ void Database_Connection::showConditionAt(int timeSecondsA, int timeSecondsB){
 
 }
 
+void Database_Connection::slurm_status_changed(QString status){
+    emit signalSlurmStatusChanged(status);
+    if(status == "completed" && m_componentsBuilt){
+        startAndStop(true);
+        copyOutputFile();
+    }
+}
+void Database_Connection::getSlurmID(const int id){
+    m_slurm_id = id;
+}
+
 void Database_Connection::closeApp(){
+    if (!m_envFilePath.empty()) {
+        if (unlink(m_envFilePath.c_str()) != 0) {
+            std::cerr << "Failed to delete temporary file" << std::endl;
+        } else {
+            std::cout << "Temporary .env file deleted" << std::endl;
+        }
+    }
+    slurm_process->killProcess();
     /*std::cout << db.isOpen() << std::endl;
     if(m_connection_ready){
         QSqlQuery query;

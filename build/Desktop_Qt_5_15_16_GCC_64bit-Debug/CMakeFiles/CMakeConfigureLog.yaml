@@ -265,3 +265,113 @@ events:
       
       
 ...
+
+---
+events:
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/anna-lena/QtDesignStudio/Tools/CMake/share/cmake-3.27/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/home/anna-lena/QtDesignStudio/Tools/CMake/share/cmake-3.27/Modules/CheckCXXSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "/home/anna-lena/QtDesignStudio/Tools/CMake/share/cmake-3.27/Modules/FindThreads.cmake:99 (CHECK_CXX_SOURCE_COMPILES)"
+      - "/home/anna-lena/QtDesignStudio/Tools/CMake/share/cmake-3.27/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "/home/anna-lena/QtDesignStudio/Tools/CMake/share/cmake-3.27/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:36 (find_dependency)"
+      - "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6/Qt6Dependencies.cmake:24 (_qt_internal_find_third_party_dependencies)"
+      - "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6/Qt6Config.cmake:112 (include)"
+      - "CMakeLists.txt:10 (find_package)"
+    checks:
+      - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
+    directories:
+      source: "/home/anna-lena/GUI_Cluster/build/Desktop_Qt_5_15_16_GCC_64bit-Debug/CMakeFiles/CMakeScratch/TryCompile-nTO6Sg"
+      binary: "/home/anna-lena/GUI_Cluster/build/Desktop_Qt_5_15_16_GCC_64bit-Debug/CMakeFiles/CMakeScratch/TryCompile-nTO6Sg"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-DQT_QML_DEBUG"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6;/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules;/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6/3rdparty/kwin"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: '/home/anna-lena/GUI_Cluster/build/Desktop_Qt_5_15_16_GCC_64bit-Debug/CMakeFiles/CMakeScratch/TryCompile-nTO6Sg'
+        
+        Run Build Command(s): /home/anna-lena/QtDesignStudio/Tools/Ninja/ninja -v cmTC_bb635
+        [1/2] /usr/bin/g++ -DCMAKE_HAVE_LIBC_PTHREAD  -DQT_QML_DEBUG  -fdiagnostics-color=always -o CMakeFiles/cmTC_bb635.dir/src.cxx.o -c /home/anna-lena/GUI_Cluster/build/Desktop_Qt_5_15_16_GCC_64bit-Debug/CMakeFiles/CMakeScratch/TryCompile-nTO6Sg/src.cxx
+        [2/2] : && /usr/bin/g++ -DQT_QML_DEBUG  CMakeFiles/cmTC_bb635.dir/src.cxx.o -o cmTC_bb635   && :
+        \x1b[31mFAILED: \x1b[0mcmTC_bb635 
+        : && /usr/bin/g++ -DQT_QML_DEBUG  CMakeFiles/cmTC_bb635.dir/src.cxx.o -o cmTC_bb635   && :
+        /usr/bin/ld: CMakeFiles/cmTC_bb635.dir/src.cxx.o: in function `main':
+        src.cxx:(.text+0x46): undefined reference to `pthread_create'
+        /usr/bin/ld: src.cxx:(.text+0x52): undefined reference to `pthread_detach'
+        /usr/bin/ld: src.cxx:(.text+0x5e): undefined reference to `pthread_cancel'
+        /usr/bin/ld: src.cxx:(.text+0x6f): undefined reference to `pthread_join'
+        collect2: error: ld returned 1 exit status
+        ninja: build stopped: subcommand failed.
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/anna-lena/QtDesignStudio/Tools/CMake/share/cmake-3.27/Modules/FindThreads.cmake:136 (try_compile)"
+      - "/home/anna-lena/QtDesignStudio/Tools/CMake/share/cmake-3.27/Modules/FindThreads.cmake:169 (_threads_check_flag_pthread)"
+      - "/home/anna-lena/QtDesignStudio/Tools/CMake/share/cmake-3.27/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:36 (find_dependency)"
+      - "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6/Qt6Dependencies.cmake:24 (_qt_internal_find_third_party_dependencies)"
+      - "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6/Qt6Config.cmake:112 (include)"
+      - "CMakeLists.txt:10 (find_package)"
+    checks:
+      - "Check if compiler accepts -pthread"
+    directories:
+      source: "/home/anna-lena/GUI_Cluster/build/Desktop_Qt_5_15_16_GCC_64bit-Debug/CMakeFiles/CMakeScratch/TryCompile-UEaUde"
+      binary: "/home/anna-lena/GUI_Cluster/build/Desktop_Qt_5_15_16_GCC_64bit-Debug/CMakeFiles/CMakeScratch/TryCompile-UEaUde"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-DQT_QML_DEBUG"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6;/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules;/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6/3rdparty/kwin"
+    buildResult:
+      variable: "THREADS_HAVE_PTHREAD_ARG"
+      cached: true
+      stdout: |
+        Change Dir: '/home/anna-lena/GUI_Cluster/build/Desktop_Qt_5_15_16_GCC_64bit-Debug/CMakeFiles/CMakeScratch/TryCompile-UEaUde'
+        
+        Run Build Command(s): /home/anna-lena/QtDesignStudio/Tools/Ninja/ninja -v cmTC_1898c
+        [1/2] /usr/bin/g++   -DQT_QML_DEBUG  -fdiagnostics-color=always -o CMakeFiles/cmTC_1898c.dir/CheckForPthreads.cxx.o -c /home/anna-lena/GUI_Cluster/build/Desktop_Qt_5_15_16_GCC_64bit-Debug/CMakeFiles/CMakeScratch/TryCompile-UEaUde/CheckForPthreads.cxx
+        [2/2] : && /usr/bin/g++ -DQT_QML_DEBUG  CMakeFiles/cmTC_1898c.dir/CheckForPthreads.cxx.o -o cmTC_1898c  -pthread && :
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/home/anna-lena/QtDesignStudio/Tools/CMake/share/cmake-3.27/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "/home/anna-lena/QtDesignStudio/Tools/CMake/share/cmake-3.27/Modules/CheckCXXSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6/FindWrapAtomic.cmake:36 (check_cxx_source_compiles)"
+      - "/home/anna-lena/QtDesignStudio/Tools/CMake/share/cmake-3.27/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6/QtPublicDependencyHelpers.cmake:36 (find_dependency)"
+      - "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6Core/Qt6CoreDependencies.cmake:30 (_qt_internal_find_third_party_dependencies)"
+      - "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6Core/Qt6CoreConfig.cmake:40 (include)"
+      - "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6/Qt6Config.cmake:157 (find_package)"
+      - "CMakeLists.txt:10 (find_package)"
+    checks:
+      - "Performing Test HAVE_STDATOMIC"
+    directories:
+      source: "/home/anna-lena/GUI_Cluster/build/Desktop_Qt_5_15_16_GCC_64bit-Debug/CMakeFiles/CMakeScratch/TryCompile-Q8kAof"
+      binary: "/home/anna-lena/GUI_Cluster/build/Desktop_Qt_5_15_16_GCC_64bit-Debug/CMakeFiles/CMakeScratch/TryCompile-Q8kAof"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "-DQT_QML_DEBUG"
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+      CMAKE_MODULE_PATH: "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6;/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules;/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6/3rdparty/kwin"
+    buildResult:
+      variable: "HAVE_STDATOMIC"
+      cached: true
+      stdout: |
+        Change Dir: '/home/anna-lena/GUI_Cluster/build/Desktop_Qt_5_15_16_GCC_64bit-Debug/CMakeFiles/CMakeScratch/TryCompile-Q8kAof'
+        
+        Run Build Command(s): /home/anna-lena/QtDesignStudio/Tools/Ninja/ninja -v cmTC_d45fd
+        [1/2] /usr/bin/g++ -DHAVE_STDATOMIC  -DQT_QML_DEBUG  -fdiagnostics-color=always -o CMakeFiles/cmTC_d45fd.dir/src.cxx.o -c /home/anna-lena/GUI_Cluster/build/Desktop_Qt_5_15_16_GCC_64bit-Debug/CMakeFiles/CMakeScratch/TryCompile-Q8kAof/src.cxx
+        [2/2] : && /usr/bin/g++ -DQT_QML_DEBUG  CMakeFiles/cmTC_d45fd.dir/src.cxx.o -o cmTC_d45fd   && :
+        
+      exitCode: 0
+...

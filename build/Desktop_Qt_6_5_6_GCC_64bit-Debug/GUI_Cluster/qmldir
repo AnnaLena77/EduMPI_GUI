@@ -1,0 +1,20 @@
+module GUI_Cluster
+typeinfo appGUI_Cluster.qmltypes
+prefer :/GUI_Cluster/
+Cores2D 1.0 Cores2D.qml
+Cores3D 1.0 Cores3D.qml
+Sidebar 1.0 Sidebar.qml
+Sidebar_Item 1.0 Sidebar_Item.qml
+MPI_Application_Start 1.0 MPI_Application_Start.qml
+Options 1.0 Options.qml
+Menu_Bar 1.0 Menu_Bar.qml
+Bottom_Bar 1.0 Bottom_Bar.qml
+Cluster_Connection_Formular 1.0 Cluster_Connection_Formular.qml
+DB_Connection_Formular 1.0 DB_Connection_Formular.qml
+Key_Gen_Guide 1.0 Key_Gen_Guide.qml
+Bash_Skript_Manual 1.0 Bash_Skript_Manual.qml
+Error 1.0 Error.qml
+Custom_BusyIndicator 1.0 Custom_BusyIndicator.qml
+Loading 1.0 Loading.qml
+Output_File 1.0 Output_File.qml
+

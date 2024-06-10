@@ -28,10 +28,13 @@ class Database_Thread : public QObject
 
 public slots:
     void connectToDB(const QString &hostname, const QString &databasename, const int &port, const QString &username, const QString &password);
-    void threadbuildClusterComponents(const int &proc_num);
+    void threadbuildClusterComponents();
     void updateData(const int &time_display);
     void showDataFromTimePeriod(const QTime timestampA, const QTime timestampB);
     void clearDatabase();
+
+    void getSlurmId(const int id);
+    void getProcNum(const int proc_num);
 
 signals:
     void connectedToDB(const bool &success);
@@ -44,6 +47,8 @@ private:
     bool m_clearingProc = false;
     QDateTime m_actualDBEntryTime;
     QTime m_firstDBEntryTime;
+    int m_slurm_id;
+    int m_proc_num;
 };
 
 #endif // DATABASE_THREAD_H

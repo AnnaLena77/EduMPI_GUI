@@ -1,0 +1,67 @@
+{
+    "classes": [
+        {
+            "className": "Bash_Process_Manager",
+            "object": true,
+            "qualifiedClassName": "Bash_Process_Manager",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "type": "int"
+                        }
+                    ],
+                    "name": "slurmIdReady",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "status",
+                            "type": "QString"
+                        }
+                    ],
+                    "name": "slurm_status_changed",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "private",
+                    "name": "handleOutput",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "name": "handleError",
+                    "returnType": "void"
+                },
+                {
+                    "access": "private",
+                    "arguments": [
+                        {
+                            "name": "exitCode",
+                            "type": "int"
+                        },
+                        {
+                            "name": "exitStatus",
+                            "type": "QProcess::ExitStatus"
+                        }
+                    ],
+                    "name": "handleProcessFinished",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "bash_process_manager.h",
+    "outputRevision": 68
+}

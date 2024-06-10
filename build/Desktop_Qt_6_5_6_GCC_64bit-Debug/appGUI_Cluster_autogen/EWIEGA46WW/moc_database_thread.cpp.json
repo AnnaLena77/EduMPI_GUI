@@ -1,0 +1,155 @@
+{
+    "classes": [
+        {
+            "className": "Database_Thread",
+            "object": true,
+            "qualifiedClassName": "Database_Thread",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "success",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "connectedToDB",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "map",
+                            "type": "QMap<QString,QList<int>>"
+                        }
+                    ],
+                    "name": "clusterComponentsReady",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "list",
+                            "type": "QList<DataColumn>"
+                        }
+                    ],
+                    "name": "updateDataReady",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "dbCleared",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "timestamp",
+                            "type": "QTime"
+                        }
+                    ],
+                    "name": "setTimestamp",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "hostname",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "databasename",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "port",
+                            "type": "int"
+                        },
+                        {
+                            "name": "username",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "password",
+                            "type": "QString"
+                        }
+                    ],
+                    "name": "connectToDB",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "threadbuildClusterComponents",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "time_display",
+                            "type": "int"
+                        }
+                    ],
+                    "name": "updateData",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "timestampA",
+                            "type": "QTime"
+                        },
+                        {
+                            "name": "timestampB",
+                            "type": "QTime"
+                        }
+                    ],
+                    "name": "showDataFromTimePeriod",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "clearDatabase",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "id",
+                            "type": "int"
+                        }
+                    ],
+                    "name": "getSlurmId",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "proc_num",
+                            "type": "int"
+                        }
+                    ],
+                    "name": "getProcNum",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "database_thread.h",
+    "outputRevision": 68
+}

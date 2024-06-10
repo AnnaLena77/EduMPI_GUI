@@ -1,0 +1,7 @@
+/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_autogen/include/../EWIEGA46WW/moc_bash_process_manager.cpp.json
+/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_autogen/include/../EWIEGA46WW/moc_cluster_node.cpp.json
+/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_autogen/include/../EWIEGA46WW/moc_cluster_rank.cpp.json
+/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_autogen/include/../EWIEGA46WW/moc_database_connection.cpp.json
+/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_autogen/include/../EWIEGA46WW/moc_database_thread.cpp.json
+/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_autogen/include/../EWIEGA46WW/moc_nodes_instances.cpp.json
+/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_autogen/include/../EWIEGA46WW/moc_ranks_instances.cpp.json

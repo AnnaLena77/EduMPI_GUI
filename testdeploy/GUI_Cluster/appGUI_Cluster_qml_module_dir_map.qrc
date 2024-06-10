@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="/GUI_Cluster">/home/anna-lena/GUI_Cluster/testdeploy/GUI_Cluster</file>
+
+  </qresource>
+</RCC>

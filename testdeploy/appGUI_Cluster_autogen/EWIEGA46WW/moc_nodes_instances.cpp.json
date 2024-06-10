@@ -1,0 +1,60 @@
+{
+    "classes": [
+        {
+            "classInfos": [
+                {
+                    "name": "QML.Element",
+                    "value": "auto"
+                }
+            ],
+            "className": "Nodes_Instances",
+            "object": true,
+            "properties": [
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 0,
+                    "name": "instanceCount",
+                    "notify": "instanceCountChanged",
+                    "read": "instanceCount",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false,
+                    "write": "setInstanceCount"
+                }
+            ],
+            "qualifiedClassName": "Nodes_Instances",
+            "signals": [
+                {
+                    "access": "public",
+                    "name": "instanceCountChanged",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "count",
+                            "type": "int"
+                        }
+                    ],
+                    "name": "setInstanceCount",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QQuick3DInstancing"
+                }
+            ]
+        }
+    ],
+    "inputFile": "nodes_instances.h",
+    "outputRevision": 68
+}

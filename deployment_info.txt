@@ -1,0 +1,49 @@
+Deploy Application with AppImage/linuxdeploy
+
+1. Build Directory innerhalb der App-Directory erstellen
+$ mkdir build
+$ cd build
+
+2. Darauf achten, dass die QT-Installations-Umgebung im LD-Library-Path vorhanden ist
+$ export LD_LIBRARY_PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib:$LD_LIBRARY_PATH
+
+3. cmake ausfüren, mit richtiger cmake-Version (unter QT)
+$ /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake .. -DCMAKE_INSTALL_PREFIX=/usr -B /home/anna-lena/GUI_Cluster/appImage_Build_Dir/
+$ make -j 4
+$ make install DESTDIR=AppDir
+
+4. Linux-Deploy mittels QMAKE vorbereiten (Korrekte Version verwenden)
+
+$ export QML_SOURCES_PATHS=/home/anna-lena/GUI_Cluster/
+$ export QMAKE=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/bin/qmake
+$ export DEPLOY_PLATFORM_THEMES=true
+
+5. .desktop file und icon erstellen:
+
+[Desktop Entry]
+Type=Application
+Name=GUI_Cluster
+Exec=appGUI_Cluster
+Icon=user
+Comment=Edit this comment
+Terminal=true
+Categories=Utility;
+
+Beides im Deploy-Verzeichnis speichern.
+
+6. Deployment mit Linuxdeploy
+
+$ ./linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt -d GUI_Cluster.desktop -i user.png
+
+7. AppRun-Datei konfigurieren:
+$ export QT_QPA_PLATFORMTHEME=GTK3
+$ export GTK_THEME=Adwaita:dark
+
+8. AppImage erstellen
+./linuxdeploy-plugin-appimage-x86_64.AppImage --appdir=AppDir
+
+
+
+
+
+

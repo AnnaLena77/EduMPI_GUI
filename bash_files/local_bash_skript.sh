@@ -35,7 +35,7 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
-echo "Job erfolgreich eingereicht mit ID: $JOB_ID"
+echo "JOB_ID=$JOB_ID"
 
 #SWITCH_PATH=$(remote_command "cd $REMOTE_DIR")
 #SET_RIGHTs=$(remote_command "chmod +x $JOB_SCRIPT")

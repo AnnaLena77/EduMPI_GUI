@@ -7,6 +7,7 @@
 #include "qthread.h"
 #include <QJSValue>
 #include <QtConcurrent/QtConcurrent>
+#include <bash_process_manager.h>
 
 
 class Database_Connection;
@@ -43,6 +44,8 @@ public:
     void set_p2p_recv_max(long max);
     void set_coll_recv_max(long max);
 
+    void copyOutputFile();
+
     Q_INVOKABLE void connect(QString hostname, QString databasename, int port, QString UserName, QString password);
     //Q_INVOKABLE void buildClusterComponents(int proc_num);
     Q_INVOKABLE void writeLocalBashFile(QString local_path, bool file, int proc_num);//QString local_path, QString local_name, bool file);
@@ -62,6 +65,8 @@ public:
     Q_INVOKABLE QString connectCluster(const QString &address, const QString &ident, const QString &path);
     Q_INVOKABLE void connectClusterAsync(const QString &address, const QString &ident, const QString &path, QJSValue callback);
 
+    //Q_INVOKABLE QString getOutputFile();
+
 
     Q_INVOKABLE Cluster_Node* nodeAt(int index);
 
@@ -69,6 +74,8 @@ public:
     void updateDatasize();
     int timerId;
     QVector<Cluster_Node*> get_nodeList();
+
+    Bash_Process_Manager *slurm_process;
 
 signals:
     void p2p_send_max_changed();
@@ -83,10 +90,12 @@ signals:
     void componentsBuilt();
     void connectionSignal(bool success);
     void dataIn(int timestamp);
+    void signalSlurmStatusChanged(QString status);
+    void copiedOutputFile(QString output);
 
     //Signals for Thread
     void signalToConnect(const QString &, const QString &, const int &, const QString &, const QString &);
-    void signalToBuildComponents(const int &);
+    void setProcNum(const int proc_num);
     void signalToUpdateData(const int &);
     void signalToClearDB();
     void signalToShowTimestampData(const QTime timestampA, const QTime timestampB);
@@ -98,6 +107,8 @@ public slots:
     void updateDataToUI(const QList<DataColumn> &);
     void removeClusterComponents();
     void handleTimestamp(QTime timestamp);
+    void slurm_status_changed(QString status);
+    void getSlurmID(const int id);
 
 private:
     bool m_componentsBuilt = false;
@@ -117,6 +128,9 @@ private:
     QString m_cluster_ident;
     QString m_cluster_eduMPI_path;
     QString m_remote_bash_path;
+
+    std::string m_envFilePath;
+    int m_slurm_id;
 
 protected:
     void timerEvent(QTimerEvent *event);

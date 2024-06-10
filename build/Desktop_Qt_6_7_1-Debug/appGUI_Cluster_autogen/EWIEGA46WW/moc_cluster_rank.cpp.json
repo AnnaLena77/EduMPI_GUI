@@ -1,0 +1,114 @@
+{
+    "classes": [
+        {
+            "classInfos": [
+                {
+                    "name": "QML.Element",
+                    "value": "auto"
+                }
+            ],
+            "className": "Cluster_Rank",
+            "methods": [
+                {
+                    "access": "public",
+                    "name": "getId",
+                    "returnType": "int"
+                }
+            ],
+            "object": true,
+            "properties": [
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 0,
+                    "name": "p2p_send_datasize",
+                    "notify": "send_p2p_datasizeChanged",
+                    "read": "p2p_send_datasize",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "long",
+                    "user": false,
+                    "write": "set_p2p_sendDatasize"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 1,
+                    "name": "p2p_recv_datasize",
+                    "notify": "recv_p2p_datasizeChanged",
+                    "read": "p2p_recv_datasize",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "long",
+                    "user": false,
+                    "write": "set_p2p_recvDatasize"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 2,
+                    "name": "coll_send_datasize",
+                    "notify": "send_coll_datasizeChanged",
+                    "read": "coll_send_datasize",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "long",
+                    "user": false,
+                    "write": "set_coll_sendDatasize"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 3,
+                    "name": "coll_recv_datasize",
+                    "notify": "recv_coll_datasizeChanged",
+                    "read": "coll_recv_datasize",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "long",
+                    "user": false,
+                    "write": "set_coll_recvDatasize"
+                }
+            ],
+            "qualifiedClassName": "Cluster_Rank",
+            "signals": [
+                {
+                    "access": "public",
+                    "name": "send_p2p_datasizeChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "recv_p2p_datasizeChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "send_coll_datasizeChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "recv_coll_datasizeChanged",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "cluster_rank.h",
+    "outputRevision": 68
+}

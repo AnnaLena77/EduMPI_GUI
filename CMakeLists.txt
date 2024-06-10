@@ -5,9 +5,12 @@ project(GUI_Cluster VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_PREFIX_PATH "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6" ${CMAKE_MODULE_PATH})
+set(CMAKE_PREFIX_PATH "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6;/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib" ${CMAKE_MODULE_PATH})
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick QuickControls2 Quick3D Sql)
+find_package(PkgConfig REQUIRED)
+
+pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 
 INCLUDE_DIRECTORIES("/usr/include/postgresql")
 LINK_DIRECTORIES("/usr/lib/postgresql/12/lib")
@@ -44,7 +47,6 @@ qt_add_qml_module(appGUI_Cluster
         Sidebar_Item.qml
         MPI_Application_Start.qml
         Options.qml
-        Options_Bar.qml
         Menu_Bar.qml
         Bottom_Bar.qml
         Cluster_Connection_Formular.qml
@@ -53,6 +55,8 @@ qt_add_qml_module(appGUI_Cluster
         Bash_Skript_Manual.qml
         Error.qml
         Custom_BusyIndicator.qml
+        Loading.qml
+        Output_File.qml
 )
 
 set_target_properties(appGUI_Cluster PROPERTIES

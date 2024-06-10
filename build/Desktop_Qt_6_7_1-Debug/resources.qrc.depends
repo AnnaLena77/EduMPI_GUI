@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>shaders/glass.frag</file>
+        <file>shaders/simple.vert</file>
+        <file>3D-Scene/Menu_Bar.qml</file>
+        <file>icons/play.png</file>
+        <file>icons/pause.png</file>
+        <file>icons/backward_step.png</file>
+        <file>icons/forward_step.png</file>
+        <file>icons/down.png</file>
+        <file>icons/up.png</file>
+        <file>icons/slider.png</file>
+        <file>icons/terminal.png</file>
+        <file>icons/xmark.png</file>
+        <file>bash_files/local_bash_skript.sh</file>
+    </qresource>
+</RCC>
