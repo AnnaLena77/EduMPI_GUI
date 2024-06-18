@@ -26,7 +26,7 @@ Window {
             TextField {
                 id: hostnameField
                 Layout.fillWidth: true
-                text: "hpc.informatik.hs-fulda.de"
+                text: "10.32.47.10"
                 background: Rectangle {
                     color: "#4d4d4d"
                 }

@@ -14,11 +14,7 @@ void Database_Thread::connectToDB(const QString &hostname, const QString &databa
     db.setPort(port);
     db.setDatabaseName(databasename);
     db.setUserName(username);
-    if(password==""){
-        db.setPassword("edumpi");
-    }else {
-        db.setPassword(password);
-    }
+    db.setPassword(password);
     bool ok = db.open();
 
     emit connectedToDB(ok);

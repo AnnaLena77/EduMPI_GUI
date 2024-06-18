@@ -39,6 +39,11 @@ Window {
     property int startTime: 0
     property string loaderText: ""
 
+    Item {
+        id: rootItem
+        anchors.fill: parent
+    }
+
 
     NodesList{
         id: nodesList

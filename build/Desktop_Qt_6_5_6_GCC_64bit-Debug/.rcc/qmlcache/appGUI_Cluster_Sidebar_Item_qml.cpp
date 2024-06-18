@@ -530,8 +530,8 @@ Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for height at line 19, column 9
 double r2_3;
-bool r2_1;
 QObject *r2_2;
+bool r2_1;
 // generate_LoadQmlContextPropertyLookup
 while (!aotContext->loadScopeObjectPropertyLookup(5, &r2_1)) {
 aotContext->setInstructionPointer(2);

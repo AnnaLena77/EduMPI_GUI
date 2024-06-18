@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.5
+import Qt.labs.animation
 
 //icon source: https://fontawesome.com
 
@@ -122,6 +123,7 @@ Item {
             }
         }
         Rectangle{
+            id: rect_over_timeline_container
             width: parent.width-timeline_buttons.width
             height: parent.height
             Layout.fillWidth: true
@@ -132,8 +134,24 @@ Item {
                 height: parent.height
                 contentWidth: timeline.width
                 contentHeight: parent.height
+                flickableDirection: Flickable.HorizontalFlick
+                clip: true
                 boundsBehavior: Flickable.StopAtBounds
                 interactive: false
+
+                ScrollBar.horizontal: ScrollBar {
+                    id: scrollable_area
+                    orientation: Qt.Horizontal
+                    visible: timeline_container.interactive
+
+                }
+                WheelHandler{
+                    onWheel: event=>{
+                        if(timeline_container.interactive){
+                            timeline_container.flick(event.angleDelta.y*event.y, 0)
+                        }
+                    }
+                }
 
                 Rectangle{
                     id: timeline
@@ -259,7 +277,7 @@ Item {
         onTriggered: {
             timeline_positionmarker.x +=tick
             ticker_counter++
-            var mappedPosition = timeline_positionmarker.mapToItem(root, 0, 0);
+            var mappedPosition = timeline_positionmarker.mapToItem(rootItem, 0.0, 0.0);
 
             if(mappedPosition.x>=parent.width-50){
                 //currentTime=0

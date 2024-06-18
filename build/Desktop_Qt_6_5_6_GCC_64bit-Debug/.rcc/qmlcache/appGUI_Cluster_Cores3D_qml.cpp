@@ -1574,8 +1574,8 @@ Q_UNUSED(argumentsPtr)
 // expression for scale at line 79, column 17
 double r11_1;
 QObject *r7_1;
-QObject *r2_1;
 QVariant r2_2;
+QObject *r2_1;
 double r10_1;
 double r12_1;
 // generate_LoadQmlContextPropertyLookup
@@ -1631,8 +1631,8 @@ Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for opacity at line 91, column 25
 float r2_3;
-QObject *r2_1;
 bool r2_2;
+QObject *r2_1;
 // generate_LoadQmlContextPropertyLookup
 while (!aotContext->loadContextIdLookup(71, &r2_1)) {
 aotContext->setInstructionPointer(2);
