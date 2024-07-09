@@ -13,5 +13,6 @@
         <file>icons/terminal.png</file>
         <file>icons/xmark.png</file>
         <file>bash_files/local_bash_skript.sh</file>
+        <file>icons/checkmark.png</file>
     </qresource>
 </RCC>

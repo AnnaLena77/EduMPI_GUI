@@ -312,6 +312,11 @@
                     },
                     {
                         "access": "public",
+                        "name": "cancelRunningJob",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
                         "arguments": [
                             {
                                 "name": "proc_num",

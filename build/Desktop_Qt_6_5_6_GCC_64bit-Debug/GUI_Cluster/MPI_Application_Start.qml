@@ -7,8 +7,8 @@ Rectangle {
 
     id: mpi_application
     width: 250
-    height: 300
-    implicitHeight: 300
+    height: 320
+    implicitHeight: 320
     color: "#383936"
     signal changeMessage()
 
@@ -196,16 +196,22 @@ Rectangle {
 
                         //nodesList.buildClusterComponents(parseInt(numProcs.text))
                     }
+                }
+            }
+            Button {
+                id: mpi_cancel_button
+                text: "Abort MPI-Program"
+                palette.button: "#666666"
+                palette.buttonText: "white"
+                Layout.alignment: Qt.AlignCenter
+                Layout.topMargin: 15
 
-                    //nodesList.bashTest()
-                    /*if(nodesList.db_connection){
-                        nodesList.removeClusterComponents()
-                        nodesList.startBash(parseInt(np.text))
-                        //nodesList.buildClusterComponents(parseInt(np.text))
-                    }
-                    else {
+                HoverHandler {
+                    cursorShape: Qt.PointingHandCursor
+                }
 
-                    }*/
+                onClicked:{
+                    nodesList.cancelRunningJob()
                 }
             }
         }

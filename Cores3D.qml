@@ -117,7 +117,7 @@ Rectangle {
                             coll_show: collective
                             combobox: option
                             nodes: nodesList
-                            send_datasize: nodesList.nodeAt(model.index).rankAt(index).p2p_send_datasize; //Das ist noch keine perfekte Lösung!
+                            send_datasize: nodesList.nodeAt(model.index).rankAt(0).p2p_send_datasize; //Das ist noch keine perfekte Lösung!
                             instanceCount: nodesList.nodeAt(model.index).count
                             instanceRanks: nodesList.nodeAt(model.index)
                             outerCubeLength: 100 //outerCube.bounds.maximum.x - (outerCube.bounds.minimum.x)
@@ -125,6 +125,12 @@ Rectangle {
                             innerCubeSpacing: 0.4
                             rowsColumns: Math.ceil(Math.pow(innerCubeCount, 1/3));
                             innerCubeScale: outerCube.scale.x / rowsColumns * (1 - innerCubeSpacing) // Berechnung der Skalierung des inneren Würfels
+                            Component.onCompleted: {
+                                if(nodesList.nodeAt(model.index).rankAt(index)===null){
+                                    console.log("Hier wirds null: " + model.index + ", " +index)
+                                }
+                                console.log(model.index + ", " + index)
+                            }
                         }
                         materials: [
                             PrincipledMaterial{

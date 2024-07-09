@@ -20,6 +20,18 @@ function remote_command() {
     ssh ${SSH_OPTIONS} -p ${SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST} "${COMMAND}"
 }
 
+function handle_cancel_signal() {
+    echo "Signal empfangen, breche Job $JOB_ID ab..."
+    remote_command "scancel $JOB_ID"
+    echo "Job $JOB_ID wurde abgebrochen."
+    ssh ${SSH_OPTIONS} -O exit -p ${SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST}
+    echo "SSH-Verbindung geschlossen"
+    exit 0
+}
+
+# Signal-Handler für SIGINT und SIGTERM registrieren
+trap 'handle_cancel_signal' SIGTERM
+
 # Verbindung öffnen (erster Befehl startet die Verbindung)
 REMOTE_COMMANDS=$(cat <<EOF
 cd $REMOTE_DIR && \

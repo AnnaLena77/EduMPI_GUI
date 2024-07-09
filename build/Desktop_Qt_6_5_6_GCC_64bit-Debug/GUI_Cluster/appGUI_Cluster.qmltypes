@@ -203,6 +203,7 @@ Module {
             Parameter { name: "proc_num"; type: "int" }
         }
         Method { name: "closeApp" }
+        Method { name: "cancelRunningJob" }
         Method {
             name: "startBash"
             Parameter { name: "proc_num"; type: "int" }

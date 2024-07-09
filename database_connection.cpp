@@ -14,6 +14,7 @@
 #include <QMetaObject>
 
 #include <unistd.h>
+#include <csignal>
 #include <sys/stat.h>
 
 
@@ -92,7 +93,7 @@ void Database_Connection::buildClusterComponents(const QMap<QString, QVector<int
         QMapIterator<QString, QVector<int>> iter(map);
         while(iter.hasNext()){
             iter.next();
-            //std::cout << iter.key().toStdString() << std::endl;
+            //std::cout << "Iter-Key: " << iter.key().toStdString() << std::endl;
             node = new Cluster_Node(this, iter.key().toUtf8().constData());
             m_nodes << node;
             for(int i = 0; i<iter.value().length(); i++){
@@ -568,6 +569,12 @@ void Database_Connection::getSlurmID(const int id){
     m_slurm_id = id;
 }
 
+void Database_Connection::cancelRunningJob(){
+    int signal = SIGTERM;
+    slurm_process->sendSignal(signal);
+    //slurm_process->killProcess();
+}
+
 void Database_Connection::closeApp(){
     if (!m_envFilePath.empty()) {
         if (unlink(m_envFilePath.c_str()) != 0) {
@@ -576,7 +583,9 @@ void Database_Connection::closeApp(){
             std::cout << "Temporary .env file deleted" << std::endl;
         }
     }
-    slurm_process->killProcess();
+
+    int signal = SIGTERM;
+    slurm_process->sendSignal(signal);
     /*std::cout << db.isOpen() << std::endl;
     if(m_connection_ready){
         QSqlQuery query;

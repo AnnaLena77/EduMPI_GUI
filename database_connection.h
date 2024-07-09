@@ -50,6 +50,7 @@ public:
     //Q_INVOKABLE void buildClusterComponents(int proc_num);
     Q_INVOKABLE void writeLocalBashFile(QString local_path, bool file, int proc_num);//QString local_path, QString local_name, bool file);
     Q_INVOKABLE void closeApp();
+    Q_INVOKABLE void cancelRunningJob();
     Q_INVOKABLE void startBash(int proc_num);
     Q_INVOKABLE QString readBash();
     Q_INVOKABLE void writeBash(QString content);

@@ -100,6 +100,7 @@ void Cluster_Node::addRank(Cluster_Rank* rank){
         if(m_smalest_rank>rank->getId()) m_smalest_rank = rank->getId();
         if(m_biggest_rank<rank->getId()) m_biggest_rank = rank->getId();
         m_ranks.append(rank);
+        //std::cout << "Rank added: " + std::to_string(rank->getId()) << std::endl;
     }
 }
 
@@ -109,6 +110,7 @@ Cluster_Rank* Cluster_Node::rankAt(int index)
         return 0;
 
     //QQmlEngine::setObjectOwnership(m_cores[index], QQmlEngine::CppOwnership)
+    //std::cout << "Test Backi: " << m_ranks[index]->getId() << std::endl;
 
     return m_ranks[index];
 }

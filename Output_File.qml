@@ -28,8 +28,8 @@ Window {
             //anchors.rightMargin: 10
             icon.width: 40
             icon.height: 40
-            icon.source: "qrc:/icons/xmark.png"
-            icon.color: "red"
+            icon.source: "qrc:/icons/checkmark.png"
+            icon.color: "green"
             background: Rectangle{
                 color: "transparent"
                 border.width: 0

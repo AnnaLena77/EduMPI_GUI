@@ -631,8 +631,8 @@ Q_UNUSED(argumentsPtr)
 // expression for onShowLoaderChanged at line 13, column 5
 bool r7_1;
 QObject *r8_1;
-bool r2_1;
 QObject *r2_2;
+bool r2_1;
 // generate_CreateCallContext
 {
 // generate_LoadQmlContextPropertyLookup

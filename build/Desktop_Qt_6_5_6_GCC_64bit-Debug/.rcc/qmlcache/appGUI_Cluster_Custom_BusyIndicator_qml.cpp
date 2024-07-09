@@ -825,8 +825,8 @@ Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for helper at line 12, column 5
 double r7_1;
-double r2_1;
 int r2_2;
+double r2_1;
 // generate_LoadQmlContextPropertyLookup
 {
 int retrieved;

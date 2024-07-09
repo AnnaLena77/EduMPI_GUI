@@ -62,6 +62,9 @@ void Bash_Process_Manager::handleOutput()
             m_status = "completed";
             emit slurm_status_changed(m_status);
         }
+        else{
+            qDebug() << "Output:" << output;
+        }
     }
     //qDebug() << "Output:" << output;
 }
@@ -79,5 +82,7 @@ void Bash_Process_Manager::handleProcessFinished(int exitCode, QProcess::ExitSta
 }
 
 void Bash_Process_Manager::killProcess(){
-    process->kill();
+    if(process->state() == QProcess::Running){
+        process->kill();
+    }
 }
