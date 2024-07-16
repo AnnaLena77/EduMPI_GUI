@@ -246,7 +246,7 @@ void Database_Connection::copyOutputFile(){
     const char *homeDir = getenv("HOME");
     QString filePath = QString(homeDir);
 
-    QString sshCommand = QString("scp %1@%2:/home/%1/eduMPI_files/slurm-%3.out %4").arg(m_cluster_ident, m_cluster_address, QString::number(m_slurm_id), filePath);
+    QString sshCommand = QString("scp %1@%2:%3/slurm-%4.out %5").arg(m_cluster_ident, m_cluster_address, m_remote_dir_bash, QString::number(m_slurm_id), filePath);
     std::cout << sshCommand.toStdString() << std::endl;
 
     process.start("bash", QStringList() << "-c" << sshCommand);
@@ -358,8 +358,6 @@ void Database_Connection::writeLocalBashFile(QString local_path, bool file, int 
 
     QString resourcePath = ":/bash_files/local_bash_skript.sh";
 
-    QString remote_dir_bash;
-
     // Temporäre Datei erstellen
     QFile f(resourcePath);
     if (!f.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -389,14 +387,15 @@ void Database_Connection::writeLocalBashFile(QString local_path, bool file, int 
                 out << "scp " + local_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 out << "scp " + m_remote_bash_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 out << "scp " + QString::fromStdString(m_envFilePath) + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
-                remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files";
+                m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files";
             } else{
-                out << "scp -r" + local_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
+                out << "mkdir " + local_path  + "/tmp\n";
+                out << "scp -r " + local_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 int lastSlashIndex = local_path.lastIndexOf("/");
                 QString dir_name = local_path.mid(lastSlashIndex + 1);
-                out << "scp " + m_remote_bash_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/" + dir_name + "\"\n";
+                out << "scp " + m_remote_bash_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/" + "\"\n";
                 out << "scp " + QString::fromStdString(m_envFilePath) + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
-                remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files/" + dir_name;
+                m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files/" + dir_name;
             }
         }
     }
@@ -407,7 +406,7 @@ void Database_Connection::writeLocalBashFile(QString local_path, bool file, int 
     // Ausführungsrechte für die temporäre Datei setzen
     tempFile.setPermissions(tempFile.permissions() | QFile::ExeUser);
 
-    slurm_process->startProcess(QStringList() << "--" << tempFilePath << m_cluster_ident << m_cluster_address << remote_dir_bash << "remote_bash_eduMPI.sh" );
+    slurm_process->startProcess(QStringList() << "--" << tempFilePath << m_cluster_ident << m_cluster_address << m_remote_dir_bash << "remote_bash_eduMPI.sh" );
 }
 
 bool Database_Connection::checkFile(QString source, QString program, bool file){
@@ -530,11 +529,11 @@ void Database_Connection::writeRemoteBashFile(QString program_name, int proc_num
         scriptFile << "#rm ." << m_envFilePath << "\n";
         scriptFile << "export OMPI_MCA_coll_han_priority=0\n";
         if(visualization){
-            scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << "\n";
+            scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << " -lm" << "\n";
             scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpirun -n " << proc_num << " --map-by :PE=2 --mca pml ob1 ./"+program_name.toStdString();
         } else {
-            scriptFile << "mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << "\n";
-            scriptFile << "mpirun -n " << proc_num << " --mca pml ob1 ./"+program_name.toStdString();
+            scriptFile << "mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << " -lm" << "\n";
+            scriptFile << "mpirun -n " << proc_num << " ./"+program_name.toStdString();
         }
         scriptFile.close();
     }

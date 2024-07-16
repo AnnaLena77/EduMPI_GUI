@@ -129,6 +129,7 @@ private:
     QString m_cluster_ident;
     QString m_cluster_eduMPI_path;
     QString m_remote_bash_path;
+    QString m_remote_dir_bash;
 
     std::string m_envFilePath;
     int m_slurm_id;
