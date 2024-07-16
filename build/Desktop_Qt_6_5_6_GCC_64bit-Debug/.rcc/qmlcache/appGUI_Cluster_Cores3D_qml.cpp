@@ -1654,8 +1654,8 @@ Q_UNUSED(argumentsPtr)
 // expression for scale at line 79, column 17
 double r11_1;
 QObject *r7_1;
-QVariant r2_2;
 QObject *r2_1;
+QVariant r2_2;
 double r10_1;
 double r12_1;
 // generate_LoadQmlContextPropertyLookup
@@ -1788,8 +1788,8 @@ Q_UNUSED(argumentsPtr)
 // expression for rowsColumns at line 126, column 29
 double r16_1;
 double r14_1;
-int r2_2;
 double r2_1;
+int r2_2;
 double r15_1;
 double r10_1;
 // generate_LoadQmlContextPropertyLookup
@@ -1842,9 +1842,9 @@ Q_UNUSED(argumentsPtr)
 double r9_1;
 double r7_1;
 double r8_1;
-QVariant r2_2;
-QObject *r2_1;
 double r2_3;
+QObject *r2_1;
+QVariant r2_2;
 // generate_LoadQmlContextPropertyLookup
 while (!aotContext->loadContextIdLookup(99, &r2_1)) {
 aotContext->setInstructionPointer(2);

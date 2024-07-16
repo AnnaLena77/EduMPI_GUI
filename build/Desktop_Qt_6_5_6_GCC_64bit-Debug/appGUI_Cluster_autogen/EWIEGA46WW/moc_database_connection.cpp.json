@@ -121,6 +121,10 @@
                         {
                             "name": "proc_num",
                             "type": "int"
+                        },
+                        {
+                            "name": "visualization",
+                            "type": "bool"
                         }
                     ],
                     "name": "writeRemoteBashFile",

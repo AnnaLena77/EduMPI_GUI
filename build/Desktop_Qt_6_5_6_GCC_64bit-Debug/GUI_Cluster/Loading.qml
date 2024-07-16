@@ -48,6 +48,11 @@ Window {
             wrapMode: Text.WordWrap
             Layout.margins: 5
             horizontalAlignment: Text.AlignHCenter
+            onTextChanged: {
+                if(visualization && slurm_status == "completed"){
+                    load.close();
+                }
+            }
         }
     }
 }

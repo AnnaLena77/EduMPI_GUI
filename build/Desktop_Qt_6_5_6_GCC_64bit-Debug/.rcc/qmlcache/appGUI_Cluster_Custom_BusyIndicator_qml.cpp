@@ -825,8 +825,8 @@ Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for helper at line 12, column 5
 double r7_1;
-int r2_2;
 double r2_1;
+int r2_2;
 // generate_LoadQmlContextPropertyLookup
 {
 int retrieved;
@@ -853,8 +853,8 @@ return r2_2;
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for implicitWidth at line 21, column 9
-double r2_2;
 QObject *r2_1;
+double r2_2;
 // generate_LoadQmlContextPropertyLookup
 while (!aotContext->loadScopeObjectPropertyLookup(3, &r2_1)) {
 aotContext->setInstructionPointer(2);
@@ -878,8 +878,8 @@ return r2_2;
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for implicitHeight at line 22, column 9
-QObject *r2_1;
 double r2_2;
+QObject *r2_1;
 // generate_LoadQmlContextPropertyLookup
 while (!aotContext->loadScopeObjectPropertyLookup(5, &r2_1)) {
 aotContext->setInstructionPointer(2);

@@ -114,6 +114,19 @@ Item {
             //Action { text: qsTr("About") }
         }
 
+        Menu {
+            title: qsTr("No Visualization")
+
+            Action {
+                text: qsTr("MPI-Programm")
+                onTriggered: {
+                    var component = Qt.createComponent("Application_Start_without.qml");
+                    var window = component.createObject(root);
+                    window.show();
+                }
+            }
+        }
+
         delegate: MenuBarItem {
             id: menuBarItem
             contentItem: Text {

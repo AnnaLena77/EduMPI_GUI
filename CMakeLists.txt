@@ -57,6 +57,7 @@ qt_add_qml_module(appGUI_Cluster
         Custom_BusyIndicator.qml
         Loading.qml
         Output_File.qml
+        Application_Start_without.qml
 )
 
 set_target_properties(appGUI_Cluster PROPERTIES

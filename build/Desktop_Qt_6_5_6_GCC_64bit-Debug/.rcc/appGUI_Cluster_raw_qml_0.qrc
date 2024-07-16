@@ -17,6 +17,7 @@
     <file alias="Custom_BusyIndicator.qml">/home/anna-lena/GUI_Cluster/Custom_BusyIndicator.qml</file>
     <file alias="Loading.qml">/home/anna-lena/GUI_Cluster/Loading.qml</file>
     <file alias="Output_File.qml">/home/anna-lena/GUI_Cluster/Output_File.qml</file>
+    <file alias="Application_Start_without.qml">/home/anna-lena/GUI_Cluster/Application_Start_without.qml</file>
   </qresource>
 </RCC>
 

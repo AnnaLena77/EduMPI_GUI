@@ -85,6 +85,9 @@ void Database_Connection::connect(QString hostname, QString databasename, int po
 }
 
 void Database_Connection::buildClusterComponents(const QMap<QString, QVector<int>> &map){
+    if(!m_visualization){
+        return;
+    }
     Cluster_Node *node;
 
     if(map.isEmpty()){
@@ -338,6 +341,7 @@ void Database_Connection::connectClusterAsync(const QString &address, const QStr
 }
 
 void Database_Connection::writeLocalBashFile(QString local_path, bool file, int proc_num){
+    //m_visualization = visualization;
 
     if(m_componentsBuilt){
         m_componentsBuilt = false;
@@ -497,7 +501,9 @@ void Database_Connection::startBash(int proc_num){
     process.startDetached();
 }
 
-void Database_Connection::writeRemoteBashFile(QString program_name, int proc_num){
+void Database_Connection::writeRemoteBashFile(QString program_name, int proc_num, bool visualization){
+    m_visualization = visualization;
+
     const char *homeDir = getenv("HOME");
     QString filePath = QString::fromUtf8(homeDir)  + "/remote_bash_eduMPI.sh";
     m_remote_bash_path = filePath;
@@ -513,15 +519,23 @@ void Database_Connection::writeRemoteBashFile(QString program_name, int proc_num
         scriptFile << "#SBATCH --partition=all\n";
         scriptFile << "#SBATCH --ntasks=" << proc_num << "\n";
         scriptFile << "#SBATCH --job-name=eduMPI\n";
-        scriptFile << "#SBATCH --cpus-per-task=2\n\n";
+        if(visualization){
+            scriptFile << "#SBATCH --cpus-per-task=2\n\n";
+        } else {
+            scriptFile << "#SBATCH --cpus-per-task=1\n\n";
+        }
 
         scriptFile << "source ." << m_envFilePath << "\n";
         scriptFile << "export $(cut -d= -f1 ." << m_envFilePath << ")\n";
         scriptFile << "#rm ." << m_envFilePath << "\n";
         scriptFile << "export OMPI_MCA_coll_han_priority=0\n";
-        scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << "\n";
-        scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpirun -n " << proc_num << " --map-by :PE=2 --mca pml ob1 ./"+program_name.toStdString();
-
+        if(visualization){
+            scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << "\n";
+            scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpirun -n " << proc_num << " --map-by :PE=2 --mca pml ob1 ./"+program_name.toStdString();
+        } else {
+            scriptFile << "mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << "\n";
+            scriptFile << "mpirun -n " << proc_num << " --mca pml ob1 ./"+program_name.toStdString();
+        }
         scriptFile.close();
     }
 }
@@ -560,9 +574,18 @@ void Database_Connection::showConditionAt(int timeSecondsA, int timeSecondsB){
 
 void Database_Connection::slurm_status_changed(QString status){
     emit signalSlurmStatusChanged(status);
-    if(status == "completed" && m_componentsBuilt){
-        startAndStop(true);
-        copyOutputFile();
+    if(status == "running"){
+        m_status_running = true;
+    }
+    if(m_visualization){
+        if(status == "completed" && m_componentsBuilt){
+            startAndStop(true);
+            copyOutputFile();
+        }
+    } else {
+        if(status == "completed" && m_status_running){
+            copyOutputFile();
+        }
     }
 }
 void Database_Connection::getSlurmID(const int id){

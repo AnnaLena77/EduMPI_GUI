@@ -38,6 +38,7 @@ Window {
     property bool enable_timeline
     property int startTime: 0
     property string loaderText: ""
+    property bool visualization: true
 
     Item {
         id: rootItem
@@ -62,15 +63,28 @@ Window {
             }
         }
         onSignalSlurmStatusChanged: (status)=>{
-            if(status === "pending"){
-                slurm_status = "pending"
-                loaderText = "Job-Status: Pending! \nYour job is in the Slurm queue and is waiting for free resources. Please be patient for a moment."
-            } else if(status === "running"){
-                slurm_status = "running"
-                loaderText = "Job-Status: Running! \nYour Slurm job is in the start process, the MPI communication will start at any moment."
-            } else if(status === "completed"){
-                slurm_status = "completed"
-                loaderText = "Job-Status: Completed! \nYour Slurm job ended unexpectedly. Check the output to analyze possible errors."
+            if(visualization){
+                if(status === "pending"){
+                    slurm_status = "pending"
+                    loaderText = "Job-Status: Pending! \nYour job is in the Slurm queue and is waiting for free resources. Please be patient for a moment."
+                } else if(status === "running"){
+                    slurm_status = "running"
+                    loaderText = "Job-Status: Running! \nYour Slurm job is in the start process, the MPI communication will start at any moment."
+                } else if(status === "completed"){
+                    slurm_status = "completed"
+                    loaderText = "Job-Status: Completed! \nYour Slurm job ended unexpectedly. Check the output to analyze possible errors."
+                }
+            } else {
+                if(status === "pending"){
+                    slurm_status = "pending"
+                    loaderText = "Job-Status: Pending! \nYour job is in the Slurm queue and is waiting for free resources. Please be patient for a moment."
+                } else if(status === "running"){
+                    slurm_status = "running"
+                    loaderText = "Job-Status: Running!"
+                } else if(status === "completed"){
+                    slurm_status = "completed"
+                    loaderText = "Job-Status: Completed!"
+                }
             }
         }
 

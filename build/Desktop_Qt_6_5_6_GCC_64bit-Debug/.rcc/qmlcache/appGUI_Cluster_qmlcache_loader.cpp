@@ -124,6 +124,13 @@ namespace _0x5f_GUI_Cluster_Output_File_qml {
         reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
     };
 }
+namespace _0x5f_GUI_Cluster_Application_Start_without_qml { 
+    extern const unsigned char qmlData[];
+    extern const QQmlPrivate::TypedFunction aotBuiltFunctions[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
+    };
+}
 
 }
 namespace {
@@ -155,6 +162,7 @@ Registry::Registry() {
     resourcePathToCachedUnit.insert(QStringLiteral("/GUI_Cluster/Custom_BusyIndicator.qml"), &QmlCacheGeneratedCode::_0x5f_GUI_Cluster_Custom_BusyIndicator_qml::unit);
     resourcePathToCachedUnit.insert(QStringLiteral("/GUI_Cluster/Loading.qml"), &QmlCacheGeneratedCode::_0x5f_GUI_Cluster_Loading_qml::unit);
     resourcePathToCachedUnit.insert(QStringLiteral("/GUI_Cluster/Output_File.qml"), &QmlCacheGeneratedCode::_0x5f_GUI_Cluster_Output_File_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/GUI_Cluster/Application_Start_without.qml"), &QmlCacheGeneratedCode::_0x5f_GUI_Cluster_Application_Start_without_qml::unit);
     QQmlPrivate::RegisterQmlUnitCacheHook registration;
     registration.structVersion = 0;
     registration.lookupCachedQmlUnit = &lookupCachedUnit;

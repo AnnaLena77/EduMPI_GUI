@@ -190,7 +190,7 @@ Rectangle {
                 onClicked:{
                     if(checkInput()){
                         //nodesList.removeClusterComponents();
-                        nodesList.writeRemoteBashFile(programNameField.text, parseInt(numProcs.text))
+                        nodesList.writeRemoteBashFile(programNameField.text, parseInt(numProcs.text), true)
                         nodesList.writeLocalBashFile(uploadPath.text, fileButton.checked ? true : false, parseInt(numProcs.text));
                         startup();
 

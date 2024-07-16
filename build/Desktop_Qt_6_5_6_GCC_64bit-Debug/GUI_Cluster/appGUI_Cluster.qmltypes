@@ -224,6 +224,7 @@ Module {
             name: "writeRemoteBashFile"
             Parameter { name: "program_name"; type: "QString" }
             Parameter { name: "proc_num"; type: "int" }
+            Parameter { name: "visualization"; type: "bool" }
         }
         Method {
             name: "showConditionAt"
