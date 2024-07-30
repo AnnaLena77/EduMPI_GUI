@@ -38,7 +38,7 @@ Rectangle {
                 Layout.topMargin: 20
                 // Layout.bottomMargin: 100
                 Layout.alignment: Qt.AlignHCenter
-                font.pointSize: 11
+                font.pointSize: 10
                 HoverHandler {
                     cursorShape: Qt.PointingHandCursor
                 }
@@ -60,6 +60,13 @@ Rectangle {
                         text: "Max Recv Ratio (over all Procs)"
                         //font.pointSize: 11
                     }
+                    ListElement {
+                        text: "Wait for Late Sender (per Proc)"
+                    }
+                    ListElement {
+                        text: "Wait for Late Recver (per Proc)"
+                    }
+
                     //ListElement { text: "Wait Ratio" }
                 }
                 onActivated:{
@@ -82,7 +89,18 @@ Rectangle {
                         gradient_text1 = "No Recv"
                         gradient_text2 = "Max Recv"
                     }
-
+                    else if(option == "Wait for Late Sender (per Proc)"){
+                        gradient1 = "white"
+                        gradient2 = "blue"
+                        gradient_text1 = "low (%)"
+                        gradient_text2 = "high (%)"
+                    }
+                    else if(option == "Wait for Late Recver (per Proc)"){
+                        gradient1 = "white"
+                        gradient2 = "blue"
+                        gradient_text1 = "low (%)"
+                        gradient_text2 = "high (%)"
+                    }
                 }
             }
             Rectangle{

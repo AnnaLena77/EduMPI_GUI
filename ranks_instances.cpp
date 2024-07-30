@@ -185,6 +185,69 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
             red = 255;
             green = 255 - recv_percent*255;
             blue = 255 - recv_percent*255;
+
+        } else if(m_combobox == "Wait for Late Sender (per Proc)"){
+
+            float lateSenderData = 0;
+            float coll_data = m_instanceRanks->rankAt(i)->coll_late_sender();
+            float p2p_data = m_instanceRanks->rankAt(i)->p2p_late_sender();
+            float coll_time_diff = m_instanceRanks->rankAt(i)->coll_timediff();
+            float p2p_time_diff = m_instanceRanks->rankAt(i)->p2p_timediff();
+
+            if(m_p2p_show && m_coll_show){
+                if(coll_data == 0) {
+                    lateSenderData = p2p_data/p2p_time_diff;
+                } else if (p2p_data == 0){
+                    lateSenderData = coll_data/coll_time_diff;
+                } else {
+                    float p2p_lates = p2p_data/p2p_time_diff;
+                    float coll_lates = coll_data/coll_time_diff;
+                    float time_diff = p2p_time_diff + coll_time_diff;
+
+                    float weight_p2p = (p2p_time_diff/time_diff) * p2p_lates;
+                    float weight_coll = (coll_time_diff/time_diff) * coll_lates;
+
+                    lateSenderData = weight_p2p + weight_coll;
+                }
+            } else if(m_p2p_show) {
+                lateSenderData = p2p_data/p2p_time_diff;
+            } else if(m_coll_show) {
+                lateSenderData = coll_data/coll_time_diff;;
+            }
+            blue = 255;
+            red = 255 - lateSenderData*255;
+            green = 255 - lateSenderData*255;
+
+        } else if(m_combobox == "Wait for Late Recver (per Proc)"){
+            float lateRecvrData = 0;
+            float coll_data = m_instanceRanks->rankAt(i)->coll_late_recvr();
+            float p2p_data = m_instanceRanks->rankAt(i)->p2p_late_recvr();
+            float coll_time_diff = m_instanceRanks->rankAt(i)->coll_timediff();
+            float p2p_time_diff = m_instanceRanks->rankAt(i)->p2p_timediff();
+
+            if(m_p2p_show && m_coll_show){
+                if(coll_data == 0) {
+                    lateRecvrData = p2p_data/p2p_time_diff;
+                } else if (p2p_data == 0){
+                    lateRecvrData = coll_data/coll_time_diff;
+                } else {
+                    float p2p_lates = p2p_data/p2p_time_diff;
+                    float coll_lates = coll_data/coll_time_diff;
+                    float time_diff = p2p_time_diff + coll_time_diff;
+
+                    float weight_p2p = (p2p_time_diff/time_diff) * p2p_lates;
+                    float weight_coll = (coll_time_diff/time_diff) * coll_lates;
+
+                    lateRecvrData = weight_p2p + weight_coll;
+                }
+            } else if(m_p2p_show) {
+                lateRecvrData = p2p_data/p2p_time_diff;
+            } else if(m_coll_show) {
+                lateRecvrData = coll_data/coll_time_diff;
+            }
+            blue = 255;
+            red = 255 - lateRecvrData*255;
+            green = 255 - lateRecvrData*255;
         }
 
         QColor col(red, green, blue);

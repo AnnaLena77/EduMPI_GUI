@@ -46,15 +46,28 @@ static constexpr auto qt_meta_stringdata_CLASSCluster_RankENDCLASS = QtMocHelper
     "recv_p2p_datasizeChanged",
     "send_coll_datasizeChanged",
     "recv_coll_datasizeChanged",
+    "p2p_late_senderChanged",
+    "p2p_late_recvrChanged",
+    "p2p_timediffChanged",
+    "coll_late_senderChanged",
+    "coll_late_recvrChanged",
+    "coll_timediffChanged",
     "getId",
     "p2p_send_datasize",
     "p2p_recv_datasize",
+    "p2p_late_sender",
+    "p2p_late_recvr",
     "coll_send_datasize",
-    "coll_recv_datasize"
+    "coll_recv_datasize",
+    "coll_late_sender",
+    "coll_late_recvr",
+    "coll_timediff",
+    "type",
+    "p2p_timediff"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSCluster_RankENDCLASS_t {
-    uint offsetsAndSizes[26];
+    uint offsetsAndSizes[52];
     char stringdata0[13];
     char stringdata1[12];
     char stringdata2[5];
@@ -63,11 +76,24 @@ struct qt_meta_stringdata_CLASSCluster_RankENDCLASS_t {
     char stringdata5[25];
     char stringdata6[26];
     char stringdata7[26];
-    char stringdata8[6];
-    char stringdata9[18];
-    char stringdata10[18];
-    char stringdata11[19];
-    char stringdata12[19];
+    char stringdata8[23];
+    char stringdata9[22];
+    char stringdata10[20];
+    char stringdata11[24];
+    char stringdata12[23];
+    char stringdata13[21];
+    char stringdata14[6];
+    char stringdata15[18];
+    char stringdata16[18];
+    char stringdata17[16];
+    char stringdata18[15];
+    char stringdata19[19];
+    char stringdata20[19];
+    char stringdata21[17];
+    char stringdata22[16];
+    char stringdata23[14];
+    char stringdata24[5];
+    char stringdata25[13];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSCluster_RankENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -81,11 +107,24 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSCluster_RankENDCLASS_t qt_meta_
         QT_MOC_LITERAL(56, 24),  // "recv_p2p_datasizeChanged"
         QT_MOC_LITERAL(81, 25),  // "send_coll_datasizeChanged"
         QT_MOC_LITERAL(107, 25),  // "recv_coll_datasizeChanged"
-        QT_MOC_LITERAL(133, 5),  // "getId"
-        QT_MOC_LITERAL(139, 17),  // "p2p_send_datasize"
-        QT_MOC_LITERAL(157, 17),  // "p2p_recv_datasize"
-        QT_MOC_LITERAL(175, 18),  // "coll_send_datasize"
-        QT_MOC_LITERAL(194, 18)   // "coll_recv_datasize"
+        QT_MOC_LITERAL(133, 22),  // "p2p_late_senderChanged"
+        QT_MOC_LITERAL(156, 21),  // "p2p_late_recvrChanged"
+        QT_MOC_LITERAL(178, 19),  // "p2p_timediffChanged"
+        QT_MOC_LITERAL(198, 23),  // "coll_late_senderChanged"
+        QT_MOC_LITERAL(222, 22),  // "coll_late_recvrChanged"
+        QT_MOC_LITERAL(245, 20),  // "coll_timediffChanged"
+        QT_MOC_LITERAL(266, 5),  // "getId"
+        QT_MOC_LITERAL(272, 17),  // "p2p_send_datasize"
+        QT_MOC_LITERAL(290, 17),  // "p2p_recv_datasize"
+        QT_MOC_LITERAL(308, 15),  // "p2p_late_sender"
+        QT_MOC_LITERAL(324, 14),  // "p2p_late_recvr"
+        QT_MOC_LITERAL(339, 18),  // "coll_send_datasize"
+        QT_MOC_LITERAL(358, 18),  // "coll_recv_datasize"
+        QT_MOC_LITERAL(377, 16),  // "coll_late_sender"
+        QT_MOC_LITERAL(394, 15),  // "coll_late_recvr"
+        QT_MOC_LITERAL(410, 13),  // "coll_timediff"
+        QT_MOC_LITERAL(424, 4),  // "type"
+        QT_MOC_LITERAL(429, 12)   // "p2p_timediff"
     },
     "Cluster_Rank",
     "QML.Element",
@@ -95,11 +134,24 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSCluster_RankENDCLASS_t qt_meta_
     "recv_p2p_datasizeChanged",
     "send_coll_datasizeChanged",
     "recv_coll_datasizeChanged",
+    "p2p_late_senderChanged",
+    "p2p_late_recvrChanged",
+    "p2p_timediffChanged",
+    "coll_late_senderChanged",
+    "coll_late_recvrChanged",
+    "coll_timediffChanged",
     "getId",
     "p2p_send_datasize",
     "p2p_recv_datasize",
+    "p2p_late_sender",
+    "p2p_late_recvr",
     "coll_send_datasize",
-    "coll_recv_datasize"
+    "coll_recv_datasize",
+    "coll_late_sender",
+    "coll_late_recvr",
+    "coll_timediff",
+    "type",
+    "p2p_timediff"
 };
 #undef QT_MOC_LITERAL
 #endif // !QT_MOC_HAS_STRING_DATA
@@ -111,26 +163,38 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSCluster_RankENDCLASS[] = {
       11,       // revision
        0,       // classname
        1,   14, // classinfo
-       5,   16, // methods
-       4,   51, // properties
+      11,   16, // methods
+      10,   93, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       4,       // signalCount
+      10,       // signalCount
 
  // classinfo: key, value
        1,    2,
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       3,    0,   46,    4, 0x06,    5 /* Public */,
-       5,    0,   47,    4, 0x06,    6 /* Public */,
-       6,    0,   48,    4, 0x06,    7 /* Public */,
-       7,    0,   49,    4, 0x06,    8 /* Public */,
+       3,    0,   82,    4, 0x06,   11 /* Public */,
+       5,    0,   83,    4, 0x06,   12 /* Public */,
+       6,    0,   84,    4, 0x06,   13 /* Public */,
+       7,    0,   85,    4, 0x06,   14 /* Public */,
+       8,    0,   86,    4, 0x06,   15 /* Public */,
+       9,    0,   87,    4, 0x06,   16 /* Public */,
+      10,    0,   88,    4, 0x06,   17 /* Public */,
+      11,    0,   89,    4, 0x06,   18 /* Public */,
+      12,    0,   90,    4, 0x06,   19 /* Public */,
+      13,    0,   91,    4, 0x06,   20 /* Public */,
 
  // methods: name, argc, parameters, tag, flags, initial metatype offsets
-       8,    0,   50,    4, 0x102,    9 /* Public | MethodIsConst  */,
+      14,    0,   92,    4, 0x102,   21 /* Public | MethodIsConst  */,
 
  // signals: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -140,10 +204,16 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSCluster_RankENDCLASS[] = {
     QMetaType::Int,
 
  // properties: name, type, flags
-       9, QMetaType::Long, 0x00015003, uint(0), 0,
-      10, QMetaType::Long, 0x00015003, uint(1), 0,
-      11, QMetaType::Long, 0x00015003, uint(2), 0,
-      12, QMetaType::Long, 0x00015003, uint(3), 0,
+      15, QMetaType::Long, 0x00015003, uint(0), 0,
+      16, QMetaType::Long, 0x00015003, uint(1), 0,
+      17, QMetaType::Float, 0x00015003, uint(4), 0,
+      18, QMetaType::Float, 0x00015003, uint(5), 0,
+      19, QMetaType::Long, 0x00015003, uint(2), 0,
+      20, QMetaType::Long, 0x00015003, uint(3), 0,
+      21, QMetaType::Float, 0x00015003, uint(7), 0,
+      22, QMetaType::Float, 0x00015003, uint(8), 0,
+      23, 0x80000000 | 24, 0x0001500b, uint(9), 0,
+      25, 0x80000000 | 24, 0x0001500b, uint(6), 0,
 
        0        // eod
 };
@@ -159,10 +229,22 @@ Q_CONSTINIT const QMetaObject Cluster_Rank::staticMetaObject = { {
         long,
         // property 'p2p_recv_datasize'
         long,
+        // property 'p2p_late_sender'
+        float,
+        // property 'p2p_late_recvr'
+        float,
         // property 'coll_send_datasize'
         long,
         // property 'coll_recv_datasize'
         long,
+        // property 'coll_late_sender'
+        float,
+        // property 'coll_late_recvr'
+        float,
+        // property 'coll_timediff'
+        float,
+        // property 'p2p_timediff'
+        float,
         // Q_OBJECT / Q_GADGET
         Cluster_Rank,
         // method 'send_p2p_datasizeChanged'
@@ -172,6 +254,18 @@ Q_CONSTINIT const QMetaObject Cluster_Rank::staticMetaObject = { {
         // method 'send_coll_datasizeChanged'
         void,
         // method 'recv_coll_datasizeChanged'
+        void,
+        // method 'p2p_late_senderChanged'
+        void,
+        // method 'p2p_late_recvrChanged'
+        void,
+        // method 'p2p_timediffChanged'
+        void,
+        // method 'coll_late_senderChanged'
+        void,
+        // method 'coll_late_recvrChanged'
+        void,
+        // method 'coll_timediffChanged'
         void,
         // method 'getId'
         int
@@ -189,7 +283,13 @@ void Cluster_Rank::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 1: _t->recv_p2p_datasizeChanged(); break;
         case 2: _t->send_coll_datasizeChanged(); break;
         case 3: _t->recv_coll_datasizeChanged(); break;
-        case 4: { int _r = _t->getId();
+        case 4: _t->p2p_late_senderChanged(); break;
+        case 5: _t->p2p_late_recvrChanged(); break;
+        case 6: _t->p2p_timediffChanged(); break;
+        case 7: _t->coll_late_senderChanged(); break;
+        case 8: _t->coll_late_recvrChanged(); break;
+        case 9: _t->coll_timediffChanged(); break;
+        case 10: { int _r = _t->getId();
             if (_a[0]) *reinterpret_cast< int*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
@@ -223,6 +323,48 @@ void Cluster_Rank::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
                 return;
             }
         }
+        {
+            using _t = void (Cluster_Rank::*)();
+            if (_t _q_method = &Cluster_Rank::p2p_late_senderChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 4;
+                return;
+            }
+        }
+        {
+            using _t = void (Cluster_Rank::*)();
+            if (_t _q_method = &Cluster_Rank::p2p_late_recvrChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 5;
+                return;
+            }
+        }
+        {
+            using _t = void (Cluster_Rank::*)();
+            if (_t _q_method = &Cluster_Rank::p2p_timediffChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 6;
+                return;
+            }
+        }
+        {
+            using _t = void (Cluster_Rank::*)();
+            if (_t _q_method = &Cluster_Rank::coll_late_senderChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 7;
+                return;
+            }
+        }
+        {
+            using _t = void (Cluster_Rank::*)();
+            if (_t _q_method = &Cluster_Rank::coll_late_recvrChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 8;
+                return;
+            }
+        }
+        {
+            using _t = void (Cluster_Rank::*)();
+            if (_t _q_method = &Cluster_Rank::coll_timediffChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 9;
+                return;
+            }
+        }
     }else if (_c == QMetaObject::ReadProperty) {
         auto *_t = static_cast<Cluster_Rank *>(_o);
         (void)_t;
@@ -230,8 +372,14 @@ void Cluster_Rank::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         switch (_id) {
         case 0: *reinterpret_cast< long*>(_v) = _t->p2p_send_datasize(); break;
         case 1: *reinterpret_cast< long*>(_v) = _t->p2p_recv_datasize(); break;
-        case 2: *reinterpret_cast< long*>(_v) = _t->coll_send_datasize(); break;
-        case 3: *reinterpret_cast< long*>(_v) = _t->coll_recv_datasize(); break;
+        case 2: *reinterpret_cast< float*>(_v) = _t->p2p_late_sender(); break;
+        case 3: *reinterpret_cast< float*>(_v) = _t->p2p_late_recvr(); break;
+        case 4: *reinterpret_cast< long*>(_v) = _t->coll_send_datasize(); break;
+        case 5: *reinterpret_cast< long*>(_v) = _t->coll_recv_datasize(); break;
+        case 6: *reinterpret_cast< float*>(_v) = _t->coll_late_sender(); break;
+        case 7: *reinterpret_cast< float*>(_v) = _t->coll_late_recvr(); break;
+        case 8: *reinterpret_cast< float*>(_v) = _t->coll_timediff(); break;
+        case 9: *reinterpret_cast< float*>(_v) = _t->p2p_timediff(); break;
         default: break;
         }
     } else if (_c == QMetaObject::WriteProperty) {
@@ -241,8 +389,14 @@ void Cluster_Rank::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         switch (_id) {
         case 0: _t->set_p2p_sendDatasize(*reinterpret_cast< long*>(_v)); break;
         case 1: _t->set_p2p_recvDatasize(*reinterpret_cast< long*>(_v)); break;
-        case 2: _t->set_coll_sendDatasize(*reinterpret_cast< long*>(_v)); break;
-        case 3: _t->set_coll_recvDatasize(*reinterpret_cast< long*>(_v)); break;
+        case 2: _t->set_p2p_late_sender(*reinterpret_cast< float*>(_v)); break;
+        case 3: _t->set_p2p_late_recvr(*reinterpret_cast< float*>(_v)); break;
+        case 4: _t->set_coll_sendDatasize(*reinterpret_cast< long*>(_v)); break;
+        case 5: _t->set_coll_recvDatasize(*reinterpret_cast< long*>(_v)); break;
+        case 6: _t->set_coll_late_sender(*reinterpret_cast< float*>(_v)); break;
+        case 7: _t->set_coll_late_recvr(*reinterpret_cast< float*>(_v)); break;
+        case 8: _t->set_coll_timediff(*reinterpret_cast< float*>(_v)); break;
+        case 9: _t->set_p2p_timediff(*reinterpret_cast< float*>(_v)); break;
         default: break;
         }
     } else if (_c == QMetaObject::ResetProperty) {
@@ -269,18 +423,18 @@ int Cluster_Rank::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 11)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 11;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 11)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 5;
+        _id -= 11;
     }else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::BindableProperty
             || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 10;
     }
     return _id;
 }
@@ -307,5 +461,41 @@ void Cluster_Rank::send_coll_datasizeChanged()
 void Cluster_Rank::recv_coll_datasizeChanged()
 {
     QMetaObject::activate(this, &staticMetaObject, 3, nullptr);
+}
+
+// SIGNAL 4
+void Cluster_Rank::p2p_late_senderChanged()
+{
+    QMetaObject::activate(this, &staticMetaObject, 4, nullptr);
+}
+
+// SIGNAL 5
+void Cluster_Rank::p2p_late_recvrChanged()
+{
+    QMetaObject::activate(this, &staticMetaObject, 5, nullptr);
+}
+
+// SIGNAL 6
+void Cluster_Rank::p2p_timediffChanged()
+{
+    QMetaObject::activate(this, &staticMetaObject, 6, nullptr);
+}
+
+// SIGNAL 7
+void Cluster_Rank::coll_late_senderChanged()
+{
+    QMetaObject::activate(this, &staticMetaObject, 7, nullptr);
+}
+
+// SIGNAL 8
+void Cluster_Rank::coll_late_recvrChanged()
+{
+    QMetaObject::activate(this, &staticMetaObject, 8, nullptr);
+}
+
+// SIGNAL 9
+void Cluster_Rank::coll_timediffChanged()
+{
+    QMetaObject::activate(this, &staticMetaObject, 9, nullptr);
 }
 QT_WARNING_POP

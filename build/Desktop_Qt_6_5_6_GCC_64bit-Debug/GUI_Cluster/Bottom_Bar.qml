@@ -15,7 +15,7 @@ Item {
     property string status: slurm_status
 
     onStatusChanged: {
-        if(status === "completed" && playbutton.icon.name==="pause" && timeline_timer.running){
+        if(status === "completed" && playbutton.icon.name==="pause" && timeline_timer.running && enable_timeline){
             playbutton.clicked();
         }
     }
@@ -68,6 +68,17 @@ Item {
                             timeline_timer.start()
                             icon.color = "red"
                             timeline.width+=1
+                        } else if (enabled == false) {
+                            currentTime = 0
+                            icon.color = "grey"
+                            icon.source = "qrc:/icons/pause.png"
+                            icon.name = "pause"
+                            screenEdge = parent.width
+                            container_stopPositionX = 0
+                            positionmarker_stopPositionX = 0
+                            timeline_positionmarker.x = 0
+                            timeline.width = bottom_timeline_bar.width
+                            timeline_container.interactive = false
                         }
                     }
 

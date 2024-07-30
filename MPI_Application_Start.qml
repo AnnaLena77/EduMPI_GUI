@@ -183,6 +183,8 @@ Rectangle {
                 Layout.alignment: Qt.AlignCenter
                 Layout.topMargin: 15
 
+                enabled: enable_start;
+
                 HoverHandler {
                     cursorShape: Qt.PointingHandCursor
                 }
@@ -190,9 +192,12 @@ Rectangle {
                 onClicked:{
                     if(checkInput()){
                         //nodesList.removeClusterComponents();
+                        enable_start = false;
+                        enable_timeline = false;
                         nodesList.writeRemoteBashFile(programNameField.text, parseInt(numProcs.text), true)
                         nodesList.writeLocalBashFile(uploadPath.text, fileButton.checked ? true : false, parseInt(numProcs.text));
                         startup();
+
 
                         //nodesList.buildClusterComponents(parseInt(numProcs.text))
                     }

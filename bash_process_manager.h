@@ -33,6 +33,7 @@ private slots:
 private:
     QProcess *process;
     QString m_status;
+    bool m_kill_signal = false;
 
 };
 

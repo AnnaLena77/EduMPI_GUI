@@ -40,6 +40,8 @@ Window {
     property string loaderText: ""
     property bool visualization: true
 
+    property bool enable_start: true
+
     Item {
         id: rootItem
         anchors.fill: parent
@@ -101,6 +103,7 @@ Window {
             window.x = (root.width - window.width) / 2;
             window.y = (root.height - window.height) / 2;
             window.show();
+            enable_start = true;
             }
         }
     }
@@ -235,6 +238,19 @@ Window {
             blue = 255 - recv_percent*255;
 
         }
+        else if(option == "Wait for Late Sender (per Proc)"){
+            if(p2p && collective){
+
+            }
+
+        }
+        else if(option == "Wait for Late Recver (per Proc)"){
+            if(p2p && collective){
+
+            }
+
+        }
+
         //console.log("Red: " + red + " Green: " + green + " Blue: " + blue)
         return "#" + componentToHex(red) + componentToHex(green) + componentToHex(blue);
     }

@@ -52,6 +52,36 @@
                     "designable": true,
                     "final": false,
                     "index": 2,
+                    "name": "p2p_late_sender",
+                    "notify": "p2p_late_senderChanged",
+                    "read": "p2p_late_sender",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "float",
+                    "user": false,
+                    "write": "set_p2p_late_sender"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 3,
+                    "name": "p2p_late_recvr",
+                    "notify": "p2p_late_recvrChanged",
+                    "read": "p2p_late_recvr",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "float",
+                    "user": false,
+                    "write": "set_p2p_late_recvr"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 4,
                     "name": "coll_send_datasize",
                     "notify": "send_coll_datasizeChanged",
                     "read": "coll_send_datasize",
@@ -66,7 +96,7 @@
                     "constant": false,
                     "designable": true,
                     "final": false,
-                    "index": 3,
+                    "index": 5,
                     "name": "coll_recv_datasize",
                     "notify": "recv_coll_datasizeChanged",
                     "read": "coll_recv_datasize",
@@ -76,6 +106,66 @@
                     "type": "long",
                     "user": false,
                     "write": "set_coll_recvDatasize"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 6,
+                    "name": "coll_late_sender",
+                    "notify": "coll_late_senderChanged",
+                    "read": "coll_late_sender",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "float",
+                    "user": false,
+                    "write": "set_coll_late_sender"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 7,
+                    "name": "coll_late_recvr",
+                    "notify": "coll_late_recvrChanged",
+                    "read": "coll_late_recvr",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "float",
+                    "user": false,
+                    "write": "set_coll_late_recvr"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 8,
+                    "name": "coll_timediff",
+                    "notify": "coll_timediffChanged",
+                    "read": "coll_timediff",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "float",
+                    "user": false,
+                    "write": "set_coll_timediff"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 9,
+                    "name": "p2p_timediff",
+                    "notify": "p2p_timediffChanged",
+                    "read": "p2p_timediff",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "float",
+                    "user": false,
+                    "write": "set_p2p_timediff"
                 }
             ],
             "qualifiedClassName": "Cluster_Rank",
@@ -98,6 +188,36 @@
                 {
                     "access": "public",
                     "name": "recv_coll_datasizeChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "p2p_late_senderChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "p2p_late_recvrChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "p2p_timediffChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "coll_late_senderChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "coll_late_recvrChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "coll_timediffChanged",
                     "returnType": "void"
                 }
             ],

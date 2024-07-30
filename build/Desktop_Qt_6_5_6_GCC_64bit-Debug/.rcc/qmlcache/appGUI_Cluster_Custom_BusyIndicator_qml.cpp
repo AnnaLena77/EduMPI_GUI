@@ -853,8 +853,8 @@ return r2_2;
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for implicitWidth at line 21, column 9
-QObject *r2_1;
 double r2_2;
+QObject *r2_1;
 // generate_LoadQmlContextPropertyLookup
 while (!aotContext->loadScopeObjectPropertyLookup(3, &r2_1)) {
 aotContext->setInstructionPointer(2);

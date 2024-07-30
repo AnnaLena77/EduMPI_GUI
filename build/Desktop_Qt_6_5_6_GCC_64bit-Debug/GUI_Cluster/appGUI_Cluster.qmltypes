@@ -48,12 +48,28 @@ Module {
             index: 1
         }
         Property {
+            name: "p2p_late_sender"
+            type: "float"
+            read: "p2p_late_sender"
+            write: "set_p2p_late_sender"
+            notify: "p2p_late_senderChanged"
+            index: 2
+        }
+        Property {
+            name: "p2p_late_recvr"
+            type: "float"
+            read: "p2p_late_recvr"
+            write: "set_p2p_late_recvr"
+            notify: "p2p_late_recvrChanged"
+            index: 3
+        }
+        Property {
             name: "coll_send_datasize"
             type: "long"
             read: "coll_send_datasize"
             write: "set_coll_sendDatasize"
             notify: "send_coll_datasizeChanged"
-            index: 2
+            index: 4
         }
         Property {
             name: "coll_recv_datasize"
@@ -61,12 +77,50 @@ Module {
             read: "coll_recv_datasize"
             write: "set_coll_recvDatasize"
             notify: "recv_coll_datasizeChanged"
-            index: 3
+            index: 5
+        }
+        Property {
+            name: "coll_late_sender"
+            type: "float"
+            read: "coll_late_sender"
+            write: "set_coll_late_sender"
+            notify: "coll_late_senderChanged"
+            index: 6
+        }
+        Property {
+            name: "coll_late_recvr"
+            type: "float"
+            read: "coll_late_recvr"
+            write: "set_coll_late_recvr"
+            notify: "coll_late_recvrChanged"
+            index: 7
+        }
+        Property {
+            name: "coll_timediff"
+            type: "float"
+            read: "coll_timediff"
+            write: "set_coll_timediff"
+            notify: "coll_timediffChanged"
+            index: 8
+        }
+        Property {
+            name: "p2p_timediff"
+            type: "float"
+            read: "p2p_timediff"
+            write: "set_p2p_timediff"
+            notify: "p2p_timediffChanged"
+            index: 9
         }
         Signal { name: "send_p2p_datasizeChanged" }
         Signal { name: "recv_p2p_datasizeChanged" }
         Signal { name: "send_coll_datasizeChanged" }
         Signal { name: "recv_coll_datasizeChanged" }
+        Signal { name: "p2p_late_senderChanged" }
+        Signal { name: "p2p_late_recvrChanged" }
+        Signal { name: "p2p_timediffChanged" }
+        Signal { name: "coll_late_senderChanged" }
+        Signal { name: "coll_late_recvrChanged" }
+        Signal { name: "coll_timediffChanged" }
         Method { name: "getId"; type: "int" }
     }
     Component {

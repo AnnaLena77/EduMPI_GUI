@@ -25,17 +25,7 @@ void Database_Thread::connectToDB(const QString &hostname, const QString &databa
 }
 
 void Database_Thread::clearDatabase(){
-    /*m_clearingProc = true;
-    if(db.isOpen()){
-        QSqlQuery query(db);
-        query.exec("DELETE FROM cluster_information;");
-        query.exec("DELETE FROM mpi_information;");
-        sleep(1);
-        query.exec("CALL refresh_continuous_aggregate('mpi_ds_secondly', NULL, NULL);");
-        //db.close();
-        std::cout << "Database gecleard" << std::endl;
-    }
-    m_clearingProc = false;*/
+
 }
 
 void Database_Thread::threadbuildClusterComponents(){
@@ -46,7 +36,7 @@ void Database_Thread::threadbuildClusterComponents(){
     /*while(m_clearingProc){
 
     }*/
-
+    m_firstDBEntryTime = QTime();
     std::cout << "New Cluster Components" << std::endl;
     QSqlQuery query(db);
     QString name = "";
@@ -83,7 +73,8 @@ void Database_Thread::updateData(const int &time_display){
     QDateTime timestamp;
 
     if(m_firstDBEntryTime.isNull()){
-        queryy.prepare("SELECT time_second FROM edumpi_data_secondly WHERE edumpi_run_id=:slurm_id order by time_second DESC LIMIT 1");
+        //queryy.prepare("SELECT time_second FROM edumpi_data_secondly WHERE edumpi_run_id=:slurm_id order by time_second DESC LIMIT 1");
+        queryy.prepare("SELECT time_start FROM edumpi_secondly_data WHERE edumpi_run_id=:slurm_id order by time_start ASC LIMIT 1");
         queryy.bindValue(":slurm_id", m_slurm_id);
         queryy.exec();
         if(queryy.next()){
@@ -102,7 +93,8 @@ void Database_Thread::updateData(const int &time_display){
     QString queryString;
 
     if(time_display == 0){
-        queryString = QString("SELECT * FROM edumpi_data_secondly WHERE time_second = '%1' AND edumpi_run_id = %2;").arg(m_actualDBEntryTime.toString("yyyy-MM-dd HH:mm:ss")).arg(m_slurm_id);
+        //queryString = QString("SELECT * FROM edumpi_data_secondly WHERE time_second = '%1' AND edumpi_run_id = %2;").arg(m_actualDBEntryTime.toString("yyyy-MM-dd HH:mm:ss")).arg(m_slurm_id);
+        queryString = QString("SELECT processorname, processrank, communicationtype, SUM(send_ds) AS send_ds, SUM(recv_ds) AS recv_ds, SUM(time_diff) AS time_diff, SUM(latesendertime) AS latesendertime, SUM(laterecvrtime) AS laterecvrtime FROM edumpi_secondly_data WHERE edumpi_run_id = %1 AND time_end >= '%2' AND time_start <= '%2' GROUP BY processorname, processrank, communicationtype;").arg(m_slurm_id).arg(m_actualDBEntryTime.toString("yyyy-MM-dd HH:mm:ss"));
     }
     else if(time_display == 1){
         queryString = QString("SELECT processrank, processorname, communicationtype, SUM(sendDatasize) AS send_ds, SUM(recvDatasize) AS recv_ds FROM edumpi_running_data WHERE edumpi_run_id=%1 GROUP BY processorname, processrank, communicationtype ORDER BY processrank ASC").arg(m_slurm_id);
@@ -122,17 +114,22 @@ void Database_Thread::updateData(const int &time_display){
             dc.proc_rank = query.value("processrank").toInt();
             dc.recv_datasize = query.value("recv_ds").toLongLong();
             dc.send_datasize = query.value("send_ds").toLongLong();
+
+            dc.late_sender = query.value("latesendertime").toFloat();
+            dc.late_receiver = query.value("laterecvrtime").toFloat();
+            dc.time_diff = query.value("time_diff").toFloat();
             list.append(dc);
+
         }while(query.next());
     } else{
         //std::cout << "Keine Daten \n" << std::endl;
-        query.prepare("SELECT MAX(time_end) FROM edumpi_running_data WHERE edumpi_run_id = :slurm_id");
+        /*query.prepare("SELECT MAX(time_end) FROM edumpi_running_data WHERE edumpi_run_id = :slurm_id");
         query.bindValue(":slurm_id", m_slurm_id);
         query.exec();
         if(query.next()){
             QString max = query.value("max").toString();
             //std::cout << "In der edumpi_running_data stehen Daten bis Timestamp: "  << max.toStdString() << "\n" << std::endl;
-        }
+        }*/
     }
 
     emit updateDataReady(list);
@@ -145,7 +142,7 @@ void Database_Thread::showDataFromTimePeriod(const QTime timestampA, const QTime
     a.setTime(timestampA);
     b.setTime(timestampB);
 
-    QString queryString = "SELECT * FROM edumpi_data_secondly WHERE time_second BETWEEN :starttime AND :endtime AND edumpi_run_id = :slurm_id;";
+    QString queryString = "SELECT processorname, processrank, communicationtype, SUM(send_ds) AS send_ds, SUM(recv_ds) AS recv_ds, SUM(time_diff) AS time_diff, SUM(latesendertime) AS latesendertime, SUM(laterecvrtime) AS laterecvrtime FROM edumpi_secondly_data WHERE time_end BETWEEN :starttime AND :endtime AND edumpi_run_id = :slurm_id GROUP BY processorname, processrank, communicationtype;";
     QSqlQuery query(db);
     query.prepare(queryString);
     query.bindValue(":starttime", a.toString("yyyy-MM-dd HH:mm:ss"));
@@ -165,6 +162,16 @@ void Database_Thread::showDataFromTimePeriod(const QTime timestampA, const QTime
                 dc.proc_rank = query.value("processrank").toInt();
                 dc.recv_datasize = query.value("recv_ds").toLongLong();
                 dc.send_datasize = query.value("send_ds").toLongLong();
+
+                float time_diff = query.value("time_diff").toFloat();
+                float late_send = query.value("latesendertime").toFloat();
+                float late_recv = query.value("laterecvrtime").toFloat();
+
+                dc.late_sender = late_send/time_diff;
+                dc.late_receiver = late_recv/time_diff;
+
+                //std::cout << dc.proc_name.toStdString() << " " << dc.comm_type.toStdString() << " " << dc.proc_rank << std::endl;
+
                 list.append(dc);
             }while(query.next());
         }else{

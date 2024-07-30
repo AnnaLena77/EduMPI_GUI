@@ -631,8 +631,8 @@ Q_UNUSED(argumentsPtr)
 // expression for onShowLoaderChanged at line 13, column 5
 bool r7_1;
 QObject *r8_1;
-bool r2_1;
 QObject *r2_2;
+bool r2_1;
 // generate_CreateCallContext
 {
 // generate_LoadQmlContextPropertyLookup
@@ -685,8 +685,8 @@ return;
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for width at line 28, column 9
-double r2_2;
 QObject *r2_1;
+double r2_2;
 // generate_LoadQmlContextPropertyLookup
 while (!aotContext->loadScopeObjectPropertyLookup(4, &r2_1)) {
 aotContext->setInstructionPointer(2);

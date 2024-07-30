@@ -1710,9 +1710,9 @@ return;
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for opacity at line 91, column 25
-bool r2_2;
 float r2_3;
 QObject *r2_1;
+bool r2_2;
 // generate_LoadQmlContextPropertyLookup
 while (!aotContext->loadContextIdLookup(71, &r2_1)) {
 aotContext->setInstructionPointer(2);

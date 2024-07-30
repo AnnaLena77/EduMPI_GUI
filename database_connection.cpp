@@ -112,10 +112,9 @@ void Database_Connection::buildClusterComponents(const QMap<QString, QVector<int
 }
 
 void Database_Connection::removeClusterComponents(){
-    if(m_componentsBuilt){
-        m_nodes.clear();
-        std::cout << "Removed Cluster-Components" << std::endl;
-    }
+    m_nodes.clear();
+    timerId = -1;
+    std::cout << "Removed Cluster-Components" << std::endl;
 }
 
 Database_Connection::~Database_Connection()
@@ -184,6 +183,10 @@ void Database_Connection::updateDataToUI(const QList<DataColumn> &list){
                 r->set_coll_sendDatasize(0);
                 r->set_p2p_recvDatasize(0);
                 r->set_p2p_sendDatasize(0);
+                r->set_p2p_late_sender(0);
+                r->set_p2p_late_recvr(0);
+                r->set_coll_late_sender(0);
+                r->set_coll_late_recvr(0);
             }
     }
     set_p2p_recv_max(0);
@@ -215,6 +218,9 @@ void Database_Connection::updateDataToUI(const QList<DataColumn> &list){
             }
             this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_p2p_sendDatasize(dc.send_datasize);
             this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_p2p_recvDatasize(dc.recv_datasize);
+            this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_p2p_late_sender(dc.late_sender);
+            this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_p2p_late_recvr(dc.late_receiver);
+            this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_p2p_timediff(dc.time_diff);
         } else if(dc.comm_type=="collective"){
             if(dc.send_datasize>m_coll_send_max){
                 set_coll_send_max(dc.send_datasize);
@@ -224,6 +230,9 @@ void Database_Connection::updateDataToUI(const QList<DataColumn> &list){
             }
             this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_coll_sendDatasize(dc.send_datasize);
             this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_coll_recvDatasize(dc.recv_datasize);
+            this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_coll_late_sender(dc.late_sender);
+            this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_coll_late_recvr(dc.late_receiver);
+            this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_coll_timediff(dc.time_diff);
         } else{
         std::cerr << "The communication_type " << dc.comm_type.toStdString() << " is unknown!" << std::endl;
         }
@@ -344,6 +353,7 @@ void Database_Connection::writeLocalBashFile(QString local_path, bool file, int 
     //m_visualization = visualization;
 
     if(m_componentsBuilt){
+        removeClusterComponents();
         m_componentsBuilt = false;
         std::cout << "Nach Start der Bash: False!" << std::endl;
         emit signalToClearDB();
@@ -483,6 +493,7 @@ void Database_Connection::writeBash(QString content){
 
 void Database_Connection::startBash(int proc_num){
     if(m_componentsBuilt){
+        removeClusterComponents();
         m_componentsBuilt = false;
         std::cout << "Nach Start der Bash: False!" << std::endl;
         emit signalToClearDB();
@@ -542,8 +553,10 @@ void Database_Connection::writeRemoteBashFile(QString program_name, int proc_num
 //Functionality for timeline
 
 void Database_Connection::startAndStop(bool start){
+    std::cout << "startAndStop " << start << std::endl;
     if(!m_componentsBuilt){
         return;
+        std::cout << "startAndStop Return" << start << std::endl;
     }
     if(start == true){
         if(timerId != -1){
@@ -584,6 +597,7 @@ void Database_Connection::slurm_status_changed(QString status){
     } else {
         if(status == "completed" && m_status_running){
             copyOutputFile();
+            slurm_process->killProcess();
         }
     }
 }
@@ -594,10 +608,11 @@ void Database_Connection::getSlurmID(const int id){
 void Database_Connection::cancelRunningJob(){
     int signal = SIGTERM;
     slurm_process->sendSignal(signal);
-    //slurm_process->killProcess();
+    slurm_process->killProcess();
 }
 
 void Database_Connection::closeApp(){
+    removeClusterComponents();
     if (!m_envFilePath.empty()) {
         if (unlink(m_envFilePath.c_str()) != 0) {
             std::cerr << "Failed to delete temporary file" << std::endl;

@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <QDebug>
+#include <iostream>
 
 /*Bash_Process_Manager::Bash_Process_Manager(QObject *parent) : QObject(parent)
 {
@@ -38,9 +39,11 @@ void Bash_Process_Manager::handleOutput()
 {
     QString output = process->readAllStandardOutput();
 
-    if(slurm_job_id==0){
-         if(output.contains("JOB_ID=")){
-            QString jobId = output.mid(output.indexOf('=') + 1).trimmed();
+    //if(slurm_job_id==0){
+    if(output.contains("JOB_ID=")){
+        QString jobId = output.mid(output.indexOf('=') + 1).trimmed();
+        std::cout << "JOB-ID: " << jobId.toInt() << std::endl;
+        if(slurm_job_id != jobId.toInt()){
             slurm_job_id = jobId.toInt();
             emit slurmIdReady(slurm_job_id);
         }
@@ -61,6 +64,11 @@ void Bash_Process_Manager::handleOutput()
         if(m_status != "completed"){
             m_status = "completed";
             emit slurm_status_changed(m_status);
+            if(m_kill_signal){
+                if(process->state() == QProcess::Running){
+                    process->kill();
+                }
+            }
         }
         else{
             qDebug() << "Output:" << output;
@@ -82,7 +90,5 @@ void Bash_Process_Manager::handleProcessFinished(int exitCode, QProcess::ExitSta
 }
 
 void Bash_Process_Manager::killProcess(){
-    if(process->state() == QProcess::Running){
-        process->kill();
-    }
+    m_kill_signal = true;
 }

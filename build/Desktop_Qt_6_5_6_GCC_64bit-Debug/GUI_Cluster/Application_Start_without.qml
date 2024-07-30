@@ -176,6 +176,7 @@ Window {
                 if(checkInput()){
                     //nodesList.removeClusterComponents();
                     visualization=false;
+                    enable_timeline = false;
                     nodesList.writeRemoteBashFile(programNameField.text, parseInt(numProcs.text), false)
                     nodesList.writeLocalBashFile(uploadPath.text, fileButton.checked ? true : false, parseInt(numProcs.text));
                     startup();

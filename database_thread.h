@@ -15,6 +15,9 @@ struct DataColumn
     int proc_rank;
     long recv_datasize;
     long send_datasize;
+    float late_sender;
+    float late_receiver;
+    float time_diff;
 };
 
 
