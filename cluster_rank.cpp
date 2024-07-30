@@ -14,7 +14,12 @@ Cluster_Rank::Cluster_Rank(QObject *parent, int id) : QObject(parent), m_id(id)
     m_p2p_recv_datasize = 0;
     m_coll_send_datasize = 0;
     m_coll_recv_datasize = 0;
-
+    m_p2p_late_recvr = 0.0;
+    m_coll_late_recvr = 0.0;
+    m_p2p_late_sender = 0.0;
+    m_coll_late_sender = 0.0;
+    m_coll_timediff = 0.0;
+    m_p2p_timediff = 0.0;
 }
 
 int Cluster_Rank::getId() const{

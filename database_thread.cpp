@@ -142,7 +142,7 @@ void Database_Thread::showDataFromTimePeriod(const QTime timestampA, const QTime
     a.setTime(timestampA);
     b.setTime(timestampB);
 
-    QString queryString = "SELECT processorname, processrank, communicationtype, SUM(send_ds) AS send_ds, SUM(recv_ds) AS recv_ds, SUM(time_diff) AS time_diff, SUM(latesendertime) AS latesendertime, SUM(laterecvrtime) AS laterecvrtime FROM edumpi_secondly_data WHERE time_end BETWEEN :starttime AND :endtime AND edumpi_run_id = :slurm_id GROUP BY processorname, processrank, communicationtype;";
+    QString queryString = "SELECT processorname, processrank, communicationtype, SUM(send_ds) AS send_ds, SUM(recv_ds) AS recv_ds, SUM(time_diff) AS time_diff, SUM(latesendertime) AS latesendertime, SUM(laterecvrtime) AS laterecvrtime FROM edumpi_secondly_data WHERE edumpi_run_id = :slurm_id AND time_end >= :endtime AND time_start <= :starttime GROUP BY processorname, processrank, communicationtype;";
     QSqlQuery query(db);
     query.prepare(queryString);
     query.bindValue(":starttime", a.toString("yyyy-MM-dd HH:mm:ss"));
@@ -167,8 +167,9 @@ void Database_Thread::showDataFromTimePeriod(const QTime timestampA, const QTime
                 float late_send = query.value("latesendertime").toFloat();
                 float late_recv = query.value("laterecvrtime").toFloat();
 
-                dc.late_sender = late_send/time_diff;
-                dc.late_receiver = late_recv/time_diff;
+                dc.late_sender = query.value("latesendertime").toFloat();
+                dc.late_receiver = query.value("laterecvrtime").toFloat();
+                dc.time_diff = query.value("time_diff").toFloat();
 
                 //std::cout << dc.proc_name.toStdString() << " " << dc.comm_type.toStdString() << " " << dc.proc_rank << std::endl;
 

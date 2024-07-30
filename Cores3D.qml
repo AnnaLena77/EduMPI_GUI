@@ -33,20 +33,31 @@ Rectangle {
             }
         }
 
-        MouseArea{
-            anchors.fill: parent
-            onWheel: {
-                if(wheel.angleDelta.y>0){
+        WheelHandler{
+            onWheel: event=>{
+                if(event.angleDelta.y>0){
                     cameraNode.zoom(-10)
                 }
                 else {
                     cameraNode.zoom(10);
                 }
             }
+        }
+
+        MouseArea{
+            anchors.fill: parent
+           /* onWheel: {
+                if(wheel.angleDelta.y>0){
+                    cameraNode.zoom(-10)
+                }
+                else {
+                    cameraNode.zoom(10);
+                }
+            }*/
             propagateComposedEvents: true
-            onClicked: {
+            onClicked: event=>{
                 // Maus- und Kamera-Position im dreidimensionalen Raum
-                var mousePos = Qt.vector3d(mouse.x, mouse.y, 0);
+                var mousePos = Qt.vector3d(event.x, event.y, 0);
                 var rayOrigin = cameraNode.position;
                 var rayDirection = (viewport.mapTo3DScene(mousePos).minus(rayOrigin)).normalized();
                 // Ray wird gesendet, erstes Objekt, welches getroffen wird, ist "hitResult"
@@ -88,7 +99,7 @@ Rectangle {
                     PrincipledMaterial {
                         id: glassMaterial
                         lineWidth: 1
-                        opacity: outerCube.isPicked ? 1 : 0.1
+                        opacity: 0.1
                             //shadingMode: CustomMaterial.Shaded
                             //vertexShader: "qrc:/shaders/simple.vert"
                             //fragmentShader: "qrc:/shaders/glass.frag"
