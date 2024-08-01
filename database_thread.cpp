@@ -142,7 +142,7 @@ void Database_Thread::showDataFromTimePeriod(const QTime timestampA, const QTime
     a.setTime(timestampA);
     b.setTime(timestampB);
 
-    QString queryString = "SELECT processorname, processrank, communicationtype, SUM(send_ds) AS send_ds, SUM(recv_ds) AS recv_ds, SUM(time_diff) AS time_diff, SUM(latesendertime) AS latesendertime, SUM(laterecvrtime) AS laterecvrtime FROM edumpi_secondly_data WHERE edumpi_run_id = :slurm_id AND time_end >= :endtime AND time_start <= :starttime GROUP BY processorname, processrank, communicationtype;";
+    QString queryString = "SELECT processorname, processrank, communicationtype, SUM(send_ds) AS send_ds, SUM(recv_ds) AS recv_ds, SUM(time_diff) AS time_diff, SUM(latesendertime) AS latesendertime, SUM(laterecvrtime) AS laterecvrtime FROM edumpi_secondly_data WHERE edumpi_run_id = :slurm_id AND ((time_end >= :endtime AND time_start <= :starttime) OR (time_end BETWEEN :starttime AND :endtime)) GROUP BY processorname, processrank, communicationtype;";
     QSqlQuery query(db);
     query.prepare(queryString);
     query.bindValue(":starttime", a.toString("yyyy-MM-dd HH:mm:ss"));
@@ -162,10 +162,6 @@ void Database_Thread::showDataFromTimePeriod(const QTime timestampA, const QTime
                 dc.proc_rank = query.value("processrank").toInt();
                 dc.recv_datasize = query.value("recv_ds").toLongLong();
                 dc.send_datasize = query.value("send_ds").toLongLong();
-
-                float time_diff = query.value("time_diff").toFloat();
-                float late_send = query.value("latesendertime").toFloat();
-                float late_recv = query.value("laterecvrtime").toFloat();
 
                 dc.late_sender = query.value("latesendertime").toFloat();
                 dc.late_receiver = query.value("laterecvrtime").toFloat();

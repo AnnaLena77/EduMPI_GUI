@@ -27,34 +27,77 @@ Rectangle {
         PerspectiveCamera {
             id: cameraNode
             z: 600
+            eulerRotation: Qt.vector3d(0,0,0)
+
+            property vector3d initialPosition: Qt.vector3d(0, 0, 600)
+            property vector3d target: Qt.vector3d(0,0,0)
+            property real distance: 600
+            property real angleX: 0
+            property real angleY: 0
+
+            function updatePosition() {
+                cameraNode.x = cameraNode.target.x + cameraNode.distance * Math.sin(cameraNode.angleY) * Math.cos(cameraNode.angleX)
+                cameraNode.y = cameraNode.target.y + cameraNode.distance * Math.sin(cameraNode.angleX)
+                cameraNode.z = cameraNode.target.z + cameraNode.distance * Math.cos(cameraNode.angleY) * Math.cos(cameraNode.angleX)
+                cameraNode.lookAt(cameraNode.target)
+            }
 
             function zoom(distance){
-                cameraNode.z+=distance;
+                cameraNode.distance += distance
+                if (cameraNode.distance >= 600) {
+                    cameraNode.distance = 600
+                    cameraNode.position = cameraNode.initialPosition
+                    cameraNode.angleX = 0
+                    cameraNode.angleY = 0
+                        cameraNode.lookAt(cameraNode.target)
+                } else {
+                    cameraNode.updatePosition()
+                }
             }
         }
 
         WheelHandler{
             onWheel: event=>{
                 if(event.angleDelta.y>0){
-                    cameraNode.zoom(-10)
+                    cameraNode.zoom(-15)
                 }
                 else {
-                    cameraNode.zoom(10);
+                    cameraNode.zoom(15);
                 }
             }
         }
 
         MouseArea{
             anchors.fill: parent
-           /* onWheel: {
-                if(wheel.angleDelta.y>0){
-                    cameraNode.zoom(-10)
-                }
-                else {
-                    cameraNode.zoom(10);
-                }
-            }*/
             propagateComposedEvents: true
+            property bool rotating: false
+            property real lastX: 0
+            property real lastY: 0
+
+            onPressed: event => {
+                rotating = true
+                lastX = event.x
+                lastY = event.y
+            }
+            onReleased: event => {
+                rotating = false
+            }
+
+            onPositionChanged: event => {
+                if (rotating) {
+                    var deltaX = event.x - lastX
+                    var deltaY = event.y - lastY
+                    lastX = event.x
+                    lastY = event.y
+
+                    cameraNode.angleY -= deltaX * 0.01
+                    cameraNode.angleX -= deltaY * 0.01
+                    cameraNode.angleX = Math.max(Math.min(cameraNode.angleX, Math.PI / 2), -Math.PI / 2)
+
+                    cameraNode.updatePosition()
+                }
+            }
+
             onClicked: event=>{
                 // Maus- und Kamera-Position im dreidimensionalen Raum
                 var mousePos = Qt.vector3d(event.x, event.y, 0);
@@ -141,6 +184,7 @@ Rectangle {
                                     console.log("Hier wirds null: " + model.index + ", " +index)
                                 }
                                 console.log(model.index + ", " + index)
+                                console.log("Rows: " + rowsColumns)
                             }
                         }
                         materials: [
