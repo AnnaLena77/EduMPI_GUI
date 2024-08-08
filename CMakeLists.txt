@@ -58,6 +58,7 @@ qt_add_qml_module(appGUI_Cluster
         Loading.qml
         Output_File.qml
         Application_Start_without.qml
+        QML_FILES Application_Start_Scorep.qml
 )
 
 set_target_properties(appGUI_Cluster PROPERTIES

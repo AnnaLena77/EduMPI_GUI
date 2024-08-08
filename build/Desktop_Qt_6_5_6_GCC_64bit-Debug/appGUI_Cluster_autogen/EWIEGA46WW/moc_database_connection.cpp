@@ -97,7 +97,7 @@ static constexpr auto qt_meta_stringdata_CLASSDatabase_ConnectionENDCLASS = QtMo
     "program",
     "writeRemoteBashFile",
     "program_name",
-    "visualization",
+    "option",
     "showConditionAt",
     "timeSecondsA",
     "timeSecondsB",
@@ -183,7 +183,7 @@ struct qt_meta_stringdata_CLASSDatabase_ConnectionENDCLASS_t {
     char stringdata55[8];
     char stringdata56[20];
     char stringdata57[13];
-    char stringdata58[14];
+    char stringdata58[7];
     char stringdata59[16];
     char stringdata60[13];
     char stringdata61[13];
@@ -270,30 +270,30 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSDatabase_ConnectionENDCLASS_t q
         QT_MOC_LITERAL(768, 7),  // "program"
         QT_MOC_LITERAL(776, 19),  // "writeRemoteBashFile"
         QT_MOC_LITERAL(796, 12),  // "program_name"
-        QT_MOC_LITERAL(809, 13),  // "visualization"
-        QT_MOC_LITERAL(823, 15),  // "showConditionAt"
-        QT_MOC_LITERAL(839, 12),  // "timeSecondsA"
-        QT_MOC_LITERAL(852, 12),  // "timeSecondsB"
-        QT_MOC_LITERAL(865, 12),  // "startAndStop"
-        QT_MOC_LITERAL(878, 5),  // "start"
-        QT_MOC_LITERAL(884, 14),  // "connectCluster"
-        QT_MOC_LITERAL(899, 7),  // "address"
-        QT_MOC_LITERAL(907, 5),  // "ident"
-        QT_MOC_LITERAL(913, 4),  // "path"
-        QT_MOC_LITERAL(918, 19),  // "connectClusterAsync"
-        QT_MOC_LITERAL(938, 8),  // "QJSValue"
-        QT_MOC_LITERAL(947, 8),  // "callback"
-        QT_MOC_LITERAL(956, 6),  // "nodeAt"
-        QT_MOC_LITERAL(963, 13),  // "Cluster_Node*"
-        QT_MOC_LITERAL(977, 5),  // "index"
-        QT_MOC_LITERAL(983, 5),  // "count"
-        QT_MOC_LITERAL(989, 12),  // "p2p_send_max"
-        QT_MOC_LITERAL(1002, 13),  // "coll_send_max"
-        QT_MOC_LITERAL(1016, 12),  // "p2p_recv_max"
-        QT_MOC_LITERAL(1029, 13),  // "coll_recv_max"
-        QT_MOC_LITERAL(1043, 13),  // "db_connection"
-        QT_MOC_LITERAL(1057, 18),  // "cluster_connection"
-        QT_MOC_LITERAL(1076, 12)   // "time_display"
+        QT_MOC_LITERAL(809, 6),  // "option"
+        QT_MOC_LITERAL(816, 15),  // "showConditionAt"
+        QT_MOC_LITERAL(832, 12),  // "timeSecondsA"
+        QT_MOC_LITERAL(845, 12),  // "timeSecondsB"
+        QT_MOC_LITERAL(858, 12),  // "startAndStop"
+        QT_MOC_LITERAL(871, 5),  // "start"
+        QT_MOC_LITERAL(877, 14),  // "connectCluster"
+        QT_MOC_LITERAL(892, 7),  // "address"
+        QT_MOC_LITERAL(900, 5),  // "ident"
+        QT_MOC_LITERAL(906, 4),  // "path"
+        QT_MOC_LITERAL(911, 19),  // "connectClusterAsync"
+        QT_MOC_LITERAL(931, 8),  // "QJSValue"
+        QT_MOC_LITERAL(940, 8),  // "callback"
+        QT_MOC_LITERAL(949, 6),  // "nodeAt"
+        QT_MOC_LITERAL(956, 13),  // "Cluster_Node*"
+        QT_MOC_LITERAL(970, 5),  // "index"
+        QT_MOC_LITERAL(976, 5),  // "count"
+        QT_MOC_LITERAL(982, 12),  // "p2p_send_max"
+        QT_MOC_LITERAL(995, 13),  // "coll_send_max"
+        QT_MOC_LITERAL(1009, 12),  // "p2p_recv_max"
+        QT_MOC_LITERAL(1022, 13),  // "coll_recv_max"
+        QT_MOC_LITERAL(1036, 13),  // "db_connection"
+        QT_MOC_LITERAL(1050, 18),  // "cluster_connection"
+        QT_MOC_LITERAL(1069, 12)   // "time_display"
     },
     "Database_Connection",
     "QML.Element",
@@ -353,7 +353,7 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSDatabase_ConnectionENDCLASS_t q
     "program",
     "writeRemoteBashFile",
     "program_name",
-    "visualization",
+    "option",
     "showConditionAt",
     "timeSecondsA",
     "timeSecondsB",
@@ -479,7 +479,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSDatabase_ConnectionENDCLASS[] = 
     QMetaType::QString,
     QMetaType::Void, QMetaType::QString,   52,
     QMetaType::Bool, QMetaType::QString, QMetaType::QString, QMetaType::Bool,   54,   55,   46,
-    QMetaType::Void, QMetaType::QString, QMetaType::Int, QMetaType::Bool,   57,   22,   58,
+    QMetaType::Void, QMetaType::QString, QMetaType::Int, QMetaType::Int,   57,   22,   58,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,   60,   61,
     QMetaType::Void, QMetaType::Bool,   63,
     QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,   65,   66,   67,
@@ -624,7 +624,7 @@ Q_CONSTINIT const QMetaObject Database_Connection::staticMetaObject = { {
         void,
         QString,
         int,
-        bool,
+        int,
         // method 'showConditionAt'
         void,
         int,
@@ -690,7 +690,7 @@ void Database_Connection::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
         case 30: _t->writeBash((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         case 31: { bool _r = _t->checkFile((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[3])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
-        case 32: _t->writeRemoteBashFile((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[3]))); break;
+        case 32: _t->writeRemoteBashFile((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
         case 33: _t->showConditionAt((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
         case 34: _t->startAndStop((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
         case 35: { QString _r = _t->connectCluster((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])));

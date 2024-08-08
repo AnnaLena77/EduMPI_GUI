@@ -123,8 +123,8 @@
                             "type": "int"
                         },
                         {
-                            "name": "visualization",
-                            "type": "bool"
+                            "name": "option",
+                            "type": "int"
                         }
                     ],
                     "name": "writeRemoteBashFile",

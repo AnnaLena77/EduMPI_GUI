@@ -56,7 +56,7 @@ public:
     Q_INVOKABLE void writeBash(QString content);
 
     Q_INVOKABLE bool checkFile(QString source, QString program, bool file);
-    Q_INVOKABLE void writeRemoteBashFile(QString program_name, int proc_num, bool visualization);
+    Q_INVOKABLE void writeRemoteBashFile(QString program_name, int proc_num, int option);
 
     //Invokables for Timeline
     Q_INVOKABLE void showConditionAt(int timeSecondsA, int timeSecondsB);
@@ -133,7 +133,7 @@ private:
 
     std::string m_envFilePath;
     int m_slurm_id;
-    bool m_visualization;
+    int m_option;
     bool m_status_running=false;
 
 protected:

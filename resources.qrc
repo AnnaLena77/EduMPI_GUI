@@ -14,5 +14,7 @@
         <file>icons/xmark.png</file>
         <file>bash_files/local_bash_skript.sh</file>
         <file>icons/checkmark.png</file>
+        <file>bash_files/remote_scorep_skript.sh</file>
+        <file>bash_files/local_bash_skript_scorep.sh</file>
     </qresource>
 </RCC>

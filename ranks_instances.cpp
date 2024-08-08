@@ -45,6 +45,9 @@ bool Ranks_Instances::p2p_show(){
 bool Ranks_Instances::coll_show(){
     return m_coll_show;
 }
+bool Ranks_Instances::components_build(){
+    return m_components_build;
+}
 
 /*QByteArray Ranks_Instances::outerInstanceData(){
     return m_outerInstanceData;
@@ -90,6 +93,10 @@ void Ranks_Instances::set_collBool(bool show){
     markDirty();
     //emit collBoolChanged();
 }
+void Ranks_Instances::setComponents_build(bool comp){
+    m_components_build = comp;
+    markDirty();
+}
 /*void Ranks_Instances::setOuterInstanceData(QByteArray arr){
     m_outerInstanceData = arr;
     emit outerInstanceDataChanged();
@@ -119,6 +126,8 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
         float x = (i % m_rowsColumns) * (m_outerCubeLength/m_rowsColumns + m_innerCubeSpacing) - m_outerCubeLength/2 + m_outerCubeLength/(2*m_rowsColumns);
         float y = int(floor(i/m_rowsColumns)) % m_rowsColumns * (m_outerCubeLength/m_rowsColumns + m_innerCubeSpacing) - m_outerCubeLength/2 + m_outerCubeLength/(2*m_rowsColumns);
         float z = floor(i / (m_rowsColumns * m_rowsColumns)) * (-m_outerCubeLength/m_rowsColumns) + m_outerCubeLength/2 - m_outerCubeLength/(m_rowsColumns * 2) - m_innerCubeSpacing;
+
+        m_instanceRanks->rankAt(i)->set_position({x,y,z});
 
         float scale = m_innerCubeScale;
 
@@ -253,7 +262,7 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
         QColor col(red, green, blue);
 
         //std::cout << "Instance " << i << ": x=" << x << ", y=" << y << ", z=" << z << std::endl;
-        auto entry = calculateTableEntry({ x, y, z }, {scale, scale, scale}, {}, {col}, {});
+        auto entry = calculateTableEntry({ x, y, z }, {scale, scale, scale}, {}, {col}, {x,y,z,0});
         m_instanceData.append(reinterpret_cast<const char *>(&entry), sizeof(entry));
         instanceNumber++;
     }

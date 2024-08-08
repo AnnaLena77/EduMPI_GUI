@@ -18,7 +18,7 @@ Window {
             spacing: 4
 
             Label {
-                text: "Remote Hostname or IP-Address (Cluster HS Fulda: hpc.informatik.hs-fulda.de):"
+                text: "Remote Hostname or IP-Address:" //(Cluster HS Fulda: hpc.informatik.hs-fulda.de):"
                 wrapMode: Text.WordWrap
                 color: "#999999"
             }

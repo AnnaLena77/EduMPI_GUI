@@ -111,13 +111,13 @@ Rectangle {
                     pickedObject.isPicked = !pickedObject.isPicked;
 
                     var objectPosition = pickedObject.position;
-                    console.log("Position " + objectPosition);
+                    //console.log("Position " + objectPosition);
 
                     var zoomDistance = 10; // Entfernung der Kamera zum Objekt
                     var cameraDirection = Qt.vector3d(0, 0, -1); // Richtung der Kamera (zum Beispiel nach vorne gerichtet)
                     var cameraPosition = Qt.vector3d(objectPosition.x, objectPosition.y, objectPosition.z+150);
 
-                    console.log("Kameraposition " + cameraPosition);
+                    //console.log("Kameraposition " + cameraPosition);
 
                     cameraNode.position = cameraPosition;
                     cameraNode.lookAt(objectPosition); // Kamera auf das Objekt ausrichten
@@ -149,6 +149,8 @@ Rectangle {
                     }
                 ]
 
+                property int outerCubeIndex: model.index
+
                 onBoundsChanged : {
 
                     var outerCubeLength = 100//outerCube.bounds.maximum.x - (outerCube.bounds.minimum.x);
@@ -167,6 +169,7 @@ Rectangle {
 
                         instancing: Ranks_Instances {
                             //outerInstanceData : outerCube.instancing.instancePosition()
+                            id: instanceData
                             p2p_show: p2p
                             coll_show: collective
                             combobox: option
@@ -180,13 +183,43 @@ Rectangle {
                             rowsColumns: Math.ceil(Math.pow(innerCubeCount, 1/3));
                             innerCubeScale: outerCube.scale.x / rowsColumns * (1 - innerCubeSpacing) // Berechnung der Skalierung des inneren Würfels
                             Component.onCompleted: {
-                                if(nodesList.nodeAt(model.index).rankAt(index)===null){
-                                    console.log("Hier wirds null: " + model.index + ", " +index)
-                                }
-                                console.log(model.index + ", " + index)
-                                console.log("Rows: " + rowsColumns)
+                                //console.log(model.index + ", " + index)
+                                //console.log("Rows: " + rowsColumns)
                             }
                         }
+
+                        /*Repeater3D {
+                            model: instanceData.instanceCount
+                            delegate: Node {
+
+                                id: textNode
+                                position: Qt.vector3d(
+                                              nodesList.nodeAt(outerCubeIndex).rankAt(model.index).position.x,
+                                              nodesList.nodeAt(outerCubeIndex).rankAt(model.index).position.y,
+                                              nodesList.nodeAt(outerCubeIndex).rankAt(model.index).position.z + 2.8
+                                            )
+                                    //nodesList.nodeAt(outerCubeIndex).rankAt(model.index).position
+
+
+                                Item {
+                                    width: 100
+                                    height: 50
+
+                                    Text {
+                                        text: nodesList.nodeAt(outerCubeIndex).rankAt(model.index).getId()
+                                        color: "black"
+                                        font.pixelSize: 3
+                                        //anchors.horizontalCenter: parent.horizontalCenter
+                                        //anchors.verticalCenter: parent.verticalCenter
+                                    }
+                                }
+                                Component.onCompleted: {
+                                    console.log(innerCube.sceneScale)
+                                }
+
+                            }
+                        }*/
+
                         materials: [
                             PrincipledMaterial{
                                /* baseColor: Qt.rgba(Math.random(), Math.random(), Math.random(), 1)
@@ -197,6 +230,30 @@ Rectangle {
                         //onBoundsChanged: console.log("hallo" + index)
                     }
                 }
+
+
+                   /* Repeater {
+                        model: instanceData.instanceCount
+                        delegate: Text {
+                            text: model.index.toString()
+                            color: "black"
+                            font.pixelSize: 5
+                            //anchors.horizontalCenter: parent.horizontalCenter
+                            //anchors.verticalCenter: parent.verticalCenter
+
+                            property vector3d pos: nodesList.nodeAt(outerCubeIndex).rankAt(model.index).position;
+
+                            onPosChanged: {
+                                console.log("Test" + nodesList.nodeAt(outerCubeIndex).rankAt(model.index).position)
+                            }
+
+                            // Dynamische Positionierung über 3D-Szene
+                            x: pos.x
+                            y: pos.y
+                            z: pos.z
+                        }
+
+                }*/
             }
         }
 

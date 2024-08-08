@@ -81,7 +81,7 @@ done
 
 # Hier können Sie beliebige weitere Kommandos ausführen
 remote_command "echo Hallo"
-remote_command "sleep 10"
+#remote_command "sleep 10"
 #remote_command "df -h"
 #remote_command "ls -l /home/${REMOTE_USER}"
 

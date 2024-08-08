@@ -6,7 +6,7 @@ Rectangle {
     //Component.onCompleted: nodesList.buildClusterComponents();
     id: screen
     height: parent.height
-    color: "#bbbe8c"
+    color: "#999999"
 
     ScrollView{
         anchors.fill: parent
@@ -25,7 +25,7 @@ Rectangle {
                 delegate: Rectangle {
                     width: screen.width
                     height: 300
-                    color: "lightblue"
+                    color: "#999999"
 
                     Rectangle{
                         width: parent.width

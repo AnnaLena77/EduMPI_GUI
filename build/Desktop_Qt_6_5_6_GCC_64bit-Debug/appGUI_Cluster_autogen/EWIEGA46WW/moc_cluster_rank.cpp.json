@@ -166,6 +166,21 @@
                     "type": "float",
                     "user": false,
                     "write": "set_p2p_timediff"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 10,
+                    "name": "position",
+                    "notify": "positionChanged",
+                    "read": "position",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "QVector3D",
+                    "user": false,
+                    "write": "set_position"
                 }
             ],
             "qualifiedClassName": "Cluster_Rank",
@@ -218,6 +233,11 @@
                 {
                     "access": "public",
                     "name": "coll_timediffChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "positionChanged",
                     "returnType": "void"
                 }
             ],

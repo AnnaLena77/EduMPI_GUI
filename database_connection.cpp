@@ -85,7 +85,7 @@ void Database_Connection::connect(QString hostname, QString databasename, int po
 }
 
 void Database_Connection::buildClusterComponents(const QMap<QString, QVector<int>> &map){
-    if(!m_visualization){
+    if(m_option!=0){
         return;
     }
     Cluster_Node *node;
@@ -251,24 +251,24 @@ void Database_Connection::timerEvent(QTimerEvent* event){
 }
 
 void Database_Connection::copyOutputFile(){
-    QProcess process;
+    QProcess proc;
     const char *homeDir = getenv("HOME");
     QString filePath = QString(homeDir);
 
     QString sshCommand = QString("scp %1@%2:%3/slurm-%4.out %5").arg(m_cluster_ident, m_cluster_address, m_remote_dir_bash, QString::number(m_slurm_id), filePath);
     std::cout << sshCommand.toStdString() << std::endl;
 
-    process.start("bash", QStringList() << "-c" << sshCommand);
+    proc.start("bash", QStringList() << "-c" << sshCommand);
 
     // Warten, bis der Prozess gestartet ist
-    if (!process.waitForStarted()) {
-        process.kill();
+    if (!proc.waitForStarted()) {
+        proc.kill();
         //return "Error! The SSH process could not be started. Please check all details and your network connection. A VPN connection may be necessary. Restart the application.";
     }
 
     // Warten, bis der Prozess beendet ist
-    if (!process.waitForFinished()) {
-        process.kill();
+    if (!proc.waitForFinished()) {
+        proc.kill();
         //return "Error! The SSH process could not be started. Please check all details and your network connection. A VPN connection may be necessary. Restart the application.! ";
     }
     QString outputPath = filePath + "/slurm-" + QString::number(m_slurm_id) + ".out";
@@ -365,8 +365,12 @@ void Database_Connection::writeLocalBashFile(QString local_path, bool file, int 
     }
 
     QProcess bash_proc;
-
-    QString resourcePath = ":/bash_files/local_bash_skript.sh";
+    QString resourcePath;
+    if(m_option != 2){
+        resourcePath = ":/bash_files/local_bash_skript.sh";
+    } else {
+        resourcePath = ":/bash_files/local_bash_skript_scorep.sh";
+    }
 
     // Temporäre Datei erstellen
     QFile f(resourcePath);
@@ -511,8 +515,8 @@ void Database_Connection::startBash(int proc_num){
     process.startDetached();
 }
 
-void Database_Connection::writeRemoteBashFile(QString program_name, int proc_num, bool visualization){
-    m_visualization = visualization;
+void Database_Connection::writeRemoteBashFile(QString program_name, int proc_num, int option){
+    m_option = option;
 
     const char *homeDir = getenv("HOME");
     QString filePath = QString::fromUtf8(homeDir)  + "/remote_bash_eduMPI.sh";
@@ -529,26 +533,37 @@ void Database_Connection::writeRemoteBashFile(QString program_name, int proc_num
         scriptFile << "#SBATCH --partition=all\n";
         scriptFile << "#SBATCH --ntasks=" << proc_num << "\n";
         scriptFile << "#SBATCH --job-name=eduMPI\n";
-        if(visualization){
+        if(option == 0){
             scriptFile << "#SBATCH --cpus-per-task=2\n\n";
         } else {
             scriptFile << "#SBATCH --cpus-per-task=1\n\n";
         }
 
-        scriptFile << "source ." << m_envFilePath << "\n";
-        scriptFile << "export $(cut -d= -f1 ." << m_envFilePath << ")\n";
-        scriptFile << "#rm ." << m_envFilePath << "\n";
-        scriptFile << "export OMPI_MCA_coll_han_priority=0\n";
-        if(visualization){
+        if(option == 0){
+            scriptFile << "source ." << m_envFilePath << "\n";
+            scriptFile << "export $(cut -d= -f1 ." << m_envFilePath << ")\n";
+            scriptFile << "rm ." << m_envFilePath << "\n";
+            scriptFile << "export OMPI_MCA_coll_han_priority=0\n";
+        } else if(option == 2){
+            scriptFile << "export PATH=\"$PATH:/opt/scalasca/bin\"\n";
+            scriptFile << "export PATH=\"$PATH:/opt/scorep/bin\"\n";
+        }
+
+        if(option == 0){
             scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << " -lm" << "\n";
             scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpirun -n " << proc_num << " --map-by :PE=2 --mca pml ob1 ./"+program_name.toStdString();
-        } else {
+        } else if(option == 1) {
             scriptFile << "mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << " -lm" << "\n";
             scriptFile << "mpirun -n " << proc_num << " ./"+program_name.toStdString();
+        } else if(option == 2) {
+            scriptFile << "scorep mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << " -lm" << "\n";
+            scriptFile << "scalasca -analyze -e scorep_" << program_name.toStdString() << "_" << proc_num << "_$SLURM_JOB_ID mpiexec -n " << proc_num << " ./"+program_name.toStdString();
         }
         scriptFile.close();
+
     }
 }
+
 
 //Functionality for timeline
 
@@ -589,7 +604,7 @@ void Database_Connection::slurm_status_changed(QString status){
     if(status == "running"){
         m_status_running = true;
     }
-    if(m_visualization){
+    if(m_option == 0){
         if(status == "completed" && m_componentsBuilt){
             startAndStop(true);
             copyOutputFile();
@@ -597,7 +612,7 @@ void Database_Connection::slurm_status_changed(QString status){
     } else {
         if(status == "completed" && m_status_running){
             copyOutputFile();
-            slurm_process->killProcess();
+            //slurm_process->killProcess();
         }
     }
 }
@@ -606,6 +621,7 @@ void Database_Connection::getSlurmID(const int id){
 }
 
 void Database_Connection::cancelRunningJob(){
+    std::cout << "Signal: cancelRunningJob" << std::endl;
     int signal = SIGTERM;
     slurm_process->sendSignal(signal);
     slurm_process->killProcess();

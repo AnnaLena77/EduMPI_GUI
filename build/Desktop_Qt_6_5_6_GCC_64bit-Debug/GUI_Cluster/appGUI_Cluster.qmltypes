@@ -111,6 +111,14 @@ Module {
             notify: "p2p_timediffChanged"
             index: 9
         }
+        Property {
+            name: "position"
+            type: "QVector3D"
+            read: "position"
+            write: "set_position"
+            notify: "positionChanged"
+            index: 10
+        }
         Signal { name: "send_p2p_datasizeChanged" }
         Signal { name: "recv_p2p_datasizeChanged" }
         Signal { name: "send_coll_datasizeChanged" }
@@ -121,6 +129,7 @@ Module {
         Signal { name: "coll_late_senderChanged" }
         Signal { name: "coll_late_recvrChanged" }
         Signal { name: "coll_timediffChanged" }
+        Signal { name: "positionChanged" }
         Method { name: "getId"; type: "int" }
     }
     Component {
@@ -278,7 +287,7 @@ Module {
             name: "writeRemoteBashFile"
             Parameter { name: "program_name"; type: "QString" }
             Parameter { name: "proc_num"; type: "int" }
-            Parameter { name: "visualization"; type: "bool" }
+            Parameter { name: "option"; type: "int" }
         }
         Method {
             name: "showConditionAt"
@@ -412,11 +421,19 @@ Module {
         }
         Property { name: "combobox"; type: "QString"; notify: "combobox_optionChanged"; index: 9 }
         Property {
+            name: "components_build"
+            type: "bool"
+            read: "components_build"
+            write: "setComponents_build"
+            notify: "components_buildChanged"
+            index: 10
+        }
+        Property {
             name: "nodes"
             type: "Database_Connection"
             isPointer: true
             notify: "nodesChanged"
-            index: 10
+            index: 11
         }
         Property {
             name: "instanceRanks"
@@ -425,7 +442,7 @@ Module {
             read: "instanceRanks"
             write: "setInstanceRanks"
             notify: "instanceRanksChanged"
-            index: 11
+            index: 12
         }
         Signal { name: "instanceCountChanged" }
         Signal { name: "outerCubeLengthChanged" }
@@ -439,6 +456,7 @@ Module {
         Signal { name: "p2pBoolChanged" }
         Signal { name: "collBoolChanged" }
         Signal { name: "combobox_optionChanged" }
+        Signal { name: "components_buildChanged" }
         Method {
             name: "setInstanceCount"
             Parameter { name: "count"; type: "int" }
@@ -478,6 +496,10 @@ Module {
         Method {
             name: "set_collBool"
             Parameter { name: "show"; type: "bool" }
+        }
+        Method {
+            name: "setComponents_build"
+            Parameter { name: "comp"; type: "bool" }
         }
     }
 }

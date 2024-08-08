@@ -125,6 +125,14 @@ Item {
                     window.show();
                 }
             }
+            Action {
+                text: qsTr("MPI-Programm with Score-P")
+                onTriggered: {
+                    var component = Qt.createComponent("Application_Start_Scorep.qml");
+                    var window = component.createObject(root);
+                    window.show();
+                }
+            }
         }
 
         delegate: MenuBarItem {

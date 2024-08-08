@@ -302,6 +302,21 @@
                         "type": "float",
                         "user": false,
                         "write": "set_p2p_timediff"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 10,
+                        "name": "position",
+                        "notify": "positionChanged",
+                        "read": "position",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "QVector3D",
+                        "user": false,
+                        "write": "set_position"
                     }
                 ],
                 "qualifiedClassName": "Cluster_Rank",
@@ -354,6 +369,11 @@
                     {
                         "access": "public",
                         "name": "coll_timediffChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "positionChanged",
                         "returnType": "void"
                     }
                 ],
@@ -493,8 +513,8 @@
                                 "type": "int"
                             },
                             {
-                                "name": "visualization",
-                                "type": "bool"
+                                "name": "option",
+                                "type": "int"
                             }
                         ],
                         "name": "writeRemoteBashFile",
@@ -1310,6 +1330,21 @@
                         "designable": true,
                         "final": false,
                         "index": 10,
+                        "name": "components_build",
+                        "notify": "components_buildChanged",
+                        "read": "components_build",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "bool",
+                        "user": false,
+                        "write": "setComponents_build"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 11,
                         "member": "m_nodes",
                         "name": "nodes",
                         "notify": "nodesChanged",
@@ -1323,7 +1358,7 @@
                         "constant": false,
                         "designable": true,
                         "final": false,
-                        "index": 11,
+                        "index": 12,
                         "name": "instanceRanks",
                         "notify": "instanceRanksChanged",
                         "read": "instanceRanks",
@@ -1395,6 +1430,11 @@
                     {
                         "access": "public",
                         "name": "combobox_optionChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "components_buildChanged",
                         "returnType": "void"
                     }
                 ],
@@ -1507,6 +1547,17 @@
                             }
                         ],
                         "name": "set_collBool",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "comp",
+                                "type": "bool"
+                            }
+                        ],
+                        "name": "setComponents_build",
                         "returnType": "void"
                     }
                 ],

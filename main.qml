@@ -41,6 +41,7 @@ Window {
     property bool visualization: true
 
     property bool enable_start: true
+    property bool build_numbers: false
 
     Item {
         id: rootItem

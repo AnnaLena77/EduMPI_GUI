@@ -4,6 +4,7 @@
 #include "qdebug.h"
 #include "qqmlintegration.h"
 #include <QObject>
+#include <QVector3D>
 
 class Cluster_Rank;
 
@@ -21,6 +22,8 @@ class Cluster_Rank : public QObject
     Q_PROPERTY(float coll_late_recvr READ coll_late_recvr WRITE set_coll_late_recvr NOTIFY coll_late_recvrChanged)
     Q_PROPERTY(float coll_timediff READ coll_timediff WRITE set_coll_timediff NOTIFY coll_timediffChanged)
     Q_PROPERTY(float p2p_timediff READ p2p_timediff WRITE set_p2p_timediff NOTIFY p2p_timediffChanged)
+
+    Q_PROPERTY(QVector3D position READ position WRITE set_position NOTIFY positionChanged)
 
     //Q_PROPERTY(int count READ count WRITE setCount NOTIFY countChanged)
     QML_ELEMENT
@@ -42,6 +45,7 @@ public:
     float coll_late_sender();
     float coll_late_recvr();
     float coll_timediff();
+    QVector3D position();
     void set_p2p_sendDatasize(long datasize);
     void set_p2p_recvDatasize(long datasize);
     void set_coll_sendDatasize(long datasize);
@@ -52,6 +56,7 @@ public:
     void set_coll_late_sender(float time);
     void set_coll_late_recvr(float time);
     void set_coll_timediff(float time);
+    void set_position(QVector3D vec);
 
     Q_INVOKABLE int getId() const;
 
@@ -66,6 +71,7 @@ signals:
     void coll_late_senderChanged();
     void coll_late_recvrChanged();
     void coll_timediffChanged();
+    void positionChanged();
 private:
     long m_p2p_send_datasize;
     long m_p2p_recv_datasize;
@@ -80,6 +86,7 @@ private:
     int m_id;
     int m_processrank;
     int timerId;
+    QVector3D m_position;
 
 /*protected:
     void timerEvent(QTimerEvent *event);*/

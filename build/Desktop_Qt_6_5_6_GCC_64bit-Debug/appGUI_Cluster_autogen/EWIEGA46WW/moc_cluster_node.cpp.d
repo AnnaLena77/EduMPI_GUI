@@ -49,6 +49,7 @@
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qlogging.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qmalloc.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qmap.h \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qmargins.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qmath.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qmetacontainer.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qmetatype.h \
@@ -61,7 +62,9 @@
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qobjectdefs_impl.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qoverload.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qpair.h \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qpoint.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qprocessordetection.h \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qrect.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qrefcount.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qscopedpointer.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qscopeguard.h \
@@ -70,6 +73,7 @@
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qshareddata_impl.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qsharedpointer.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qsharedpointer_impl.h \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qsize.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qstring.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qstringalgorithms.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qstringconverter_base.h \
@@ -105,6 +109,11 @@
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qvarlengtharray.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qversiontagging.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qxptype_traits.h \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/QVector3D \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qtgui-config.h \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qtguiexports.h \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qtguiglobal.h \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qvectornd.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtNetwork/qtnetwork-config.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtNetwork/qtnetworkexports.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtNetwork/qtnetworkglobal.h \

@@ -285,6 +285,7 @@
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/QColor \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/QQuaternion \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/QStandardItemModel \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/QVector3D \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/QVector4D \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qbrush.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qcolor.h \

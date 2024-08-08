@@ -63,6 +63,9 @@ float Cluster_Rank::coll_late_recvr(){
 float Cluster_Rank::coll_timediff(){
     return m_coll_timediff;
 }
+QVector3D Cluster_Rank::position(){
+    return m_position;
+}
 
 void Cluster_Rank::set_p2p_sendDatasize(long datasize){
     m_p2p_send_datasize = datasize;
@@ -104,6 +107,10 @@ void Cluster_Rank::set_coll_late_recvr(float time){
 void Cluster_Rank::set_coll_timediff(float time){
     m_coll_timediff = time;
     emit coll_timediffChanged();
+}
+void Cluster_Rank::set_position(QVector3D vec){
+    m_position = vec;
+    emit positionChanged();
 }
 
 

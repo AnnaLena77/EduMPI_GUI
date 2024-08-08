@@ -194,7 +194,7 @@ Rectangle {
                         //nodesList.removeClusterComponents();
                         enable_start = false;
                         enable_timeline = false;
-                        nodesList.writeRemoteBashFile(programNameField.text, parseInt(numProcs.text), true)
+                        nodesList.writeRemoteBashFile(programNameField.text, parseInt(numProcs.text), 0)
                         nodesList.writeLocalBashFile(uploadPath.text, fileButton.checked ? true : false, parseInt(numProcs.text));
                         startup();
 

@@ -14,6 +14,11 @@ Window {
     maximumHeight: 600
     maximumWidth: 600
 
+    color: "#383936"
+
+    // Set the flag directly from QML
+    //flags: Qt.FramelessWindowHint
+
     ColumnLayout {
         anchors.fill: parent
         width: parent.width
@@ -177,7 +182,7 @@ Window {
                     //nodesList.removeClusterComponents();
                     visualization=false;
                     enable_timeline = false;
-                    nodesList.writeRemoteBashFile(programNameField.text, parseInt(numProcs.text), false)
+                    nodesList.writeRemoteBashFile(programNameField.text, parseInt(numProcs.text), 1)
                     nodesList.writeLocalBashFile(uploadPath.text, fileButton.checked ? true : false, parseInt(numProcs.text));
                     startup();
 

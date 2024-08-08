@@ -282,6 +282,7 @@
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qxpfunctional.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qxptype_traits.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/QStandardItemModel \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/QVector3D \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qbrush.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qcolor.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qfont.h \
@@ -299,6 +300,7 @@
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qtguiexports.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qtguiglobal.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qtransform.h \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qvectornd.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qwindowdefs.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtNetwork/qtnetwork-config.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtNetwork/qtnetworkexports.h \

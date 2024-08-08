@@ -81,7 +81,7 @@ Window {
         }
 
         Label {
-            text: "Password"
+            text: "Password:"
             color: "#999999"
         }
         TextField {
