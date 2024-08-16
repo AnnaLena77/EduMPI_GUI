@@ -192,6 +192,7 @@ Rectangle {
                 onClicked:{
                     if(checkInput()){
                         //nodesList.removeClusterComponents();
+                        visualization = true;
                         enable_start = false;
                         enable_timeline = false;
                         nodesList.writeRemoteBashFile(programNameField.text, parseInt(numProcs.text), 0)

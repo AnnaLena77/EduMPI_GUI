@@ -32,10 +32,6 @@ void Database_Thread::threadbuildClusterComponents(){
     if(!db.isOpen()){
         return;
     }
-    std::cout << "Test from threadbuildClusterComponents" << std::endl;
-    /*while(m_clearingProc){
-
-    }*/
     m_firstDBEntryTime = QTime();
     std::cout << "New Cluster Components" << std::endl;
     QSqlQuery query(db);
@@ -74,13 +70,21 @@ void Database_Thread::updateData(const int &time_display){
 
     if(m_firstDBEntryTime.isNull()){
         //queryy.prepare("SELECT time_second FROM edumpi_data_secondly WHERE edumpi_run_id=:slurm_id order by time_second DESC LIMIT 1");
-        queryy.prepare("SELECT time_start FROM edumpi_secondly_data WHERE edumpi_run_id=:slurm_id order by time_start ASC LIMIT 1");
+        queryy.prepare("SELECT time_start, time_end FROM edumpi_secondly_data WHERE edumpi_run_id=:slurm_id order by time_start ASC LIMIT 1");
         queryy.bindValue(":slurm_id", m_slurm_id);
         queryy.exec();
         if(queryy.next()){
             timestamp = queryy.value(0).toDateTime();
+            QDateTime timestamp_end = queryy.value(1).toDateTime();
+
+            int diff = timestamp.msecsTo(timestamp_end);
+
+            if(diff < 3){
+                sleep(3);
+            }
+
             m_firstDBEntryTime = timestamp.time();
-            m_actualDBEntryTime = timestamp.addSecs(-3);
+            m_actualDBEntryTime = timestamp;
             emit setTimestamp(m_firstDBEntryTime);
         } else {
             return;

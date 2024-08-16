@@ -69,10 +69,13 @@ Window {
             if(visualization){
                 if(status === "pending"){
                     slurm_status = "pending"
-                    loaderText = "Job-Status: Pending! \nYour job is in the Slurm queue and is waiting for free resources. Please be patient for a moment."
+                    loaderText = "Job-Status: Pending! \nYour job is in the SLURM queue and is waiting for free resources. Please be patient."
                 } else if(status === "running"){
                     slurm_status = "running"
-                    loaderText = "Job-Status: Running! \nYour Slurm job is in the start process, the MPI communication will start at any moment."
+                    loaderText = "Job-Status: Running! \nYour Slurm job is in the start process, waiting for MPI communication... ."
+                } else if(status === "cancelled"){
+                    slurm_status = "cancelled"
+                    loaderText = "Job-Status: Cancelled!"
                 } else if(status === "completed"){
                     slurm_status = "completed"
                     loaderText = "Job-Status: Completed! \nYour Slurm job ended unexpectedly. Check the output to analyze possible errors."
@@ -80,10 +83,13 @@ Window {
             } else {
                 if(status === "pending"){
                     slurm_status = "pending"
-                    loaderText = "Job-Status: Pending! \nYour job is in the Slurm queue and is waiting for free resources. Please be patient for a moment."
+                    loaderText = "Job-Status: Pending! \nYour job is in the Slurm queue and is waiting for free resources. Please be patient."
                 } else if(status === "running"){
                     slurm_status = "running"
                     loaderText = "Job-Status: Running!"
+                } else if(status === "cancelled"){
+                    slurm_status = "cancelled"
+                    loaderText = "Job-Status: Cancelled! "
                 } else if(status === "completed"){
                     slurm_status = "completed"
                     loaderText = "Job-Status: Completed!"

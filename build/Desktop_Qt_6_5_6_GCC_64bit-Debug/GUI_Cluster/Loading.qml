@@ -8,11 +8,18 @@ import QtQuick.Layouts
 Window {
     id: load
     property string message: ""
+    property string status: slurm_status
     property bool showLoader: enable_timeline
 
     onShowLoaderChanged: {
         if(showLoader == true){
             load.close()
+        }
+    }
+
+    onStatusChanged: {
+        if(staus === "completed"){
+            busyindicator.running = false;
         }
     }
 

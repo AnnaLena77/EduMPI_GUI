@@ -26,6 +26,7 @@ void Bash_Process_Manager::startProcess(const QStringList &arguments)
     process->setProgram("bash");
     process->setArguments(arguments);
     process->start();
+    m_status = "";
 }
 
 void Bash_Process_Manager::sendSignal(int signal)
@@ -60,7 +61,18 @@ void Bash_Process_Manager::handleOutput()
             emit slurm_status_changed(m_status);
         }
     }
-    else {
+    else if(output.contains("CANCELLED")){
+        if(m_status != "cancelled"){
+            m_status = "cancelled";
+            emit slurm_status_changed(m_status);
+            if(m_kill_signal){
+                if(process->state() == QProcess::Running){
+                    process->kill();
+                }
+            }
+        }
+    }
+    else if(output.contains("COMPLETED") || output.contains("FAILED") || output.contains("Status: \n")){
         if(m_status != "completed"){
             m_status = "completed";
             emit slurm_status_changed(m_status);
@@ -70,11 +82,11 @@ void Bash_Process_Manager::handleOutput()
                 }
             }
         }
-        else{
-            qDebug() << "Output:" << output;
-        }
     }
-    //qDebug() << "Output:" << output;
+    else{
+            qDebug() << "Output:" << output;
+
+    }
 }
 
 void Bash_Process_Manager::handleError()

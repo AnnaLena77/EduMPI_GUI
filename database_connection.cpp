@@ -91,7 +91,7 @@ void Database_Connection::buildClusterComponents(const QMap<QString, QVector<int
     Cluster_Node *node;
 
     if(map.isEmpty()){
-        std::cout << "FAILED!" << std::endl;
+        std::cout << "Build Cluster Compoenents failed!" << std::endl;
     } else{
         QMapIterator<QString, QVector<int>> iter(map);
         while(iter.hasNext()){
@@ -109,6 +109,7 @@ void Database_Connection::buildClusterComponents(const QMap<QString, QVector<int
     timerId = startTimer(1000);
     emit componentsBuilt();
     m_componentsBuilt = true;
+    std::cout << "Build Cluster Compoenents passed!" << std::endl;
 }
 
 void Database_Connection::removeClusterComponents(){
@@ -351,7 +352,7 @@ void Database_Connection::connectClusterAsync(const QString &address, const QStr
 
 void Database_Connection::writeLocalBashFile(QString local_path, bool file, int proc_num){
     //m_visualization = visualization;
-
+    m_start_timestamp = QTime();
     if(m_componentsBuilt){
         removeClusterComponents();
         m_componentsBuilt = false;
@@ -379,12 +380,16 @@ void Database_Connection::writeLocalBashFile(QString local_path, bool file, int 
         return;
     }
 
-    QString tempFilePath = QDir::temp().absoluteFilePath("temp_bash_script.sh");
+    QString tempFilePath = QDir::temp().absoluteFilePath("temp_bash_script_"+ m_cluster_ident +".sh");
     std::cout << "TempFile: " << tempFilePath.toStdString() << std::endl;
     QFile tempFile(tempFilePath);
 
     if (!tempFile.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        qDebug() << "Fehler beim Erstellen der temporären Datei.";
+        qDebug() << "Fehler beim Versuch, die temporäre Datei zu schreiben." << tempFile.errorString();
+        if(!tempFile.open(QIODevice::WriteOnly | QIODevice::Text)){
+            sleep(1);
+            return;
+        }
         return;
     }
 
@@ -568,10 +573,8 @@ void Database_Connection::writeRemoteBashFile(QString program_name, int proc_num
 //Functionality for timeline
 
 void Database_Connection::startAndStop(bool start){
-    std::cout << "startAndStop " << start << std::endl;
     if(!m_componentsBuilt){
         return;
-        std::cout << "startAndStop Return" << start << std::endl;
     }
     if(start == true){
         if(timerId != -1){
@@ -588,6 +591,12 @@ void Database_Connection::handleTimestamp(QTime timestamp){
     midnight.setHMS(0,0,0);
     int seconds = midnight.secsTo(timestamp);
     emit dataIn(seconds);
+    if(!m_status_running){
+        emit signalSlurmStatusChanged("completed");
+        startAndStop(true);
+        copyOutputFile();
+        showConditionAt(0, 0);
+    }
     //std::cout << "Seconds: " << seconds << std::endl;
 }
 
@@ -600,14 +609,18 @@ void Database_Connection::showConditionAt(int timeSecondsA, int timeSecondsB){
 }
 
 void Database_Connection::slurm_status_changed(QString status){
-    emit signalSlurmStatusChanged(status);
     if(status == "running"){
         m_status_running = true;
     }
     if(m_option == 0){
         if(status == "completed" && m_componentsBuilt){
-            startAndStop(true);
-            copyOutputFile();
+            if(m_start_timestamp != QTime()){
+                startAndStop(true);
+                copyOutputFile();
+            } else {
+                m_status_running = false;
+                return;
+            }
         }
     } else {
         if(status == "completed" && m_status_running){
@@ -615,6 +628,7 @@ void Database_Connection::slurm_status_changed(QString status){
             //slurm_process->killProcess();
         }
     }
+    emit signalSlurmStatusChanged(status);
 }
 void Database_Connection::getSlurmID(const int id){
     m_slurm_id = id;
