@@ -1,6 +1,7 @@
 #include "database_connection.h"
 #include "bash_process_manager.h"
 #include "database_thread.h"
+#include "table_userid.h"
 #include "qevent.h"
 #include "qsqlquery.h"
 #include "ranks_instances.h"
@@ -45,6 +46,9 @@ Database_Connection::Database_Connection(QObject *parent) : QObject(parent)
     Database_Thread::connect(this, &Database_Connection::signalToShowTimestampData, dbt, &Database_Thread::showDataFromTimePeriod);
 
     Database_Thread::connect(dbt, &Database_Thread::setTimestamp, this, &Database_Connection::handleTimestamp);
+
+    //Connections for Table_UserID
+    //Database_Thread::connect(this, &Table_UserID::fetchEduMPIJobsForUser, dbt, &Database_Thread::fetchEduMPIJobs);
 
     database_thread.start();
 }
@@ -662,4 +666,9 @@ void Database_Connection::closeApp(){
         query.exec("DELETE FROM mpi_information;");
     }
     db.close();*/
+}
+
+//Slots and Signals for Table_UserID
+void Database_Connection::slotFetchEduMPIJobs(){
+
 }

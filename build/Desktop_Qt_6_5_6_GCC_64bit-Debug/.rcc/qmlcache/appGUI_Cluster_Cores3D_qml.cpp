@@ -2100,8 +2100,8 @@ Q_UNUSED(argumentsPtr)
 // expression for eulerRotation at line 30, column 13
 double r11_1;
 QObject *r7_1;
-QVariant r2_2;
 QObject *r2_1;
+QVariant r2_2;
 double r10_1;
 double r12_1;
 // generate_LoadQmlContextPropertyLookup
@@ -2190,8 +2190,8 @@ Q_UNUSED(argumentsPtr)
 // expression for target at line 33, column 13
 double r11_1;
 QObject *r7_1;
-QObject *r2_1;
 QVariant r2_2;
+QObject *r2_1;
 double r10_1;
 double r12_1;
 // generate_LoadQmlContextPropertyLookup
@@ -2239,11 +2239,11 @@ QObject *r7_1;
 double r13_1;
 double r8_1;
 double r2_3;
-float r2_4;
-QObject *r2_1;
 QVariant r2_2;
-QVariant r10_2;
+QObject *r2_1;
+float r2_4;
 double r10_1;
+QVariant r10_2;
 // generate_LoadQmlContextPropertyLookup
 while (!aotContext->loadContextIdLookup(12, &r2_1)) {
 aotContext->setInstructionPointer(2);
@@ -2620,9 +2620,9 @@ Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 //  at line 77, column 24
 QObject *r6_1 = *static_cast<QObject **>(argumentsPtr[0]);
-bool r2_1;
 double r2_3;
 QObject *r2_2;
+bool r2_1;
 // generate_LoadTrue
 r2_1 = true;
 // generate_StoreNameSloppy
@@ -2822,8 +2822,8 @@ Q_UNUSED(argumentsPtr)
 // expression for rowsColumns at line 183, column 29
 double r16_1;
 double r14_1;
-double r2_1;
 int r2_2;
+double r2_1;
 double r15_1;
 double r10_1;
 // generate_LoadQmlContextPropertyLookup
@@ -2956,8 +2956,8 @@ Q_UNUSED(argumentsPtr)
 // expression for eulerRotation at line 261, column 13
 double r11_1;
 QObject *r7_1;
-QObject *r2_1;
 QVariant r2_2;
+QObject *r2_1;
 double r10_1;
 double r12_1;
 // generate_LoadQmlContextPropertyLookup

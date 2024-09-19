@@ -866,6 +866,17 @@
                         ],
                         "name": "signalToShowTimestampData",
                         "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "userId",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "fetchEduMPIJobsForUser",
+                        "returnType": "void"
                     }
                 ],
                 "slots": [
@@ -936,6 +947,11 @@
                         ],
                         "name": "getSlurmID",
                         "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "slotFetchEduMPIJobs",
+                        "returnType": "void"
                     }
                 ],
                 "superClasses": [
@@ -1003,6 +1019,17 @@
                             }
                         ],
                         "name": "setTimestamp",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "jobIds",
+                                "type": "QVariantList"
+                            }
+                        ],
+                        "name": "eduMPIJobsFetched",
                         "returnType": "void"
                     }
                 ],
@@ -1090,6 +1117,17 @@
                             }
                         ],
                         "name": "getProcNum",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "userId",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "fetchEduMPIJobs",
                         "returnType": "void"
                     }
                 ],
@@ -1570,6 +1608,56 @@
             }
         ],
         "inputFile": "ranks_instances.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "Table_UserID",
+                "methods": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "userId",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "loadJobs",
+                        "returnType": "void"
+                    }
+                ],
+                "object": true,
+                "qualifiedClassName": "Table_UserID",
+                "signals": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "jobIds",
+                                "type": "QVariantList"
+                            }
+                        ],
+                        "name": "eduMPIJobsFetchedForUser",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "public",
+                        "name": "fetchEduMPIJobsForUser",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QAbstractTableModel"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "table_userid.h",
         "outputRevision": 68
     }
 ]

@@ -6,3 +6,4 @@
 #include "EWIEGA46WW/moc_database_thread.cpp"
 #include "EWIEGA46WW/moc_nodes_instances.cpp"
 #include "EWIEGA46WW/moc_ranks_instances.cpp"
+#include "EWIEGA46WW/moc_table_userid.cpp"

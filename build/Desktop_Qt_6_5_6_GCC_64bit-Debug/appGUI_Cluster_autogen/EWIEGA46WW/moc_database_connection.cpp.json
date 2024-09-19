@@ -476,6 +476,17 @@
                     ],
                     "name": "signalToShowTimestampData",
                     "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "userId",
+                            "type": "QString"
+                        }
+                    ],
+                    "name": "fetchEduMPIJobsForUser",
+                    "returnType": "void"
                 }
             ],
             "slots": [
@@ -545,6 +556,11 @@
                         }
                     ],
                     "name": "getSlurmID",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "slotFetchEduMPIJobs",
                     "returnType": "void"
                 }
             ],

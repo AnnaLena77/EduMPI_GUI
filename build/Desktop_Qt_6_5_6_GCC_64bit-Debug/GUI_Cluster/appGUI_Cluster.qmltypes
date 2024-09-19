@@ -226,6 +226,10 @@ Module {
             Parameter { name: "timestampA"; type: "QTime" }
             Parameter { name: "timestampB"; type: "QTime" }
         }
+        Signal {
+            name: "fetchEduMPIJobsForUser"
+            Parameter { name: "userId"; type: "QString" }
+        }
         Method {
             name: "dbConnectionSuccessful"
             Parameter { type: "bool" }
@@ -251,6 +255,7 @@ Module {
             name: "getSlurmID"
             Parameter { name: "id"; type: "int" }
         }
+        Method { name: "slotFetchEduMPIJobs" }
         Method {
             name: "connect"
             Parameter { name: "hostname"; type: "QString" }

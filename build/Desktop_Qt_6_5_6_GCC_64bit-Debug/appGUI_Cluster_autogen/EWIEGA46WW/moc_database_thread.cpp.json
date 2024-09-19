@@ -53,6 +53,17 @@
                     ],
                     "name": "setTimestamp",
                     "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "jobIds",
+                            "type": "QVariantList"
+                        }
+                    ],
+                    "name": "eduMPIJobsFetched",
+                    "returnType": "void"
                 }
             ],
             "slots": [
@@ -139,6 +150,17 @@
                         }
                     ],
                     "name": "getProcNum",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "userId",
+                            "type": "QString"
+                        }
+                    ],
+                    "name": "fetchEduMPIJobs",
                     "returnType": "void"
                 }
             ],

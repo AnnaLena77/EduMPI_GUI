@@ -197,3 +197,7 @@ void Database_Thread::getSlurmId(const int id){
 void Database_Thread::getProcNum(const int proc_num){
     m_proc_num = proc_num;
 }
+
+void Database_Thread::fetchEduMPIJobs(const QString &userId){
+
+}

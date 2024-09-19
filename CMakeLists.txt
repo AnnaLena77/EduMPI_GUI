@@ -29,6 +29,7 @@ qt_add_executable(appGUI_Cluster
     ranks_instances.h ranks_instances.cpp
     database_thread.h database_thread.cpp
     bash_process_manager.h bash_process_manager.cpp
+    table_userid.h table_userid.cpp
 
     ${QML_RESOURCES}
     ${SHADER_RESOURCES}
@@ -58,7 +59,8 @@ qt_add_qml_module(appGUI_Cluster
         Loading.qml
         Output_File.qml
         Application_Start_without.qml
-        QML_FILES Application_Start_Scorep.qml
+        Application_Start_Scorep.qml
+        Table_Userid_Selection.qml
 )
 
 set_target_properties(appGUI_Cluster PROPERTIES

@@ -38,6 +38,7 @@ public slots:
 
     void getSlurmId(const int id);
     void getProcNum(const int proc_num);
+    void fetchEduMPIJobs(const QString &userId);
 
 signals:
     void connectedToDB(const bool &success);
@@ -45,6 +46,7 @@ signals:
     void updateDataReady(const QList<DataColumn> &list);
     void dbCleared();
     void setTimestamp(QTime timestamp);
+    void eduMPIJobsFetched(const QVariantList &jobIds);
 
 private:
     bool m_clearingProc = false;

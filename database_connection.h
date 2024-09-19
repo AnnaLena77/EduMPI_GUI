@@ -101,6 +101,9 @@ signals:
     void signalToClearDB();
     void signalToShowTimestampData(const QTime timestampA, const QTime timestampB);
 
+    //Signal for Table_UserID
+    void fetchEduMPIJobsForUser(const QString &userId);
+
 //Slots for Thread
 public slots:
     void dbConnectionSuccessful(const bool &);
@@ -110,6 +113,9 @@ public slots:
     void handleTimestamp(QTime timestamp);
     void slurm_status_changed(QString status);
     void getSlurmID(const int id);
+
+    //Table_UserID
+    void slotFetchEduMPIJobs();
 
 private:
     bool m_componentsBuilt = false;

@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Window
-import Qt.db.qobjectSingleton 1.0
+import Qt.db.models 1.0
 
 Window {
     id: root
@@ -202,7 +202,10 @@ Window {
         }
     }
 
-    function createColor(send_ds, recv_ds){
+    function createColor(nodeIndex, modelIndex){
+        var coll_data, p2p_data, coll_time_diff, p2p_time_diff, p2p_lates, coll_lates, time_diff, weight_p2p, weight_coll;
+        var send_ds = get_send_ds(nodeIndex, modelIndex);
+        var recv_ds = get_recv_ds(nodeIndex, modelIndex);
         var full_percent, send_percent, recv_percent = 1;
         var red, green, blue = 255;
         if(option == "Send/Recv Ratio (per Proc)"){
@@ -246,15 +249,69 @@ Window {
 
         }
         else if(option == "Wait for Late Sender (per Proc)"){
-            if(p2p && collective){
+            var lateSenderData;
+            coll_data = Number(nodesList.nodeAt(nodeIndex).rankAt(modelIndex).coll_late_sender);
+            p2p_data = Number(nodesList.nodeAt(nodeIndex).rankAt(modelIndex).p2p_late_sender);
+            coll_time_diff = Number(nodesList.nodeAt(nodeIndex).rankAt(modelIndex).coll_timediff);
+            p2p_time_diff = Number(nodesList.nodeAt(nodeIndex).rankAt(modelIndex).p2p_timediff);
 
+            if(p2p && collective){
+                if(coll_data === 0) {
+                    lateSenderData = p2p_data/p2p_time_diff;
+                } else if (p2p_data === 0){
+                    lateSenderData = coll_data/coll_time_diff;
+                } else {
+                    p2p_lates = p2p_data/p2p_time_diff;
+                    coll_lates = coll_data/coll_time_diff;
+                    time_diff = p2p_time_diff + coll_time_diff;
+
+                    weight_p2p = (p2p_time_diff/time_diff) * p2p_lates;
+                    weight_coll = (coll_time_diff/time_diff) * coll_lates;
+
+                    lateSenderData = weight_p2p + weight_coll;
+                }
+            } else if(p2p) {
+                lateSenderData = p2p_data/p2p_time_diff;
+            } else if(coll) {
+                lateSenderData = coll_data/coll_time_diff;;
             }
+
+            blue = 255;
+            red = 255 - lateSenderData*255;
+            green = 255 - lateSenderData*255;
 
         }
         else if(option == "Wait for Late Recver (per Proc)"){
-            if(p2p && collective){
+            var lateRecvrData;
+            coll_data = Number(nodesList.nodeAt(nodeIndex).rankAt(modelIndex).coll_late_recvr);
+            p2p_data = Number(nodesList.nodeAt(nodeIndex).rankAt(modelIndex).p2p_late_recvr);
+            coll_time_diff = Number(nodesList.nodeAt(nodeIndex).rankAt(modelIndex).coll_timediff);
+            p2p_time_diff = Number(nodesList.nodeAt(nodeIndex).rankAt(modelIndex).p2p_timediff);
 
+            if(p2p && collective){
+                if(coll_data === 0) {
+                    lateRecvrData = p2p_data/p2p_time_diff;
+                } else if (p2p_data === 0){
+                    lateRecvrData = coll_data/coll_time_diff;
+                } else {
+                    p2p_lates = p2p_data/p2p_time_diff;
+                    coll_lates = coll_data/coll_time_diff;
+                    time_diff = p2p_time_diff + coll_time_diff;
+
+                    weight_p2p = (p2p_time_diff/time_diff) * p2p_lates;
+                    weight_coll = (coll_time_diff/time_diff) * coll_lates;
+
+                    lateRecvrData = weight_p2p + weight_coll;
+                }
+            } else if(p2p) {
+                lateRecvrData = p2p_data/p2p_time_diff;
+            } else if(coll) {
+                lateRecvrData = coll_data/coll_time_diff;;
             }
+
+            blue = 255;
+            red = 255 - lateRecvrData*255;
+            green = 255 - lateRecvrData*255;
 
         }
 

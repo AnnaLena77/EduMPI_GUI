@@ -43,14 +43,14 @@ Item {
                         window.show();
                 }
             }
-            /*Action {
-                text: "<font color=\"white\">Manual Bash Skript</font>"
+            Action {
+                text: "<font color=\"white\">Load EduMPI-Run from DB</font>"
                 onTriggered: {
-                    var component = Qt.createComponent("Bash_Skript_Manual.qml");
+                    var component = Qt.createComponent("Table_Userid_Selection.qml");
                     var window = component.createObject(root);
                     window.show();
                 }
-            }*/
+            }
             //Action { text: "<font color=\"white\">Save As...</font>"}
             MenuSeparator { }
             //Action { text: qsTr("&Quit") }
@@ -115,10 +115,10 @@ Item {
         }
 
         Menu {
-            title: qsTr("No Visualization")
+            title: qsTr("Non-Visualization")
 
             Action {
-                text: qsTr("MPI-Programm")
+                text: qsTr("MPI-Program")
                 onTriggered: {
                     var component = Qt.createComponent("Application_Start_without.qml");
                     var window = component.createObject(root);
@@ -126,7 +126,7 @@ Item {
                 }
             }
             Action {
-                text: qsTr("MPI-Programm with Score-P")
+                text: qsTr("MPI-Program with Score-P")
                 onTriggered: {
                     var component = Qt.createComponent("Application_Start_Scorep.qml");
                     var window = component.createObject(root);

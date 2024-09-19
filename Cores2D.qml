@@ -75,7 +75,11 @@ Rectangle {
                                     text: "Recv: " + recv_ds
                                 }
 
-                                color: createColor(send_ds, recv_ds)
+                                color: createColor(node_index, model.index)
+
+                                /*Component.onCompleted: {
+                                    console.log("Rectangle, modelindex: " + model.index)
+                                }*/
                             }
                         }
                     }
