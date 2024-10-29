@@ -7,10 +7,14 @@ appGUI_Cluster_autogen/timestamp: \
 	/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/CMakeFiles/3.27.7/CMakeCXXCompiler.cmake \
 	/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/CMakeFiles/3.27.7/CMakeSystem.cmake \
 	/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_autogen/moc_predefs.h \
+	/home/anna-lena/GUI_Cluster/cluster_architecture.cpp \
+	/home/anna-lena/GUI_Cluster/cluster_architecture.h \
 	/home/anna-lena/GUI_Cluster/cluster_node.cpp \
 	/home/anna-lena/GUI_Cluster/cluster_node.h \
 	/home/anna-lena/GUI_Cluster/cluster_rank.cpp \
 	/home/anna-lena/GUI_Cluster/cluster_rank.h \
+	/home/anna-lena/GUI_Cluster/controller.cpp \
+	/home/anna-lena/GUI_Cluster/controller.h \
 	/home/anna-lena/GUI_Cluster/database_connection.cpp \
 	/home/anna-lena/GUI_Cluster/database_connection.h \
 	/home/anna-lena/GUI_Cluster/database_thread.cpp \

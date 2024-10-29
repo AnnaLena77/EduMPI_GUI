@@ -48,7 +48,7 @@
                     "arguments": [
                         {
                             "name": "timestamp",
-                            "type": "QTime"
+                            "type": "QDateTime"
                         }
                     ],
                     "name": "setTimestamp",
@@ -67,33 +67,6 @@
                 }
             ],
             "slots": [
-                {
-                    "access": "public",
-                    "arguments": [
-                        {
-                            "name": "hostname",
-                            "type": "QString"
-                        },
-                        {
-                            "name": "databasename",
-                            "type": "QString"
-                        },
-                        {
-                            "name": "port",
-                            "type": "int"
-                        },
-                        {
-                            "name": "username",
-                            "type": "QString"
-                        },
-                        {
-                            "name": "password",
-                            "type": "QString"
-                        }
-                    ],
-                    "name": "connectToDB",
-                    "returnType": "void"
-                },
                 {
                     "access": "public",
                     "name": "threadbuildClusterComponents",
@@ -115,11 +88,11 @@
                     "arguments": [
                         {
                             "name": "timestampA",
-                            "type": "QTime"
+                            "type": "QDateTime"
                         },
                         {
                             "name": "timestampB",
-                            "type": "QTime"
+                            "type": "QDateTime"
                         }
                     ],
                     "name": "showDataFromTimePeriod",
@@ -167,7 +140,7 @@
             "superClasses": [
                 {
                     "access": "public",
-                    "name": "QObject"
+                    "name": "QThread"
                 }
             ]
         }

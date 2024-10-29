@@ -1,12 +1,14 @@
 import QtQuick
 import QtQuick.Window
 import QtQuick.Controls 6.2
+import Qt.db.nodes 1.0
 
 Rectangle {
-    //Component.onCompleted: nodesList.buildClusterComponents();
+    //Component.onCompleted: listNodes.buildClusterComponents();
     id: screen
     height: parent.height
     color: "#999999"
+    property Nodes_List listNodes: null
 
     ScrollView{
         anchors.fill: parent
@@ -20,7 +22,7 @@ Rectangle {
 
             Repeater {
 
-                model: nodesList.count
+                model: listNodes.count
 
                 delegate: Rectangle {
                     width: screen.width
@@ -31,11 +33,11 @@ Rectangle {
                         width: parent.width
                         height: 20
                         Text {
-                            text: nodesList.nodeAt(model.index).getName();
+                            text: listNodes.nodeAt(model.index).getName();
                         }
                     }
 
-                    property int ranks_in_node: nodesList.nodeAt(model.index).count
+                    property int ranks_in_node: listNodes.nodeAt(model.index).count
                     property int node_index: model.index
 
                     Grid{
@@ -57,14 +59,14 @@ Rectangle {
                             delegate: Rectangle {
                                 id: datarect
 
-                                property real send_ds: get_send_ds(node_index, model.index);//nodesList.nodeAt(node_index).rankAt(model.index).send_datasize
-                                property real recv_ds: get_recv_ds(node_index, model.index);//nodesList.nodeAt(node_index).rankAt(model.index).p2p_recv_datasize
+                                property real send_ds: get_send_ds(node_index, model.index);//listNodes.nodeAt(node_index).rankAt(model.index).send_datasize
+                                property real recv_ds: get_recv_ds(node_index, model.index);//listNodes.nodeAt(node_index).rankAt(model.index).p2p_recv_datasize
 
                                 height: (parent.height/parent.spacing)-5
                                 width: parent.width/parent.columns-5
 
                                 Text{
-                                    text: nodesList.nodeAt(node_index).rankAt(model.index).getId()
+                                    text: listNodes.nodeAt(node_index).rankAt(model.index).getId()
                                 }
                                 Text{
                                     y: 20

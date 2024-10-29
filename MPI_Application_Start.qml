@@ -46,7 +46,7 @@ Rectangle {
                 //horizontalAlignment: Text.AlignHCenter
                 //font.family: "Helvetica"
                 //font.pointSize: 16
-                text: qsTr("Choose MPI Application")
+                text: qsTr("Select MPI Application")
                 //color: "Blue"
             }
 
@@ -55,7 +55,7 @@ Rectangle {
                 width: parent.width
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
-                text: "Choose a .c file or a full folder that includes your program"
+                text: "Select a .c file or a full folder that includes your program"
                 color: "#999999"
             }
 
@@ -195,8 +195,9 @@ Rectangle {
                         visualization = true;
                         enable_start = false;
                         enable_timeline = false;
-                        nodesList.writeRemoteBashFile(programNameField.text, parseInt(numProcs.text), 0)
-                        nodesList.writeLocalBashFile(uploadPath.text, fileButton.checked ? true : false, parseInt(numProcs.text));
+                        controller.writeRemoteBashFile(programNameField.text, parseInt(numProcs.text), 0)
+                        controller.writeLocalBashFile(uploadPath.text, fileButton.checked ? true : false, parseInt(numProcs.text));
+                        nodesList.setProcNum(parseInt(numProcs.text))
                         startup();
 
 
@@ -217,7 +218,7 @@ Rectangle {
                 }
 
                 onClicked:{
-                    nodesList.cancelRunningJob()
+                    controller.cancelRunningJob()
                 }
             }
         }
@@ -239,7 +240,7 @@ Rectangle {
     function checkInput(){
         var component = Qt.createComponent("Error.qml");
         var window;
-        if(!nodesList.db_connection){
+        if(!controller.db_connection){
             if(component.status === Component.Ready){
                 window = component.createObject(root, {"message": "There is no database connection to a timescale DB. Please establish a connection: \nSettings > Database Connection"});
                 window.x = (root.width - window.width) / 2;
@@ -249,7 +250,7 @@ Rectangle {
             }
         }
 
-        else if(!nodesList.cluster_connection){
+        else if(!controller.cluster_connection){
             if(component.status === Component.Ready){
                 window = component.createObject(root, {"message": "There is no valid connection to a HPC Cluster. Please establish a connection: \nSettings > Cluster Connection"});
                 window.x = (root.width - window.width) / 2;
@@ -269,7 +270,7 @@ Rectangle {
             }
         }
 
-        else if(!nodesList.checkFile(uploadPath.text, programNameField.text, fileButton.checked ? true : false)){
+        else if(!controller.checkFile(uploadPath.text, programNameField.text, fileButton.checked ? true : false)){
             if(component.status === Component.Ready){
                 window = component.createObject(root, {"message": "There are problems with the specified program/folder path or with the specified program name. Please check the details."});
                 window.x = (root.width - window.width) / 2;

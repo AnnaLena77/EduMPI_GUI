@@ -88,7 +88,7 @@ static constexpr auto qt_meta_stringdata_CLASSRanks_InstancesENDCLASS = QtMocHel
     "combobox",
     "components_build",
     "nodes",
-    "Database_Connection*",
+    "Cluster_Architecture*",
     "instanceRanks"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
@@ -144,7 +144,7 @@ struct qt_meta_stringdata_CLASSRanks_InstancesENDCLASS_t {
     char stringdata47[9];
     char stringdata48[17];
     char stringdata49[6];
-    char stringdata50[21];
+    char stringdata50[22];
     char stringdata51[14];
 };
 #define QT_MOC_LITERAL(ofs, len) \
@@ -201,8 +201,8 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSRanks_InstancesENDCLASS_t qt_me
         QT_MOC_LITERAL(677, 8),  // "combobox"
         QT_MOC_LITERAL(686, 16),  // "components_build"
         QT_MOC_LITERAL(703, 5),  // "nodes"
-        QT_MOC_LITERAL(709, 20),  // "Database_Connection*"
-        QT_MOC_LITERAL(730, 13)   // "instanceRanks"
+        QT_MOC_LITERAL(709, 21),  // "Cluster_Architecture*"
+        QT_MOC_LITERAL(731, 13)   // "instanceRanks"
     },
     "Ranks_Instances",
     "QML.Element",
@@ -254,7 +254,7 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSRanks_InstancesENDCLASS_t qt_me
     "combobox",
     "components_build",
     "nodes",
-    "Database_Connection*",
+    "Cluster_Architecture*",
     "instanceRanks"
 };
 #undef QT_MOC_LITERAL
@@ -381,7 +381,7 @@ Q_CONSTINIT const QMetaObject Ranks_Instances::staticMetaObject = { {
         // property 'components_build'
         bool,
         // property 'nodes'
-        Database_Connection*,
+        Cluster_Architecture*,
         // property 'instanceRanks'
         Cluster_Node*,
         // Q_OBJECT / Q_GADGET
@@ -588,10 +588,10 @@ void Ranks_Instances::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
     } else if (_c == QMetaObject::RegisterPropertyMetaType) {
         switch (_id) {
         default: *reinterpret_cast<int*>(_a[0]) = -1; break;
+        case 11:
+            *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< Cluster_Architecture* >(); break;
         case 12:
             *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< Cluster_Node* >(); break;
-        case 11:
-            *reinterpret_cast<int*>(_a[0]) = qRegisterMetaType< Database_Connection* >(); break;
         }
     } else if (_c == QMetaObject::ReadProperty) {
         auto *_t = static_cast<Ranks_Instances *>(_o);
@@ -609,7 +609,7 @@ void Ranks_Instances::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         case 8: *reinterpret_cast< bool*>(_v) = _t->coll_show(); break;
         case 9: *reinterpret_cast< QString*>(_v) = _t->m_combobox; break;
         case 10: *reinterpret_cast< bool*>(_v) = _t->components_build(); break;
-        case 11: *reinterpret_cast< Database_Connection**>(_v) = _t->m_nodes; break;
+        case 11: *reinterpret_cast< Cluster_Architecture**>(_v) = _t->m_nodes; break;
         case 12: *reinterpret_cast< Cluster_Node**>(_v) = _t->instanceRanks(); break;
         default: break;
         }
@@ -635,8 +635,8 @@ void Ranks_Instances::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
             break;
         case 10: _t->setComponents_build(*reinterpret_cast< bool*>(_v)); break;
         case 11:
-            if (_t->m_nodes != *reinterpret_cast< Database_Connection**>(_v)) {
-                _t->m_nodes = *reinterpret_cast< Database_Connection**>(_v);
+            if (_t->m_nodes != *reinterpret_cast< Cluster_Architecture**>(_v)) {
+                _t->m_nodes = *reinterpret_cast< Cluster_Architecture**>(_v);
                 Q_EMIT _t->nodesChanged();
             }
             break;

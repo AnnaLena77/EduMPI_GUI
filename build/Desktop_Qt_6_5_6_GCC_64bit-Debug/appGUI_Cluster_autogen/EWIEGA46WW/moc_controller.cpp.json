@@ -1,0 +1,509 @@
+{
+    "classes": [
+        {
+            "classInfos": [
+                {
+                    "name": "QML.Element",
+                    "value": "auto"
+                }
+            ],
+            "className": "Controller",
+            "methods": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "hostname",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "databasename",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "port",
+                            "type": "int"
+                        },
+                        {
+                            "name": "UserName",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "password",
+                            "type": "QString"
+                        }
+                    ],
+                    "name": "connect",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "local_path",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "file",
+                            "type": "bool"
+                        },
+                        {
+                            "name": "proc_num",
+                            "type": "int"
+                        }
+                    ],
+                    "name": "writeLocalBashFile",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "closeApp",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "cancelRunningJob",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "proc_num",
+                            "type": "int"
+                        }
+                    ],
+                    "name": "startBash",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "readBash",
+                    "returnType": "QString"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "content",
+                            "type": "QString"
+                        }
+                    ],
+                    "name": "writeBash",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "source",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "program",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "file",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "checkFile",
+                    "returnType": "bool"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "program_name",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "proc_num",
+                            "type": "int"
+                        },
+                        {
+                            "name": "option",
+                            "type": "int"
+                        }
+                    ],
+                    "name": "writeRemoteBashFile",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "timeSecondsA",
+                            "type": "int"
+                        },
+                        {
+                            "name": "timeSecondsB",
+                            "type": "int"
+                        }
+                    ],
+                    "name": "showConditionAt",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "start",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "startAndStop",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "address",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "ident",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "path",
+                            "type": "QString"
+                        }
+                    ],
+                    "name": "connectCluster",
+                    "returnType": "QString"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "address",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "ident",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "path",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "callback",
+                            "type": "QJSValue"
+                        }
+                    ],
+                    "name": "connectClusterAsync",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "getDatabaseConnection",
+                    "returnType": "Database_Connection*"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "b",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "setComponentsBuild",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "timestamp",
+                            "type": "QTime"
+                        }
+                    ],
+                    "name": "setTimestamp",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "getJobTable",
+                    "returnType": "Table_UserID*"
+                },
+                {
+                    "access": "public",
+                    "name": "getClusterIdent",
+                    "returnType": "QString"
+                }
+            ],
+            "object": true,
+            "properties": [
+                {
+                    "constant": true,
+                    "designable": true,
+                    "final": false,
+                    "index": 0,
+                    "name": "count",
+                    "read": "count",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 1,
+                    "member": "m_connection_ready",
+                    "name": "db_connection",
+                    "notify": "connectionChanged",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 2,
+                    "member": "m_cluster_connection_ready",
+                    "name": "cluster_connection",
+                    "notify": "clusterConnectionChanged",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 3,
+                    "member": "m_time_display",
+                    "name": "time_display",
+                    "notify": "time_display_changed",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
+                }
+            ],
+            "qualifiedClassName": "Controller",
+            "signals": [
+                {
+                    "access": "public",
+                    "name": "count",
+                    "returnType": "int"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "slurm_id",
+                            "type": "int"
+                        }
+                    ],
+                    "name": "liveSlurmID",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "success",
+                            "type": "bool"
+                        }
+                    ],
+                    "name": "connectionSignal",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "timestamp",
+                            "type": "int"
+                        }
+                    ],
+                    "name": "dataIn",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "status",
+                            "type": "QString"
+                        }
+                    ],
+                    "name": "signalSlurmStatusChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "output",
+                            "type": "QString"
+                        }
+                    ],
+                    "name": "copiedOutputFile",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "type": "QString"
+                        },
+                        {
+                            "type": "QString"
+                        },
+                        {
+                            "type": "int"
+                        },
+                        {
+                            "type": "QString"
+                        },
+                        {
+                            "type": "QString"
+                        }
+                    ],
+                    "name": "signalToConnect",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "proc_num",
+                            "type": "int"
+                        }
+                    ],
+                    "name": "setProcNum",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "type": "int"
+                        }
+                    ],
+                    "name": "signalToUpdateData",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "signalToClearDB",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "timestampA",
+                            "type": "QTime"
+                        },
+                        {
+                            "name": "timestampB",
+                            "type": "QTime"
+                        }
+                    ],
+                    "name": "signalToShowTimestampData",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "userId",
+                            "type": "QString"
+                        }
+                    ],
+                    "name": "fetchEduMPIJobsForUser",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "connectionChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "clusterConnectionChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "time_display_changed",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "type": "QMap<QString,QList<int>>"
+                        }
+                    ],
+                    "name": "buildClusterComponents",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "timestamp",
+                            "type": "QTime"
+                        }
+                    ],
+                    "name": "handleTimestamp",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "status",
+                            "type": "QString"
+                        }
+                    ],
+                    "name": "slurm_status_changed",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "id",
+                            "type": "int"
+                        }
+                    ],
+                    "name": "getSlurmID",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "name": "slotFetchEduMPIJobs",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "controller.h",
+    "outputRevision": 68
+}

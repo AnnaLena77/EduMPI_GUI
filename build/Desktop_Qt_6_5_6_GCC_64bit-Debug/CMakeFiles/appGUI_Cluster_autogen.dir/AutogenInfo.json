@@ -1205,6 +1205,12 @@
 			null
 		],
 		[
+			"/home/anna-lena/GUI_Cluster/cluster_architecture.h",
+			"Mu",
+			"EWIEGA46WW/moc_cluster_architecture.cpp",
+			null
+		],
+		[
 			"/home/anna-lena/GUI_Cluster/cluster_node.h",
 			"Mu",
 			"EWIEGA46WW/moc_cluster_node.cpp",
@@ -1214,6 +1220,12 @@
 			"/home/anna-lena/GUI_Cluster/cluster_rank.h",
 			"Mu",
 			"EWIEGA46WW/moc_cluster_rank.cpp",
+			null
+		],
+		[
+			"/home/anna-lena/GUI_Cluster/controller.h",
+			"Mu",
+			"EWIEGA46WW/moc_controller.cpp",
 			null
 		],
 		[
@@ -1343,6 +1355,7 @@
 		"/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/.rcc/qmlcache/appGUI_Cluster_Key_Gen_Guide_qml.cpp",
 		"/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/.rcc/qmlcache/appGUI_Cluster_Loading_qml.cpp",
 		"/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/.rcc/qmlcache/appGUI_Cluster_MPI_Application_Start_qml.cpp",
+		"/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/.rcc/qmlcache/appGUI_Cluster_MPI_Run_Analysis_qml.cpp",
 		"/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/.rcc/qmlcache/appGUI_Cluster_Menu_Bar_qml.cpp",
 		"/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/.rcc/qmlcache/appGUI_Cluster_Options_qml.cpp",
 		"/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/.rcc/qmlcache/appGUI_Cluster_Output_File_qml.cpp",
@@ -1371,8 +1384,10 @@
 			"Mu",
 			null
 		],
+		[ "/home/anna-lena/GUI_Cluster/cluster_architecture.cpp", "Mu", null ],
 		[ "/home/anna-lena/GUI_Cluster/cluster_node.cpp", "Mu", null ],
 		[ "/home/anna-lena/GUI_Cluster/cluster_rank.cpp", "Mu", null ],
+		[ "/home/anna-lena/GUI_Cluster/controller.cpp", "Mu", null ],
 		[ "/home/anna-lena/GUI_Cluster/database_connection.cpp", "Mu", null ],
 		[ "/home/anna-lena/GUI_Cluster/database_thread.cpp", "Mu", null ],
 		[ "/home/anna-lena/GUI_Cluster/main.cpp", "Mu", null ],

@@ -9,7 +9,7 @@
 
 #include <cluster_node.h>
 #include <cluster_rank.h>
-#include <database_connection.h>
+#include <controller.h>
 #include <nodes_instances.h>
 #include <ranks_instances.h>
 
@@ -23,7 +23,7 @@ Q_QMLTYPE_EXPORT void qml_register_types_GUI_Cluster()
 {
     qmlRegisterTypesAndRevisions<Cluster_Node>("GUI_Cluster", 1);
     qmlRegisterTypesAndRevisions<Cluster_Rank>("GUI_Cluster", 1);
-    qmlRegisterTypesAndRevisions<Database_Connection>("GUI_Cluster", 1);
+    qmlRegisterTypesAndRevisions<Controller>("GUI_Cluster", 1);
     qmlRegisterTypesAndRevisions<Nodes_Instances>("GUI_Cluster", 1);
     qmlRegisterAnonymousType<QQuick3DInstancing, 254>("GUI_Cluster", 1);
     qmlRegisterTypesAndRevisions<Ranks_Instances>("GUI_Cluster", 1);

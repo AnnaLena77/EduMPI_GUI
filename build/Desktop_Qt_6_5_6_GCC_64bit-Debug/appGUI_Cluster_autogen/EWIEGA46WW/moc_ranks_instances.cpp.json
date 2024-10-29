@@ -185,7 +185,7 @@
                     "required": false,
                     "scriptable": true,
                     "stored": true,
-                    "type": "Database_Connection*",
+                    "type": "Cluster_Architecture*",
                     "user": false
                 },
                 {

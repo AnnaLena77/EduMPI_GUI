@@ -13,6 +13,17 @@
                     ],
                     "name": "loadJobs",
                     "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "dbConnection",
+                            "type": "Database_Connection*"
+                        }
+                    ],
+                    "name": "setDatabaseConnection",
+                    "returnType": "void"
                 }
             ],
             "object": true,

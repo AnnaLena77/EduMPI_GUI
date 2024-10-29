@@ -13,13 +13,21 @@ Item {
     property int currentTime: 0
 
     property string status: slurm_status
+    property bool live: true
 
     onStatusChanged: {
         if(status === "completed" && playbutton.icon.name==="pause" && timeline_timer.running && enable_timeline){
+            console.log("Playbutton clicked");
             playbutton.clicked();
             if(timeline_positionmarker.x == 0){
                 nodesList.showConditionAt(0,0)
             }
+        }
+    }
+
+    onLiveChanged: {
+        if(!live){
+            playbutton.clicked()
         }
     }
 

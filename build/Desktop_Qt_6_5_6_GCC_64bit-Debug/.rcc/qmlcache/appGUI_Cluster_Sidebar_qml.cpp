@@ -1718,8 +1718,8 @@ return r2_1;
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for width at line 35, column 17
-double r2_2;
 QObject *r2_1;
+double r2_2;
 // generate_LoadQmlContextPropertyLookup
 while (!aotContext->loadScopeObjectPropertyLookup(7, &r2_1)) {
 aotContext->setInstructionPointer(2);
@@ -1803,8 +1803,8 @@ Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for color at line 78, column 25
 QString r2_3;
-QObject *r2_1;
 bool r2_2;
+QObject *r2_1;
 // generate_LoadQmlContextPropertyLookup
 while (!aotContext->loadContextIdLookup(42, &r2_1)) {
 aotContext->setInstructionPointer(2);
@@ -1862,8 +1862,8 @@ Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for onClicked at line 99, column 21
 QObject *r7_1;
-QObject *r2_1;
 bool r2_2;
+QObject *r2_1;
 // generate_CreateCallContext
 {
 // generate_LoadQmlContextPropertyLookup
@@ -1953,8 +1953,8 @@ return r2_2;
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for height at line 116, column 13
-QObject *r2_1;
 double r2_2;
+QObject *r2_1;
 // generate_LoadQmlContextPropertyLookup
 while (!aotContext->loadScopeObjectPropertyLookup(59, &r2_1)) {
 aotContext->setInstructionPointer(2);

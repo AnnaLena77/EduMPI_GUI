@@ -20,6 +20,7 @@
     <file alias="Application_Start_without.qml">/home/anna-lena/GUI_Cluster/Application_Start_without.qml</file>
     <file alias="Application_Start_Scorep.qml">/home/anna-lena/GUI_Cluster/Application_Start_Scorep.qml</file>
     <file alias="Table_Userid_Selection.qml">/home/anna-lena/GUI_Cluster/Table_Userid_Selection.qml</file>
+    <file alias="MPI_Run_Analysis.qml">/home/anna-lena/GUI_Cluster/MPI_Run_Analysis.qml</file>
   </qresource>
 </RCC>
 

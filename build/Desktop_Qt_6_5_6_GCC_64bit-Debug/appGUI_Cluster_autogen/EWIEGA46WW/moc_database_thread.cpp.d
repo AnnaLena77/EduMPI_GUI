@@ -1,5 +1,6 @@
 /home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_autogen/EWIEGA46WW/moc_database_thread.cpp: /home/anna-lena/GUI_Cluster/database_thread.h \
   /home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_autogen/moc_predefs.h \
+  /home/anna-lena/GUI_Cluster/database_connection.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/QObject \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/QThread \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/q20memory.h \

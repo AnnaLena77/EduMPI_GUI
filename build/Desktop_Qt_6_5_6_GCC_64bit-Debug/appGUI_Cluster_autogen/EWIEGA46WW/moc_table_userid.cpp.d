@@ -1,7 +1,9 @@
 /home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_autogen/EWIEGA46WW/moc_table_userid.cpp: /home/anna-lena/GUI_Cluster/table_userid.h \
   /home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_autogen/moc_predefs.h \
+  /home/anna-lena/GUI_Cluster/database_connection.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/QAbstractListModel \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/QList \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/QObject \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/QStringList \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/QVariant \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/QVariantList \
@@ -109,7 +111,11 @@
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qvarlengtharray.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qversiontagging.h \
   /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qxptype_traits.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQmlIntegration/qqmlintegration.h \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtSql/QSqlDatabase \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtSql/qsqldatabase.h \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtSql/qtsql-config.h \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtSql/qtsqlexports.h \
+  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtSql/qtsqlglobal.h \
   /usr/include/alloca.h \
   /usr/include/assert.h \
   /usr/include/c++/9/algorithm \

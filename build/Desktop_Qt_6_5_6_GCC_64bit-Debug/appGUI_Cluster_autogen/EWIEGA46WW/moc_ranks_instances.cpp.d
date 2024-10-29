@@ -1,6 +1,7 @@
 /home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_autogen/EWIEGA46WW/moc_ranks_instances.cpp: /home/anna-lena/GUI_Cluster/ranks_instances.h \
   /home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_autogen/moc_predefs.h \
   /home/anna-lena/GUI_Cluster/bash_process_manager.h \
+  /home/anna-lena/GUI_Cluster/cluster_architecture.h \
   /home/anna-lena/GUI_Cluster/cluster_node.h \
   /home/anna-lena/GUI_Cluster/cluster_rank.h \
   /home/anna-lena/GUI_Cluster/database_connection.h \

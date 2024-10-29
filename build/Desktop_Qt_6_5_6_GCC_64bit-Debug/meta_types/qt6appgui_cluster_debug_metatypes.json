@@ -69,6 +69,355 @@
     {
         "classes": [
             {
+                "className": "Cluster_Architecture",
+                "methods": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "dbConnection",
+                                "type": "Database_Connection*"
+                            },
+                            {
+                                "name": "live",
+                                "type": "bool"
+                            }
+                        ],
+                        "name": "initialize",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "startThread",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "opt",
+                                "type": "int"
+                            }
+                        ],
+                        "name": "setOption",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "timeSecondsA",
+                                "type": "int"
+                            },
+                            {
+                                "name": "timeSecondsB",
+                                "type": "int"
+                            }
+                        ],
+                        "name": "showConditionAt",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "start",
+                                "type": "bool"
+                            }
+                        ],
+                        "name": "startAndStop",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "index",
+                                "type": "int"
+                            }
+                        ],
+                        "name": "nodeAt",
+                        "returnType": "Cluster_Node*"
+                    }
+                ],
+                "object": true,
+                "properties": [
+                    {
+                        "constant": true,
+                        "designable": true,
+                        "final": false,
+                        "index": 0,
+                        "name": "count",
+                        "read": "count",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "int",
+                        "user": false
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 1,
+                        "name": "p2p_send_max",
+                        "notify": "p2p_send_max_changed",
+                        "read": "p2p_send_max",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "long",
+                        "user": false,
+                        "write": "set_p2p_send_max"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 2,
+                        "name": "coll_send_max",
+                        "notify": "coll_send_max_changed",
+                        "read": "coll_send_max",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "long",
+                        "user": false,
+                        "write": "set_coll_send_max"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 3,
+                        "name": "p2p_recv_max",
+                        "notify": "p2p_recv_max_changed",
+                        "read": "p2p_recv_max",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "long",
+                        "user": false,
+                        "write": "set_p2p_recv_max"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 4,
+                        "name": "coll_recv_max",
+                        "notify": "coll_recv_max_changed",
+                        "read": "coll_recv_max",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "long",
+                        "user": false,
+                        "write": "set_coll_recv_max"
+                    }
+                ],
+                "qualifiedClassName": "Cluster_Architecture",
+                "signals": [
+                    {
+                        "access": "public",
+                        "name": "p2p_send_max_changed",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "coll_send_max_changed",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "p2p_recv_max_changed",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "coll_recv_max_changed",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "type": "QString"
+                            },
+                            {
+                                "type": "QString"
+                            },
+                            {
+                                "type": "int"
+                            },
+                            {
+                                "type": "QString"
+                            },
+                            {
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "signalToConnect",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "proc_num",
+                                "type": "int"
+                            }
+                        ],
+                        "name": "setProcNum",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "slurm_id",
+                                "type": "int"
+                            }
+                        ],
+                        "name": "setSlurmID",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "type": "int"
+                            }
+                        ],
+                        "name": "signalToUpdateData",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "signalToClearDB",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "timestampA",
+                                "type": "QDateTime"
+                            },
+                            {
+                                "name": "timestampB",
+                                "type": "QDateTime"
+                            }
+                        ],
+                        "name": "signalToShowTimestampData",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "componentsBuilt",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "success",
+                                "type": "bool"
+                            }
+                        ],
+                        "name": "connectionSignal",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "timestamp",
+                                "type": "int"
+                            },
+                            {
+                                "name": "qTimestamp",
+                                "type": "QTime"
+                            }
+                        ],
+                        "name": "dataIn",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "status",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "signalSlurmStatusChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "output",
+                                "type": "QString"
+                            }
+                        ],
+                        "name": "copiedOutputFile",
+                        "returnType": "void"
+                    }
+                ],
+                "slots": [
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "type": "QMap<QString,QList<int>>"
+                            }
+                        ],
+                        "name": "buildClusterComponents",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "type": "QList<DataColumn>"
+                            }
+                        ],
+                        "name": "updateDataToUI",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "removeClusterComponents",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "timestamp",
+                                "type": "QDateTime"
+                            }
+                        ],
+                        "name": "handleTimestamp",
+                        "returnType": "void"
+                    }
+                ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "cluster_architecture.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
                 "classInfos": [
                     {
                         "name": "QML.Element",
@@ -397,7 +746,7 @@
                         "value": "auto"
                     }
                 ],
-                "className": "Database_Connection",
+                "className": "Controller",
                 "methods": [
                     {
                         "access": "public",
@@ -590,14 +939,40 @@
                     },
                     {
                         "access": "public",
+                        "name": "getDatabaseConnection",
+                        "returnType": "Database_Connection*"
+                    },
+                    {
+                        "access": "public",
                         "arguments": [
                             {
-                                "name": "index",
-                                "type": "int"
+                                "name": "b",
+                                "type": "bool"
                             }
                         ],
-                        "name": "nodeAt",
-                        "returnType": "Cluster_Node*"
+                        "name": "setComponentsBuild",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "timestamp",
+                                "type": "QTime"
+                            }
+                        ],
+                        "name": "setTimestamp",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "getJobTable",
+                        "returnType": "Table_UserID*"
+                    },
+                    {
+                        "access": "public",
+                        "name": "getClusterIdent",
+                        "returnType": "QString"
                     }
                 ],
                 "object": true,
@@ -620,66 +995,6 @@
                         "designable": true,
                         "final": false,
                         "index": 1,
-                        "name": "p2p_send_max",
-                        "notify": "p2p_send_max_changed",
-                        "read": "p2p_send_max",
-                        "required": false,
-                        "scriptable": true,
-                        "stored": true,
-                        "type": "long",
-                        "user": false,
-                        "write": "set_p2p_send_max"
-                    },
-                    {
-                        "constant": false,
-                        "designable": true,
-                        "final": false,
-                        "index": 2,
-                        "name": "coll_send_max",
-                        "notify": "coll_send_max_changed",
-                        "read": "coll_send_max",
-                        "required": false,
-                        "scriptable": true,
-                        "stored": true,
-                        "type": "long",
-                        "user": false,
-                        "write": "set_coll_send_max"
-                    },
-                    {
-                        "constant": false,
-                        "designable": true,
-                        "final": false,
-                        "index": 3,
-                        "name": "p2p_recv_max",
-                        "notify": "p2p_recv_max_changed",
-                        "read": "p2p_recv_max",
-                        "required": false,
-                        "scriptable": true,
-                        "stored": true,
-                        "type": "long",
-                        "user": false,
-                        "write": "set_p2p_recv_max"
-                    },
-                    {
-                        "constant": false,
-                        "designable": true,
-                        "final": false,
-                        "index": 4,
-                        "name": "coll_recv_max",
-                        "notify": "coll_recv_max_changed",
-                        "read": "coll_recv_max",
-                        "required": false,
-                        "scriptable": true,
-                        "stored": true,
-                        "type": "long",
-                        "user": false,
-                        "write": "set_coll_recv_max"
-                    },
-                    {
-                        "constant": false,
-                        "designable": true,
-                        "final": false,
-                        "index": 5,
                         "member": "m_connection_ready",
                         "name": "db_connection",
                         "notify": "connectionChanged",
@@ -693,7 +1008,7 @@
                         "constant": false,
                         "designable": true,
                         "final": false,
-                        "index": 6,
+                        "index": 2,
                         "member": "m_cluster_connection_ready",
                         "name": "cluster_connection",
                         "notify": "clusterConnectionChanged",
@@ -707,7 +1022,7 @@
                         "constant": false,
                         "designable": true,
                         "final": false,
-                        "index": 7,
+                        "index": 3,
                         "member": "m_time_display",
                         "name": "time_display",
                         "notify": "time_display_changed",
@@ -718,46 +1033,22 @@
                         "user": false
                     }
                 ],
-                "qualifiedClassName": "Database_Connection",
+                "qualifiedClassName": "Controller",
                 "signals": [
                     {
                         "access": "public",
-                        "name": "p2p_send_max_changed",
-                        "returnType": "void"
+                        "name": "count",
+                        "returnType": "int"
                     },
                     {
                         "access": "public",
-                        "name": "coll_send_max_changed",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "name": "p2p_recv_max_changed",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "name": "coll_recv_max_changed",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "name": "connectionChanged",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "name": "clusterConnectionChanged",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "name": "time_display_changed",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "name": "componentsBuilt",
+                        "arguments": [
+                            {
+                                "name": "slurm_id",
+                                "type": "int"
+                            }
+                        ],
+                        "name": "liveSlurmID",
                         "returnType": "void"
                     },
                     {
@@ -877,19 +1168,24 @@
                         ],
                         "name": "fetchEduMPIJobsForUser",
                         "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "connectionChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "clusterConnectionChanged",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "time_display_changed",
+                        "returnType": "void"
                     }
                 ],
                 "slots": [
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "type": "bool"
-                            }
-                        ],
-                        "name": "dbConnectionSuccessful",
-                        "returnType": "void"
-                    },
                     {
                         "access": "public",
                         "arguments": [
@@ -898,21 +1194,6 @@
                             }
                         ],
                         "name": "buildClusterComponents",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "type": "QList<DataColumn>"
-                            }
-                        ],
-                        "name": "updateDataToUI",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "name": "removeClusterComponents",
                         "returnType": "void"
                     },
                     {
@@ -954,6 +1235,23 @@
                         "returnType": "void"
                     }
                 ],
+                "superClasses": [
+                    {
+                        "access": "public",
+                        "name": "QObject"
+                    }
+                ]
+            }
+        ],
+        "inputFile": "controller.h",
+        "outputRevision": 68
+    },
+    {
+        "classes": [
+            {
+                "className": "Database_Connection",
+                "object": true,
+                "qualifiedClassName": "Database_Connection",
                 "superClasses": [
                     {
                         "access": "public",
@@ -1015,7 +1313,7 @@
                         "arguments": [
                             {
                                 "name": "timestamp",
-                                "type": "QTime"
+                                "type": "QDateTime"
                             }
                         ],
                         "name": "setTimestamp",
@@ -1034,33 +1332,6 @@
                     }
                 ],
                 "slots": [
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "hostname",
-                                "type": "QString"
-                            },
-                            {
-                                "name": "databasename",
-                                "type": "QString"
-                            },
-                            {
-                                "name": "port",
-                                "type": "int"
-                            },
-                            {
-                                "name": "username",
-                                "type": "QString"
-                            },
-                            {
-                                "name": "password",
-                                "type": "QString"
-                            }
-                        ],
-                        "name": "connectToDB",
-                        "returnType": "void"
-                    },
                     {
                         "access": "public",
                         "name": "threadbuildClusterComponents",
@@ -1082,11 +1353,11 @@
                         "arguments": [
                             {
                                 "name": "timestampA",
-                                "type": "QTime"
+                                "type": "QDateTime"
                             },
                             {
                                 "name": "timestampB",
-                                "type": "QTime"
+                                "type": "QDateTime"
                             }
                         ],
                         "name": "showDataFromTimePeriod",
@@ -1134,7 +1405,7 @@
                 "superClasses": [
                     {
                         "access": "public",
-                        "name": "QObject"
+                        "name": "QThread"
                     }
                 ]
             }
@@ -1389,7 +1660,7 @@
                         "required": false,
                         "scriptable": true,
                         "stored": true,
-                        "type": "Database_Connection*",
+                        "type": "Cluster_Architecture*",
                         "user": false
                     },
                     {
@@ -1624,6 +1895,17 @@
                             }
                         ],
                         "name": "loadJobs",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "dbConnection",
+                                "type": "Database_Connection*"
+                            }
+                        ],
+                        "name": "setDatabaseConnection",
                         "returnType": "void"
                     }
                 ],

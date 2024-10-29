@@ -74,11 +74,11 @@ Window {
                 onClicked: {
                     busyindicator.running = true
                     successfield.text = "";
-                    nodesList.connectClusterAsync(hostnameField.text, authField.text, installpathField.text, function(result) {
+                    controller.connectClusterAsync(hostnameField.text, authField.text, installpathField.text, function(result) {
                         //console.log(result);
                         successfield.text = result;
                         busyindicator.running = false;
-                        if(nodesList.cluster_connection){
+                        if(controller.cluster_connection){
                             successfield.color="green";
                         } else {
                             successfield.color="red";

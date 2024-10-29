@@ -23,13 +23,14 @@ qt_add_executable(appGUI_Cluster
     cluster_node.cpp
     cluster_rank.h
     cluster_rank.cpp
-    database_connection.h
-    database_connection.cpp
+    controller.h
+    controller.cpp
     nodes_instances.h nodes_instances.cpp
     ranks_instances.h ranks_instances.cpp
     database_thread.h database_thread.cpp
     bash_process_manager.h bash_process_manager.cpp
     table_userid.h table_userid.cpp
+     cluster_architecture.h cluster_architecture.cpp
 
     ${QML_RESOURCES}
     ${SHADER_RESOURCES}
@@ -61,6 +62,8 @@ qt_add_qml_module(appGUI_Cluster
         Application_Start_without.qml
         Application_Start_Scorep.qml
         Table_Userid_Selection.qml
+        MPI_Run_Analysis.qml
+        SOURCES database_connection.h database_connection.cpp
 )
 
 set_target_properties(appGUI_Cluster PROPERTIES

@@ -18,7 +18,7 @@ Window {
     }
 
     onStatusChanged: {
-        if(staus === "completed"){
+        if(status === "completed"){
             busyindicator.running = false;
         }
     }

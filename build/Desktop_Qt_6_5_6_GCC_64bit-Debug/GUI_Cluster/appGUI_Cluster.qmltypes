@@ -133,61 +133,26 @@ Module {
         Method { name: "getId"; type: "int" }
     }
     Component {
-        file: "database_connection.h"
-        name: "Database_Connection"
+        file: "controller.h"
+        name: "Controller"
         accessSemantics: "reference"
         prototype: "QObject"
-        exports: ["GUI_Cluster/Database_Connection 1.0"]
+        exports: ["GUI_Cluster/Controller 1.0"]
         exportMetaObjectRevisions: [256]
         Property { name: "count"; type: "int"; read: "count"; index: 0; isReadonly: true; isConstant: true }
-        Property {
-            name: "p2p_send_max"
-            type: "long"
-            read: "p2p_send_max"
-            write: "set_p2p_send_max"
-            notify: "p2p_send_max_changed"
-            index: 1
-        }
-        Property {
-            name: "coll_send_max"
-            type: "long"
-            read: "coll_send_max"
-            write: "set_coll_send_max"
-            notify: "coll_send_max_changed"
-            index: 2
-        }
-        Property {
-            name: "p2p_recv_max"
-            type: "long"
-            read: "p2p_recv_max"
-            write: "set_p2p_recv_max"
-            notify: "p2p_recv_max_changed"
-            index: 3
-        }
-        Property {
-            name: "coll_recv_max"
-            type: "long"
-            read: "coll_recv_max"
-            write: "set_coll_recv_max"
-            notify: "coll_recv_max_changed"
-            index: 4
-        }
-        Property { name: "db_connection"; type: "bool"; notify: "connectionChanged"; index: 5 }
+        Property { name: "db_connection"; type: "bool"; notify: "connectionChanged"; index: 1 }
         Property {
             name: "cluster_connection"
             type: "bool"
             notify: "clusterConnectionChanged"
-            index: 6
+            index: 2
         }
-        Property { name: "time_display"; type: "int"; notify: "time_display_changed"; index: 7 }
-        Signal { name: "p2p_send_max_changed" }
-        Signal { name: "coll_send_max_changed" }
-        Signal { name: "p2p_recv_max_changed" }
-        Signal { name: "coll_recv_max_changed" }
-        Signal { name: "connectionChanged" }
-        Signal { name: "clusterConnectionChanged" }
-        Signal { name: "time_display_changed" }
-        Signal { name: "componentsBuilt" }
+        Property { name: "time_display"; type: "int"; notify: "time_display_changed"; index: 3 }
+        Signal { name: "count"; type: "int" }
+        Signal {
+            name: "liveSlurmID"
+            Parameter { name: "slurm_id"; type: "int" }
+        }
         Signal {
             name: "connectionSignal"
             Parameter { name: "success"; type: "bool" }
@@ -230,19 +195,13 @@ Module {
             name: "fetchEduMPIJobsForUser"
             Parameter { name: "userId"; type: "QString" }
         }
-        Method {
-            name: "dbConnectionSuccessful"
-            Parameter { type: "bool" }
-        }
+        Signal { name: "connectionChanged" }
+        Signal { name: "clusterConnectionChanged" }
+        Signal { name: "time_display_changed" }
         Method {
             name: "buildClusterComponents"
             Parameter { type: "QMap<QString,QList<int>>" }
         }
-        Method {
-            name: "updateDataToUI"
-            Parameter { type: "DataColumn"; isList: true }
-        }
-        Method { name: "removeClusterComponents" }
         Method {
             name: "handleTimestamp"
             Parameter { name: "timestamp"; type: "QTime" }
@@ -317,12 +276,17 @@ Module {
             Parameter { name: "path"; type: "QString" }
             Parameter { name: "callback"; type: "QJSValue" }
         }
+        Method { name: "getDatabaseConnection"; type: "Database_Connection"; isPointer: true }
         Method {
-            name: "nodeAt"
-            type: "Cluster_Node"
-            isPointer: true
-            Parameter { name: "index"; type: "int" }
+            name: "setComponentsBuild"
+            Parameter { name: "b"; type: "bool" }
         }
+        Method {
+            name: "setTimestamp"
+            Parameter { name: "timestamp"; type: "QTime" }
+        }
+        Method { name: "getJobTable"; type: "Table_UserID"; isPointer: true }
+        Method { name: "getClusterIdent"; type: "QString" }
     }
     Component {
         file: "nodes_instances.h"
@@ -435,7 +399,7 @@ Module {
         }
         Property {
             name: "nodes"
-            type: "Database_Connection"
+            type: "Cluster_Architecture"
             isPointer: true
             notify: "nodesChanged"
             index: 11

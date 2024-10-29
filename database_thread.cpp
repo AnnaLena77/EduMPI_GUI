@@ -7,21 +7,10 @@
 #include <QStandardItemModel>
 #include <QSqlError>
 
-QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
+Database_Thread::Database_Thread(Database_Connection *dbConnection, QObject *parent)
+    : QThread(parent), m_dbConnection(dbConnection) {
 
-void Database_Thread::connectToDB(const QString &hostname, const QString &databasename, const int &port, const QString &username, const QString &password){
-    db.setHostName(hostname);
-    db.setPort(port);
-    db.setDatabaseName(databasename);
-    db.setUserName(username);
-    db.setPassword(password);
-    bool ok = db.open();
-
-    emit connectedToDB(ok);
-
-    std::cout << "New Connection" << std::endl;
-    m_slurm_id = 0;
-    m_proc_num = 0;
+    m_db = m_dbConnection->getDatabaseConnection();
 }
 
 void Database_Thread::clearDatabase(){
@@ -29,12 +18,12 @@ void Database_Thread::clearDatabase(){
 }
 
 void Database_Thread::threadbuildClusterComponents(){
-    if(!db.isOpen()){
+    if(!m_db.isOpen()){
         return;
     }
     m_firstDBEntryTime = QTime();
-    std::cout << "New Cluster Components" << std::endl;
-    QSqlQuery query(db);
+    std::cout << "threadbuildClusterComponents" << std::endl;
+    QSqlQuery query(m_db);
     QString name = "";
 
     QMap<QString, QVector<int>> map;
@@ -43,10 +32,15 @@ void Database_Thread::threadbuildClusterComponents(){
     query.bindValue(":slurm_id", m_slurm_id);
     query.exec();
 
-    while(query.size()<m_proc_num){
+    while(query.size()<m_proc_num || m_proc_num<=0){
         query.exec();
+        if(m_proc_num == -1234){
+            break;
+        }
         sleep(1);
     }
+    //std::cout << "Size passt!!!!!" << std::endl;
+
     while(query.next()) {
         QString actual_name = query.value("processorname").toString();
         int actual_rank = query.value("processrank").toInt();
@@ -65,7 +59,9 @@ void Database_Thread::threadbuildClusterComponents(){
 //Continuous update of the data in the database for the live view
 void Database_Thread::updateData(const int &time_display){
 
-    QSqlQuery queryy(db);
+    //std::cout << "updateData" << std::endl;
+
+    QSqlQuery queryy(m_db);
     QDateTime timestamp;
 
     if(m_firstDBEntryTime.isNull()){
@@ -85,7 +81,7 @@ void Database_Thread::updateData(const int &time_display){
 
             m_firstDBEntryTime = timestamp.time();
             m_actualDBEntryTime = timestamp;
-            emit setTimestamp(m_firstDBEntryTime);
+            emit setTimestamp(timestamp);
         } else {
             return;
         }
@@ -93,7 +89,7 @@ void Database_Thread::updateData(const int &time_display){
         m_actualDBEntryTime = m_actualDBEntryTime.addSecs(1);
     }
 
-    QSqlQuery query(db);
+    QSqlQuery query(m_db);
     QString queryString;
 
     if(time_display == 0){
@@ -140,20 +136,21 @@ void Database_Thread::updateData(const int &time_display){
 
 }
 
-void Database_Thread::showDataFromTimePeriod(const QTime timestampA, const QTime timestampB){
-    QDateTime a = QDateTime::currentDateTime();
-    QDateTime b = QDateTime::currentDateTime();
-    a.setTime(timestampA);
-    b.setTime(timestampB);
+void Database_Thread::showDataFromTimePeriod(const QDateTime timestampA, const QDateTime timestampB){
+    //QDateTime a = QDateTime::currentDateTime();
+    //QDateTime b = QDateTime::currentDateTime();
+    //a.setTime(timestampA);
+    //b.setTime(timestampB);
 
     QString queryString = "SELECT processorname, processrank, communicationtype, SUM(send_ds) AS send_ds, SUM(recv_ds) AS recv_ds, SUM(time_diff) AS time_diff, SUM(latesendertime) AS latesendertime, SUM(laterecvrtime) AS laterecvrtime FROM edumpi_secondly_data WHERE edumpi_run_id = :slurm_id AND ((time_end >= :endtime AND time_start <= :starttime) OR (time_end BETWEEN :starttime AND :endtime)) GROUP BY processorname, processrank, communicationtype;";
-    QSqlQuery query(db);
+
+    QSqlQuery query(m_db);
     query.prepare(queryString);
-    query.bindValue(":starttime", a.toString("yyyy-MM-dd HH:mm:ss"));
-    query.bindValue(":endtime", b.toString("yyyy-MM-dd HH:mm:ss"));
+    query.bindValue(":starttime", timestampA.toString("yyyy-MM-dd HH:mm:ss"));
+    query.bindValue(":endtime", timestampB.toString("yyyy-MM-dd HH:mm:ss"));
     query.bindValue(":slurm_id", m_slurm_id);
 
-    //std::cout << queryString.toStdString() << std::endl;
+    //std::cout << "Starttime" << a.toString("yyyy-MM-d HH:mm:ss").toStdString() << std::endl;
 
     if (query.exec()) {
         QList<DataColumn> list;

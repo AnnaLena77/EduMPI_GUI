@@ -463,8 +463,8 @@ Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for onClicked at line 13, column 11
 QObject *r7_1;
-bool r2_2;
 QObject *r2_1;
+bool r2_2;
 // generate_CreateCallContext
 {
 // generate_LoadQmlContextPropertyLookup
@@ -529,9 +529,9 @@ return r2_1;
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for height at line 19, column 9
-double r2_3;
 bool r2_1;
 QObject *r2_2;
+double r2_3;
 // generate_LoadQmlContextPropertyLookup
 while (!aotContext->loadScopeObjectPropertyLookup(5, &r2_1)) {
 aotContext->setInstructionPointer(2);

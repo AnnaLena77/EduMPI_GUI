@@ -46,9 +46,18 @@ Item {
             Action {
                 text: "<font color=\"white\">Load EduMPI-Run from DB</font>"
                 onTriggered: {
-                    var component = Qt.createComponent("Table_Userid_Selection.qml");
-                    var window = component.createObject(root);
-                    window.show();
+                    var component, window;
+                    if(controller.db_connection && controller.cluster_connection){
+                        component = Qt.createComponent("Table_Userid_Selection.qml");
+                        window = component.createObject(root);
+                        window.show();
+                    } else {
+                        component = Qt.createComponent("Error.qml");
+                        window = component.createObject(root, {"message": "First, please establish a connection to the cluster and the database!"});
+                        window.x = (root.width - window.width) / 2;
+                        window.y = (root.height - window.height) / 2;
+                        window.show();
+                    }
                 }
             }
             //Action { text: "<font color=\"white\">Save As...</font>"}

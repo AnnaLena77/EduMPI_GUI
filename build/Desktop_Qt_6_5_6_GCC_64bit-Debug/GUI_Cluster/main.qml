@@ -1,7 +1,8 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Window
-import Qt.db.models 1.0
+import Qt.db.nodes 1.0
+import Qt.db.Singleton 1.0
 
 Window {
     id: root
@@ -9,7 +10,7 @@ Window {
     height: 1080
     visible: true
     onClosing: {
-        nodesList.closeApp()
+        controller.closeApp()
     }
 
     property alias actualScreen: actualScreen
@@ -48,18 +49,57 @@ Window {
         anchors.fill: parent
     }
 
-
-    NodesList{
+    Nodes_List{
         id: nodesList
         onComponentsBuilt: {
+            controller.setComponentsBuild(true)
             actualScreen.source = ""
             actualScreen.source = "Cores3D.qml"
+            console.log("components build from main")
+            //actualScreen.sourceComponent.nodesListModel = nodesList;
             //playbutton.enabled = true
         }
+        onDataIn: (timestamp, qTimestamp)=>{
+            startTime = timestamp;
+            var qtime = qTimestamp;
+            enable_timeline = true;
+            if(slurm_status === "completed" || slurm_status === "cancelled"){
+                nodesList.startAndStop(true);
+                nodesList.showConditionAt(0,0)
+            }
+            controller.setTimestamp(qtime)
+            console.log("startTime: "+ startTime)
+        }
+        Component.onCompleted: {
+            if(db_connection_success){
+                nodesList.initialize(controller.getDatabaseConnection)
+                nodesList.startThread()
+            }
+        }
+    }
+
+    Controller{
+        id: controller
+
+        onLiveSlurmID: (slurm_id)=>{
+            if(visualization){
+                nodesList.setOption(0);
+            }
+            console.log("liveSlurmID");
+            nodesList.setSlurmID(slurm_id);
+        }
+
         onConnectionSignal: (success)=>{
             if(success){
                 success_color = "green"
                 success_text = "Database connection successfully established"
+                if(!controller.getDatabaseConnection){
+                    console.log("NULLINGER")
+                } else {
+                    var dbConnection = controller.getDatabaseConnection()
+                    nodesList.initialize(dbConnection, true);
+                    nodesList.startThread()
+                }
             } else {
                 success_color = "red"
                 success_text = "Database connection failed. Check the access data and password. Make sure that any necessary VPN connection is established."
@@ -95,12 +135,6 @@ Window {
                     loaderText = "Job-Status: Completed!"
                 }
             }
-        }
-
-        onDataIn: (timestamp)=>{
-            startTime = timestamp;
-            enable_timeline = true;
-            console.log("startTime: "+ startTime)
         }
         onCopiedOutputFile: (output_path) => {
             var window;
@@ -145,6 +179,16 @@ Window {
             right: options.left
             top: menu.bottom
             bottom: parent.bottom
+        }
+
+        onLoaded: {
+            //if(actualScreen.item) {
+                if(actualScreen.source == "Cores3D.qml"){
+                    actualScreen.item.listNodes = nodesList
+                } else if(actualScreen.source == "Cores2D.qml"){
+                    actualScreen.item.listNodes = nodesList
+                }
+           // }
         }
 
         function reload(){
