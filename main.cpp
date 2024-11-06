@@ -1,4 +1,5 @@
-#include "database_connection.h"
+#include "controller.h"
+#include "cluster_architecture.h"
 #include "table_userid.h"
 
 #include <QGuiApplication>
@@ -22,8 +23,9 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    qmlRegisterType<Database_Connection>("Qt.db.models", 1, 0, "NodesList");
-    qmlRegisterType<Table_UserID>("Qt.db.models", 1, 0, "Table_UserID");
+    qmlRegisterType<Controller>("Qt.db.Singleton", 1, 0, "Controller");
+    qmlRegisterType<Cluster_Architecture>("Qt.db.nodes", 1, 0, "Nodes_List");
+    //qmlRegisterType<Table_UserID>("Qt.db.models", 1, 0, "TableUserID");
 
     const QUrl url(u"qrc:/GUI_Cluster/main.qml"_qs);
     /*QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -39,7 +41,7 @@ int main(int argc, char *argv[])
     //QQmlContext* context = engine.rootContext();
 
     //context->setContextProperty("NodesList", &dbi);
-
+    qDebug() << "Current thread Main Main:" << QThread::currentThread();
 
     return app.exec();
 }

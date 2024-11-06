@@ -13,13 +13,21 @@ Item {
     property int currentTime: 0
 
     property string status: slurm_status
+    property bool live: true
 
     onStatusChanged: {
         if(status === "completed" && playbutton.icon.name==="pause" && timeline_timer.running && enable_timeline){
+            console.log("Playbutton clicked");
             playbutton.clicked();
             if(timeline_positionmarker.x == 0){
                 nodesList.showConditionAt(0,0)
             }
+        }
+    }
+
+    onLiveChanged: {
+        if(!live){
+            playbutton.clicked()
         }
     }
 
@@ -39,9 +47,9 @@ Item {
 
         Rectangle{
             id: timeline_buttons
-             width: 150
+             implicitWidth: 150
              z: 1
-             height: parent.height
+             implicitHeight: parent.height
              color: "#383936"
              Layout.fillWidth: true
              Layout.maximumWidth: 150
@@ -138,8 +146,8 @@ Item {
         }
         Rectangle{
             id: rect_over_timeline_container
-            width: parent.width-timeline_buttons.width
-            height: parent.height
+            implicitWidth: parent.width-timeline_buttons.width
+            implicitHeight: parent.height
             Layout.fillWidth: true
 
             Flickable{

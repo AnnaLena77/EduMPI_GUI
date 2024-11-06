@@ -1,7 +1,7 @@
 #include <QAbstractListModel>
 #include <QStringList>
 #include <QVariantList>
-#include "qqmlintegration.h"
+#include "database_connection.h"
 
 #ifndef TABLE_USERID_H
 #define TABLE_USERID_H
@@ -15,12 +15,14 @@ public:
     ~Table_UserID() override;
 
     Q_INVOKABLE void loadJobs(const QString &userId);
+    //Q_INVOKABLE void setDatabaseConnection(Database_Connection *dbConnection);
 
     enum Roles {
         JobIdRole = Qt::UserRole + 1
     };
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
 
@@ -31,7 +33,9 @@ signals:
     void eduMPIJobsFetchedForUser(const QVariantList &jobIds);
 
 private:
-        QVariantList m_edumpi_runs;
+    //database-connection
+    QString m_connectionName = "mainConnection";
+    QList<QVariantList> m_edumpi_runs;
 
 
 };

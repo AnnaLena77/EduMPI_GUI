@@ -7,33 +7,46 @@
 #include <QStandardItemModel>
 #include <QSqlError>
 
-QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
+Database_Thread::Database_Thread(QString dbConnectionName, int slurm_id, int proc_num, QObject *parent)
+    : QObject(parent) {
 
-void Database_Thread::connectToDB(const QString &hostname, const QString &databasename, const int &port, const QString &username, const QString &password){
-    db.setHostName(hostname);
-    db.setPort(port);
-    db.setDatabaseName(databasename);
-    db.setUserName(username);
-    db.setPassword(password);
-    bool ok = db.open();
+    m_connectionName = dbConnectionName;
+    m_proc_num = proc_num;
+    m_slurm_id = slurm_id;
+}
 
-    emit connectedToDB(ok);
-
-    std::cout << "New Connection" << std::endl;
-    m_slurm_id = 0;
-    m_proc_num = 0;
+Database_Thread::~Database_Thread(){
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
+        return;
+    }
+    db.close();
+    QSqlDatabase::removeDatabase(m_connectionName);
 }
 
 void Database_Thread::clearDatabase(){
 
 }
 
+void Database_Thread::connectToDB(){
+    QSqlDatabase db = QSqlDatabase::cloneDatabase("mainConnection", m_connectionName);
+    std::cout << "Slurm_ID ANGEKOMMEN" << std::endl;
+    db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        db.open();
+    }
+}
+
 void Database_Thread::threadbuildClusterComponents(){
-    if(!db.isOpen()){
+    qDebug() << "Current thread:" << QThread::currentThread();
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
         return;
     }
+
     m_firstDBEntryTime = QTime();
-    std::cout << "New Cluster Components" << std::endl;
     QSqlQuery query(db);
     QString name = "";
 
@@ -43,10 +56,15 @@ void Database_Thread::threadbuildClusterComponents(){
     query.bindValue(":slurm_id", m_slurm_id);
     query.exec();
 
-    while(query.size()<m_proc_num){
+    while(query.size()<m_proc_num || m_proc_num<=0){
         query.exec();
+        if(m_proc_num == -1234){
+            break;
+        }
         sleep(1);
     }
+    //std::cout << "Size passt!!!!!" << std::endl;
+
     while(query.next()) {
         QString actual_name = query.value("processorname").toString();
         int actual_rank = query.value("processrank").toInt();
@@ -65,6 +83,12 @@ void Database_Thread::threadbuildClusterComponents(){
 //Continuous update of the data in the database for the live view
 void Database_Thread::updateData(const int &time_display){
 
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
+        return;
+    }
+
     QSqlQuery queryy(db);
     QDateTime timestamp;
 
@@ -77,6 +101,8 @@ void Database_Thread::updateData(const int &time_display){
             timestamp = queryy.value(0).toDateTime();
             QDateTime timestamp_end = queryy.value(1).toDateTime();
 
+            qDebug() << "TestDateTime " << queryy.value(0);
+
             int diff = timestamp.msecsTo(timestamp_end);
 
             if(diff < 3){
@@ -85,7 +111,7 @@ void Database_Thread::updateData(const int &time_display){
 
             m_firstDBEntryTime = timestamp.time();
             m_actualDBEntryTime = timestamp;
-            emit setTimestamp(m_firstDBEntryTime);
+            emit setTimestamp(timestamp);
         } else {
             return;
         }
@@ -140,20 +166,22 @@ void Database_Thread::updateData(const int &time_display){
 
 }
 
-void Database_Thread::showDataFromTimePeriod(const QTime timestampA, const QTime timestampB){
-    QDateTime a = QDateTime::currentDateTime();
-    QDateTime b = QDateTime::currentDateTime();
-    a.setTime(timestampA);
-    b.setTime(timestampB);
+void Database_Thread::showDataFromTimePeriod(const QDateTime timestampA, const QDateTime timestampB){
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
+        return;
+    }
 
     QString queryString = "SELECT processorname, processrank, communicationtype, SUM(send_ds) AS send_ds, SUM(recv_ds) AS recv_ds, SUM(time_diff) AS time_diff, SUM(latesendertime) AS latesendertime, SUM(laterecvrtime) AS laterecvrtime FROM edumpi_secondly_data WHERE edumpi_run_id = :slurm_id AND ((time_end >= :endtime AND time_start <= :starttime) OR (time_end BETWEEN :starttime AND :endtime)) GROUP BY processorname, processrank, communicationtype;";
+
     QSqlQuery query(db);
     query.prepare(queryString);
-    query.bindValue(":starttime", a.toString("yyyy-MM-dd HH:mm:ss"));
-    query.bindValue(":endtime", b.toString("yyyy-MM-dd HH:mm:ss"));
+    query.bindValue(":starttime", timestampA.toString("yyyy-MM-dd HH:mm:ss"));
+    query.bindValue(":endtime", timestampB.toString("yyyy-MM-dd HH:mm:ss"));
     query.bindValue(":slurm_id", m_slurm_id);
 
-    //std::cout << queryString.toStdString() << std::endl;
+    //std::cout << "Starttime" << a.toString("yyyy-MM-d HH:mm:ss").toStdString() << std::endl;
 
     if (query.exec()) {
         QList<DataColumn> list;
@@ -188,11 +216,20 @@ void Database_Thread::showDataFromTimePeriod(const QTime timestampA, const QTime
 
 }
 
-void Database_Thread::getSlurmId(const int id){
+/*void Database_Thread::getSlurmId(const int id){
     std::cout << "Slurm_ID ANGEKOMMEN" << std::endl;
     m_slurm_id = id;
+    QString name_helper = "Thread %1";
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
+        return;
+    }
+    m_connectionName = name_helper.arg(m_slurm_id);
+    QSqlDatabase clone_db = QSqlDatabase::cloneDatabase(db, m_connectionName);
+    clone_db.open();
     threadbuildClusterComponents();
-}
+}*/
 
 void Database_Thread::getProcNum(const int proc_num){
     m_proc_num = proc_num;

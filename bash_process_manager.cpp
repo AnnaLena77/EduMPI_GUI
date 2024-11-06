@@ -27,6 +27,8 @@ void Bash_Process_Manager::startProcess(const QStringList &arguments)
     process->setArguments(arguments);
     process->start();
     m_status = "";
+
+    qDebug() << "Start Process";
 }
 
 void Bash_Process_Manager::sendSignal(int signal)

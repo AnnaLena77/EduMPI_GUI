@@ -1,0 +1,54 @@
+{
+    "classes": [
+        {
+            "className": "Table_UserID",
+            "lineNumber": 9,
+            "methods": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "userId",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 2,
+                    "name": "loadJobs",
+                    "returnType": "void"
+                }
+            ],
+            "object": true,
+            "qualifiedClassName": "Table_UserID",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "jobIds",
+                            "type": "QVariantList"
+                        }
+                    ],
+                    "index": 0,
+                    "name": "eduMPIJobsFetchedForUser",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "index": 1,
+                    "name": "fetchEduMPIJobsForUser",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QAbstractTableModel"
+                }
+            ]
+        }
+    ],
+    "inputFile": "table_userid.h",
+    "outputRevision": 68
+}

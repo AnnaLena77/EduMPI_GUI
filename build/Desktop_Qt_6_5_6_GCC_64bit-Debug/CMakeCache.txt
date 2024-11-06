@@ -289,6 +289,9 @@ OPENGL_GLES2_INCLUDE_DIR:PATH=/usr/include
 OPENGL_GLES3_INCLUDE_DIR:PATH=/usr/include
 
 //Path to a file.
+OPENGL_GLU_INCLUDE_DIR:PATH=/usr/include
+
+//Path to a file.
 OPENGL_GLX_INCLUDE_DIR:PATH=/usr/include
 
 //Path to a file.
@@ -335,79 +338,85 @@ QT_CREATOR_SKIP_PACKAGE_MANAGER_SETUP:BOOL=OFF
 QT_QMAKE_EXECUTABLE:FILEPATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/bin/qmake
 
 //The directory containing a CMake configuration file for Qt6Concurrent.
-Qt6Concurrent_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6Concurrent
+Qt6Concurrent_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6Concurrent
 
 //The directory containing a CMake configuration file for Qt6CoreTools.
-Qt6CoreTools_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6CoreTools
+Qt6CoreTools_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6CoreTools
 
 //The directory containing a CMake configuration file for Qt6Core.
-Qt6Core_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6Core
+Qt6Core_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6Core
 
 //The directory containing a CMake configuration file for Qt6DBusTools.
-Qt6DBusTools_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6DBusTools
+Qt6DBusTools_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6DBusTools
 
 //The directory containing a CMake configuration file for Qt6DBus.
-Qt6DBus_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6DBus
+Qt6DBus_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6DBus
 
 //The directory containing a CMake configuration file for Qt6GuiTools.
-Qt6GuiTools_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6GuiTools
+Qt6GuiTools_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6GuiTools
 
 //The directory containing a CMake configuration file for Qt6Gui.
-Qt6Gui_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6Gui
+Qt6Gui_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6Gui
 
 //The directory containing a CMake configuration file for Qt6Network.
-Qt6Network_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6Network
+Qt6Network_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6Network
 
 //The directory containing a CMake configuration file for Qt6OpenGL.
-Qt6OpenGL_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6OpenGL
+Qt6OpenGL_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6OpenGL
+
+//The directory containing a CMake configuration file for Qt6QmlCompilerPlusPrivateTools.
+Qt6QmlCompilerPlusPrivateTools_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6QmlCompilerPlusPrivateTools
 
 //The directory containing a CMake configuration file for Qt6QmlCompilerPlusPrivate.
-Qt6QmlCompilerPlusPrivate_DIR:PATH=Qt6QmlCompilerPlusPrivate_DIR-NOTFOUND
+Qt6QmlCompilerPlusPrivate_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6QmlCompilerPlusPrivate
+
+//The directory containing a CMake configuration file for Qt6QmlCompilerPrivate.
+Qt6QmlCompilerPrivate_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6QmlCompilerPrivate
 
 //The directory containing a CMake configuration file for Qt6QmlIntegration.
-Qt6QmlIntegration_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6QmlIntegration
+Qt6QmlIntegration_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6QmlIntegration
 
 //The directory containing a CMake configuration file for Qt6QmlModels.
-Qt6QmlModels_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6QmlModels
+Qt6QmlModels_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6QmlModels
 
 //The directory containing a CMake configuration file for Qt6QmlTools.
-Qt6QmlTools_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6QmlTools
+Qt6QmlTools_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6QmlTools
 
 //The directory containing a CMake configuration file for Qt6Qml.
-Qt6Qml_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6Qml
+Qt6Qml_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6Qml
 
 //The directory containing a CMake configuration file for Qt6Quick3DRuntimeRender.
-Qt6Quick3DRuntimeRender_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6Quick3DRuntimeRender
+Qt6Quick3DRuntimeRender_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6Quick3DRuntimeRender
 
 //The directory containing a CMake configuration file for Qt6Quick3DTools.
-Qt6Quick3DTools_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6Quick3DTools
+Qt6Quick3DTools_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6Quick3DTools
 
 //The directory containing a CMake configuration file for Qt6Quick3DUtils.
-Qt6Quick3DUtils_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6Quick3DUtils
+Qt6Quick3DUtils_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6Quick3DUtils
 
 //The directory containing a CMake configuration file for Qt6Quick3D.
-Qt6Quick3D_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6Quick3D
+Qt6Quick3D_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6Quick3D
 
 //The directory containing a CMake configuration file for Qt6QuickControls2.
-Qt6QuickControls2_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6QuickControls2
+Qt6QuickControls2_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6QuickControls2
 
 //The directory containing a CMake configuration file for Qt6QuickTemplates2.
-Qt6QuickTemplates2_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6QuickTemplates2
+Qt6QuickTemplates2_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6QuickTemplates2
 
 //The directory containing a CMake configuration file for Qt6Quick.
-Qt6Quick_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6Quick
+Qt6Quick_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6Quick
 
 //The directory containing a CMake configuration file for Qt6ShaderToolsTools.
-Qt6ShaderToolsTools_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6ShaderToolsTools
+Qt6ShaderToolsTools_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6ShaderToolsTools
 
 //The directory containing a CMake configuration file for Qt6ShaderTools.
-Qt6ShaderTools_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6ShaderTools
+Qt6ShaderTools_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6ShaderTools
 
 //The directory containing a CMake configuration file for Qt6Sql.
-Qt6Sql_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6Sql
+Qt6Sql_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6Sql
 
 //The directory containing a CMake configuration file for Qt6.
-Qt6_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6
+Qt6_DIR:PATH=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6
 
 //Path to a program.
 Vulkan_GLSLANG_VALIDATOR_EXECUTABLE:FILEPATH=Vulkan_GLSLANG_VALIDATOR_EXECUTABLE-NOTFOUND
@@ -480,9 +489,9 @@ CMAKE_CACHEFILE_DIR:INTERNAL=/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_
 //Major version of cmake used to create the current loaded cache
 CMAKE_CACHE_MAJOR_VERSION:INTERNAL=3
 //Minor version of cmake used to create the current loaded cache
-CMAKE_CACHE_MINOR_VERSION:INTERNAL=27
+CMAKE_CACHE_MINOR_VERSION:INTERNAL=29
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=7
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=3
 //Path to CMake executable.
 CMAKE_COMMAND:INTERNAL=/home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake
 //Path to cpack program executable.
@@ -597,7 +606,7 @@ CMAKE_RANLIB-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_READELF
 CMAKE_READELF-ADVANCED:INTERNAL=1
 //Path to CMake installation.
-CMAKE_ROOT:INTERNAL=/home/anna-lena/QtDesignStudio/Tools/CMake/share/cmake-3.27
+CMAKE_ROOT:INTERNAL=/home/anna-lena/QtDesignStudio/Tools/CMake/share/cmake-3.29
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS
 CMAKE_SHARED_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_DEBUG
@@ -644,12 +653,12 @@ FIND_PACKAGE_MESSAGE_DETAILS_WrapOpenGL:INTERNAL=[ON][v()]
 FIND_PACKAGE_MESSAGE_DETAILS_WrapVulkanHeaders:INTERNAL=[/usr/include][v()]
 //Details about finding XKB
 FIND_PACKAGE_MESSAGE_DETAILS_XKB:INTERNAL=[/usr/lib/x86_64-linux-gnu/libxkbcommon.so][/usr/include][v0.10.0(0.5.0)]
-GTK3_CFLAGS:INTERNAL=-pthread;-I/usr/include/gtk-3.0;-I/usr/include/at-spi2-atk/2.0;-I/usr/include/at-spi-2.0;-I/usr/include/dbus-1.0;-I/usr/lib/x86_64-linux-gnu/dbus-1.0/include;-I/usr/include/gtk-3.0;-I/usr/include/gio-unix-2.0;-I/usr/include/cairo;-I/usr/include/pango-1.0;-I/usr/include/fribidi;-I/usr/include/harfbuzz;-I/usr/include/atk-1.0;-I/usr/include/cairo;-I/usr/include/pixman-1;-I/usr/include/uuid;-I/usr/include/freetype2;-I/usr/include/libpng16;-I/usr/include/gdk-pixbuf-2.0;-I/usr/include/libmount;-I/usr/include/blkid;-I/usr/include/glib-2.0;-I/usr/lib/x86_64-linux-gnu/glib-2.0/include
+GTK3_CFLAGS:INTERNAL=-pthread;-I/usr/include/gtk-3.0;-I/usr/include/at-spi2-atk/2.0;-I/usr/include/at-spi-2.0;-I/usr/include;-I/usr/include/dbus-1.0;-I/usr/lib/x86_64-linux-gnu/dbus-1.0/include;-I/usr/include;-I/usr/include/gtk-3.0;-I/usr/include/gio-unix-2.0;-I/usr/include;-I/usr/include/cairo;-I/usr/include;-I/usr/include/pango-1.0;-I/usr/include/fribidi;-I/usr/include;-I/usr/include/harfbuzz;-I/usr/include;-I/usr/include/atk-1.0;-I/usr/include/cairo;-I/usr/include/pixman-1;-I/usr/include;-I/usr/include/uuid;-I/usr/include;-I/usr/include/freetype2;-I/usr/include/libpng16;-I/usr/include;-I/usr/include/gdk-pixbuf-2.0;-I/usr/include;-I/usr/include/libmount;-I/usr/include/blkid;-I/usr/include;-I/usr/include/glib-2.0;-I/usr/lib/x86_64-linux-gnu/glib-2.0/include;-I/usr/include
 GTK3_CFLAGS_I:INTERNAL=
 GTK3_CFLAGS_OTHER:INTERNAL=-pthread
 GTK3_FOUND:INTERNAL=1
 GTK3_INCLUDEDIR:INTERNAL=/usr/include
-GTK3_INCLUDE_DIRS:INTERNAL=/usr/include/gtk-3.0;/usr/include/at-spi2-atk/2.0;/usr/include/at-spi-2.0;/usr/include/dbus-1.0;/usr/lib/x86_64-linux-gnu/dbus-1.0/include;/usr/include/gtk-3.0;/usr/include/gio-unix-2.0;/usr/include/cairo;/usr/include/pango-1.0;/usr/include/fribidi;/usr/include/harfbuzz;/usr/include/atk-1.0;/usr/include/cairo;/usr/include/pixman-1;/usr/include/uuid;/usr/include/freetype2;/usr/include/libpng16;/usr/include/gdk-pixbuf-2.0;/usr/include/libmount;/usr/include/blkid;/usr/include/glib-2.0;/usr/lib/x86_64-linux-gnu/glib-2.0/include
+GTK3_INCLUDE_DIRS:INTERNAL=/usr/include/gtk-3.0;/usr/include/at-spi2-atk/2.0;/usr/include/at-spi-2.0;/usr/include;/usr/include/dbus-1.0;/usr/lib/x86_64-linux-gnu/dbus-1.0/include;/usr/include;/usr/include/gtk-3.0;/usr/include/gio-unix-2.0;/usr/include;/usr/include/cairo;/usr/include;/usr/include/pango-1.0;/usr/include/fribidi;/usr/include;/usr/include/harfbuzz;/usr/include;/usr/include/atk-1.0;/usr/include/cairo;/usr/include/pixman-1;/usr/include;/usr/include/uuid;/usr/include;/usr/include/freetype2;/usr/include/libpng16;/usr/include;/usr/include/gdk-pixbuf-2.0;/usr/include;/usr/include/libmount;/usr/include/blkid;/usr/include;/usr/include/glib-2.0;/usr/lib/x86_64-linux-gnu/glib-2.0/include;/usr/include
 GTK3_LDFLAGS:INTERNAL=-L/usr/lib/x86_64-linux-gnu;-lgtk-3;-lgdk-3;-lpangocairo-1.0;-lpango-1.0;-lharfbuzz;-latk-1.0;-lcairo-gobject;-lcairo;-lgdk_pixbuf-2.0;-lgio-2.0;-lgobject-2.0;-lglib-2.0
 GTK3_LDFLAGS_OTHER:INTERNAL=
 GTK3_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
@@ -661,10 +670,10 @@ GTK3_LIBS_OTHER:INTERNAL=
 GTK3_LIBS_PATHS:INTERNAL=
 GTK3_MODULE_NAME:INTERNAL=gtk+-3.0
 GTK3_PREFIX:INTERNAL=/usr
-GTK3_STATIC_CFLAGS:INTERNAL=-pthread;-I/usr/include/gtk-3.0;-I/usr/include/at-spi2-atk/2.0;-I/usr/include/at-spi-2.0;-I/usr/include/dbus-1.0;-I/usr/lib/x86_64-linux-gnu/dbus-1.0/include;-I/usr/include/gtk-3.0;-I/usr/include/gio-unix-2.0;-I/usr/include/cairo;-I/usr/include/pango-1.0;-I/usr/include/fribidi;-I/usr/include/harfbuzz;-I/usr/include/atk-1.0;-I/usr/include/cairo;-I/usr/include/pixman-1;-I/usr/include/uuid;-I/usr/include/freetype2;-I/usr/include/libpng16;-I/usr/include/gdk-pixbuf-2.0;-I/usr/include/libmount;-I/usr/include/blkid;-I/usr/include/glib-2.0;-I/usr/lib/x86_64-linux-gnu/glib-2.0/include
+GTK3_STATIC_CFLAGS:INTERNAL=-pthread;-I/usr/include/gtk-3.0;-I/usr/include/at-spi2-atk/2.0;-I/usr/include/at-spi-2.0;-I/usr/include;-I/usr/include/dbus-1.0;-I/usr/lib/x86_64-linux-gnu/dbus-1.0/include;-I/usr/include;-I/usr/include/gtk-3.0;-I/usr/include/gio-unix-2.0;-I/usr/include;-I/usr/include/cairo;-I/usr/include;-I/usr/include/pango-1.0;-I/usr/include/fribidi;-I/usr/include;-I/usr/include/harfbuzz;-I/usr/include;-I/usr/include/atk-1.0;-I/usr/include/cairo;-I/usr/include/pixman-1;-I/usr/include;-I/usr/include/uuid;-I/usr/include;-I/usr/include/freetype2;-I/usr/include/libpng16;-I/usr/include;-I/usr/include/gdk-pixbuf-2.0;-I/usr/include;-I/usr/include/libmount;-I/usr/include/blkid;-I/usr/include;-I/usr/include/glib-2.0;-I/usr/lib/x86_64-linux-gnu/glib-2.0/include;-I/usr/include
 GTK3_STATIC_CFLAGS_I:INTERNAL=
 GTK3_STATIC_CFLAGS_OTHER:INTERNAL=-pthread
-GTK3_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/gtk-3.0;/usr/include/at-spi2-atk/2.0;/usr/include/at-spi-2.0;/usr/include/dbus-1.0;/usr/lib/x86_64-linux-gnu/dbus-1.0/include;/usr/include/gtk-3.0;/usr/include/gio-unix-2.0;/usr/include/cairo;/usr/include/pango-1.0;/usr/include/fribidi;/usr/include/harfbuzz;/usr/include/atk-1.0;/usr/include/cairo;/usr/include/pixman-1;/usr/include/uuid;/usr/include/freetype2;/usr/include/libpng16;/usr/include/gdk-pixbuf-2.0;/usr/include/libmount;/usr/include/blkid;/usr/include/glib-2.0;/usr/lib/x86_64-linux-gnu/glib-2.0/include
+GTK3_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include/gtk-3.0;/usr/include/at-spi2-atk/2.0;/usr/include/at-spi-2.0;/usr/include;/usr/include/dbus-1.0;/usr/lib/x86_64-linux-gnu/dbus-1.0/include;/usr/include;/usr/include/gtk-3.0;/usr/include/gio-unix-2.0;/usr/include;/usr/include/cairo;/usr/include;/usr/include/pango-1.0;/usr/include/fribidi;/usr/include;/usr/include/harfbuzz;/usr/include;/usr/include/atk-1.0;/usr/include/cairo;/usr/include/pixman-1;/usr/include;/usr/include/uuid;/usr/include;/usr/include/freetype2;/usr/include/libpng16;/usr/include;/usr/include/gdk-pixbuf-2.0;/usr/include;/usr/include/libmount;/usr/include/blkid;/usr/include;/usr/include/glib-2.0;/usr/lib/x86_64-linux-gnu/glib-2.0/include;/usr/include
 GTK3_STATIC_LDFLAGS:INTERNAL=-L/usr/lib/x86_64-linux-gnu;-L/usr/lib;-L/usr/lib/x86_64-linux-gnu;-lgtk-3;-latk-bridge-2.0;-latspi;-lXtst;-ldbus-1;-lpthread;-lsystemd;-Wl,--export-dynamic;-lgdk-3;-lXinerama;-lXi;-lXrandr;-lXcursor;-lXcomposite;-lXdamage;-lXfixes;-lxkbcommon;-lwayland-cursor;-lwayland-egl;-lwayland-client;-lepoxy;-ldl;-lGL;-lEGL;-lpangocairo-1.0;-lm;-lpangoft2-1.0;-lm;-lpango-1.0;-lm;-lfribidi;-lthai;-ldatrie;-lXft;-lharfbuzz;-lm;-lgraphite2;-latk-1.0;-lcairo-gobject;-lcairo;-lz;-lpixman-1;-lfontconfig;-luuid;-lexpat;-lfreetype;-lpng16;-lm;-lz;-lm;-lxcb-shm;-lxcb-render;-lXrender;-lXext;-lX11;-lpthread;-lxcb;-lXau;-lXdmcp;-lgdk_pixbuf-2.0;-lm;-lgio-2.0;-ldl;-pthread;-lresolv;-lgmodule-2.0;-pthread;-ldl;-lz;-lmount;-lblkid;-lselinux;-lsepol;-lpcre2-8;-pthread;-lgobject-2.0;-pthread;-lffi;-lglib-2.0;-pthread;-lpcre;-pthread
 GTK3_STATIC_LDFLAGS_OTHER:INTERNAL=-Wl,--export-dynamic;-pthread
 GTK3_STATIC_LIBDIR:INTERNAL=
@@ -687,6 +696,8 @@ OPENGL_EGL_INCLUDE_DIR-ADVANCED:INTERNAL=1
 OPENGL_GLES2_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OPENGL_GLES3_INCLUDE_DIR
 OPENGL_GLES3_INCLUDE_DIR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: OPENGL_GLU_INCLUDE_DIR
+OPENGL_GLU_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OPENGL_GLX_INCLUDE_DIR
 OPENGL_GLX_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OPENGL_INCLUDE_DIR
@@ -709,12 +720,12 @@ OPENGL_xmesa_INCLUDE_DIR-ADVANCED:INTERNAL=1
 PKG_CONFIG_ARGN-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
 PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
-PKG_XKB_CFLAGS:INTERNAL=
+PKG_XKB_CFLAGS:INTERNAL=-I/usr/include
 PKG_XKB_CFLAGS_I:INTERNAL=
 PKG_XKB_CFLAGS_OTHER:INTERNAL=
 PKG_XKB_FOUND:INTERNAL=1
 PKG_XKB_INCLUDEDIR:INTERNAL=/usr/include
-PKG_XKB_INCLUDE_DIRS:INTERNAL=
+PKG_XKB_INCLUDE_DIRS:INTERNAL=/usr/include
 PKG_XKB_LDFLAGS:INTERNAL=-L/usr/lib/x86_64-linux-gnu;-lxkbcommon
 PKG_XKB_LDFLAGS_OTHER:INTERNAL=
 PKG_XKB_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
@@ -726,10 +737,10 @@ PKG_XKB_LIBS_OTHER:INTERNAL=
 PKG_XKB_LIBS_PATHS:INTERNAL=
 PKG_XKB_MODULE_NAME:INTERNAL=xkbcommon
 PKG_XKB_PREFIX:INTERNAL=/usr
-PKG_XKB_STATIC_CFLAGS:INTERNAL=
+PKG_XKB_STATIC_CFLAGS:INTERNAL=-I/usr/include
 PKG_XKB_STATIC_CFLAGS_I:INTERNAL=
 PKG_XKB_STATIC_CFLAGS_OTHER:INTERNAL=
-PKG_XKB_STATIC_INCLUDE_DIRS:INTERNAL=
+PKG_XKB_STATIC_INCLUDE_DIRS:INTERNAL=/usr/include
 PKG_XKB_STATIC_LDFLAGS:INTERNAL=-L/usr/lib/x86_64-linux-gnu;-lxkbcommon
 PKG_XKB_STATIC_LDFLAGS_OTHER:INTERNAL=
 PKG_XKB_STATIC_LIBDIR:INTERNAL=
@@ -901,7 +912,7 @@ QT_FEATURE_eglfs_brcm:INTERNAL=OFF
 //Qt feature: eglfs_egldevice (from target Qt6::Gui)
 QT_FEATURE_eglfs_egldevice:INTERNAL=ON
 //Qt feature: eglfs_gbm (from target Qt6::Gui)
-QT_FEATURE_eglfs_gbm:INTERNAL=OFF
+QT_FEATURE_eglfs_gbm:INTERNAL=ON
 //Qt feature: eglfs_mali (from target Qt6::Gui)
 QT_FEATURE_eglfs_mali:INTERNAL=OFF
 //Qt feature: eglfs_openwfd (from target Qt6::Gui)
@@ -948,6 +959,8 @@ QT_FEATURE_freetype:INTERNAL=ON
 QT_FEATURE_futimens:INTERNAL=ON
 //Qt feature: future (from target Qt6::Core)
 QT_FEATURE_future:INTERNAL=ON
+//Qt feature: gbm (from target Qt6::Gui)
+QT_FEATURE_gbm:INTERNAL=ON
 //Qt feature: gc_binaries (from target Qt6::Core)
 QT_FEATURE_gc_binaries:INTERNAL=OFF
 //Qt feature: gestures (from target Qt6::Core)
@@ -1082,8 +1095,6 @@ QT_FEATURE_networklistmanager:INTERNAL=OFF
 QT_FEATURE_networkproxy:INTERNAL=ON
 //Qt feature: no_direct_extern_access (from target Qt6::Core)
 QT_FEATURE_no_direct_extern_access:INTERNAL=OFF
-//Qt feature: no_prefix (from target Qt6::Core)
-QT_FEATURE_no_prefix:INTERNAL=OFF
 //Qt feature: ocsp (from target Qt6::Network)
 QT_FEATURE_ocsp:INTERNAL=ON
 //Qt feature: opengl (from target Qt6::Gui)
@@ -1154,8 +1165,6 @@ QT_FEATURE_qml_animation:INTERNAL=ON
 QT_FEATURE_qml_debug:INTERNAL=ON
 //Qt feature: qml_delegate_model (from target Qt6::QmlModels)
 QT_FEATURE_qml_delegate_model:INTERNAL=ON
-//Qt feature: qml_devtools (from target Qt6::Qml)
-QT_FEATURE_qml_devtools:INTERNAL=ON
 //Qt feature: qml_itemmodel (from target Qt6::Qml)
 QT_FEATURE_qml_itemmodel:INTERNAL=ON
 //Qt feature: qml_jit (from target Qt6::Qml)
@@ -1229,15 +1238,15 @@ QT_FEATURE_quickcontrols2_fusion:INTERNAL=ON
 //Qt feature: quickcontrols2_imagine (from target Qt6::QuickControls2)
 QT_FEATURE_quickcontrols2_imagine:INTERNAL=ON
 //Qt feature: quickcontrols2_ios (from target Qt6::QuickControls2)
-QT_FEATURE_quickcontrols2_ios:INTERNAL=ON
+QT_FEATURE_quickcontrols2_ios:INTERNAL=OFF
 //Qt feature: quickcontrols2_macos (from target Qt6::QuickControls2)
-QT_FEATURE_quickcontrols2_macos:INTERNAL=ON
+QT_FEATURE_quickcontrols2_macos:INTERNAL=OFF
 //Qt feature: quickcontrols2_material (from target Qt6::QuickControls2)
 QT_FEATURE_quickcontrols2_material:INTERNAL=ON
 //Qt feature: quickcontrols2_universal (from target Qt6::QuickControls2)
 QT_FEATURE_quickcontrols2_universal:INTERNAL=ON
 //Qt feature: quickcontrols2_windows (from target Qt6::QuickControls2)
-QT_FEATURE_quickcontrols2_windows:INTERNAL=ON
+QT_FEATURE_quickcontrols2_windows:INTERNAL=OFF
 //Qt feature: quicktemplates2_calendar (from target Qt6::QuickTemplates2)
 QT_FEATURE_quicktemplates2_calendar:INTERNAL=ON
 //Qt feature: quicktemplates2_hover (from target Qt6::QuickTemplates2)
@@ -1461,7 +1470,7 @@ QT_FEATURE_xmlstreamwriter:INTERNAL=ON
 //Qt feature: xrender (from target Qt6::Gui)
 QT_FEATURE_xrender:INTERNAL=OFF
 //Qt feature: zstd (from target Qt6::Core)
-QT_FEATURE_zstd:INTERNAL=OFF
+QT_FEATURE_zstd:INTERNAL=ON
 //Result of TRY_COMPILE
 THREADS_HAVE_PTHREAD_ARG:INTERNAL=TRUE
 //ADVANCED property for variable: Vulkan_GLSLANG_VALIDATOR_EXECUTABLE
@@ -1480,7 +1489,7 @@ __pkg_config_arguments_GTK3:INTERNAL=REQUIRED;gtk+-3.0
 __pkg_config_arguments_PKG_XKB:INTERNAL=QUIET;xkbcommon
 __pkg_config_checked_GTK3:INTERNAL=1
 __pkg_config_checked_PKG_XKB:INTERNAL=1
-__qt_qml_macros_module_base_dir:INTERNAL=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6Qml
+__qt_qml_macros_module_base_dir:INTERNAL=/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6Qml
 //ADVANCED property for variable: pkgcfg_lib_GTK3_atk-1.0
 pkgcfg_lib_GTK3_atk-1.0-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: pkgcfg_lib_GTK3_cairo

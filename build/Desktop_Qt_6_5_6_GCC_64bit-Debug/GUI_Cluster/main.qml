@@ -1,7 +1,8 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Window
-import Qt.db.models 1.0
+import Qt.db.nodes 1.0
+import Qt.db.Singleton 1.0
 
 Window {
     id: root
@@ -9,7 +10,7 @@ Window {
     height: 1080
     visible: true
     onClosing: {
-        nodesList.closeApp()
+        controller.closeApp()
     }
 
     property alias actualScreen: actualScreen
@@ -48,18 +49,58 @@ Window {
         anchors.fill: parent
     }
 
-
-    NodesList{
+    Nodes_List{
         id: nodesList
         onComponentsBuilt: {
+            controller.setComponentsBuild(true)
             actualScreen.source = ""
             actualScreen.source = "Cores3D.qml"
+            console.log("components build from main")
+            //actualScreen.sourceComponent.nodesListModel = nodesList;
             //playbutton.enabled = true
         }
+        onDataIn: (timestamp, qTimestamp)=>{
+            startTime = timestamp;
+            var qtime = qTimestamp;
+            enable_timeline = true;
+            if(slurm_status === "completed" || slurm_status === "cancelled"){
+                nodesList.startAndStop(true);
+                nodesList.showConditionAt(0,0)
+            }
+            controller.setTimestamp(qtime)
+            console.log("startTime: "+ startTime)
+        }
+        Component.onCompleted: {
+            if(db_connection_success){
+                nodesList.initialize(controller.getDatabaseConnection)
+                //nodesList.startThread()
+            }
+        }
+    }
+
+    Controller{
+        id: controller
+
+        onLiveSlurmID: (slurm_id)=>{
+            if(visualization){
+                nodesList.setOption(0);
+            }
+            console.log("liveSlurmID");
+            nodesList.set_slurm_id(slurm_id);
+            slurmnotifier.sl_id = slurm_id
+        }
+
         onConnectionSignal: (success)=>{
             if(success){
                 success_color = "green"
                 success_text = "Database connection successfully established"
+                if(!controller.getDatabaseConnection){
+                    console.log("NULLINGER")
+                } else {
+                    var dbConnection = controller.getDatabaseConnection()
+                    nodesList.initialize(dbConnection, true);
+
+                }
             } else {
                 success_color = "red"
                 success_text = "Database connection failed. Check the access data and password. Make sure that any necessary VPN connection is established."
@@ -96,12 +137,6 @@ Window {
                 }
             }
         }
-
-        onDataIn: (timestamp)=>{
-            startTime = timestamp;
-            enable_timeline = true;
-            console.log("startTime: "+ startTime)
-        }
         onCopiedOutputFile: (output_path) => {
             var window;
             var component = Qt.createComponent("Output_File.qml");
@@ -118,6 +153,25 @@ Window {
     Menu_Bar{
         id: menu
 
+    }
+
+    Rectangle{
+        id: slurmnotifier
+        property int sl_id: 0
+        width: parent.width
+        height: 30
+        anchors {
+            top: menu.bottom
+        }
+        color: "#4d4d4d"
+        Text {
+            text: "EduMPI-Run ID: " + slurmnotifier.sl_id
+            verticalAlignment: Text.AlignVCenter
+            leftPadding: 5
+            width: parent.width
+            height: parent.height
+            color: "#00FF00"
+        }
     }
 
     /*Sidebar {
@@ -143,8 +197,18 @@ Window {
         anchors {
             left: parent.left
             right: options.left
-            top: menu.bottom
+            top: slurmnotifier.bottom
             bottom: parent.bottom
+        }
+
+        onLoaded: {
+            //if(actualScreen.item) {
+                if(actualScreen.source == "Cores3D.qml"){
+                    actualScreen.item.listNodes = nodesList
+                } else if(actualScreen.source == "Cores2D.qml"){
+                    actualScreen.item.listNodes = nodesList
+                }
+           // }
         }
 
         function reload(){

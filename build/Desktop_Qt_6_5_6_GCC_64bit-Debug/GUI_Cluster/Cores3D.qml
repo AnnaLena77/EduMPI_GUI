@@ -6,12 +6,19 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Particles
 import GUI_Cluster
+import Qt.db.nodes 1.0
 //import Qt3D.Render 2.5
 
 Rectangle {
     id: rectangle
     height: parent.height
     color: "#5bc2c6"
+
+    property Nodes_List listNodes: null
+
+    Component.onCompleted: {
+        console.log("Nodes_List received:", listNodes)
+    }
 
     View3D {
 
@@ -124,9 +131,10 @@ Rectangle {
                 }
             }
         }
+
         Repeater3D{
             id: outerCubeRepeater
-            model: nodesList.count
+            model: listNodes.count
             delegate: Model {
                 id: outerCube
                 source: "#Cube"
@@ -160,6 +168,7 @@ Rectangle {
                     var innerCubeScale = outerCube.scale.x / rowsColumns * (1 - innerCubeSpacing); // Berechnung der Skalierung des inneren Würfels
                     //console.log("outercubebounds" + outerCube.bounds.maximum.x)
                 }
+
                 Node {
 
                     Model {
@@ -167,16 +176,20 @@ Rectangle {
                         source: "#Cube"
                         instanceRoot: outerCube
 
+                        Component.onCompleted: {
+                            //console.log("Nodes" +listNodes.nodeAt(0))
+                        }
+
                         instancing: Ranks_Instances {
                             //outerInstanceData : outerCube.instancing.instancePosition()
                             id: instanceData
                             p2p_show: p2p
                             coll_show: collective
                             combobox: option
-                            nodes: nodesList
-                            send_datasize: nodesList.nodeAt(model.index).rankAt(0).p2p_send_datasize; //Das ist noch keine perfekte Lösung!
-                            instanceCount: nodesList.nodeAt(model.index).count
-                            instanceRanks: nodesList.nodeAt(model.index)
+                            nodes: listNodes
+                            send_datasize: listNodes.nodeAt(model.index).rankAt(0).p2p_send_datasize; //Das ist noch keine perfekte Lösung!
+                            instanceCount: listNodes.nodeAt(model.index).count
+                            instanceRanks: listNodes.nodeAt(model.index)
                             outerCubeLength: 100 //outerCube.bounds.maximum.x - (outerCube.bounds.minimum.x)
                             innerCubeCount: instanceCount
                             innerCubeSpacing: 0.4
@@ -188,38 +201,6 @@ Rectangle {
                             }
                         }
 
-                        /*Repeater3D {
-                            model: instanceData.instanceCount
-                            delegate: Node {
-
-                                id: textNode
-                                position: Qt.vector3d(
-                                              nodesList.nodeAt(outerCubeIndex).rankAt(model.index).position.x,
-                                              nodesList.nodeAt(outerCubeIndex).rankAt(model.index).position.y,
-                                              nodesList.nodeAt(outerCubeIndex).rankAt(model.index).position.z + 2.8
-                                            )
-                                    //nodesList.nodeAt(outerCubeIndex).rankAt(model.index).position
-
-
-                                Item {
-                                    width: 100
-                                    height: 50
-
-                                    Text {
-                                        text: nodesList.nodeAt(outerCubeIndex).rankAt(model.index).getId()
-                                        color: "black"
-                                        font.pixelSize: 3
-                                        //anchors.horizontalCenter: parent.horizontalCenter
-                                        //anchors.verticalCenter: parent.verticalCenter
-                                    }
-                                }
-                                Component.onCompleted: {
-                                    console.log(innerCube.sceneScale)
-                                }
-
-                            }
-                        }*/
-
                         materials: [
                             PrincipledMaterial{
                                /* baseColor: Qt.rgba(Math.random(), Math.random(), Math.random(), 1)
@@ -230,30 +211,6 @@ Rectangle {
                         //onBoundsChanged: console.log("hallo" + index)
                     }
                 }
-
-
-                   /* Repeater {
-                        model: instanceData.instanceCount
-                        delegate: Text {
-                            text: model.index.toString()
-                            color: "black"
-                            font.pixelSize: 5
-                            //anchors.horizontalCenter: parent.horizontalCenter
-                            //anchors.verticalCenter: parent.verticalCenter
-
-                            property vector3d pos: nodesList.nodeAt(outerCubeIndex).rankAt(model.index).position;
-
-                            onPosChanged: {
-                                console.log("Test" + nodesList.nodeAt(outerCubeIndex).rankAt(model.index).position)
-                            }
-
-                            // Dynamische Positionierung über 3D-Szene
-                            x: pos.x
-                            y: pos.y
-                            z: pos.z
-                        }
-
-                }*/
             }
         }
 

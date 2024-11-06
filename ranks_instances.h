@@ -1,5 +1,5 @@
 #include "cluster_node.h"
-#include "database_connection.h"
+#include "cluster_architecture.h"
 #include <QtQuick3D/qquick3dinstancing.h>
 
 QT_FORWARD_DECLARE_CLASS(QRandomGenerator)
@@ -23,7 +23,7 @@ class Ranks_Instances : public QQuick3DInstancing
 
     Q_PROPERTY(bool components_build READ components_build WRITE setComponents_build NOTIFY components_buildChanged)
 
-    Q_PROPERTY(Database_Connection* nodes MEMBER m_nodes NOTIFY nodesChanged)
+    Q_PROPERTY(Cluster_Architecture* nodes MEMBER m_nodes NOTIFY nodesChanged)
     Q_PROPERTY(Cluster_Node* instanceRanks READ instanceRanks WRITE setInstanceRanks NOTIFY instanceRanksChanged)
 
 
@@ -94,7 +94,7 @@ private:
     double m_innerCubeScale = 0.0; // Berechnung der Skalierung des inneren Würfel
     //QVector<Cluster_Rank *> m_instanceRanks;
     Cluster_Node* m_instanceRanks;
-    Database_Connection* m_nodes;
+    Cluster_Architecture* m_nodes;
 
     bool m_p2p_show;
     bool m_coll_show;

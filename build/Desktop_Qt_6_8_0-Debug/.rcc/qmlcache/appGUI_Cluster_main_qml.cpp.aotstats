@@ -1,0 +1,236 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 310,
+                        "errorMessage": "",
+                        "functionName": "onClosing",
+                        "line": 12
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 25,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "get_send_ds",
+                        "line": 215
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 19,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "get_recv_ds",
+                        "line": 233
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 81,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "createColor",
+                        "line": 249
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 13,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "componentToHex",
+                        "line": 366
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 115,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 49
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 28,
+                        "durationMicroseconds": 11,
+                        "errorMessage": "Cannot resolve property type  for binding on onComponentsBuilt.",
+                        "functionName": "onComponentsBuilt",
+                        "line": 54
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 20,
+                        "durationMicroseconds": 17,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "onDataIn",
+                        "line": 62
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 20,
+                        "durationMicroseconds": 3,
+                        "errorMessage": "Cannot resolve property type  for binding on onDataIn.",
+                        "functionName": "onDataIn",
+                        "line": 62
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 32,
+                        "durationMicroseconds": 58,
+                        "errorMessage": "Cannot access value for name db_connection_success",
+                        "functionName": "onCompleted",
+                        "line": 73
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 25,
+                        "durationMicroseconds": 57,
+                        "errorMessage": "Cannot access value for name visualization",
+                        "functionName": "onLiveSlurmID",
+                        "line": 84
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 125,
+                        "errorMessage": "",
+                        "functionName": "onLiveSlurmID",
+                        "line": 84
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 30,
+                        "durationMicroseconds": 69,
+                        "errorMessage": "Cannot find name success_color",
+                        "functionName": "onConnectionSignal",
+                        "line": 92
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 95,
+                        "errorMessage": "",
+                        "functionName": "onConnectionSignal",
+                        "line": 92
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 38,
+                        "durationMicroseconds": 60,
+                        "errorMessage": "Cannot access value for name visualization",
+                        "functionName": "onSignalSlurmStatusChanged",
+                        "line": 108
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 38,
+                        "durationMicroseconds": 97,
+                        "errorMessage": "",
+                        "functionName": "onSignalSlurmStatusChanged",
+                        "line": 108
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 30,
+                        "durationMicroseconds": 271,
+                        "errorMessage": "Cannot load property width from QObject.",
+                        "functionName": "onCopiedOutputFile",
+                        "line": 139
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 103,
+                        "errorMessage": "",
+                        "functionName": "onCopiedOutputFile",
+                        "line": 139
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 19,
+                        "durationMicroseconds": 125,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: nodesList",
+                        "functionName": "onLoaded",
+                        "line": 184
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 9,
+                        "durationMicroseconds": 292,
+                        "errorMessage": "Cannot access value for name QmlEngine",
+                        "functionName": "reload",
+                        "line": 194
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 19,
+                        "durationMicroseconds": 237,
+                        "errorMessage": "",
+                        "functionName": "left",
+                        "line": 178
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 20,
+                        "durationMicroseconds": 240,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 179
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 18,
+                        "durationMicroseconds": 223,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 180
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 21,
+                        "durationMicroseconds": 216,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 181
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 217,
+                        "errorMessage": "",
+                        "functionName": "right",
+                        "line": 204
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 212,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 206
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 203,
+                        "errorMessage": "",
+                        "functionName": "top",
+                        "line": 207
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 226,
+                        "errorMessage": "",
+                        "functionName": "bottom",
+                        "line": 211
+                    }
+                ],
+                "filepath": "/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_8_0-Debug/main.qml"
+            }
+        ],
+        "moduleId": "GUI_Cluster(appGUI_Cluster)"
+    }
+]

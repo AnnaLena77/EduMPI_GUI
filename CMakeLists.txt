@@ -5,7 +5,7 @@ project(GUI_Cluster VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_PREFIX_PATH "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6;/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib" ${CMAKE_MODULE_PATH})
+set(CMAKE_PREFIX_PATH "/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake/Qt6;/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib/cmake")
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick QuickControls2 Quick3D Sql)
 find_package(PkgConfig REQUIRED)
@@ -23,13 +23,15 @@ qt_add_executable(appGUI_Cluster
     cluster_node.cpp
     cluster_rank.h
     cluster_rank.cpp
-    database_connection.h
-    database_connection.cpp
+    controller.h
+    controller.cpp
     nodes_instances.h nodes_instances.cpp
     ranks_instances.h ranks_instances.cpp
     database_thread.h database_thread.cpp
     bash_process_manager.h bash_process_manager.cpp
     table_userid.h table_userid.cpp
+    cluster_architecture.h cluster_architecture.cpp
+    database_connection.h database_connection.cpp
 
     ${QML_RESOURCES}
     ${SHADER_RESOURCES}
@@ -61,6 +63,7 @@ qt_add_qml_module(appGUI_Cluster
         Application_Start_without.qml
         Application_Start_Scorep.qml
         Table_Userid_Selection.qml
+        MPI_Run_Analysis.qml
 )
 
 set_target_properties(appGUI_Cluster PROPERTIES
