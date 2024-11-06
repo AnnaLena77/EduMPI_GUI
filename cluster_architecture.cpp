@@ -1,30 +1,26 @@
 #include "cluster_architecture.h"
 #include "database_thread.h"
 
-Cluster_Architecture::Cluster_Architecture(QObject *parent) : QObject(parent), m_dbThread(nullptr), m_dbConnection(nullptr) {
+Cluster_Architecture::Cluster_Architecture(QObject *parent) : QObject(parent) {
+    qDebug() << "Current thread Main1:" << QThread::currentThread();
 }
 
 Cluster_Architecture::~Cluster_Architecture()
 {
-    if (m_dbThread) {
-        if (m_dbThread->isRunning()) {
+    if (database_thread.isRunning()) {
+        if (database_thread.isRunning()) {
             // Signal zum Beenden des Threads senden
-            m_dbThread->quit();  // Veranlasst den Thread, die Ereignisschleife zu verlassen
-            m_dbThread->wait();  // Wartet, bis der Thread beendet ist
-            database_thread.quit();
-            database_thread.wait();
+            database_thread.quit();  // Veranlasst den Thread, die Ereignisschleife zu verlassen
+            database_thread.wait();  // Wartet, bis der Thread beendet ist
         }
-        delete m_dbThread;  // Löscht den Thread, nachdem er beendet wurde
-        m_dbThread = nullptr;
+        //delete database_thread;  // Löscht den Thread, nachdem er beendet wurde
+        //database_thread = nullptr;
     }
 }
 
-void Cluster_Architecture::initialize(Database_Connection *db, bool live){
-    if(db == NULL){
-        qWarning() << "WARNING! Initialize Database is null!";
-        return;
-    }
-    m_dbConnection = db;
+void Cluster_Architecture::initialize(QString db_connection, bool live){
+
+    m_connectionName = db_connection;
     m_live_run = true;
 }
 
@@ -34,15 +30,26 @@ void Cluster_Architecture::setOption(int opt){
 }
 
 void Cluster_Architecture::startThread(){
-    if (!m_dbConnection->getDatabaseConnection().isOpen()) {
+    if(!QSqlDatabase::contains(m_connectionName)) {
+        qDebug() << "Verbindungsname" << m_connectionName << "existiert nicht.";
         return;
     }
-    m_dbThread = new Database_Thread(m_dbConnection);
-    //m_dbThread->moveToThread(&database_thread);
+    QString name_helper = "Thread_%1";
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
+        return;
+    }
+    QString thread_connection_name = name_helper.arg(m_slurm_id);
 
-    Database_Thread::connect(this, &Cluster_Architecture::setSlurmID, m_dbThread, &Database_Thread::getSlurmId);
-    Database_Thread::connect(this, &Cluster_Architecture::setProcNum, m_dbThread, &Database_Thread::getProcNum);
+    m_dbThread = new Database_Thread(thread_connection_name, m_slurm_id, m_proc_num);
+    m_dbThread->moveToThread(&database_thread);
+    //clone_db.moveToThread(&database_thread);
+
+    //m_dbThread->moveToThread(dbThread);
     Database_Thread::connect(m_dbThread, &Database_Thread::clusterComponentsReady, this, &Cluster_Architecture::buildClusterComponents);
+    Database_Thread::connect(this, &Cluster_Architecture::signalToDBConnection, m_dbThread, &Database_Thread::connectToDB);
+    Database_Thread::connect(this, &Cluster_Architecture::startDatabaseThread, m_dbThread, &Database_Thread::threadbuildClusterComponents);
 
     Database_Thread::connect(this, &Cluster_Architecture::signalToUpdateData, m_dbThread, &Database_Thread::updateData);
     Database_Thread::connect(m_dbThread, &Database_Thread::updateDataReady, this, &Cluster_Architecture::updateDataToUI);
@@ -54,11 +61,14 @@ void Cluster_Architecture::startThread(){
     Database_Thread::connect(m_dbThread, &Database_Thread::setTimestamp, this, &Cluster_Architecture::handleTimestamp);
 
     //database_thread.start();
-    m_dbThread->start();
+    database_thread.start();
+    qDebug() << "TEST " << database_thread.isRunning() ;
+    qDebug() << "Current thread Main2:" << QThread::currentThread();
+
 }
 
 void Cluster_Architecture::buildClusterComponents(const QMap<QString, QVector<int>> &map){
-    //std::cout << "componentsBuilt 1!" << std::endl;
+    std::cout << "componentsBuilt 1!" << std::endl;
     if(m_option!=0){
         std::cout << "m_option NULL Fehler, " << m_option << std::endl;
         return;
@@ -113,6 +123,13 @@ long Cluster_Architecture::p2p_recv_max(){
     return m_p2p_recv_max;
 }
 
+int Cluster_Architecture::slurm_id(){
+    return m_slurm_id;
+}
+int Cluster_Architecture::proc_num(){
+    return m_proc_num;
+}
+
 void Cluster_Architecture::set_coll_send_max(long max){
     m_coll_send_max = max;
 }
@@ -125,6 +142,16 @@ void Cluster_Architecture::set_coll_recv_max(long max){
 }
 void Cluster_Architecture::set_p2p_recv_max(long max){
     m_p2p_recv_max = max;
+}
+void Cluster_Architecture::set_slurm_id(int id){
+    m_slurm_id = id;
+    qDebug() << "set_slurm_id";
+    startThread();
+    emit signalToDBConnection();
+    emit startDatabaseThread();
+}
+void Cluster_Architecture::set_proc_num(int proc){
+    m_proc_num = proc;
 }
 
 Cluster_Node* Cluster_Architecture::nodeAt(int index){
@@ -241,14 +268,6 @@ void Cluster_Architecture::handleTimestamp(QDateTime timestamp){
     midnight.setHMS(0,0,0);
     int seconds = midnight.secsTo(qtimeTimestamp);
     emit dataIn(seconds, qtimeTimestamp);
-
-    /*if(!m_status_running){
-        //emit signalSlurmStatusChanged("completed");
-        startAndStop(true);
-        //copyOutputFile();
-        showConditionAt(0, 0);
-    }*/
-    //std::cout << "Seconds: " << seconds << std::endl;
 }
 
 void Cluster_Architecture::showConditionAt(int timeSecondsA, int timeSecondsB){

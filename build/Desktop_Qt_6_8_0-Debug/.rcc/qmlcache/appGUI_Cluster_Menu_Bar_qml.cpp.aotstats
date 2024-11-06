@@ -1,0 +1,108 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 12,
+                        "durationMicroseconds": 207,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 7
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 23,
+                        "durationMicroseconds": 5,
+                        "errorMessage": "Cannot resolve property type  for binding on fill.",
+                        "functionName": "fill",
+                        "line": 12
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 30,
+                        "durationMicroseconds": 12,
+                        "errorMessage": "Cannot resolve property type  for binding on onTriggered.",
+                        "functionName": "onTriggered",
+                        "line": 32
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 30,
+                        "durationMicroseconds": 11,
+                        "errorMessage": "Cannot resolve property type  for binding on onTriggered.",
+                        "functionName": "onTriggered",
+                        "line": 40
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 30,
+                        "durationMicroseconds": 20,
+                        "errorMessage": "Cannot resolve property type  for binding on onTriggered.",
+                        "functionName": "onTriggered",
+                        "line": 48
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 30,
+                        "durationMicroseconds": 6,
+                        "errorMessage": "Cannot resolve property type  for binding on onTriggered.",
+                        "functionName": "onTriggered",
+                        "line": 96
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 30,
+                        "durationMicroseconds": 6,
+                        "errorMessage": "Cannot resolve property type  for binding on onTriggered.",
+                        "functionName": "onTriggered",
+                        "line": 100
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 30,
+                        "durationMicroseconds": 10,
+                        "errorMessage": "Cannot resolve property type  for binding on onTriggered.",
+                        "functionName": "onTriggered",
+                        "line": 117
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 30,
+                        "durationMicroseconds": 9,
+                        "errorMessage": "Cannot resolve property type  for binding on onTriggered.",
+                        "functionName": "onTriggered",
+                        "line": 131
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 30,
+                        "durationMicroseconds": 10,
+                        "errorMessage": "Cannot resolve property type  for binding on onTriggered.",
+                        "functionName": "onTriggered",
+                        "line": 139
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 23,
+                        "durationMicroseconds": 41,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: menuBarItem",
+                        "functionName": "text",
+                        "line": 150
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 23,
+                        "durationMicroseconds": 43,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: menuBarItem",
+                        "functionName": "font",
+                        "line": 151
+                    }
+                ],
+                "filepath": "/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_8_0-Debug/Menu_Bar.qml"
+            }
+        ],
+        "moduleId": "GUI_Cluster(appGUI_Cluster)"
+    }
+]

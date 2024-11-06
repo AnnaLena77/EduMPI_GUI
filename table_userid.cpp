@@ -13,14 +13,17 @@ Table_UserID::Table_UserID(QObject *parent)
 
 Table_UserID::~Table_UserID()
 {
-
+    qDebug() << "Table User ID Destructor call";
 }
 
 void Table_UserID::loadJobs(const QString &userId){
-    if(!m_db.isOpen()){
+
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
         return;
     }
-    QSqlQuery query(m_db);
+    QSqlQuery query(db);
     query.prepare("SELECT edumpi_run_id, start_time, end_time FROM edumpi_runs WHERE user_id = :user_id ORDER BY edumpi_run_id");
     query.bindValue(":user_id", userId);
     query.exec();
@@ -30,7 +33,6 @@ void Table_UserID::loadJobs(const QString &userId){
         return;
     }
 
-    beginResetModel();
     m_edumpi_runs.clear();
 
     // Speichern der Abfrageergebnisse in m_edumpi_runs
@@ -75,13 +77,3 @@ QHash<int, QByteArray> Table_UserID::roleNames() const {
 void Table_UserID::fetchEduMPIJobsForUser(){
 
 }
-
-void Table_UserID::setDatabaseConnection(Database_Connection *dbConnection) {
-    m_dbConnection = dbConnection;
-    m_db = dbConnection->getDatabaseConnection();  // Stelle sicher, dass die Verbindung hergestellt ist
-}
-
-
-/*void Table_UserID::eduMPIJobsFetched(const QVariantList &jobIds){
-
-}*/

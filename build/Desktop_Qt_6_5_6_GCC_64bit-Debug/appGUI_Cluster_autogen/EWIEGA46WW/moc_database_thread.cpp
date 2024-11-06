@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'database_thread.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.5.0)
+** Created by: The Qt Meta Object Compiler version 68 (Qt 6.5.6)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -22,7 +22,7 @@ QT_BEGIN_MOC_NAMESPACE
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'database_thread.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.5.0. It"
+#error "This file was generated using the moc from 6.5.6. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -38,7 +38,7 @@ namespace {
 
 #ifdef QT_MOC_HAS_STRINGDATA
 struct qt_meta_stringdata_CLASSDatabase_ThreadENDCLASS_t {};
-static constexpr auto qt_meta_stringdata_CLASSDatabase_ThreadENDCLASS = QtMocHelpers::stringData(
+constexpr auto qt_meta_stringdata_CLASSDatabase_ThreadENDCLASS = QtMocHelpers::stringData(
     "Database_Thread",
     "connectedToDB",
     "",
@@ -54,6 +54,7 @@ static constexpr auto qt_meta_stringdata_CLASSDatabase_ThreadENDCLASS = QtMocHel
     "timestamp",
     "eduMPIJobsFetched",
     "jobIds",
+    "connectToDB",
     "threadbuildClusterComponents",
     "updateData",
     "time_display",
@@ -61,8 +62,6 @@ static constexpr auto qt_meta_stringdata_CLASSDatabase_ThreadENDCLASS = QtMocHel
     "timestampA",
     "timestampB",
     "clearDatabase",
-    "getSlurmId",
-    "id",
     "getProcNum",
     "proc_num",
     "fetchEduMPIJobs",
@@ -70,7 +69,7 @@ static constexpr auto qt_meta_stringdata_CLASSDatabase_ThreadENDCLASS = QtMocHel
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSDatabase_ThreadENDCLASS_t {
-    uint offsetsAndSizes[56];
+    uint offsetsAndSizes[54];
     char stringdata0[16];
     char stringdata1[14];
     char stringdata2[1];
@@ -86,19 +85,18 @@ struct qt_meta_stringdata_CLASSDatabase_ThreadENDCLASS_t {
     char stringdata12[10];
     char stringdata13[18];
     char stringdata14[7];
-    char stringdata15[29];
-    char stringdata16[11];
-    char stringdata17[13];
-    char stringdata18[23];
-    char stringdata19[11];
+    char stringdata15[12];
+    char stringdata16[29];
+    char stringdata17[11];
+    char stringdata18[13];
+    char stringdata19[23];
     char stringdata20[11];
-    char stringdata21[14];
-    char stringdata22[11];
-    char stringdata23[3];
-    char stringdata24[11];
-    char stringdata25[9];
-    char stringdata26[16];
-    char stringdata27[7];
+    char stringdata21[11];
+    char stringdata22[14];
+    char stringdata23[11];
+    char stringdata24[9];
+    char stringdata25[16];
+    char stringdata26[7];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSDatabase_ThreadENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -119,19 +117,18 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSDatabase_ThreadENDCLASS_t qt_me
         QT_MOC_LITERAL(153, 9),  // "timestamp"
         QT_MOC_LITERAL(163, 17),  // "eduMPIJobsFetched"
         QT_MOC_LITERAL(181, 6),  // "jobIds"
-        QT_MOC_LITERAL(188, 28),  // "threadbuildClusterComponents"
-        QT_MOC_LITERAL(217, 10),  // "updateData"
-        QT_MOC_LITERAL(228, 12),  // "time_display"
-        QT_MOC_LITERAL(241, 22),  // "showDataFromTimePeriod"
-        QT_MOC_LITERAL(264, 10),  // "timestampA"
-        QT_MOC_LITERAL(275, 10),  // "timestampB"
-        QT_MOC_LITERAL(286, 13),  // "clearDatabase"
-        QT_MOC_LITERAL(300, 10),  // "getSlurmId"
-        QT_MOC_LITERAL(311, 2),  // "id"
-        QT_MOC_LITERAL(314, 10),  // "getProcNum"
-        QT_MOC_LITERAL(325, 8),  // "proc_num"
-        QT_MOC_LITERAL(334, 15),  // "fetchEduMPIJobs"
-        QT_MOC_LITERAL(350, 6)   // "userId"
+        QT_MOC_LITERAL(188, 11),  // "connectToDB"
+        QT_MOC_LITERAL(200, 28),  // "threadbuildClusterComponents"
+        QT_MOC_LITERAL(229, 10),  // "updateData"
+        QT_MOC_LITERAL(240, 12),  // "time_display"
+        QT_MOC_LITERAL(253, 22),  // "showDataFromTimePeriod"
+        QT_MOC_LITERAL(276, 10),  // "timestampA"
+        QT_MOC_LITERAL(287, 10),  // "timestampB"
+        QT_MOC_LITERAL(298, 13),  // "clearDatabase"
+        QT_MOC_LITERAL(312, 10),  // "getProcNum"
+        QT_MOC_LITERAL(323, 8),  // "proc_num"
+        QT_MOC_LITERAL(332, 15),  // "fetchEduMPIJobs"
+        QT_MOC_LITERAL(348, 6)   // "userId"
     },
     "Database_Thread",
     "connectedToDB",
@@ -148,6 +145,7 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSDatabase_ThreadENDCLASS_t qt_me
     "timestamp",
     "eduMPIJobsFetched",
     "jobIds",
+    "connectToDB",
     "threadbuildClusterComponents",
     "updateData",
     "time_display",
@@ -155,8 +153,6 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSDatabase_ThreadENDCLASS_t qt_me
     "timestampA",
     "timestampB",
     "clearDatabase",
-    "getSlurmId",
-    "id",
     "getProcNum",
     "proc_num",
     "fetchEduMPIJobs",
@@ -189,12 +185,12 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSDatabase_ThreadENDCLASS[] = {
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
       15,    0,  108,    2, 0x0a,   12 /* Public */,
-      16,    1,  109,    2, 0x0a,   13 /* Public */,
-      18,    2,  112,    2, 0x0a,   15 /* Public */,
-      21,    0,  117,    2, 0x0a,   18 /* Public */,
-      22,    1,  118,    2, 0x0a,   19 /* Public */,
-      24,    1,  121,    2, 0x0a,   21 /* Public */,
-      26,    1,  124,    2, 0x0a,   23 /* Public */,
+      16,    0,  109,    2, 0x0a,   13 /* Public */,
+      17,    1,  110,    2, 0x0a,   14 /* Public */,
+      19,    2,  113,    2, 0x0a,   16 /* Public */,
+      22,    0,  118,    2, 0x0a,   19 /* Public */,
+      23,    1,  119,    2, 0x0a,   20 /* Public */,
+      25,    1,  122,    2, 0x0a,   22 /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Bool,    3,
@@ -206,18 +202,18 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSDatabase_ThreadENDCLASS[] = {
 
  // slots: parameters
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   17,
-    QMetaType::Void, QMetaType::QDateTime, QMetaType::QDateTime,   19,   20,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,   23,
-    QMetaType::Void, QMetaType::Int,   25,
-    QMetaType::Void, QMetaType::QString,   27,
+    QMetaType::Void, QMetaType::Int,   18,
+    QMetaType::Void, QMetaType::QDateTime, QMetaType::QDateTime,   20,   21,
+    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,   24,
+    QMetaType::Void, QMetaType::QString,   26,
 
        0        // eod
 };
 
 Q_CONSTINIT const QMetaObject Database_Thread::staticMetaObject = { {
-    QMetaObject::SuperData::link<QThread::staticMetaObject>(),
+    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
     qt_meta_stringdata_CLASSDatabase_ThreadENDCLASS.offsetsAndSizes,
     qt_meta_data_CLASSDatabase_ThreadENDCLASS,
     qt_static_metacall,
@@ -242,6 +238,8 @@ Q_CONSTINIT const QMetaObject Database_Thread::staticMetaObject = { {
         // method 'eduMPIJobsFetched'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const QVariantList &, std::false_type>,
+        // method 'connectToDB'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'threadbuildClusterComponents'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'updateData'
@@ -253,9 +251,6 @@ Q_CONSTINIT const QMetaObject Database_Thread::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<const QDateTime, std::false_type>,
         // method 'clearDatabase'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'getSlurmId'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<const int, std::false_type>,
         // method 'getProcNum'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const int, std::false_type>,
@@ -278,11 +273,11 @@ void Database_Thread::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         case 3: _t->dbCleared(); break;
         case 4: _t->setTimestamp((*reinterpret_cast< std::add_pointer_t<QDateTime>>(_a[1]))); break;
         case 5: _t->eduMPIJobsFetched((*reinterpret_cast< std::add_pointer_t<QVariantList>>(_a[1]))); break;
-        case 6: _t->threadbuildClusterComponents(); break;
-        case 7: _t->updateData((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 8: _t->showDataFromTimePeriod((*reinterpret_cast< std::add_pointer_t<QDateTime>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QDateTime>>(_a[2]))); break;
-        case 9: _t->clearDatabase(); break;
-        case 10: _t->getSlurmId((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 6: _t->connectToDB(); break;
+        case 7: _t->threadbuildClusterComponents(); break;
+        case 8: _t->updateData((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 9: _t->showDataFromTimePeriod((*reinterpret_cast< std::add_pointer_t<QDateTime>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QDateTime>>(_a[2]))); break;
+        case 10: _t->clearDatabase(); break;
         case 11: _t->getProcNum((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         case 12: _t->fetchEduMPIJobs((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         default: ;
@@ -344,12 +339,12 @@ void *Database_Thread::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_CLASSDatabase_ThreadENDCLASS.stringdata0))
         return static_cast<void*>(this);
-    return QThread::qt_metacast(_clname);
+    return QObject::qt_metacast(_clname);
 }
 
 int Database_Thread::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QThread::qt_metacall(_c, _id, _a);
+    _id = QObject::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {

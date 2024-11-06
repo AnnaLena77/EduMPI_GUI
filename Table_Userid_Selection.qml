@@ -9,11 +9,6 @@ ApplicationWindow {
     height: 480
     title: "Job List Example"
 
-    Component.onCompleted: {
-        var fd_id = controller.getClusterIdent();
-        controller.getJobTable().loadJobs(fd_id);
-    }
-
     property int selected_slurm_id: 0
 
     Column {

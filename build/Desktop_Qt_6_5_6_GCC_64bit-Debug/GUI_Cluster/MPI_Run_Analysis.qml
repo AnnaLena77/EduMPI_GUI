@@ -68,10 +68,10 @@ Window {
                 }
                 else {
                     nodesList.initialize(controller.getDatabaseConnection(), false)
-                    nodesList.startThread()
                     nodesList.setOption(0)
-                    nodesList.setProcNum(-1234)
-                    nodesList.setSlurmID(analysis_slurm_id)
+                    nodesList.set_proc_num(-1234)
+                    nodesList.set_slurm_id(analysis_slurm_id)
+                    //nodesList.startThread()
                 }
             }
         }

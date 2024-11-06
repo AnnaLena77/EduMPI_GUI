@@ -15,7 +15,7 @@ public:
     ~Table_UserID() override;
 
     Q_INVOKABLE void loadJobs(const QString &userId);
-    Q_INVOKABLE void setDatabaseConnection(Database_Connection *dbConnection);
+    //Q_INVOKABLE void setDatabaseConnection(Database_Connection *dbConnection);
 
     enum Roles {
         JobIdRole = Qt::UserRole + 1
@@ -34,8 +34,7 @@ signals:
 
 private:
     //database-connection
-    QSqlDatabase m_db;
-    Database_Connection *m_dbConnection;
+    QString m_connectionName = "mainConnection";
     QList<QVariantList> m_edumpi_runs;
 
 

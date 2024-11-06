@@ -1,0 +1,332 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 13,
+                        "durationMicroseconds": 224,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 14
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 28,
+                        "durationMicroseconds": 56,
+                        "errorMessage": "Cannot access value for name listNodes",
+                        "functionName": "onCompleted",
+                        "line": 19
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 17,
+                        "durationMicroseconds": 133,
+                        "errorMessage": "",
+                        "functionName": "camera",
+                        "line": 27
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 93,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 26
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 29,
+                        "durationMicroseconds": 162,
+                        "errorMessage": "",
+                        "functionName": "backgroundMode",
+                        "line": 29
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 28,
+                        "durationMicroseconds": 411,
+                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: QVariant -> QVector3D stored as QVariant",
+                        "functionName": "eulerRotation",
+                        "line": 37
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 48,
+                        "durationMicroseconds": 363,
+                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: QVariant -> QVector3D stored as QVariant",
+                        "functionName": "initialPosition",
+                        "line": 39
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 39,
+                        "durationMicroseconds": 387,
+                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: QVariant -> QVector3D stored as QVariant",
+                        "functionName": "target",
+                        "line": 40
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 13,
+                        "durationMicroseconds": 3587,
+                        "errorMessage": "",
+                        "functionName": "updatePosition",
+                        "line": 45
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 13,
+                        "durationMicroseconds": 17,
+                        "errorMessage": "Functions without type annotations won't be compiled",
+                        "functionName": "zoom",
+                        "line": 52
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 22,
+                        "durationMicroseconds": 807,
+                        "errorMessage": "Cannot generate efficient code for call to untyped JavaScript function",
+                        "functionName": "onWheel",
+                        "line": 67
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 95,
+                        "errorMessage": "",
+                        "functionName": "onWheel",
+                        "line": 67
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 281,
+                        "errorMessage": "",
+                        "functionName": "onPressed",
+                        "line": 84
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 88,
+                        "errorMessage": "",
+                        "functionName": "onPressed",
+                        "line": 84
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 115,
+                        "errorMessage": "",
+                        "functionName": "onReleased",
+                        "line": 89
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 84,
+                        "errorMessage": "",
+                        "functionName": "onReleased",
+                        "line": 89
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 32,
+                        "durationMicroseconds": 3260,
+                        "errorMessage": "",
+                        "functionName": "onPositionChanged",
+                        "line": 93
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 32,
+                        "durationMicroseconds": 132,
+                        "errorMessage": "",
+                        "functionName": "onPositionChanged",
+                        "line": 93
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 24,
+                        "durationMicroseconds": 390,
+                        "errorMessage": "Cannot load property isPicked from QQuick3DPickResult::objectHit with type QQuick3DModel.",
+                        "functionName": "onClicked",
+                        "line": 108
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 98,
+                        "errorMessage": "",
+                        "functionName": "onClicked",
+                        "line": 108
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 111,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 78
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 20,
+                        "durationMicroseconds": 52,
+                        "errorMessage": "Cannot access value for name listNodes",
+                        "functionName": "model",
+                        "line": 137
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 24,
+                        "durationMicroseconds": 373,
+                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: QVariant -> QVector3D stored as QVariant",
+                        "functionName": "scale",
+                        "line": 141
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 27,
+                        "durationMicroseconds": 73,
+                        "errorMessage": "Cannot access value for name index",
+                        "functionName": "position",
+                        "line": 142
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 46,
+                        "durationMicroseconds": 37,
+                        "errorMessage": "Cannot access value for name model",
+                        "functionName": "outerCubeIndex",
+                        "line": 160
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 35,
+                        "durationMicroseconds": 937,
+                        "errorMessage": "",
+                        "functionName": "onBoundsChanged",
+                        "line": 162
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 39,
+                        "durationMicroseconds": 141,
+                        "errorMessage": "",
+                        "functionName": "instanceRoot",
+                        "line": 177
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 48,
+                        "durationMicroseconds": 70,
+                        "errorMessage": "",
+                        "functionName": "onCompleted",
+                        "line": 179
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 39,
+                        "durationMicroseconds": 105,
+                        "errorMessage": "Cannot access value for name p2p",
+                        "functionName": "p2p_show",
+                        "line": 186
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 40,
+                        "durationMicroseconds": 131,
+                        "errorMessage": "Cannot access value for name collective",
+                        "functionName": "coll_show",
+                        "line": 187
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 39,
+                        "durationMicroseconds": 100,
+                        "errorMessage": "Cannot access value for name option",
+                        "functionName": "combobox",
+                        "line": 188
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 36,
+                        "durationMicroseconds": 4,
+                        "errorMessage": "Cannot resolve property type Cluster_Architecture for binding on nodes.",
+                        "functionName": "nodes",
+                        "line": 189
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 44,
+                        "durationMicroseconds": 67,
+                        "errorMessage": "Cannot access value for name listNodes",
+                        "functionName": "send_datasize",
+                        "line": 190
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 44,
+                        "durationMicroseconds": 72,
+                        "errorMessage": "Cannot access value for name listNodes",
+                        "functionName": "instanceCount",
+                        "line": 191
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 44,
+                        "durationMicroseconds": 51,
+                        "errorMessage": "Cannot access value for name listNodes",
+                        "functionName": "instanceRanks",
+                        "line": 192
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 45,
+                        "durationMicroseconds": 106,
+                        "errorMessage": "",
+                        "functionName": "innerCubeCount",
+                        "line": 194
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 42,
+                        "durationMicroseconds": 651,
+                        "errorMessage": "",
+                        "functionName": "rowsColumns",
+                        "line": 196
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 45,
+                        "durationMicroseconds": 668,
+                        "errorMessage": "",
+                        "functionName": "innerCubeScale",
+                        "line": 197
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 52,
+                        "durationMicroseconds": 72,
+                        "errorMessage": "",
+                        "functionName": "onCompleted",
+                        "line": 198
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 28,
+                        "durationMicroseconds": 422,
+                        "errorMessage": "Cannot generate efficient code for internal conversion with incompatible or ambiguous types: QVariant -> QVector3D stored as QVariant",
+                        "functionName": "eulerRotation",
+                        "line": 218
+                    }
+                ],
+                "filepath": "/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_8_0-Debug/Cores3D.qml"
+            }
+        ],
+        "moduleId": "GUI_Cluster(appGUI_Cluster)"
+    }
+]

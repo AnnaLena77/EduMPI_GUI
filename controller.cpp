@@ -1,10 +1,7 @@
 #include "controller.h"
 #include "bash_process_manager.h"
-#include "database_thread.h"
 #include "table_userid.h"
 #include "qevent.h"
-#include "qsqlquery.h"
-#include "cluster_node.h"
 #include <iostream>
 #include <fstream>
 #include <QProcess>
@@ -16,8 +13,6 @@
 #include <csignal>
 #include <sys/stat.h>
 
-#include "database_connection.h"
-
 
 Controller::Controller(QObject *parent) : QObject(parent)
 {
@@ -26,7 +21,7 @@ Controller::Controller(QObject *parent) : QObject(parent)
     QObject::connect(slurm_process, &Bash_Process_Manager::slurmIdReady, this, &Controller::getSlurmID);
     QObject::connect(slurm_process, &Bash_Process_Manager::slurm_status_changed, this, &Controller::slurm_status_changed);
 
-    m_dbConnection = new Database_Connection();
+    m_connectionName = "mainConnection";
 }
 
 void Controller::connect(QString hostname, QString databasename, int port, QString username, QString password){
@@ -54,22 +49,18 @@ void Controller::connect(QString hostname, QString databasename, int port, QStri
     tempFile << "DB_USER=" << username.toStdString() << "\n";
     tempFile << "DB_PW=" << password.toStdString() << "\n";
 
-    bool connect = m_dbConnection->connectToDB(hostname, databasename, port, username, password);
+    bool connect = connectToDB(hostname, databasename, port, username, password);
     //Hier stand vorher nur True, kann sein, dass das gebraucht wird!
     m_connection_ready = connect;
     m_job_table = new Table_UserID();
-    m_job_table->setDatabaseConnection(m_dbConnection);
+    //m_job_table->setDatabaseConnection(m_dbConnection);
     emit connectionSignal(connect);
 }
 
 
 Controller::~Controller()
 {
-    //database_thread.quit();
-    //database_thread.wait();
-    //qDebug() << "Hier wird die Database gelöscht!";
-    //qDeleteAll(m_nodes);
-    //m_nodes.clear();
+
 }
 
 void Controller::copyOutputFile(){
@@ -393,20 +384,8 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
 
 //Functionality for timeline
 
-void Controller::startAndStop(bool start){
-    if(!m_componentsBuilt){
-        return;
-    }
-    if(start == true){
-        if(timerId != -1){
-            killTimer(timerId);
-        }
-    } else{
-        timerId = startTimer(1000);
-    }
-}
 
-void Controller::handleTimestamp(QTime timestamp){
+/*void Controller::handleTimestamp(QTime timestamp){
     m_start_timestamp = timestamp;
     QTime midnight;
     midnight.setHMS(0,0,0);
@@ -419,13 +398,8 @@ void Controller::handleTimestamp(QTime timestamp){
         showConditionAt(0, 0);
     }
     //std::cout << "Seconds: " << seconds << std::endl;
-}
+}*/
 
-void Controller::showConditionAt(int timeSecondsA, int timeSecondsB){
-    QTime timestampA = m_start_timestamp.addSecs(timeSecondsA);
-    QTime timestampB = m_start_timestamp.addSecs(timeSecondsB);
-    emit signalToShowTimestampData(timestampA, timestampB);
-}
 
 void Controller::slurm_status_changed(QString status){
     if(status == "running"){
@@ -437,7 +411,7 @@ void Controller::slurm_status_changed(QString status){
             std::cout << "slurm_status_changed, completed, comp build" << std::endl;
             if(m_start_timestamp != QTime()){
                 //std::cout << "m_start_timestamp" << m_start_timestamp << std::endl;
-                startAndStop(true);
+                //startAndStop(true);
                 copyOutputFile();
             } else {
                 std::cout << "m_start_timestamp same" << std::endl;
@@ -455,6 +429,7 @@ void Controller::slurm_status_changed(QString status){
     }
     emit signalSlurmStatusChanged(status);
 }
+
 void Controller::getSlurmID(const int id){
     m_slurm_id = id;
     emit liveSlurmID(m_slurm_id);
@@ -468,8 +443,13 @@ void Controller::cancelRunningJob(){
 }
 
 void Controller::closeApp(){
+    qDebug() << "CLOSE APP";
     //removeClusterComponents();
-    m_dbConnection->close();
+    if (QSqlDatabase::contains(m_connectionName)) {
+        auto db = QSqlDatabase::database(m_connectionName);
+        db.close();
+        QSqlDatabase::removeDatabase(m_connectionName);
+    }
     if (!m_envFilePath.empty()) {
         if (unlink(m_envFilePath.c_str()) != 0) {
             std::cerr << "Failed to delete temporary file" << std::endl;
@@ -495,20 +475,31 @@ void Controller::closeApp(){
 void Controller::slotFetchEduMPIJobs(){
 
 }
-void Controller::timerEvent(QTimerEvent* event){
 
-}
 
-void Controller::buildClusterComponents(const QMap<QString, QVector<int>> &){
 
-}
-
-Database_Connection *Controller::getDatabaseConnection(){
-    std::cout << "getDatabaseConnection Aufruf" << std::endl;
-    if(m_dbConnection == NULL){
-        qWarning() << "WARNING - DatabaseConnection is null!";
+bool Controller::connectToDB(const QString &hostname, const QString &databasename, const int &port, const QString &username, const QString &password){
+    if (QSqlDatabase::contains(m_connectionName)) {
+        auto db = QSqlDatabase::database(m_connectionName);
+        if (db.isOpen()) {
+            qDebug() << "Database Connection " << m_connectionName << " is already open.";
+            return true;
+        }
     }
-    return m_dbConnection;
+    auto db = QSqlDatabase::addDatabase("QPSQL", m_connectionName);
+    db.setHostName(hostname);
+    db.setPort(port);
+    db.setDatabaseName(databasename);
+    db.setUserName(username);
+    db.setPassword(password);
+    bool ok = db.open();
+
+    std::cout << "New Connection" << std::endl;
+    return ok;
+}
+
+QString Controller::getDatabaseConnection(){
+    return m_connectionName;
 }
 
 QString Controller::getClusterIdent(){

@@ -1,14 +1,13 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'controller.h'
 **
-** Created by: The Qt Meta Object Compiler version 68 (Qt 6.5.0)
+** Created by: The Qt Meta Object Compiler version 68 (Qt 6.5.6)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
 #include "../../../../controller.h"
 #include <QtCore/qmetatype.h>
-#include <QtCore/QList>
 
 #if __has_include(<QtCore/qtmochelpers.h>)
 #include <QtCore/qtmochelpers.h>
@@ -22,7 +21,7 @@ QT_BEGIN_MOC_NAMESPACE
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'controller.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 68
-#error "This file was generated using the moc from 6.5.0. It"
+#error "This file was generated using the moc from 6.5.6. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -38,7 +37,7 @@ namespace {
 
 #ifdef QT_MOC_HAS_STRINGDATA
 struct qt_meta_stringdata_CLASSControllerENDCLASS_t {};
-static constexpr auto qt_meta_stringdata_CLASSControllerENDCLASS = QtMocHelpers::stringData(
+constexpr auto qt_meta_stringdata_CLASSControllerENDCLASS = QtMocHelpers::stringData(
     "Controller",
     "QML.Element",
     "auto",
@@ -57,19 +56,11 @@ static constexpr auto qt_meta_stringdata_CLASSControllerENDCLASS = QtMocHelpers:
     "signalToConnect",
     "setProcNum",
     "proc_num",
-    "signalToUpdateData",
     "signalToClearDB",
-    "signalToShowTimestampData",
-    "timestampA",
-    "timestampB",
     "fetchEduMPIJobsForUser",
     "userId",
     "connectionChanged",
     "clusterConnectionChanged",
-    "time_display_changed",
-    "buildClusterComponents",
-    "QMap<QString,QList<int>>",
-    "handleTimestamp",
     "slurm_status_changed",
     "getSlurmID",
     "id",
@@ -95,11 +86,6 @@ static constexpr auto qt_meta_stringdata_CLASSControllerENDCLASS = QtMocHelpers:
     "writeRemoteBashFile",
     "program_name",
     "option",
-    "showConditionAt",
-    "timeSecondsA",
-    "timeSecondsB",
-    "startAndStop",
-    "start",
     "connectCluster",
     "address",
     "ident",
@@ -108,7 +94,6 @@ static constexpr auto qt_meta_stringdata_CLASSControllerENDCLASS = QtMocHelpers:
     "QJSValue",
     "callback",
     "getDatabaseConnection",
-    "Database_Connection*",
     "setComponentsBuild",
     "b",
     "setTimestamp",
@@ -116,12 +101,11 @@ static constexpr auto qt_meta_stringdata_CLASSControllerENDCLASS = QtMocHelpers:
     "Table_UserID*",
     "getClusterIdent",
     "db_connection",
-    "cluster_connection",
-    "time_display"
+    "cluster_connection"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
 struct qt_meta_stringdata_CLASSControllerENDCLASS_t {
-    uint offsetsAndSizes[158];
+    uint offsetsAndSizes[128];
     char stringdata0[11];
     char stringdata1[12];
     char stringdata2[5];
@@ -140,67 +124,52 @@ struct qt_meta_stringdata_CLASSControllerENDCLASS_t {
     char stringdata15[16];
     char stringdata16[11];
     char stringdata17[9];
-    char stringdata18[19];
-    char stringdata19[16];
-    char stringdata20[26];
-    char stringdata21[11];
-    char stringdata22[11];
-    char stringdata23[23];
-    char stringdata24[7];
-    char stringdata25[18];
-    char stringdata26[25];
-    char stringdata27[21];
-    char stringdata28[23];
-    char stringdata29[25];
-    char stringdata30[16];
-    char stringdata31[21];
-    char stringdata32[11];
-    char stringdata33[3];
-    char stringdata34[20];
-    char stringdata35[8];
+    char stringdata18[16];
+    char stringdata19[23];
+    char stringdata20[7];
+    char stringdata21[18];
+    char stringdata22[25];
+    char stringdata23[21];
+    char stringdata24[11];
+    char stringdata25[3];
+    char stringdata26[20];
+    char stringdata27[8];
+    char stringdata28[9];
+    char stringdata29[13];
+    char stringdata30[5];
+    char stringdata31[9];
+    char stringdata32[9];
+    char stringdata33[19];
+    char stringdata34[11];
+    char stringdata35[5];
     char stringdata36[9];
-    char stringdata37[13];
-    char stringdata38[5];
+    char stringdata37[17];
+    char stringdata38[10];
     char stringdata39[9];
-    char stringdata40[9];
-    char stringdata41[19];
-    char stringdata42[11];
-    char stringdata43[5];
-    char stringdata44[9];
-    char stringdata45[17];
-    char stringdata46[10];
-    char stringdata47[9];
-    char stringdata48[10];
+    char stringdata40[10];
+    char stringdata41[8];
+    char stringdata42[10];
+    char stringdata43[7];
+    char stringdata44[8];
+    char stringdata45[20];
+    char stringdata46[13];
+    char stringdata47[7];
+    char stringdata48[15];
     char stringdata49[8];
-    char stringdata50[10];
-    char stringdata51[7];
-    char stringdata52[8];
-    char stringdata53[20];
-    char stringdata54[13];
-    char stringdata55[7];
-    char stringdata56[16];
-    char stringdata57[13];
+    char stringdata50[6];
+    char stringdata51[5];
+    char stringdata52[20];
+    char stringdata53[9];
+    char stringdata54[9];
+    char stringdata55[22];
+    char stringdata56[19];
+    char stringdata57[2];
     char stringdata58[13];
-    char stringdata59[13];
-    char stringdata60[6];
-    char stringdata61[15];
-    char stringdata62[8];
-    char stringdata63[6];
-    char stringdata64[5];
-    char stringdata65[20];
-    char stringdata66[9];
-    char stringdata67[9];
-    char stringdata68[22];
-    char stringdata69[21];
-    char stringdata70[19];
-    char stringdata71[2];
-    char stringdata72[13];
-    char stringdata73[12];
-    char stringdata74[14];
-    char stringdata75[16];
-    char stringdata76[14];
-    char stringdata77[19];
-    char stringdata78[13];
+    char stringdata59[12];
+    char stringdata60[14];
+    char stringdata61[16];
+    char stringdata62[14];
+    char stringdata63[19];
 };
 #define QT_MOC_LITERAL(ofs, len) \
     uint(sizeof(qt_meta_stringdata_CLASSControllerENDCLASS_t::offsetsAndSizes) + ofs), len 
@@ -224,67 +193,52 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSControllerENDCLASS_t qt_meta_st
         QT_MOC_LITERAL(154, 15),  // "signalToConnect"
         QT_MOC_LITERAL(170, 10),  // "setProcNum"
         QT_MOC_LITERAL(181, 8),  // "proc_num"
-        QT_MOC_LITERAL(190, 18),  // "signalToUpdateData"
-        QT_MOC_LITERAL(209, 15),  // "signalToClearDB"
-        QT_MOC_LITERAL(225, 25),  // "signalToShowTimestampData"
-        QT_MOC_LITERAL(251, 10),  // "timestampA"
-        QT_MOC_LITERAL(262, 10),  // "timestampB"
-        QT_MOC_LITERAL(273, 22),  // "fetchEduMPIJobsForUser"
-        QT_MOC_LITERAL(296, 6),  // "userId"
-        QT_MOC_LITERAL(303, 17),  // "connectionChanged"
-        QT_MOC_LITERAL(321, 24),  // "clusterConnectionChanged"
-        QT_MOC_LITERAL(346, 20),  // "time_display_changed"
-        QT_MOC_LITERAL(367, 22),  // "buildClusterComponents"
-        QT_MOC_LITERAL(390, 24),  // "QMap<QString,QList<int>>"
-        QT_MOC_LITERAL(415, 15),  // "handleTimestamp"
-        QT_MOC_LITERAL(431, 20),  // "slurm_status_changed"
-        QT_MOC_LITERAL(452, 10),  // "getSlurmID"
-        QT_MOC_LITERAL(463, 2),  // "id"
-        QT_MOC_LITERAL(466, 19),  // "slotFetchEduMPIJobs"
-        QT_MOC_LITERAL(486, 7),  // "connect"
-        QT_MOC_LITERAL(494, 8),  // "hostname"
-        QT_MOC_LITERAL(503, 12),  // "databasename"
-        QT_MOC_LITERAL(516, 4),  // "port"
-        QT_MOC_LITERAL(521, 8),  // "UserName"
-        QT_MOC_LITERAL(530, 8),  // "password"
-        QT_MOC_LITERAL(539, 18),  // "writeLocalBashFile"
-        QT_MOC_LITERAL(558, 10),  // "local_path"
-        QT_MOC_LITERAL(569, 4),  // "file"
-        QT_MOC_LITERAL(574, 8),  // "closeApp"
-        QT_MOC_LITERAL(583, 16),  // "cancelRunningJob"
-        QT_MOC_LITERAL(600, 9),  // "startBash"
-        QT_MOC_LITERAL(610, 8),  // "readBash"
-        QT_MOC_LITERAL(619, 9),  // "writeBash"
-        QT_MOC_LITERAL(629, 7),  // "content"
-        QT_MOC_LITERAL(637, 9),  // "checkFile"
-        QT_MOC_LITERAL(647, 6),  // "source"
-        QT_MOC_LITERAL(654, 7),  // "program"
-        QT_MOC_LITERAL(662, 19),  // "writeRemoteBashFile"
-        QT_MOC_LITERAL(682, 12),  // "program_name"
-        QT_MOC_LITERAL(695, 6),  // "option"
-        QT_MOC_LITERAL(702, 15),  // "showConditionAt"
-        QT_MOC_LITERAL(718, 12),  // "timeSecondsA"
-        QT_MOC_LITERAL(731, 12),  // "timeSecondsB"
-        QT_MOC_LITERAL(744, 12),  // "startAndStop"
-        QT_MOC_LITERAL(757, 5),  // "start"
-        QT_MOC_LITERAL(763, 14),  // "connectCluster"
-        QT_MOC_LITERAL(778, 7),  // "address"
-        QT_MOC_LITERAL(786, 5),  // "ident"
-        QT_MOC_LITERAL(792, 4),  // "path"
-        QT_MOC_LITERAL(797, 19),  // "connectClusterAsync"
-        QT_MOC_LITERAL(817, 8),  // "QJSValue"
-        QT_MOC_LITERAL(826, 8),  // "callback"
-        QT_MOC_LITERAL(835, 21),  // "getDatabaseConnection"
-        QT_MOC_LITERAL(857, 20),  // "Database_Connection*"
-        QT_MOC_LITERAL(878, 18),  // "setComponentsBuild"
-        QT_MOC_LITERAL(897, 1),  // "b"
-        QT_MOC_LITERAL(899, 12),  // "setTimestamp"
-        QT_MOC_LITERAL(912, 11),  // "getJobTable"
-        QT_MOC_LITERAL(924, 13),  // "Table_UserID*"
-        QT_MOC_LITERAL(938, 15),  // "getClusterIdent"
-        QT_MOC_LITERAL(954, 13),  // "db_connection"
-        QT_MOC_LITERAL(968, 18),  // "cluster_connection"
-        QT_MOC_LITERAL(987, 12)   // "time_display"
+        QT_MOC_LITERAL(190, 15),  // "signalToClearDB"
+        QT_MOC_LITERAL(206, 22),  // "fetchEduMPIJobsForUser"
+        QT_MOC_LITERAL(229, 6),  // "userId"
+        QT_MOC_LITERAL(236, 17),  // "connectionChanged"
+        QT_MOC_LITERAL(254, 24),  // "clusterConnectionChanged"
+        QT_MOC_LITERAL(279, 20),  // "slurm_status_changed"
+        QT_MOC_LITERAL(300, 10),  // "getSlurmID"
+        QT_MOC_LITERAL(311, 2),  // "id"
+        QT_MOC_LITERAL(314, 19),  // "slotFetchEduMPIJobs"
+        QT_MOC_LITERAL(334, 7),  // "connect"
+        QT_MOC_LITERAL(342, 8),  // "hostname"
+        QT_MOC_LITERAL(351, 12),  // "databasename"
+        QT_MOC_LITERAL(364, 4),  // "port"
+        QT_MOC_LITERAL(369, 8),  // "UserName"
+        QT_MOC_LITERAL(378, 8),  // "password"
+        QT_MOC_LITERAL(387, 18),  // "writeLocalBashFile"
+        QT_MOC_LITERAL(406, 10),  // "local_path"
+        QT_MOC_LITERAL(417, 4),  // "file"
+        QT_MOC_LITERAL(422, 8),  // "closeApp"
+        QT_MOC_LITERAL(431, 16),  // "cancelRunningJob"
+        QT_MOC_LITERAL(448, 9),  // "startBash"
+        QT_MOC_LITERAL(458, 8),  // "readBash"
+        QT_MOC_LITERAL(467, 9),  // "writeBash"
+        QT_MOC_LITERAL(477, 7),  // "content"
+        QT_MOC_LITERAL(485, 9),  // "checkFile"
+        QT_MOC_LITERAL(495, 6),  // "source"
+        QT_MOC_LITERAL(502, 7),  // "program"
+        QT_MOC_LITERAL(510, 19),  // "writeRemoteBashFile"
+        QT_MOC_LITERAL(530, 12),  // "program_name"
+        QT_MOC_LITERAL(543, 6),  // "option"
+        QT_MOC_LITERAL(550, 14),  // "connectCluster"
+        QT_MOC_LITERAL(565, 7),  // "address"
+        QT_MOC_LITERAL(573, 5),  // "ident"
+        QT_MOC_LITERAL(579, 4),  // "path"
+        QT_MOC_LITERAL(584, 19),  // "connectClusterAsync"
+        QT_MOC_LITERAL(604, 8),  // "QJSValue"
+        QT_MOC_LITERAL(613, 8),  // "callback"
+        QT_MOC_LITERAL(622, 21),  // "getDatabaseConnection"
+        QT_MOC_LITERAL(644, 18),  // "setComponentsBuild"
+        QT_MOC_LITERAL(663, 1),  // "b"
+        QT_MOC_LITERAL(665, 12),  // "setTimestamp"
+        QT_MOC_LITERAL(678, 11),  // "getJobTable"
+        QT_MOC_LITERAL(690, 13),  // "Table_UserID*"
+        QT_MOC_LITERAL(704, 15),  // "getClusterIdent"
+        QT_MOC_LITERAL(720, 13),  // "db_connection"
+        QT_MOC_LITERAL(734, 18)   // "cluster_connection"
     },
     "Controller",
     "QML.Element",
@@ -304,19 +258,11 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSControllerENDCLASS_t qt_meta_st
     "signalToConnect",
     "setProcNum",
     "proc_num",
-    "signalToUpdateData",
     "signalToClearDB",
-    "signalToShowTimestampData",
-    "timestampA",
-    "timestampB",
     "fetchEduMPIJobsForUser",
     "userId",
     "connectionChanged",
     "clusterConnectionChanged",
-    "time_display_changed",
-    "buildClusterComponents",
-    "QMap<QString,QList<int>>",
-    "handleTimestamp",
     "slurm_status_changed",
     "getSlurmID",
     "id",
@@ -342,11 +288,6 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSControllerENDCLASS_t qt_meta_st
     "writeRemoteBashFile",
     "program_name",
     "option",
-    "showConditionAt",
-    "timeSecondsA",
-    "timeSecondsB",
-    "startAndStop",
-    "start",
     "connectCluster",
     "address",
     "ident",
@@ -355,7 +296,6 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSControllerENDCLASS_t qt_meta_st
     "QJSValue",
     "callback",
     "getDatabaseConnection",
-    "Database_Connection*",
     "setComponentsBuild",
     "b",
     "setTimestamp",
@@ -363,8 +303,7 @@ Q_CONSTINIT static const qt_meta_stringdata_CLASSControllerENDCLASS_t qt_meta_st
     "Table_UserID*",
     "getClusterIdent",
     "db_connection",
-    "cluster_connection",
-    "time_display"
+    "cluster_connection"
 };
 #undef QT_MOC_LITERAL
 #endif // !QT_MOC_HAS_STRING_DATA
@@ -376,59 +315,52 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSControllerENDCLASS[] = {
       11,       // revision
        0,       // classname
        1,   14, // classinfo
-      38,   16, // methods
-       4,  376, // properties
+      31,   16, // methods
+       3,  311, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      15,       // signalCount
+      12,       // signalCount
 
  // classinfo: key, value
        1,    2,
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       3,    0,  244,    4, 0x106,    5 /* Public | MethodIsConst  */,
-       5,    1,  245,    4, 0x06,    6 /* Public */,
-       7,    1,  248,    4, 0x06,    8 /* Public */,
-       9,    1,  251,    4, 0x06,   10 /* Public */,
-      11,    1,  254,    4, 0x06,   12 /* Public */,
-      13,    1,  257,    4, 0x06,   14 /* Public */,
-      15,    5,  260,    4, 0x06,   16 /* Public */,
-      16,    1,  271,    4, 0x06,   22 /* Public */,
-      18,    1,  274,    4, 0x06,   24 /* Public */,
-      19,    0,  277,    4, 0x06,   26 /* Public */,
-      20,    2,  278,    4, 0x06,   27 /* Public */,
-      23,    1,  283,    4, 0x06,   30 /* Public */,
-      25,    0,  286,    4, 0x06,   32 /* Public */,
-      26,    0,  287,    4, 0x06,   33 /* Public */,
-      27,    0,  288,    4, 0x06,   34 /* Public */,
+       3,    0,  202,    4, 0x106,    4 /* Public | MethodIsConst  */,
+       5,    1,  203,    4, 0x06,    5 /* Public */,
+       7,    1,  206,    4, 0x06,    7 /* Public */,
+       9,    1,  209,    4, 0x06,    9 /* Public */,
+      11,    1,  212,    4, 0x06,   11 /* Public */,
+      13,    1,  215,    4, 0x06,   13 /* Public */,
+      15,    5,  218,    4, 0x06,   15 /* Public */,
+      16,    1,  229,    4, 0x06,   21 /* Public */,
+      18,    0,  232,    4, 0x06,   23 /* Public */,
+      19,    1,  233,    4, 0x06,   24 /* Public */,
+      21,    0,  236,    4, 0x06,   26 /* Public */,
+      22,    0,  237,    4, 0x06,   27 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      28,    1,  289,    4, 0x0a,   35 /* Public */,
-      30,    1,  292,    4, 0x0a,   37 /* Public */,
-      31,    1,  295,    4, 0x0a,   39 /* Public */,
-      32,    1,  298,    4, 0x0a,   41 /* Public */,
-      34,    0,  301,    4, 0x0a,   43 /* Public */,
+      23,    1,  238,    4, 0x0a,   28 /* Public */,
+      24,    1,  241,    4, 0x0a,   30 /* Public */,
+      26,    0,  244,    4, 0x0a,   32 /* Public */,
 
  // methods: name, argc, parameters, tag, flags, initial metatype offsets
-      35,    5,  302,    4, 0x02,   44 /* Public */,
-      41,    3,  313,    4, 0x02,   50 /* Public */,
-      44,    0,  320,    4, 0x02,   54 /* Public */,
-      45,    0,  321,    4, 0x02,   55 /* Public */,
-      46,    1,  322,    4, 0x02,   56 /* Public */,
-      47,    0,  325,    4, 0x02,   58 /* Public */,
-      48,    1,  326,    4, 0x02,   59 /* Public */,
-      50,    3,  329,    4, 0x02,   61 /* Public */,
-      53,    3,  336,    4, 0x02,   65 /* Public */,
-      56,    2,  343,    4, 0x02,   69 /* Public */,
-      59,    1,  348,    4, 0x02,   72 /* Public */,
-      61,    3,  351,    4, 0x02,   74 /* Public */,
-      65,    4,  358,    4, 0x02,   78 /* Public */,
-      68,    0,  367,    4, 0x02,   83 /* Public */,
-      70,    1,  368,    4, 0x02,   84 /* Public */,
-      72,    1,  371,    4, 0x02,   86 /* Public */,
-      73,    0,  374,    4, 0x02,   88 /* Public */,
-      75,    0,  375,    4, 0x02,   89 /* Public */,
+      27,    5,  245,    4, 0x02,   33 /* Public */,
+      33,    3,  256,    4, 0x02,   39 /* Public */,
+      36,    0,  263,    4, 0x02,   43 /* Public */,
+      37,    0,  264,    4, 0x02,   44 /* Public */,
+      38,    1,  265,    4, 0x02,   45 /* Public */,
+      39,    0,  268,    4, 0x02,   47 /* Public */,
+      40,    1,  269,    4, 0x02,   48 /* Public */,
+      42,    3,  272,    4, 0x02,   50 /* Public */,
+      45,    3,  279,    4, 0x02,   54 /* Public */,
+      48,    3,  286,    4, 0x02,   58 /* Public */,
+      52,    4,  293,    4, 0x02,   62 /* Public */,
+      55,    0,  302,    4, 0x02,   67 /* Public */,
+      56,    1,  303,    4, 0x02,   68 /* Public */,
+      58,    1,  306,    4, 0x02,   70 /* Public */,
+      59,    0,  309,    4, 0x02,   72 /* Public */,
+      61,    0,  310,    4, 0x02,   73 /* Public */,
 
  // signals: parameters
     QMetaType::Int,
@@ -439,46 +371,38 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSControllerENDCLASS[] = {
     QMetaType::Void, QMetaType::QString,   14,
     QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QString,    4,    4,    4,    4,    4,
     QMetaType::Void, QMetaType::Int,   17,
-    QMetaType::Void, QMetaType::Int,    4,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QTime, QMetaType::QTime,   21,   22,
-    QMetaType::Void, QMetaType::QString,   24,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,   20,
     QMetaType::Void,
     QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 29,    4,
-    QMetaType::Void, QMetaType::QTime,   10,
     QMetaType::Void, QMetaType::QString,   12,
-    QMetaType::Void, QMetaType::Int,   33,
+    QMetaType::Void, QMetaType::Int,   25,
     QMetaType::Void,
 
  // methods: parameters
-    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QString,   36,   37,   38,   39,   40,
-    QMetaType::Void, QMetaType::QString, QMetaType::Bool, QMetaType::Int,   42,   43,   17,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::Int, QMetaType::QString, QMetaType::QString,   28,   29,   30,   31,   32,
+    QMetaType::Void, QMetaType::QString, QMetaType::Bool, QMetaType::Int,   34,   35,   17,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,   17,
     QMetaType::QString,
-    QMetaType::Void, QMetaType::QString,   49,
-    QMetaType::Bool, QMetaType::QString, QMetaType::QString, QMetaType::Bool,   51,   52,   43,
-    QMetaType::Void, QMetaType::QString, QMetaType::Int, QMetaType::Int,   54,   17,   55,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,   57,   58,
-    QMetaType::Void, QMetaType::Bool,   60,
-    QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,   62,   63,   64,
-    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, 0x80000000 | 66,   62,   63,   64,   67,
-    0x80000000 | 69,
-    QMetaType::Void, QMetaType::Bool,   71,
+    QMetaType::Void, QMetaType::QString,   41,
+    QMetaType::Bool, QMetaType::QString, QMetaType::QString, QMetaType::Bool,   43,   44,   35,
+    QMetaType::Void, QMetaType::QString, QMetaType::Int, QMetaType::Int,   46,   17,   47,
+    QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString,   49,   50,   51,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, 0x80000000 | 53,   49,   50,   51,   54,
+    QMetaType::QString,
+    QMetaType::Void, QMetaType::Bool,   57,
     QMetaType::Void, QMetaType::QTime,   10,
-    0x80000000 | 74,
+    0x80000000 | 60,
     QMetaType::QString,
 
  // properties: name, type, flags
        3, QMetaType::Int, 0x00015401, uint(-1), 0,
-      76, QMetaType::Bool, 0x00015003, uint(12), 0,
-      77, QMetaType::Bool, 0x00015003, uint(13), 0,
-      78, QMetaType::Int, 0x00015003, uint(14), 0,
+      62, QMetaType::Bool, 0x00015003, uint(10), 0,
+      63, QMetaType::Bool, 0x00015003, uint(11), 0,
 
        0        // eod
 };
@@ -496,8 +420,6 @@ Q_CONSTINIT const QMetaObject Controller::staticMetaObject = { {
         bool,
         // property 'cluster_connection'
         bool,
-        // property 'time_display'
-        int,
         // Q_OBJECT / Q_GADGET
         Controller,
         // method 'count'
@@ -527,15 +449,8 @@ Q_CONSTINIT const QMetaObject Controller::staticMetaObject = { {
         // method 'setProcNum'
         void,
         const int,
-        // method 'signalToUpdateData'
-        void,
-        const int &,
         // method 'signalToClearDB'
         void,
-        // method 'signalToShowTimestampData'
-        void,
-        const QTime,
-        const QTime,
         // method 'fetchEduMPIJobsForUser'
         void,
         const QString &,
@@ -543,14 +458,6 @@ Q_CONSTINIT const QMetaObject Controller::staticMetaObject = { {
         void,
         // method 'clusterConnectionChanged'
         void,
-        // method 'time_display_changed'
-        void,
-        // method 'buildClusterComponents'
-        void,
-        const QMap<QString,QVector<int>> &,
-        // method 'handleTimestamp'
-        void,
-        QTime,
         // method 'slurm_status_changed'
         void,
         QString,
@@ -593,13 +500,6 @@ Q_CONSTINIT const QMetaObject Controller::staticMetaObject = { {
         QString,
         int,
         int,
-        // method 'showConditionAt'
-        void,
-        int,
-        int,
-        // method 'startAndStop'
-        void,
-        bool,
         // method 'connectCluster'
         QString,
         const QString &,
@@ -612,7 +512,7 @@ Q_CONSTINIT const QMetaObject Controller::staticMetaObject = { {
         const QString &,
         QJSValue,
         // method 'getDatabaseConnection'
-        Database_Connection *,
+        QString,
         // method 'setComponentsBuild'
         void,
         bool,
@@ -642,48 +542,41 @@ void Controller::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 5: _t->copiedOutputFile((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         case 6: _t->signalToConnect((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[5]))); break;
         case 7: _t->setProcNum((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 8: _t->signalToUpdateData((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 9: _t->signalToClearDB(); break;
-        case 10: _t->signalToShowTimestampData((*reinterpret_cast< std::add_pointer_t<QTime>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QTime>>(_a[2]))); break;
-        case 11: _t->fetchEduMPIJobsForUser((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 12: _t->connectionChanged(); break;
-        case 13: _t->clusterConnectionChanged(); break;
-        case 14: _t->time_display_changed(); break;
-        case 15: _t->buildClusterComponents((*reinterpret_cast< std::add_pointer_t<QMap<QString,QList<int>>>>(_a[1]))); break;
-        case 16: _t->handleTimestamp((*reinterpret_cast< std::add_pointer_t<QTime>>(_a[1]))); break;
-        case 17: _t->slurm_status_changed((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 18: _t->getSlurmID((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 19: _t->slotFetchEduMPIJobs(); break;
-        case 20: _t->connect((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[5]))); break;
-        case 21: _t->writeLocalBashFile((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
-        case 22: _t->closeApp(); break;
-        case 23: _t->cancelRunningJob(); break;
-        case 24: _t->startBash((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 25: { QString _r = _t->readBash();
+        case 8: _t->signalToClearDB(); break;
+        case 9: _t->fetchEduMPIJobsForUser((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 10: _t->connectionChanged(); break;
+        case 11: _t->clusterConnectionChanged(); break;
+        case 12: _t->slurm_status_changed((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 13: _t->getSlurmID((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 14: _t->slotFetchEduMPIJobs(); break;
+        case 15: _t->connect((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[4])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[5]))); break;
+        case 16: _t->writeLocalBashFile((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
+        case 17: _t->closeApp(); break;
+        case 18: _t->cancelRunningJob(); break;
+        case 19: _t->startBash((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 20: { QString _r = _t->readBash();
             if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = std::move(_r); }  break;
-        case 26: _t->writeBash((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
-        case 27: { bool _r = _t->checkFile((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[3])));
+        case 21: _t->writeBash((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
+        case 22: { bool _r = _t->checkFile((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<bool>>(_a[3])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = std::move(_r); }  break;
-        case 28: _t->writeRemoteBashFile((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
-        case 29: _t->showConditionAt((*reinterpret_cast< std::add_pointer_t<int>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
-        case 30: _t->startAndStop((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 31: { QString _r = _t->connectCluster((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])));
+        case 23: _t->writeRemoteBashFile((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[3]))); break;
+        case 24: { QString _r = _t->connectCluster((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])));
             if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = std::move(_r); }  break;
-        case 32: _t->connectClusterAsync((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<QJSValue>>(_a[4]))); break;
-        case 33: { Database_Connection* _r = _t->getDatabaseConnection();
-            if (_a[0]) *reinterpret_cast< Database_Connection**>(_a[0]) = std::move(_r); }  break;
-        case 34: _t->setComponentsBuild((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
-        case 35: _t->setTimestamp((*reinterpret_cast< std::add_pointer_t<QTime>>(_a[1]))); break;
-        case 36: { Table_UserID* _r = _t->getJobTable();
+        case 25: _t->connectClusterAsync((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<QString>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<QJSValue>>(_a[4]))); break;
+        case 26: { QString _r = _t->getDatabaseConnection();
+            if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = std::move(_r); }  break;
+        case 27: _t->setComponentsBuild((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 28: _t->setTimestamp((*reinterpret_cast< std::add_pointer_t<QTime>>(_a[1]))); break;
+        case 29: { Table_UserID* _r = _t->getJobTable();
             if (_a[0]) *reinterpret_cast< Table_UserID**>(_a[0]) = std::move(_r); }  break;
-        case 37: { QString _r = _t->getClusterIdent();
+        case 30: { QString _r = _t->getClusterIdent();
             if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
         switch (_id) {
         default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
-        case 32:
+        case 25:
             switch (*reinterpret_cast<int*>(_a[1])) {
             default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
             case 3:
@@ -750,51 +643,30 @@ void Controller::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             }
         }
         {
-            using _t = void (Controller::*)(const int & );
-            if (_t _q_method = &Controller::signalToUpdateData; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 8;
-                return;
-            }
-        }
-        {
             using _t = void (Controller::*)();
             if (_t _q_method = &Controller::signalToClearDB; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 9;
-                return;
-            }
-        }
-        {
-            using _t = void (Controller::*)(const QTime , const QTime );
-            if (_t _q_method = &Controller::signalToShowTimestampData; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 10;
+                *result = 8;
                 return;
             }
         }
         {
             using _t = void (Controller::*)(const QString & );
             if (_t _q_method = &Controller::fetchEduMPIJobsForUser; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 11;
+                *result = 9;
                 return;
             }
         }
         {
             using _t = void (Controller::*)();
             if (_t _q_method = &Controller::connectionChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 12;
+                *result = 10;
                 return;
             }
         }
         {
             using _t = void (Controller::*)();
             if (_t _q_method = &Controller::clusterConnectionChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 13;
-                return;
-            }
-        }
-        {
-            using _t = void (Controller::*)();
-            if (_t _q_method = &Controller::time_display_changed; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 14;
+                *result = 11;
                 return;
             }
         }
@@ -806,7 +678,6 @@ void Controller::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 0: *reinterpret_cast< int*>(_v) = _t->count(); break;
         case 1: *reinterpret_cast< bool*>(_v) = _t->m_connection_ready; break;
         case 2: *reinterpret_cast< bool*>(_v) = _t->m_cluster_connection_ready; break;
-        case 3: *reinterpret_cast< int*>(_v) = _t->m_time_display; break;
         default: break;
         }
     } else if (_c == QMetaObject::WriteProperty) {
@@ -824,12 +695,6 @@ void Controller::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
             if (_t->m_cluster_connection_ready != *reinterpret_cast< bool*>(_v)) {
                 _t->m_cluster_connection_ready = *reinterpret_cast< bool*>(_v);
                 Q_EMIT _t->clusterConnectionChanged();
-            }
-            break;
-        case 3:
-            if (_t->m_time_display != *reinterpret_cast< int*>(_v)) {
-                _t->m_time_display = *reinterpret_cast< int*>(_v);
-                Q_EMIT _t->time_display_changed();
             }
             break;
         default: break;
@@ -858,18 +723,18 @@ int Controller::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 38)
+        if (_id < 31)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 38;
+        _id -= 31;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 38)
+        if (_id < 31)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 38;
+        _id -= 31;
     }else if (_c == QMetaObject::ReadProperty || _c == QMetaObject::WriteProperty
             || _c == QMetaObject::ResetProperty || _c == QMetaObject::BindableProperty
             || _c == QMetaObject::RegisterPropertyMetaType) {
         qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 3;
     }
     return _id;
 }
@@ -933,47 +798,27 @@ void Controller::setProcNum(const int _t1)
 }
 
 // SIGNAL 8
-void Controller::signalToUpdateData(const int & _t1)
+void Controller::signalToClearDB()
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 8, _a);
+    QMetaObject::activate(this, &staticMetaObject, 8, nullptr);
 }
 
 // SIGNAL 9
-void Controller::signalToClearDB()
-{
-    QMetaObject::activate(this, &staticMetaObject, 9, nullptr);
-}
-
-// SIGNAL 10
-void Controller::signalToShowTimestampData(const QTime _t1, const QTime _t2)
-{
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))) };
-    QMetaObject::activate(this, &staticMetaObject, 10, _a);
-}
-
-// SIGNAL 11
 void Controller::fetchEduMPIJobsForUser(const QString & _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 11, _a);
+    QMetaObject::activate(this, &staticMetaObject, 9, _a);
 }
 
-// SIGNAL 12
+// SIGNAL 10
 void Controller::connectionChanged()
 {
-    QMetaObject::activate(this, &staticMetaObject, 12, nullptr);
+    QMetaObject::activate(this, &staticMetaObject, 10, nullptr);
 }
 
-// SIGNAL 13
+// SIGNAL 11
 void Controller::clusterConnectionChanged()
 {
-    QMetaObject::activate(this, &staticMetaObject, 13, nullptr);
-}
-
-// SIGNAL 14
-void Controller::time_display_changed()
-{
-    QMetaObject::activate(this, &staticMetaObject, 14, nullptr);
+    QMetaObject::activate(this, &staticMetaObject, 11, nullptr);
 }
 QT_WARNING_POP

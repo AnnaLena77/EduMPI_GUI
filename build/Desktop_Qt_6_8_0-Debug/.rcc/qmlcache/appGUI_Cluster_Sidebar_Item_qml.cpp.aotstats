@@ -1,0 +1,52 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 22,
+                        "durationMicroseconds": 402,
+                        "errorMessage": "",
+                        "functionName": "onClicked",
+                        "line": 13
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 25,
+                        "durationMicroseconds": 132,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 12
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 17,
+                        "durationMicroseconds": 312,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 19
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 14,
+                        "durationMicroseconds": 266,
+                        "errorMessage": "",
+                        "functionName": "y",
+                        "line": 25
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 57,
+                        "durationMicroseconds": 146,
+                        "errorMessage": "",
+                        "functionName": "type",
+                        "line": 29
+                    }
+                ],
+                "filepath": "/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_8_0-Debug/Sidebar_Item.qml"
+            }
+        ],
+        "moduleId": "GUI_Cluster(appGUI_Cluster)"
+    }
+]

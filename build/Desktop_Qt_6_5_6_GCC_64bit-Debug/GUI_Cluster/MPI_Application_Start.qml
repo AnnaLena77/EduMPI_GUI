@@ -197,7 +197,7 @@ Rectangle {
                         enable_timeline = false;
                         controller.writeRemoteBashFile(programNameField.text, parseInt(numProcs.text), 0)
                         controller.writeLocalBashFile(uploadPath.text, fileButton.checked ? true : false, parseInt(numProcs.text));
-                        nodesList.setProcNum(parseInt(numProcs.text))
+                        nodesList.set_proc_num(parseInt(numProcs.text))
                         startup();
 
 

@@ -70,6 +70,7 @@ while true; do
     
      # Überprüfen, ob der Job abgeschlossen ist
     if [[ "$JOB_STATUS" == "COMPLETED" || "$JOB_STATUS" == "FAILED" || "$JOB_STATUS" == "CANCELLED" || -z "$JOB_STATUS" ]]; then
+        echo "Break Job!"
         break
     fi
 

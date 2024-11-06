@@ -54,7 +54,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/appGUI_Cluster")
     file(RPATH_CHANGE
          FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/appGUI_Cluster"
-         OLD_RPATH "/usr/lib/postgresql/12/lib:/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib:"
+         OLD_RPATH "/usr/lib/postgresql/12/lib:/home/anna-lena/QtDesignStudio/6.5.6/gcc_64/lib:"
          NEW_RPATH "")
     if(CMAKE_INSTALL_DO_STRIP)
       execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/appGUI_Cluster")

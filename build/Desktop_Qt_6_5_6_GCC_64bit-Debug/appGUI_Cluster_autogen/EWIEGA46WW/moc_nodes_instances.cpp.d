@@ -1,159 +1,162 @@
 /home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_autogen/EWIEGA46WW/moc_nodes_instances.cpp: /home/anna-lena/GUI_Cluster/nodes_instances.h \
   /home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_autogen/moc_predefs.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/QMetaType \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/QObject \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/q20memory.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/q20type_traits.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qalgorithms.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qanystringview.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qarraydata.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qarraydataops.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qarraydatapointer.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qassert.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qatomic.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qatomic_cxx11.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qbasicatomic.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qbindingstorage.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qbytearray.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qbytearrayalgorithms.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qbytearraylist.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qbytearrayview.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qchar.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qcompare.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qcompare_impl.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qcompilerdetection.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qconfig.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qconstructormacros.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qcontainerfwd.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qcontainerinfo.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qcontainertools_impl.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qcontiguouscache.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qdarwinhelpers.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qdatastream.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qdebug.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qexceptionhandling.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qflags.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qfloat16.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qforeach.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qfunctionpointer.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qgenericatomic.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qglobal.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qglobalstatic.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qhash.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qhashfunctions.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qiodevicebase.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qiterable.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qiterator.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qlist.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qlogging.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qmalloc.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qmap.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qmargins.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qmath.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qmetacontainer.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qmetaobject.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qmetatype.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qminmax.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qnamespace.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qnumeric.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qobject.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qobject_impl.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qobjectdefs.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qobjectdefs_impl.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qoverload.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qpair.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qpoint.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qpointer.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qprocessordetection.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qrect.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qrefcount.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qscopedpointer.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qscopeguard.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qset.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qshareddata.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qshareddata_impl.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qsharedpointer.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qsharedpointer_impl.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qsize.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qstring.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qstringalgorithms.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qstringconverter_base.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qstringfwd.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qstringlist.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qstringliteral.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qstringmatcher.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qstringtokenizer.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qstringview.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qswap.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qsysinfo.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qsystemdetection.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qtaggedpointer.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qtclasshelpermacros.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qtconfigmacros.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qtcore-config.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qtcoreexports.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qtdeprecationmarkers.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qtenvironmentvariables.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qtextstream.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qtmetamacros.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qtnoop.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qtpreprocessorsupport.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qtresource.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qttranslation.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qttypetraits.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qtversion.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qtversionchecks.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qtypeinfo.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qtypes.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qurl.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qutf8stringview.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qvariant.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qvarlengtharray.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qversionnumber.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qversiontagging.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtCore/qxptype_traits.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/QColor \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/QQuaternion \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/QVector4D \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qcolor.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qgenericmatrix.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qquaternion.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qrgb.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qrgba64.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qtgui-config.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qtguiexports.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qtguiglobal.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qvector3d.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qvector4d.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtGui/qvectornd.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtNetwork/qtnetwork-config.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtNetwork/qtnetworkexports.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtNetwork/qtnetworkglobal.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQml/qjsvalue.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQml/qqml.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQml/qqmlcomponent.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQml/qqmlerror.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQml/qqmllist.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQml/qqmlparserstatus.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQml/qqmlprivate.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQml/qqmlpropertyvaluesource.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQml/qqmlregistration.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQml/qtqml-config.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQml/qtqmlexports.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQml/qtqmlglobal.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQmlIntegration/qqmlintegration.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQuick3D/qquick3dinstancing.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQuick3D/qquick3dobject.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQuick3D/qtquick3dexports.h \
-  /home/anna-lena/QtDesignStudio/6.5.0/gcc_64/include/QtQuick3D/qtquick3dglobal.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/QMetaType \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/QObject \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/q20memory.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/q20type_traits.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qalgorithms.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qanystringview.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qarraydata.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qarraydataops.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qarraydatapointer.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qassert.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qatomic.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qatomic_cxx11.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qbasicatomic.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qbindingstorage.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qbytearray.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qbytearrayalgorithms.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qbytearraylist.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qbytearrayview.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qchar.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qcompare.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qcompare_impl.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qcompilerdetection.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qconfig.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qconstructormacros.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qcontainerfwd.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qcontainerinfo.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qcontainertools_impl.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qcontiguouscache.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qdarwinhelpers.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qdatastream.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qdebug.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qexceptionhandling.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qflags.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qfloat16.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qforeach.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qfunctionpointer.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qgenericatomic.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qglobal.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qglobalstatic.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qhash.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qhashfunctions.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qiodevicebase.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qiterable.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qiterator.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qlist.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qlogging.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qmalloc.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qmap.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qmargins.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qmath.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qmetacontainer.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qmetaobject.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qmetatype.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qminmax.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qnamespace.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qnumeric.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qobject.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qobject_impl.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qobjectdefs.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qobjectdefs_impl.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qoverload.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qpair.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qpoint.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qpointer.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qprocessordetection.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qrect.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qrefcount.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qscopedpointer.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qscopeguard.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qset.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qshareddata.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qshareddata_impl.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qsharedpointer.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qsharedpointer_impl.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qsize.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qstring.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qstringalgorithms.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qstringbuilder.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qstringconverter_base.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qstringfwd.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qstringlist.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qstringliteral.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qstringmatcher.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qstringtokenizer.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qstringview.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qswap.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qsysinfo.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qsystemdetection.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtaggedpointer.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtclasshelpermacros.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtconfigmacros.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtcore-config.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtcoreexports.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtdeprecationmarkers.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtenvironmentvariables.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtextstream.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtmetamacros.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtnoop.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtpreprocessorsupport.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtresource.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qttranslation.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qttypetraits.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtversion.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtversionchecks.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtypeinfo.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtyperevision.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qtypes.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qurl.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qutf8stringview.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qvariant.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qvarlengtharray.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qversionnumber.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qversiontagging.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtCore/qxptype_traits.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtGui/QColor \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtGui/QQuaternion \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtGui/QVector4D \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtGui/qcolor.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtGui/qgenericmatrix.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtGui/qquaternion.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtGui/qrgb.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtGui/qrgba64.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtGui/qtgui-config.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtGui/qtguiexports.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtGui/qtguiglobal.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtGui/qvector3d.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtGui/qvector4d.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtGui/qvectornd.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtNetwork/qtnetwork-config.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtNetwork/qtnetworkexports.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQml/qjsvalue.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQml/qqml.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQml/qqmlcomponent.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQml/qqmlerror.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQml/qqmllist.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQml/qqmlparserstatus.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQml/qqmlprivate.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQml/qqmlpropertyvaluesource.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQml/qqmlregistration.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQml/qtqml-config.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQml/qtqmlexports.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQml/qtqmlglobal.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQmlIntegration/qqmlintegration.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQuick3D/qquick3dinstancing.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQuick3D/qquick3dobject.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQuick3D/qtquick3dexports.h \
+  /home/anna-lena/QtDesignStudio/6.5.6/gcc_64/include/QtQuick3D/qtquick3dglobal.h \
   /usr/include/alloca.h \
+  /usr/include/asm-generic/errno-base.h \
+  /usr/include/asm-generic/errno.h \
   /usr/include/assert.h \
   /usr/include/c++/9/algorithm \
   /usr/include/c++/9/array \
   /usr/include/c++/9/atomic \
   /usr/include/c++/9/backward/auto_ptr.h \
   /usr/include/c++/9/backward/binders.h \
-  /usr/include/c++/9/bit \
   /usr/include/c++/9/bits/algorithmfwd.h \
   /usr/include/c++/9/bits/alloc_traits.h \
   /usr/include/c++/9/bits/allocated_ptr.h \
@@ -164,13 +167,11 @@
   /usr/include/c++/9/bits/basic_ios.tcc \
   /usr/include/c++/9/bits/basic_string.h \
   /usr/include/c++/9/bits/basic_string.tcc \
-  /usr/include/c++/9/bits/c++0x_warning.h \
   /usr/include/c++/9/bits/char_traits.h \
   /usr/include/c++/9/bits/concept_check.h \
   /usr/include/c++/9/bits/cpp_type_traits.h \
   /usr/include/c++/9/bits/cxxabi_forced.h \
   /usr/include/c++/9/bits/cxxabi_init_exception.h \
-  /usr/include/c++/9/bits/enable_special_members.h \
   /usr/include/c++/9/bits/erase_if.h \
   /usr/include/c++/9/bits/exception.h \
   /usr/include/c++/9/bits/exception_defines.h \
@@ -190,7 +191,6 @@
   /usr/include/c++/9/bits/memoryfwd.h \
   /usr/include/c++/9/bits/move.h \
   /usr/include/c++/9/bits/nested_exception.h \
-  /usr/include/c++/9/bits/node_handle.h \
   /usr/include/c++/9/bits/ostream.tcc \
   /usr/include/c++/9/bits/ostream_insert.h \
   /usr/include/c++/9/bits/parse_numbers.h \
@@ -202,7 +202,6 @@
   /usr/include/c++/9/bits/shared_ptr.h \
   /usr/include/c++/9/bits/shared_ptr_atomic.h \
   /usr/include/c++/9/bits/shared_ptr_base.h \
-  /usr/include/c++/9/bits/specfun.h \
   /usr/include/c++/9/bits/std_abs.h \
   /usr/include/c++/9/bits/std_function.h \
   /usr/include/c++/9/bits/stl_algo.h \
@@ -228,20 +227,22 @@
   /usr/include/c++/9/bits/stream_iterator.h \
   /usr/include/c++/9/bits/streambuf.tcc \
   /usr/include/c++/9/bits/streambuf_iterator.h \
-  /usr/include/c++/9/bits/string_view.tcc \
   /usr/include/c++/9/bits/stringfwd.h \
   /usr/include/c++/9/bits/uniform_int_dist.h \
   /usr/include/c++/9/bits/unique_ptr.h \
   /usr/include/c++/9/bits/uses_allocator.h \
   /usr/include/c++/9/bits/vector.tcc \
   /usr/include/c++/9/cctype \
+  /usr/include/c++/9/cerrno \
   /usr/include/c++/9/chrono \
   /usr/include/c++/9/clocale \
   /usr/include/c++/9/cmath \
   /usr/include/c++/9/cstddef \
   /usr/include/c++/9/cstdint \
+  /usr/include/c++/9/cstdio \
   /usr/include/c++/9/cstdlib \
   /usr/include/c++/9/cstring \
+  /usr/include/c++/9/ctime \
   /usr/include/c++/9/cwchar \
   /usr/include/c++/9/cwctype \
   /usr/include/c++/9/debug/assertions.h \
@@ -269,37 +270,24 @@
   /usr/include/c++/9/numeric \
   /usr/include/c++/9/optional \
   /usr/include/c++/9/ostream \
-  /usr/include/c++/9/pstl/execution_defs.h \
-  /usr/include/c++/9/pstl/glue_algorithm_defs.h \
-  /usr/include/c++/9/pstl/glue_memory_defs.h \
-  /usr/include/c++/9/pstl/glue_numeric_defs.h \
+  /usr/include/c++/9/ratio \
   /usr/include/c++/9/stdexcept \
   /usr/include/c++/9/streambuf \
   /usr/include/c++/9/string \
   /usr/include/c++/9/string_view \
-  /usr/include/c++/9/tr1/bessel_function.tcc \
-  /usr/include/c++/9/tr1/beta_function.tcc \
-  /usr/include/c++/9/tr1/ell_integral.tcc \
-  /usr/include/c++/9/tr1/exp_integral.tcc \
-  /usr/include/c++/9/tr1/gamma.tcc \
-  /usr/include/c++/9/tr1/hypergeometric.tcc \
-  /usr/include/c++/9/tr1/legendre_function.tcc \
-  /usr/include/c++/9/tr1/modified_bessel_func.tcc \
-  /usr/include/c++/9/tr1/poly_hermite.tcc \
-  /usr/include/c++/9/tr1/poly_laguerre.tcc \
-  /usr/include/c++/9/tr1/riemann_zeta.tcc \
-  /usr/include/c++/9/tr1/special_function_util.h \
+  /usr/include/c++/9/system_error \
   /usr/include/c++/9/tuple \
   /usr/include/c++/9/type_traits \
   /usr/include/c++/9/typeinfo \
-  /usr/include/c++/9/unordered_map \
   /usr/include/c++/9/utility \
   /usr/include/c++/9/variant \
   /usr/include/c++/9/vector \
   /usr/include/ctype.h \
   /usr/include/endian.h \
+  /usr/include/errno.h \
   /usr/include/features.h \
   /usr/include/limits.h \
+  /usr/include/linux/errno.h \
   /usr/include/linux/limits.h \
   /usr/include/locale.h \
   /usr/include/pthread.h \
@@ -313,10 +301,12 @@
   /usr/include/time.h \
   /usr/include/wchar.h \
   /usr/include/wctype.h \
+  /usr/include/x86_64-linux-gnu/asm/errno.h \
   /usr/include/x86_64-linux-gnu/bits/byteswap.h \
   /usr/include/x86_64-linux-gnu/bits/cpu-set.h \
   /usr/include/x86_64-linux-gnu/bits/endian.h \
   /usr/include/x86_64-linux-gnu/bits/endianness.h \
+  /usr/include/x86_64-linux-gnu/bits/errno.h \
   /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
   /usr/include/x86_64-linux-gnu/bits/floatn.h \
   /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -353,6 +343,7 @@
   /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
@@ -381,6 +372,7 @@
   /usr/include/x86_64-linux-gnu/c++/9/bits/cpu_defines.h \
   /usr/include/x86_64-linux-gnu/c++/9/bits/ctype_base.h \
   /usr/include/x86_64-linux-gnu/c++/9/bits/ctype_inline.h \
+  /usr/include/x86_64-linux-gnu/c++/9/bits/error_constants.h \
   /usr/include/x86_64-linux-gnu/c++/9/bits/gthr-default.h \
   /usr/include/x86_64-linux-gnu/c++/9/bits/gthr.h \
   /usr/include/x86_64-linux-gnu/c++/9/bits/os_defines.h \

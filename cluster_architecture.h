@@ -24,6 +24,9 @@ class Cluster_Architecture : public QObject
     Q_PROPERTY(long p2p_recv_max READ p2p_recv_max WRITE set_p2p_recv_max NOTIFY p2p_recv_max_changed)
     Q_PROPERTY(long coll_recv_max READ coll_recv_max WRITE set_coll_recv_max NOTIFY coll_recv_max_changed)
 
+    Q_PROPERTY(int slurm_id READ slurm_id WRITE set_slurm_id NOTIFY slurm_id_changed)
+    Q_PROPERTY(int proc_num READ proc_num WRITE set_proc_num NOTIFY proc_num_changed)
+
     QThread database_thread;
 
 public:
@@ -36,15 +39,20 @@ public:
     long coll_send_max();
     long p2p_recv_max();
     long coll_recv_max();
+    int slurm_id();
+    int proc_num();
 
     void set_p2p_send_max(long max);
     void set_coll_send_max(long max);
     void set_p2p_recv_max(long max);
     void set_coll_recv_max(long max);
+    //void set_slurm_id(int id);
 
     //Initialization
-    Q_INVOKABLE void initialize(Database_Connection *dbConnection, bool live);
+    Q_INVOKABLE void initialize(QString db_connection, bool live);
     Q_INVOKABLE void startThread();
+    Q_INVOKABLE void set_slurm_id(int id);
+    Q_INVOKABLE void set_proc_num(int proc);
     Q_INVOKABLE void setOption(int opt);
 
     //Invokables for Timeline
@@ -63,14 +71,16 @@ signals:
     void coll_send_max_changed();
     void p2p_recv_max_changed();
     void coll_recv_max_changed();
+    void slurm_id_changed();
+    void proc_num_changed();
 
     //Signals for Thread
     void signalToConnect(const QString &, const QString &, const int &, const QString &, const QString &);
-    void setProcNum(const int proc_num);
-    void setSlurmID(const int slurm_id);
     void signalToUpdateData(const int &);
     void signalToClearDB();
     void signalToShowTimestampData(const QDateTime timestampA, const QDateTime timestampB);
+    void startDatabaseThread();
+    void signalToDBConnection();
 
     //Signals for QML
     void componentsBuilt();
@@ -89,7 +99,7 @@ public slots:
 private:
 
     //database-connection
-    Database_Connection *m_dbConnection;
+    QString m_connectionName;
     Database_Thread *m_dbThread;
 
     bool m_componentsBuilt = false;
@@ -113,6 +123,7 @@ private:
 
     std::string m_envFilePath;
     int m_slurm_id;
+    int m_proc_num;
     int m_option;
     bool m_status_running=false;
     bool m_live_run;

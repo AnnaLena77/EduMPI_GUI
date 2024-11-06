@@ -48,6 +48,9 @@ Item {
                 onTriggered: {
                     var component, window;
                     if(controller.db_connection && controller.cluster_connection){
+                        var fd_id = controller.getClusterIdent();
+                        controller.getJobTable().loadJobs(fd_id);
+
                         component = Qt.createComponent("Table_Userid_Selection.qml");
                         window = component.createObject(root);
                         window.show();

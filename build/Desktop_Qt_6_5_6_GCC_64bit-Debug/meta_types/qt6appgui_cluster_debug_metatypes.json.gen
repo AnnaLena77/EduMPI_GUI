@@ -75,8 +75,8 @@
                         "access": "public",
                         "arguments": [
                             {
-                                "name": "dbConnection",
-                                "type": "Database_Connection*"
+                                "name": "db_connection",
+                                "type": "QString"
                             },
                             {
                                 "name": "live",
@@ -89,6 +89,28 @@
                     {
                         "access": "public",
                         "name": "startThread",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "id",
+                                "type": "int"
+                            }
+                        ],
+                        "name": "set_slurm_id",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "arguments": [
+                            {
+                                "name": "proc",
+                                "type": "int"
+                            }
+                        ],
+                        "name": "set_proc_num",
                         "returnType": "void"
                     },
                     {
@@ -214,6 +236,36 @@
                         "type": "long",
                         "user": false,
                         "write": "set_coll_recv_max"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 5,
+                        "name": "slurm_id",
+                        "notify": "slurm_id_changed",
+                        "read": "slurm_id",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "int",
+                        "user": false,
+                        "write": "set_slurm_id"
+                    },
+                    {
+                        "constant": false,
+                        "designable": true,
+                        "final": false,
+                        "index": 6,
+                        "name": "proc_num",
+                        "notify": "proc_num_changed",
+                        "read": "proc_num",
+                        "required": false,
+                        "scriptable": true,
+                        "stored": true,
+                        "type": "int",
+                        "user": false,
+                        "write": "set_proc_num"
                     }
                 ],
                 "qualifiedClassName": "Cluster_Architecture",
@@ -240,6 +292,16 @@
                     },
                     {
                         "access": "public",
+                        "name": "slurm_id_changed",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "proc_num_changed",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
                         "arguments": [
                             {
                                 "type": "QString"
@@ -258,28 +320,6 @@
                             }
                         ],
                         "name": "signalToConnect",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "proc_num",
-                                "type": "int"
-                            }
-                        ],
-                        "name": "setProcNum",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "slurm_id",
-                                "type": "int"
-                            }
-                        ],
-                        "name": "setSlurmID",
                         "returnType": "void"
                     },
                     {
@@ -310,6 +350,16 @@
                             }
                         ],
                         "name": "signalToShowTimestampData",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "startDatabaseThread",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
+                        "name": "signalToDBConnection",
                         "returnType": "void"
                     },
                     {
@@ -873,32 +923,6 @@
                         "access": "public",
                         "arguments": [
                             {
-                                "name": "timeSecondsA",
-                                "type": "int"
-                            },
-                            {
-                                "name": "timeSecondsB",
-                                "type": "int"
-                            }
-                        ],
-                        "name": "showConditionAt",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "start",
-                                "type": "bool"
-                            }
-                        ],
-                        "name": "startAndStop",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
                                 "name": "address",
                                 "type": "QString"
                             },
@@ -940,7 +964,7 @@
                     {
                         "access": "public",
                         "name": "getDatabaseConnection",
-                        "returnType": "Database_Connection*"
+                        "returnType": "QString"
                     },
                     {
                         "access": "public",
@@ -1016,20 +1040,6 @@
                         "scriptable": true,
                         "stored": true,
                         "type": "bool",
-                        "user": false
-                    },
-                    {
-                        "constant": false,
-                        "designable": true,
-                        "final": false,
-                        "index": 3,
-                        "member": "m_time_display",
-                        "name": "time_display",
-                        "notify": "time_display_changed",
-                        "required": false,
-                        "scriptable": true,
-                        "stored": true,
-                        "type": "int",
                         "user": false
                     }
                 ],
@@ -1130,32 +1140,7 @@
                     },
                     {
                         "access": "public",
-                        "arguments": [
-                            {
-                                "type": "int"
-                            }
-                        ],
-                        "name": "signalToUpdateData",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
                         "name": "signalToClearDB",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "timestampA",
-                                "type": "QTime"
-                            },
-                            {
-                                "name": "timestampB",
-                                "type": "QTime"
-                            }
-                        ],
-                        "name": "signalToShowTimestampData",
                         "returnType": "void"
                     },
                     {
@@ -1178,35 +1163,9 @@
                         "access": "public",
                         "name": "clusterConnectionChanged",
                         "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "name": "time_display_changed",
-                        "returnType": "void"
                     }
                 ],
                 "slots": [
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "type": "QMap<QString,QList<int>>"
-                            }
-                        ],
-                        "name": "buildClusterComponents",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "timestamp",
-                                "type": "QTime"
-                            }
-                        ],
-                        "name": "handleTimestamp",
-                        "returnType": "void"
-                    },
                     {
                         "access": "public",
                         "arguments": [
@@ -1334,6 +1293,11 @@
                 "slots": [
                     {
                         "access": "public",
+                        "name": "connectToDB",
+                        "returnType": "void"
+                    },
+                    {
+                        "access": "public",
                         "name": "threadbuildClusterComponents",
                         "returnType": "void"
                     },
@@ -1372,17 +1336,6 @@
                         "access": "public",
                         "arguments": [
                             {
-                                "name": "id",
-                                "type": "int"
-                            }
-                        ],
-                        "name": "getSlurmId",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
                                 "name": "proc_num",
                                 "type": "int"
                             }
@@ -1405,7 +1358,7 @@
                 "superClasses": [
                     {
                         "access": "public",
-                        "name": "QThread"
+                        "name": "QObject"
                     }
                 ]
             }
@@ -1895,17 +1848,6 @@
                             }
                         ],
                         "name": "loadJobs",
-                        "returnType": "void"
-                    },
-                    {
-                        "access": "public",
-                        "arguments": [
-                            {
-                                "name": "dbConnection",
-                                "type": "Database_Connection*"
-                            }
-                        ],
-                        "name": "setDatabaseConnection",
                         "returnType": "void"
                     }
                 ],

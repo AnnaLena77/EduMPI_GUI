@@ -2,10 +2,6 @@
 #define CONTROLLER_H
 
 #include "cluster_node.h"
-#include "database_thread.h"
-#include "database_connection.h"
-#include "qstandarditemmodel.h"
-#include "qthread.h"
 #include <QJSValue>
 #include <QtConcurrent/QtConcurrent>
 #include <bash_process_manager.h>
@@ -21,7 +17,7 @@ class Controller : public QObject
 
     Q_PROPERTY(bool db_connection  MEMBER m_connection_ready NOTIFY connectionChanged)
     Q_PROPERTY(bool cluster_connection MEMBER m_cluster_connection_ready NOTIFY clusterConnectionChanged)
-    Q_PROPERTY(int time_display MEMBER m_time_display NOTIFY time_display_changed)
+    //Q_PROPERTY(int time_display MEMBER m_time_display NOTIFY time_display_changed)
     QML_ELEMENT
 
 public:
@@ -29,6 +25,8 @@ public:
     ~Controller();
 
     void copyOutputFile();
+
+    bool connectToDB(const QString &hostname, const QString &databasename, const int &port, const QString &username, const QString &password);
 
     Q_INVOKABLE void connect(QString hostname, QString databasename, int port, QString UserName, QString password);
     //Q_INVOKABLE void buildClusterComponents(int proc_num);
@@ -43,8 +41,8 @@ public:
     Q_INVOKABLE void writeRemoteBashFile(QString program_name, int proc_num, int option);
 
     //Invokables for Timeline
-    Q_INVOKABLE void showConditionAt(int timeSecondsA, int timeSecondsB);
-    Q_INVOKABLE void startAndStop(bool start);
+    //Q_INVOKABLE void showConditionAt(int timeSecondsA, int timeSecondsB);
+    //Q_INVOKABLE void startAndStop(bool start);
 
     //Asynchronous Callback for Cluster-Connection Check:
     Q_INVOKABLE QString connectCluster(const QString &address, const QString &ident, const QString &path);
@@ -59,7 +57,7 @@ public:
 
     Bash_Process_Manager *slurm_process;
 
-    Q_INVOKABLE Database_Connection *getDatabaseConnection();
+    Q_INVOKABLE QString getDatabaseConnection();
     Q_INVOKABLE void setComponentsBuild(bool b);
     Q_INVOKABLE void setTimestamp(QTime timestamp);
     Q_INVOKABLE Table_UserID *getJobTable();
@@ -78,24 +76,21 @@ signals:
     //Signals for Thread
     void signalToConnect(const QString &, const QString &, const int &, const QString &, const QString &);
     void setProcNum(const int proc_num);
-    void signalToUpdateData(const int &);
     void signalToClearDB();
-    void signalToShowTimestampData(const QTime timestampA, const QTime timestampB);
 
     //Signal for Table_UserID
     void fetchEduMPIJobsForUser(const QString &userId);
 
     void connectionChanged();
     void clusterConnectionChanged();
-    void time_display_changed();
 
 //Slots for Thread
 public slots:
     //void dbConnectionSuccessful(const bool &);
-    void buildClusterComponents(const QMap<QString, QVector<int>> &);
+    //void buildClusterComponents(const QMap<QString, QVector<int>> &);
     //void updateDataToUI(const QList<DataColumn> &);
     //void removeClusterComponents();
-    void handleTimestamp(QTime timestamp);
+    //void handleTimestamp(QTime timestamp);
     void slurm_status_changed(QString status);
     void getSlurmID(const int id);
 
@@ -104,7 +99,7 @@ public slots:
 
 private:
 
-    Database_Connection *m_dbConnection;
+    QString m_connectionName;
 
     bool m_componentsBuilt = false;
     bool m_connection_ready = false;
@@ -128,7 +123,7 @@ private:
     Table_UserID *m_job_table;
 
 protected:
-    void timerEvent(QTimerEvent *event);
+    //void timerEvent(QTimerEvent *event);
 };
 
 #endif // CONTROLLER_H

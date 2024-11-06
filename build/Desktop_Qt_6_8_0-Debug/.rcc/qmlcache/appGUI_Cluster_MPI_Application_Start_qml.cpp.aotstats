@@ -1,0 +1,236 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 366,
+                        "errorMessage": "Cannot access value for name root",
+                        "functionName": "startup",
+                        "line": 229
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 5,
+                        "durationMicroseconds": 378,
+                        "errorMessage": "Cannot access value for name controller",
+                        "functionName": "checkInput",
+                        "line": 240
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 361,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 23
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 17,
+                        "durationMicroseconds": 278,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 25
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 20,
+                        "durationMicroseconds": 157,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 31
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 109,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 32
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 31,
+                        "durationMicroseconds": 158,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 34
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 24,
+                        "durationMicroseconds": 5,
+                        "errorMessage": "Cannot resolve property type  for binding on width.",
+                        "functionName": "width",
+                        "line": 55
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 27,
+                        "durationMicroseconds": 3,
+                        "errorMessage": "Cannot resolve property type  for binding on wrapMode.",
+                        "functionName": "wrapMode",
+                        "line": 57
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 38,
+                        "durationMicroseconds": 166,
+                        "errorMessage": "",
+                        "functionName": "cursorShape",
+                        "line": 71
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 38,
+                        "durationMicroseconds": 152,
+                        "errorMessage": "",
+                        "functionName": "cursorShape",
+                        "line": 80
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 167,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 87
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 35,
+                        "durationMicroseconds": 151,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 93
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 32,
+                        "durationMicroseconds": 17,
+                        "errorMessage": "Cannot resolve property type  for binding on onClicked.",
+                        "functionName": "onClicked",
+                        "line": 103
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 42,
+                        "durationMicroseconds": 156,
+                        "errorMessage": "",
+                        "functionName": "cursorShape",
+                        "line": 101
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 29,
+                        "durationMicroseconds": 52,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: uploadPath",
+                        "functionName": "onAccepted",
+                        "line": 121
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 29,
+                        "durationMicroseconds": 45,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: uploadPath",
+                        "functionName": "onAccepted",
+                        "line": 126
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 24,
+                        "durationMicroseconds": 5,
+                        "errorMessage": "Cannot resolve property type  for binding on width.",
+                        "functionName": "width",
+                        "line": 130
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 27,
+                        "durationMicroseconds": 3,
+                        "errorMessage": "Cannot resolve property type  for binding on wrapMode.",
+                        "functionName": "wrapMode",
+                        "line": 132
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 180,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 138
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 157,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 158
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 26,
+                        "durationMicroseconds": 5,
+                        "errorMessage": "Cannot resolve property type  for binding on enabled.",
+                        "functionName": "enabled",
+                        "line": 186
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 27,
+                        "durationMicroseconds": 20,
+                        "errorMessage": "Cannot resolve property type  for binding on onClicked.",
+                        "functionName": "onClicked",
+                        "line": 192
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 35,
+                        "durationMicroseconds": 151,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 183
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 34,
+                        "durationMicroseconds": 158,
+                        "errorMessage": "",
+                        "functionName": "cursorShape",
+                        "line": 189
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 27,
+                        "durationMicroseconds": 10,
+                        "errorMessage": "Cannot resolve property type  for binding on onClicked.",
+                        "functionName": "onClicked",
+                        "line": 220
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 35,
+                        "durationMicroseconds": 158,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 213
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 34,
+                        "durationMicroseconds": 155,
+                        "errorMessage": "",
+                        "functionName": "cursorShape",
+                        "line": 217
+                    }
+                ],
+                "filepath": "/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_8_0-Debug/MPI_Application_Start.qml"
+            }
+        ],
+        "moduleId": "GUI_Cluster(appGUI_Cluster)"
+    }
+]

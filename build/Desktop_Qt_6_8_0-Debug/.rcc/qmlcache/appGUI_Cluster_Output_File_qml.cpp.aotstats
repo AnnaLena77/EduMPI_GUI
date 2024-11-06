@@ -1,0 +1,100 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 281,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 20
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 105,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 19
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 158,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 21
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 31,
+                        "durationMicroseconds": 152,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 37
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 19,
+                        "durationMicroseconds": 91,
+                        "errorMessage": "Cannot access value for name path",
+                        "functionName": "text",
+                        "line": 45
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 140,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 47
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 24,
+                        "durationMicroseconds": 9,
+                        "errorMessage": "Cannot resolve property type  for binding on onClicked.",
+                        "functionName": "onClicked",
+                        "line": 57
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 169,
+                        "errorMessage": "",
+                        "functionName": "cursorShape",
+                        "line": 55
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 31,
+                        "durationMicroseconds": 166,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 58
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 26,
+                        "durationMicroseconds": 232,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: ok_button",
+                        "functionName": "onPressed",
+                        "line": 60
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 95,
+                        "errorMessage": "",
+                        "functionName": "onPressed",
+                        "line": 60
+                    }
+                ],
+                "filepath": "/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_8_0-Debug/Output_File.qml"
+            }
+        ],
+        "moduleId": "GUI_Cluster(appGUI_Cluster)"
+    }
+]

@@ -1,0 +1,100 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 29,
+                        "durationMicroseconds": 344,
+                        "errorMessage": "Cannot access value for name slurm_status",
+                        "functionName": "status",
+                        "line": 11
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 31,
+                        "durationMicroseconds": 356,
+                        "errorMessage": "Cannot access value for name enable_timeline",
+                        "functionName": "showLoader",
+                        "line": 12
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 464,
+                        "errorMessage": "",
+                        "functionName": "onShowLoaderChanged",
+                        "line": 14
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 22,
+                        "durationMicroseconds": 76,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: busyindicator",
+                        "functionName": "onStatusChanged",
+                        "line": 20
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 163,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 35
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 97,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 34
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 139,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 36
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 31,
+                        "durationMicroseconds": 129,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 42
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 19,
+                        "durationMicroseconds": 377,
+                        "errorMessage": "Cannot access value for name loaderText",
+                        "functionName": "text",
+                        "line": 53
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 149,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 55
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 34,
+                        "durationMicroseconds": 124,
+                        "errorMessage": "",
+                        "functionName": "horizontalAlignment",
+                        "line": 57
+                    }
+                ],
+                "filepath": "/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_8_0-Debug/Loading.qml"
+            }
+        ],
+        "moduleId": "GUI_Cluster(appGUI_Cluster)"
+    }
+]

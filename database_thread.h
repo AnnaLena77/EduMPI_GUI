@@ -22,22 +22,22 @@ struct DataColumn
 };
 
 
-class Database_Thread : public QThread
+class Database_Thread : public QObject
 {
     Q_OBJECT
 
 
 public:
-    explicit Database_Thread(Database_Connection *dbConnection, QObject *parent = nullptr);
+    explicit Database_Thread(QString dbConnectionName, int slurm_id, int proc_num, QObject *parent = nullptr);
+    ~Database_Thread();
 
 public slots:
-    //void connectToDB(const QString &hostname, const QString &databasename, const int &port, const QString &username, const QString &password);
+    void connectToDB();
     void threadbuildClusterComponents();
     void updateData(const int &time_display);
     void showDataFromTimePeriod(const QDateTime timestampA, const QDateTime timestampB);
     void clearDatabase();
 
-    void getSlurmId(const int id);
     void getProcNum(const int proc_num);
     void fetchEduMPIJobs(const QString &userId);
 
@@ -53,7 +53,7 @@ private:
 
     //database_connection
     Database_Connection *m_dbConnection;
-    QSqlDatabase m_db;
+    QString m_connectionName;
 
     bool m_clearingProc = false;
     QDateTime m_actualDBEntryTime;

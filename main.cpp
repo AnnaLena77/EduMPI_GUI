@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     //QQmlContext* context = engine.rootContext();
 
     //context->setContextProperty("NodesList", &dbi);
-
+    qDebug() << "Current thread Main Main:" << QThread::currentThread();
 
     return app.exec();
 }

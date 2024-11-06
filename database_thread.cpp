@@ -7,23 +7,47 @@
 #include <QStandardItemModel>
 #include <QSqlError>
 
-Database_Thread::Database_Thread(Database_Connection *dbConnection, QObject *parent)
-    : QThread(parent), m_dbConnection(dbConnection) {
+Database_Thread::Database_Thread(QString dbConnectionName, int slurm_id, int proc_num, QObject *parent)
+    : QObject(parent) {
 
-    m_db = m_dbConnection->getDatabaseConnection();
+    m_connectionName = dbConnectionName;
+    m_proc_num = proc_num;
+    m_slurm_id = slurm_id;
+}
+
+Database_Thread::~Database_Thread(){
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
+        return;
+    }
+    db.close();
+    QSqlDatabase::removeDatabase(m_connectionName);
 }
 
 void Database_Thread::clearDatabase(){
 
 }
 
+void Database_Thread::connectToDB(){
+    QSqlDatabase db = QSqlDatabase::cloneDatabase("mainConnection", m_connectionName);
+    std::cout << "Slurm_ID ANGEKOMMEN" << std::endl;
+    db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        db.open();
+    }
+}
+
 void Database_Thread::threadbuildClusterComponents(){
-    if(!m_db.isOpen()){
+    qDebug() << "Current thread:" << QThread::currentThread();
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
         return;
     }
+
     m_firstDBEntryTime = QTime();
-    std::cout << "threadbuildClusterComponents" << std::endl;
-    QSqlQuery query(m_db);
+    QSqlQuery query(db);
     QString name = "";
 
     QMap<QString, QVector<int>> map;
@@ -59,9 +83,13 @@ void Database_Thread::threadbuildClusterComponents(){
 //Continuous update of the data in the database for the live view
 void Database_Thread::updateData(const int &time_display){
 
-    //std::cout << "updateData" << std::endl;
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
+        return;
+    }
 
-    QSqlQuery queryy(m_db);
+    QSqlQuery queryy(db);
     QDateTime timestamp;
 
     if(m_firstDBEntryTime.isNull()){
@@ -72,6 +100,8 @@ void Database_Thread::updateData(const int &time_display){
         if(queryy.next()){
             timestamp = queryy.value(0).toDateTime();
             QDateTime timestamp_end = queryy.value(1).toDateTime();
+
+            qDebug() << "TestDateTime " << queryy.value(0);
 
             int diff = timestamp.msecsTo(timestamp_end);
 
@@ -89,7 +119,7 @@ void Database_Thread::updateData(const int &time_display){
         m_actualDBEntryTime = m_actualDBEntryTime.addSecs(1);
     }
 
-    QSqlQuery query(m_db);
+    QSqlQuery query(db);
     QString queryString;
 
     if(time_display == 0){
@@ -137,14 +167,15 @@ void Database_Thread::updateData(const int &time_display){
 }
 
 void Database_Thread::showDataFromTimePeriod(const QDateTime timestampA, const QDateTime timestampB){
-    //QDateTime a = QDateTime::currentDateTime();
-    //QDateTime b = QDateTime::currentDateTime();
-    //a.setTime(timestampA);
-    //b.setTime(timestampB);
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
+        return;
+    }
 
     QString queryString = "SELECT processorname, processrank, communicationtype, SUM(send_ds) AS send_ds, SUM(recv_ds) AS recv_ds, SUM(time_diff) AS time_diff, SUM(latesendertime) AS latesendertime, SUM(laterecvrtime) AS laterecvrtime FROM edumpi_secondly_data WHERE edumpi_run_id = :slurm_id AND ((time_end >= :endtime AND time_start <= :starttime) OR (time_end BETWEEN :starttime AND :endtime)) GROUP BY processorname, processrank, communicationtype;";
 
-    QSqlQuery query(m_db);
+    QSqlQuery query(db);
     query.prepare(queryString);
     query.bindValue(":starttime", timestampA.toString("yyyy-MM-dd HH:mm:ss"));
     query.bindValue(":endtime", timestampB.toString("yyyy-MM-dd HH:mm:ss"));
@@ -185,11 +216,20 @@ void Database_Thread::showDataFromTimePeriod(const QDateTime timestampA, const Q
 
 }
 
-void Database_Thread::getSlurmId(const int id){
+/*void Database_Thread::getSlurmId(const int id){
     std::cout << "Slurm_ID ANGEKOMMEN" << std::endl;
     m_slurm_id = id;
+    QString name_helper = "Thread %1";
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
+        return;
+    }
+    m_connectionName = name_helper.arg(m_slurm_id);
+    QSqlDatabase clone_db = QSqlDatabase::cloneDatabase(db, m_connectionName);
+    clone_db.open();
     threadbuildClusterComponents();
-}
+}*/
 
 void Database_Thread::getProcNum(const int proc_num){
     m_proc_num = proc_num;

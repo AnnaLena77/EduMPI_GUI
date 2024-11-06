@@ -47,9 +47,9 @@ Item {
 
         Rectangle{
             id: timeline_buttons
-             width: 150
+             implicitWidth: 150
              z: 1
-             height: parent.height
+             implicitHeight: parent.height
              color: "#383936"
              Layout.fillWidth: true
              Layout.maximumWidth: 150
@@ -146,8 +146,8 @@ Item {
         }
         Rectangle{
             id: rect_over_timeline_container
-            width: parent.width-timeline_buttons.width
-            height: parent.height
+            implicitWidth: parent.width-timeline_buttons.width
+            implicitHeight: parent.height
             Layout.fillWidth: true
 
             Flickable{

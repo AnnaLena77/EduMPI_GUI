@@ -25,17 +25,17 @@ extern const unsigned char qmlData alignas(16) [];
 extern const unsigned char qmlData alignas(16) [] = {
 
 0x71,0x76,0x34,0x63,0x64,0x61,0x74,0x61,
-0x3b,0x0,0x0,0x0,0x0,0x5,0x6,0x0,
+0x3d,0x0,0x0,0x0,0x6,0x5,0x6,0x0,
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x90,0x40,0x0,0x0,0x65,0x39,0x65,0x61,
-0x35,0x64,0x66,0x32,0x63,0x65,0x31,0x62,
-0x66,0x35,0x62,0x66,0x61,0x36,0x31,0x37,
-0x37,0x61,0x30,0x38,0x31,0x62,0x66,0x36,
-0x34,0x32,0x33,0x30,0x36,0x39,0x61,0x37,
-0x30,0x30,0x31,0x33,0x0,0x0,0x0,0x0,
-0x0,0x0,0x0,0x0,0xe4,0x1c,0xb2,0x9d,
-0x62,0xb7,0x16,0x16,0x15,0x69,0x58,0x67,
-0xbb,0xd,0x3c,0x5d,0x0,0x0,0x0,0x0,
+0x90,0x40,0x0,0x0,0x35,0x37,0x31,0x66,
+0x36,0x32,0x35,0x39,0x63,0x31,0x65,0x62,
+0x31,0x39,0x62,0x39,0x31,0x35,0x39,0x34,
+0x39,0x36,0x66,0x37,0x39,0x37,0x35,0x32,
+0x36,0x62,0x37,0x36,0x63,0x31,0x66,0x33,
+0x32,0x63,0x30,0x62,0x0,0x0,0x0,0x0,
+0x0,0x0,0x0,0x0,0x36,0xc,0x44,0xee,
+0xaf,0xdd,0xc9,0x90,0x78,0xf6,0xa3,0xd,
+0x91,0x81,0x72,0x49,0x0,0x0,0x0,0x0,
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x0,0x0,0x0,0x0,0x23,0x0,0x0,0x0,
 0x9c,0x0,0x0,0x0,0x68,0x1b,0x0,0x0,
@@ -198,7 +198,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0xe2,0xff,0xff,0xff,0x0,0xc0,0x3,0x0,
 0x44,0x0,0x0,0x0,0x7,0x0,0x0,0x0,
 0xd,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0x7,0x0,0x0,0x0,
 0xe,0x0,0x50,0x0,0x0,0x0,0x0,0x0,
@@ -208,7 +208,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x18,0x6,0x2,0x0,0x0,0x0,0x0,0x0,
 0x5c,0x0,0x0,0x0,0x18,0x0,0x0,0x0,
 0x14,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x3,0x0,
 0xff,0xff,0xff,0xff,0xc,0x0,0x0,0x0,
 0x13,0x0,0x50,0x0,0x0,0x0,0x0,0x0,
@@ -223,7 +223,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0xd4,0x16,0x6,0x2,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x5,0x0,0x0,0x0,
 0x1b,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0x7,0x0,0x0,0x0,
 0x1b,0x0,0x90,0x0,0x0,0x0,0x0,0x0,
@@ -233,7 +233,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x5,0x0,0x0,0x0,
 0x19,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0x7,0x0,0x0,0x0,
 0x1a,0x0,0x90,0x0,0x0,0x0,0x0,0x0,
@@ -243,7 +243,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x7,0x0,0x0,0x0,
 0x1e,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0x7,0x0,0x0,0x0,
 0x1d,0x0,0xd0,0x0,0x0,0x0,0x0,0x0,
@@ -253,7 +253,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x18,0x6,0x2,0x0,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x15,0x0,0x0,0x0,
 0x27,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0xd,0x0,0x0,0x0,
 0x25,0x0,0xd0,0x0,0x0,0x0,0x0,0x0,
@@ -265,7 +265,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x15,0x0,0x0,0x0,
 0x2a,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0xd,0x0,0x0,0x0,
 0x27,0x0,0xd0,0x0,0x0,0x0,0x0,0x0,
@@ -277,7 +277,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x15,0x0,0x0,0x0,
 0x2c,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0xd,0x0,0x0,0x0,
 0x28,0x0,0xd0,0x0,0x0,0x0,0x0,0x0,
@@ -289,7 +289,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x74,0x0,0x0,0x0,0xaf,0x0,0x0,0x0,
 0x30,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x5,0x0,
 0xff,0xff,0xff,0xff,0xf,0x0,0x0,0x0,
 0x2d,0x0,0xd0,0x0,0x0,0x0,0x0,0x0,
@@ -326,12 +326,12 @@ extern const unsigned char qmlData alignas(16) [] = {
 0xa,0xe,0x2,0x0,0x0,0x0,0x0,0x0,
 0xac,0x0,0x0,0x0,0x63,0x0,0x0,0x0,
 0x31,0x0,0x0,0x0,0x1,0x0,0x1,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x40,0x0,0x0,0x0,0x0,0x0,0x9,0x0,
 0xff,0xff,0xff,0xff,0xd,0x0,0x0,0x0,
 0x34,0x0,0xd0,0x0,0x0,0x0,0x0,0x0,
 0x0,0x0,0x8,0x0,0x0,0x0,0x0,0x0,
-0x2d,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x2d,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x0,0x0,0x0,0x0,0x35,0x0,0x0,0x0,
 0x2,0x0,0x0,0x0,0x11,0x0,0x0,0x0,
 0x36,0x0,0x0,0x0,0x3,0x0,0x0,0x0,
@@ -362,7 +362,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x5c,0x0,0x0,0x0,0x9,0x0,0x0,0x0,
 0x34,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x3,0x0,
 0xb,0x0,0x0,0x0,0x7,0x0,0x0,0x0,
 0x43,0x0,0xd0,0x0,0x0,0x0,0x0,0x0,
@@ -376,12 +376,12 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x70,0x0,0x0,0x0,0x29,0x0,0x0,0x0,
 0x0,0x0,0x0,0x0,0x1,0x0,0x1,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x40,0x0,0x0,0x0,0x0,0x0,0x4,0x0,
 0xff,0xff,0xff,0xff,0xd,0x0,0x0,0x0,
 0x43,0x0,0x60,0x1,0x0,0x0,0x0,0x0,
 0x0,0x0,0x8,0x0,0x0,0x0,0x2,0x0,
-0x9b,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x9b,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x0,0x0,0x0,0x0,0x44,0x0,0x0,0x0,
 0x1,0x0,0x0,0x0,0xd,0x0,0x0,0x0,
 0x45,0x0,0x0,0x0,0x4,0x0,0x0,0x0,
@@ -397,7 +397,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x5c,0x0,0x0,0x0,0x9,0x0,0x0,0x0,
 0x3b,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x3,0x0,
 0xd,0x0,0x0,0x0,0x7,0x0,0x0,0x0,
 0x54,0x0,0xd0,0x0,0x0,0x0,0x0,0x0,
@@ -411,12 +411,12 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x70,0x0,0x0,0x0,0x11,0x0,0x0,0x0,
 0x0,0x0,0x0,0x0,0x1,0x0,0x1,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x40,0x0,0x0,0x0,0x0,0x0,0x4,0x0,
 0xff,0xff,0xff,0xff,0x8,0x0,0x0,0x0,
 0x54,0x0,0x80,0x1,0x0,0x0,0x0,0x0,
 0x0,0x0,0x8,0x0,0x0,0x0,0x2,0x0,
-0x9b,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x9b,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x0,0x0,0x0,0x0,0x55,0x0,0x0,0x0,
 0x2,0x0,0x0,0x0,0x3,0x0,0x0,0x0,
 0x56,0x0,0x0,0x0,0x4,0x0,0x0,0x0,
@@ -428,7 +428,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x5c,0x0,0x0,0x0,0x9,0x0,0x0,0x0,
 0x3d,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x3,0x0,
 0xf,0x0,0x0,0x0,0x7,0x0,0x0,0x0,
 0x59,0x0,0xd0,0x0,0x0,0x0,0x0,0x0,
@@ -442,19 +442,19 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x58,0x0,0x0,0x0,0x5,0x0,0x0,0x0,
 0x0,0x0,0x0,0x0,0x1,0x0,0x1,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x40,0x0,0x0,0x0,0x0,0x0,0x2,0x0,
 0xff,0xff,0xff,0xff,0x8,0x0,0x0,0x0,
 0x59,0x0,0x90,0x1,0x0,0x0,0x0,0x0,
 0x0,0x0,0x8,0x0,0x0,0x0,0x2,0x0,
-0x9b,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x9b,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x0,0x0,0x0,0x0,0x5a,0x0,0x0,0x0,
 0x2,0x0,0x0,0x0,0x3,0x0,0x0,0x0,
 0x5b,0x0,0x0,0x0,0x2,0x0,0x0,0x0,
 0xa,0x30,0x37,0xe,0x2,0x0,0x0,0x0,
 0x5c,0x0,0x0,0x0,0x9,0x0,0x0,0x0,
 0x3f,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x3,0x0,
 0x11,0x0,0x0,0x0,0x7,0x0,0x0,0x0,
 0x5d,0x0,0xd0,0x0,0x0,0x0,0x0,0x0,
@@ -468,12 +468,12 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0xb8,0x0,0x0,0x0,0x9c,0x0,0x0,0x0,
 0x0,0x0,0x0,0x0,0x1,0x0,0x1,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x40,0x0,0x0,0x0,0x0,0x0,0xa,0x0,
 0xff,0xff,0xff,0xff,0x16,0x0,0x0,0x0,
 0x5d,0x0,0x0,0x2,0x0,0x0,0x0,0x0,
 0x0,0x0,0xa,0x0,0x0,0x0,0x2,0x0,
-0x9b,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x9b,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x0,0x0,0x0,0x0,0x5e,0x0,0x0,0x0,
 0x1,0x0,0x0,0x0,0x7,0x0,0x0,0x0,
 0x5f,0x0,0x0,0x0,0x3,0x0,0x0,0x0,
@@ -512,7 +512,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x5c,0x0,0x0,0x0,0x9,0x0,0x0,0x0,
 0x41,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x3,0x0,
 0x13,0x0,0x0,0x0,0x7,0x0,0x0,0x0,
 0x6c,0x0,0xd0,0x0,0x0,0x0,0x0,0x0,
@@ -526,12 +526,12 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0xe8,0x0,0x0,0x0,0xa,0x1,0x0,0x0,
 0x0,0x0,0x0,0x0,0x1,0x0,0x1,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x40,0x0,0x0,0x0,0x0,0x0,0xe,0x0,
 0xff,0xff,0xff,0xff,0x18,0x0,0x0,0x0,
 0x6c,0x0,0x80,0x1,0x0,0x0,0x0,0x0,
 0x0,0x0,0x11,0x0,0x0,0x0,0x2,0x0,
-0x9b,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x9b,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x0,0x0,0x0,0x0,0x6e,0x0,0x0,0x0,
 0x1,0x0,0x0,0x0,0x1a,0x0,0x0,0x0,
 0x6f,0x0,0x0,0x0,0x2,0x0,0x0,0x0,
@@ -590,7 +590,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x8,0x0,0x0,0x0,
 0x19,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0x7,0x0,0x0,0x0,
 0x4e,0x0,0xd0,0x0,0x0,0x0,0x0,0x0,
@@ -600,7 +600,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x18,0x6,0x2,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0xd,0x0,0x0,0x0,
 0x45,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0x7,0x0,0x0,0x0,
 0x89,0x0,0xd0,0x0,0x0,0x0,0x0,0x0,
@@ -611,7 +611,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x24,0x0,0x0,0x0,
 0x4b,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0xd,0x0,0x0,0x0,
 0x8d,0x0,0x10,0x1,0x0,0x0,0x0,0x0,
@@ -625,7 +625,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x80,0x0,0x0,0x0,0xa9,0x0,0x0,0x0,
 0x4d,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x6,0x0,
 0xff,0xff,0xff,0xff,0x12,0x0,0x0,0x0,
 0x8e,0x0,0x10,0x1,0x0,0x0,0x0,0x0,
@@ -663,7 +663,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0xd,0x0,0x0,0x0,
 0x56,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0x7,0x0,0x0,0x0,
 0xa0,0x0,0x10,0x1,0x0,0x0,0x0,0x0,
@@ -674,7 +674,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x8c,0x0,0x0,0x0,0x73,0x0,0x0,0x0,
 0x58,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x7,0x0,
 0xff,0xff,0xff,0xff,0x16,0x0,0x0,0x0,
 0xa2,0x0,0x10,0x1,0x0,0x0,0x0,0x0,
@@ -707,7 +707,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x8,0x0,0x0,0x0,
 0x5c,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0x7,0x0,0x0,0x0,
 0xb1,0x0,0x90,0x1,0x0,0x0,0x0,0x0,
@@ -717,7 +717,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x18,0x6,0x2,0x0,0x0,0x0,0x0,
 0x50,0x0,0x0,0x0,0x5,0x0,0x0,0x0,
 0x14,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x2,0x0,
 0xff,0xff,0xff,0xff,0x7,0x0,0x0,0x0,
 0xb3,0x0,0x90,0x1,0x0,0x0,0x0,0x0,
@@ -729,7 +729,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x8,0x0,0x0,0x0,
 0x60,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0x7,0x0,0x0,0x0,
 0xba,0x0,0xd0,0x1,0x0,0x0,0x0,0x0,
@@ -739,7 +739,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x18,0x6,0x2,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x8,0x0,0x0,0x0,
 0x62,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0x7,0x0,0x0,0x0,
 0xbb,0x0,0xd0,0x1,0x0,0x0,0x0,0x0,
@@ -749,7 +749,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x18,0x6,0x2,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x8,0x0,0x0,0x0,
 0x64,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0x7,0x0,0x0,0x0,
 0xbc,0x0,0xd0,0x1,0x0,0x0,0x0,0x0,
@@ -759,7 +759,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x18,0x6,0x2,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x8,0x0,0x0,0x0,
 0x66,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0x7,0x0,0x0,0x0,
 0xbd,0x0,0xd0,0x1,0x0,0x0,0x0,0x0,
@@ -769,7 +769,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x18,0x6,0x2,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x42,0x0,0x0,0x0,
 0x68,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0xb,0x0,0x0,0x0,
 0xbe,0x0,0xd0,0x1,0x0,0x0,0x0,0x0,
@@ -787,7 +787,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x2c,0x0,0x0,0x0,
 0x6a,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0xb,0x0,0x0,0x0,
 0xbf,0x0,0xd0,0x1,0x0,0x0,0x0,0x0,
@@ -802,7 +802,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x27,0x0,0x0,0x0,
 0x6c,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0xb,0x0,0x0,0x0,
 0xc0,0x0,0xd0,0x1,0x0,0x0,0x0,0x0,
@@ -816,7 +816,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x18,0x6,0x2,0x0,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x8,0x0,0x0,0x0,
 0x6f,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0x7,0x0,0x0,0x0,
 0xc2,0x0,0xd0,0x1,0x0,0x0,0x0,0x0,
@@ -826,7 +826,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x18,0x6,0x2,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x45,0x0,0x0,0x0,
 0x72,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0x11,0x0,0x0,0x0,
 0xc4,0x0,0xd0,0x1,0x0,0x0,0x0,0x0,
@@ -844,7 +844,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x2,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x29,0x0,0x0,0x0,
 0x74,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0xa,0x0,0x0,0x0,
 0xc5,0x0,0xd0,0x1,0x0,0x0,0x0,0x0,
@@ -859,7 +859,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x50,0x0,0x0,0x0,0x5,0x0,0x0,0x0,
 0x14,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x2,0x0,
 0xff,0xff,0xff,0xff,0x7,0x0,0x0,0x0,
 0xc6,0x0,0xd0,0x1,0x0,0x0,0x0,0x0,
@@ -871,7 +871,7 @@ extern const unsigned char qmlData alignas(16) [] = {
 0x0,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
 0x44,0x0,0x0,0x0,0x24,0x0,0x0,0x0,
 0x27,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
-0x38,0x0,0x0,0x0,0x0,0x0,0x0,0x0,
+0x38,0x0,0x0,0x0,0x31,0x0,0x0,0x0,
 0x38,0x0,0x0,0x0,0x0,0x0,0x1,0x0,
 0xff,0xff,0xff,0xff,0xd,0x0,0x0,0x0,
 0xda,0x0,0xd0,0x0,0x0,0x0,0x0,0x0,
@@ -2112,568 +2112,823 @@ void wrapCall(const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, 
 extern const QQmlPrivate::TypedFunction aotBuiltFunctions[];
 extern const QQmlPrivate::TypedFunction aotBuiltFunctions[] = {
 { 0, QMetaType::fromType<double>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for height at line 14, column 5
-double r2_2;
-QObject *r2_1;
+double r2_1;
+QObject *r2_0;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadScopeObjectPropertyLookup(0, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(2);
+#endif
+while (!aotContext->loadScopeObjectPropertyLookup(0, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(2);
+#endif
 aotContext->initLoadScopeObjectPropertyLookup(0, []() { static const auto t = QMetaType::fromName("QQuickItem*"); return t; }());
 if (aotContext->engine->hasError())
     return double();
 }
 // generate_GetLookup
-while (!aotContext->getObjectLookup(1, r2_1, &r2_2)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(4);
-aotContext->initGetObjectLookup(1, r2_1, QMetaType::fromType<double>());
+#endif
+while (!aotContext->getObjectLookup(1, r2_0, &r2_1)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(4);
+#endif
+aotContext->initGetObjectLookup(1, r2_0, QMetaType::fromType<double>());
 if (aotContext->engine->hasError())
     return double();
 }
 // generate_Ret
-return r2_2;
+return r2_1;
 });}
  },{ 2, QMetaType::fromType<QObject*>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for camera at line 27, column 9
-QObject *r2_1;
+QObject *r2_0;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(5, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(2);
+#endif
+while (!aotContext->loadContextIdLookup(5, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(2);
+#endif
 aotContext->initLoadContextIdLookup(5);
 if (aotContext->engine->hasError())
     return static_cast<QObject *>(nullptr);
 }
 // generate_Ret
-return r2_1;
+return r2_0;
 });}
  },{ 3, QMetaType::fromType<QObject*>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for fill at line 26, column 9
-QObject *r2_1;
+QObject *r2_0;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadScopeObjectPropertyLookup(6, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(2);
+#endif
+while (!aotContext->loadScopeObjectPropertyLookup(6, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(2);
+#endif
 aotContext->initLoadScopeObjectPropertyLookup(6, []() { static const auto t = QMetaType::fromName("QQuickItem*"); return t; }());
 if (aotContext->engine->hasError())
     return static_cast<QObject *>(nullptr);
 }
 // generate_Ret
-return r2_1;
+return r2_0;
 });}
  },{ 4, QMetaType::fromType<int>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for backgroundMode at line 29, column 13
-int r2_1;
+int r2_0;
 // generate_GetLookup
-while (!aotContext->getEnumLookup(8, &r2_1)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(4);
+#endif
+while (!aotContext->getEnumLookup(8, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(4);
+#endif
 aotContext->initGetEnumLookup(8, []() { static const auto t = QMetaType::fromName("QQuick3DSceneEnvironment*"); return t; }().metaObject(), "QQuick3DEnvironmentBackgroundTypes", "Color");
 if (aotContext->engine->hasError())
     return int();
 }
 // generate_Ret
-return r2_1;
+return r2_0;
 });}
  },{ 5, QMetaType::fromType<QVariant>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for eulerRotation at line 37, column 13
-double r11_1;
-QObject *r7_1;
-QVariant r2_2;
-QObject *r2_1;
-double r10_1;
-double r12_1;
+QObject *r2_0;
+QObject *r7_0;
+double r11_0;
+QVariant r2_1;
+double r12_0;
+double r10_0;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadSingletonLookup(9, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(2);
+#endif
+while (!aotContext->loadSingletonLookup(9, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(2);
+#endif
 aotContext->initLoadSingletonLookup(9, QQmlPrivate::AOTCompiledContext::InvalidStringId);
 if (aotContext->engine->hasError())
     return QVariant();
 }
 // generate_StoreReg
-r7_1 = r2_1;
+r7_0 = r2_0;
 // generate_MoveConst
-r10_1 = double(0);
+r10_0 = double(0);
 // generate_MoveConst
-r11_1 = double(0);
+r11_0 = double(0);
 // generate_MoveConst
-r12_1 = double(0);
+r12_0 = double(0);
 // generate_CallPropertyLookup
 {
 QVariant callResult;
-void *args[] = { &callResult, &r10_1, &r11_1, &r12_1 };
+void *args[] = { &callResult, &r10_0, &r11_0, &r12_0 };
 const QMetaType types[] = { QMetaType::fromType<QVariant>(), QMetaType::fromType<double>(), QMetaType::fromType<double>(), QMetaType::fromType<double>() };
-while (!aotContext->callObjectPropertyLookup(10, r7_1, args, types, 3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(18);
+#endif
+while (!aotContext->callObjectPropertyLookup(10, r7_0, args, types, 3)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(18);
+#endif
 aotContext->initCallObjectPropertyLookup(10);
 if (aotContext->engine->hasError())
     return QVariant();
 }
-r2_2 = std::move(callResult);
+r2_1 = std::move(callResult);
 }
 // generate_Ret
-if (!r2_2.isValid())
+if (!r2_1.isValid())
     aotContext->setReturnValueUndefined();
-return r2_2;
+return r2_1;
 });}
  },{ 6, QMetaType::fromType<QVariant>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for initialPosition at line 39, column 13
-double r11_1;
-QObject *r7_1;
-QVariant r2_2;
-QObject *r2_1;
-double r10_1;
-double r12_1;
+QObject *r2_0;
+QObject *r7_0;
+double r11_0;
+QVariant r2_1;
+double r12_0;
+double r10_0;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadSingletonLookup(11, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(2);
+#endif
+while (!aotContext->loadSingletonLookup(11, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(2);
+#endif
 aotContext->initLoadSingletonLookup(11, QQmlPrivate::AOTCompiledContext::InvalidStringId);
 if (aotContext->engine->hasError())
     return QVariant();
 }
 // generate_StoreReg
-r7_1 = r2_1;
+r7_0 = r2_0;
 // generate_MoveConst
-r10_1 = double(0);
+r10_0 = double(0);
 // generate_MoveConst
-r11_1 = double(0);
+r11_0 = double(0);
 // generate_MoveConst
-r12_1 = double(600);
+r12_0 = double(600);
 // generate_CallPropertyLookup
 {
 QVariant callResult;
-void *args[] = { &callResult, &r10_1, &r11_1, &r12_1 };
+void *args[] = { &callResult, &r10_0, &r11_0, &r12_0 };
 const QMetaType types[] = { QMetaType::fromType<QVariant>(), QMetaType::fromType<double>(), QMetaType::fromType<double>(), QMetaType::fromType<double>() };
-while (!aotContext->callObjectPropertyLookup(12, r7_1, args, types, 3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(18);
+#endif
+while (!aotContext->callObjectPropertyLookup(12, r7_0, args, types, 3)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(18);
+#endif
 aotContext->initCallObjectPropertyLookup(12);
 if (aotContext->engine->hasError())
     return QVariant();
 }
-r2_2 = std::move(callResult);
+r2_1 = std::move(callResult);
 }
 // generate_Ret
-if (!r2_2.isValid())
+if (!r2_1.isValid())
     aotContext->setReturnValueUndefined();
-return r2_2;
+return r2_1;
 });}
  },{ 7, QMetaType::fromType<QVariant>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for target at line 40, column 13
-double r11_1;
-QObject *r7_1;
-QObject *r2_1;
-QVariant r2_2;
-double r10_1;
-double r12_1;
+QObject *r2_0;
+QObject *r7_0;
+double r11_0;
+QVariant r2_1;
+double r12_0;
+double r10_0;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadSingletonLookup(13, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(2);
+#endif
+while (!aotContext->loadSingletonLookup(13, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(2);
+#endif
 aotContext->initLoadSingletonLookup(13, QQmlPrivate::AOTCompiledContext::InvalidStringId);
 if (aotContext->engine->hasError())
     return QVariant();
 }
 // generate_StoreReg
-r7_1 = r2_1;
+r7_0 = r2_0;
 // generate_MoveConst
-r10_1 = double(0);
+r10_0 = double(0);
 // generate_MoveConst
-r11_1 = double(0);
+r11_0 = double(0);
 // generate_MoveConst
-r12_1 = double(0);
+r12_0 = double(0);
 // generate_CallPropertyLookup
 {
 QVariant callResult;
-void *args[] = { &callResult, &r10_1, &r11_1, &r12_1 };
+void *args[] = { &callResult, &r10_0, &r11_0, &r12_0 };
 const QMetaType types[] = { QMetaType::fromType<QVariant>(), QMetaType::fromType<double>(), QMetaType::fromType<double>(), QMetaType::fromType<double>() };
-while (!aotContext->callObjectPropertyLookup(14, r7_1, args, types, 3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(18);
+#endif
+while (!aotContext->callObjectPropertyLookup(14, r7_0, args, types, 3)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(18);
+#endif
 aotContext->initCallObjectPropertyLookup(14);
 if (aotContext->engine->hasError())
     return QVariant();
 }
-r2_2 = std::move(callResult);
+r2_1 = std::move(callResult);
 }
 // generate_Ret
-if (!r2_2.isValid())
+if (!r2_1.isValid())
     aotContext->setReturnValueUndefined();
-return r2_2;
+return r2_1;
 });}
  },{ 8, QMetaType::fromType<void>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // updatePosition at line 45, column 13
-double r9_1;
-double r14_1;
-QObject *r7_1;
-double r13_1;
-double r8_1;
-QObject *r2_1;
-double r2_3;
-QVariant r2_2;
-float r2_4;
-QVariant r10_2;
-double r10_1;
+QVariant r10_1;
+double r8_0;
+double r2_2;
+double r13_0;
+QObject *r2_0;
+QObject *r7_0;
+double r14_0;
+double r9_0;
+float r2_3;
+QVariant r2_1;
+double r10_0;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(15, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(2);
+#endif
+while (!aotContext->loadContextIdLookup(15, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(2);
+#endif
 aotContext->initLoadContextIdLookup(15);
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_StoreReg
-r7_1 = r2_1;
+r7_0 = r2_0;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(16, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(6);
+#endif
+while (!aotContext->loadContextIdLookup(16, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(6);
+#endif
 aotContext->initLoadContextIdLookup(16);
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_GetLookup
-r2_2 = QVariant(aotContext->lookupResultMetaType(17));
-while (!aotContext->getObjectLookup(17, r2_1, r2_2.data())) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(8);
-aotContext->initGetObjectLookup(17, r2_1, r2_2.metaType());
+#endif
+r2_1 = QVariant(aotContext->lookupResultMetaType(17));
+while (!aotContext->getObjectLookup(17, r2_0, r2_1.data())) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(8);
+#endif
+aotContext->initGetObjectLookup(17, r2_0, r2_1.metaType());
 if (aotContext->engine->hasError())
     return ;
-r2_2 = QVariant(aotContext->lookupResultMetaType(17));
+r2_1 = QVariant(aotContext->lookupResultMetaType(17));
 }
 // generate_GetLookup
-while (!aotContext->getValueLookup(18, r2_2.data(), &r2_3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(10);
+#endif
+while (!aotContext->getValueLookup(18, r2_1.data(), &r2_2)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(10);
+#endif
 aotContext->initGetValueLookup(18, []() { static const auto t = QMetaType::fromName("QQuickVector3DValueType"); return t; }().metaObject(), QMetaType::fromType<double>());
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_StoreReg
-r8_1 = r2_3;
+r8_0 = r2_2;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(19, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(14);
+#endif
+while (!aotContext->loadContextIdLookup(19, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(14);
+#endif
 aotContext->initLoadContextIdLookup(19);
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_GetLookup
-while (!aotContext->getObjectLookup(20, r2_1, &r2_3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(16);
-aotContext->initGetObjectLookup(20, r2_1, QMetaType::fromType<double>());
+#endif
+while (!aotContext->getObjectLookup(20, r2_0, &r2_2)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(16);
+#endif
+aotContext->initGetObjectLookup(20, r2_0, QMetaType::fromType<double>());
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_StoreReg
-r9_1 = r2_3;
+r9_0 = r2_2;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(22, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(24);
+#endif
+while (!aotContext->loadContextIdLookup(22, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(24);
+#endif
 aotContext->initLoadContextIdLookup(22);
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_GetLookup
-while (!aotContext->getObjectLookup(23, r2_1, &r2_3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(26);
-aotContext->initGetObjectLookup(23, r2_1, QMetaType::fromType<double>());
+#endif
+while (!aotContext->getObjectLookup(23, r2_0, &r2_2)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(26);
+#endif
+aotContext->initGetObjectLookup(23, r2_0, QMetaType::fromType<double>());
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_StoreReg
-r13_1 = r2_3;
+r13_0 = r2_2;
 // generate_CallPropertyLookup
 {
-const double arg1 = r13_1;
-r2_3 = qIsNull(arg1) ? arg1 : std::sin(arg1);
+const double arg1 = r13_0;
+r2_2 = qIsNull(arg1) ? arg1 : std::sin(arg1);
 }
 // generate_Mul
-r2_3 = (r9_1 * r2_3);
+r2_2 = (r9_0 * r2_2);
 // generate_StoreReg
-r10_1 = r2_3;
+r10_0 = r2_2;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(26, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(43);
+#endif
+while (!aotContext->loadContextIdLookup(26, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(43);
+#endif
 aotContext->initLoadContextIdLookup(26);
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_GetLookup
-while (!aotContext->getObjectLookup(27, r2_1, &r2_3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(45);
-aotContext->initGetObjectLookup(27, r2_1, QMetaType::fromType<double>());
+#endif
+while (!aotContext->getObjectLookup(27, r2_0, &r2_2)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(45);
+#endif
+aotContext->initGetObjectLookup(27, r2_0, QMetaType::fromType<double>());
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_StoreReg
-r14_1 = r2_3;
+r14_0 = r2_2;
 // generate_CallPropertyLookup
 {
-const double arg1 = r14_1;
-r2_3 = std::cos(arg1);
+const double arg1 = r14_0;
+r2_2 = std::cos(arg1);
 }
 // generate_Mul
-r2_3 = (r10_1 * r2_3);
+r2_2 = (r10_0 * r2_2);
 // generate_Add
-r2_4 = float((r8_1 + r2_3));
+r2_3 = float((r8_0 + r2_2));
+// generate_SetLookup
 // generate_SetLookup
 {
-while (!aotContext->setObjectLookup(29, r7_1, &r2_4)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(59);
-aotContext->initSetObjectLookup(29, r7_1, QMetaType::fromType<float>());
+#endif
+while (!aotContext->setObjectLookup(29, r7_0, &r2_3)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(59);
+#endif
+aotContext->initSetObjectLookup(29, r7_0, QMetaType::fromType<float>());
 if (aotContext->engine->hasError())
     return ;
 }
 }
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(30, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(61);
+#endif
+while (!aotContext->loadContextIdLookup(30, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(61);
+#endif
 aotContext->initLoadContextIdLookup(30);
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_StoreReg
-r7_1 = r2_1;
+r7_0 = r2_0;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(31, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(65);
+#endif
+while (!aotContext->loadContextIdLookup(31, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(65);
+#endif
 aotContext->initLoadContextIdLookup(31);
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_GetLookup
-r2_2 = QVariant(aotContext->lookupResultMetaType(32));
-while (!aotContext->getObjectLookup(32, r2_1, r2_2.data())) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(67);
-aotContext->initGetObjectLookup(32, r2_1, r2_2.metaType());
+#endif
+r2_1 = QVariant(aotContext->lookupResultMetaType(32));
+while (!aotContext->getObjectLookup(32, r2_0, r2_1.data())) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(67);
+#endif
+aotContext->initGetObjectLookup(32, r2_0, r2_1.metaType());
 if (aotContext->engine->hasError())
     return ;
-r2_2 = QVariant(aotContext->lookupResultMetaType(32));
+r2_1 = QVariant(aotContext->lookupResultMetaType(32));
 }
 // generate_GetLookup
-while (!aotContext->getValueLookup(33, r2_2.data(), &r2_3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(69);
+#endif
+while (!aotContext->getValueLookup(33, r2_1.data(), &r2_2)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(69);
+#endif
 aotContext->initGetValueLookup(33, []() { static const auto t = QMetaType::fromName("QQuickVector3DValueType"); return t; }().metaObject(), QMetaType::fromType<double>());
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_StoreReg
-r8_1 = r2_3;
+r8_0 = r2_2;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(34, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(73);
+#endif
+while (!aotContext->loadContextIdLookup(34, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(73);
+#endif
 aotContext->initLoadContextIdLookup(34);
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_GetLookup
-while (!aotContext->getObjectLookup(35, r2_1, &r2_3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(75);
-aotContext->initGetObjectLookup(35, r2_1, QMetaType::fromType<double>());
+#endif
+while (!aotContext->getObjectLookup(35, r2_0, &r2_2)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(75);
+#endif
+aotContext->initGetObjectLookup(35, r2_0, QMetaType::fromType<double>());
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_StoreReg
-r9_1 = r2_3;
+r9_0 = r2_2;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(37, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(83);
+#endif
+while (!aotContext->loadContextIdLookup(37, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(83);
+#endif
 aotContext->initLoadContextIdLookup(37);
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_GetLookup
-while (!aotContext->getObjectLookup(38, r2_1, &r2_3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(85);
-aotContext->initGetObjectLookup(38, r2_1, QMetaType::fromType<double>());
+#endif
+while (!aotContext->getObjectLookup(38, r2_0, &r2_2)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(85);
+#endif
+aotContext->initGetObjectLookup(38, r2_0, QMetaType::fromType<double>());
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_StoreReg
-r13_1 = r2_3;
+r13_0 = r2_2;
 // generate_CallPropertyLookup
 {
-const double arg1 = r13_1;
-r2_3 = qIsNull(arg1) ? arg1 : std::sin(arg1);
+const double arg1 = r13_0;
+r2_2 = qIsNull(arg1) ? arg1 : std::sin(arg1);
 }
 // generate_Mul
-r2_3 = (r9_1 * r2_3);
+r2_2 = (r9_0 * r2_2);
 // generate_Add
-r2_4 = float((r8_1 + r2_3));
+r2_3 = float((r8_0 + r2_2));
+// generate_SetLookup
 // generate_SetLookup
 {
-while (!aotContext->setObjectLookup(40, r7_1, &r2_4)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(99);
-aotContext->initSetObjectLookup(40, r7_1, QMetaType::fromType<float>());
+#endif
+while (!aotContext->setObjectLookup(40, r7_0, &r2_3)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(99);
+#endif
+aotContext->initSetObjectLookup(40, r7_0, QMetaType::fromType<float>());
 if (aotContext->engine->hasError())
     return ;
 }
 }
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(41, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(101);
+#endif
+while (!aotContext->loadContextIdLookup(41, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(101);
+#endif
 aotContext->initLoadContextIdLookup(41);
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_StoreReg
-r7_1 = r2_1;
+r7_0 = r2_0;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(42, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(105);
+#endif
+while (!aotContext->loadContextIdLookup(42, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(105);
+#endif
 aotContext->initLoadContextIdLookup(42);
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_GetLookup
-r2_2 = QVariant(aotContext->lookupResultMetaType(43));
-while (!aotContext->getObjectLookup(43, r2_1, r2_2.data())) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(107);
-aotContext->initGetObjectLookup(43, r2_1, r2_2.metaType());
+#endif
+r2_1 = QVariant(aotContext->lookupResultMetaType(43));
+while (!aotContext->getObjectLookup(43, r2_0, r2_1.data())) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(107);
+#endif
+aotContext->initGetObjectLookup(43, r2_0, r2_1.metaType());
 if (aotContext->engine->hasError())
     return ;
-r2_2 = QVariant(aotContext->lookupResultMetaType(43));
+r2_1 = QVariant(aotContext->lookupResultMetaType(43));
 }
 // generate_GetLookup
-while (!aotContext->getValueLookup(44, r2_2.data(), &r2_3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(109);
+#endif
+while (!aotContext->getValueLookup(44, r2_1.data(), &r2_2)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(109);
+#endif
 aotContext->initGetValueLookup(44, []() { static const auto t = QMetaType::fromName("QQuickVector3DValueType"); return t; }().metaObject(), QMetaType::fromType<double>());
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_StoreReg
-r8_1 = r2_3;
+r8_0 = r2_2;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(45, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(113);
+#endif
+while (!aotContext->loadContextIdLookup(45, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(113);
+#endif
 aotContext->initLoadContextIdLookup(45);
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_GetLookup
-while (!aotContext->getObjectLookup(46, r2_1, &r2_3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(115);
-aotContext->initGetObjectLookup(46, r2_1, QMetaType::fromType<double>());
+#endif
+while (!aotContext->getObjectLookup(46, r2_0, &r2_2)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(115);
+#endif
+aotContext->initGetObjectLookup(46, r2_0, QMetaType::fromType<double>());
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_StoreReg
-r9_1 = r2_3;
+r9_0 = r2_2;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(48, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(123);
+#endif
+while (!aotContext->loadContextIdLookup(48, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(123);
+#endif
 aotContext->initLoadContextIdLookup(48);
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_GetLookup
-while (!aotContext->getObjectLookup(49, r2_1, &r2_3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(125);
-aotContext->initGetObjectLookup(49, r2_1, QMetaType::fromType<double>());
+#endif
+while (!aotContext->getObjectLookup(49, r2_0, &r2_2)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(125);
+#endif
+aotContext->initGetObjectLookup(49, r2_0, QMetaType::fromType<double>());
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_StoreReg
-r13_1 = r2_3;
+r13_0 = r2_2;
 // generate_CallPropertyLookup
 {
-const double arg1 = r13_1;
-r2_3 = std::cos(arg1);
+const double arg1 = r13_0;
+r2_2 = std::cos(arg1);
 }
 // generate_Mul
-r2_3 = (r9_1 * r2_3);
+r2_2 = (r9_0 * r2_2);
 // generate_StoreReg
-r10_1 = r2_3;
+r10_0 = r2_2;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(52, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(142);
+#endif
+while (!aotContext->loadContextIdLookup(52, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(142);
+#endif
 aotContext->initLoadContextIdLookup(52);
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_GetLookup
-while (!aotContext->getObjectLookup(53, r2_1, &r2_3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(144);
-aotContext->initGetObjectLookup(53, r2_1, QMetaType::fromType<double>());
+#endif
+while (!aotContext->getObjectLookup(53, r2_0, &r2_2)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(144);
+#endif
+aotContext->initGetObjectLookup(53, r2_0, QMetaType::fromType<double>());
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_StoreReg
-r14_1 = r2_3;
+r14_0 = r2_2;
 // generate_CallPropertyLookup
 {
-const double arg1 = r14_1;
-r2_3 = std::cos(arg1);
+const double arg1 = r14_0;
+r2_2 = std::cos(arg1);
 }
 // generate_Mul
-r2_3 = (r10_1 * r2_3);
+r2_2 = (r10_0 * r2_2);
 // generate_Add
-r2_4 = float((r8_1 + r2_3));
+r2_3 = float((r8_0 + r2_2));
+// generate_SetLookup
 // generate_SetLookup
 {
-while (!aotContext->setObjectLookup(55, r7_1, &r2_4)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(158);
-aotContext->initSetObjectLookup(55, r7_1, QMetaType::fromType<float>());
+#endif
+while (!aotContext->setObjectLookup(55, r7_0, &r2_3)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(158);
+#endif
+aotContext->initSetObjectLookup(55, r7_0, QMetaType::fromType<float>());
 if (aotContext->engine->hasError())
     return ;
 }
 }
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(56, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(160);
+#endif
+while (!aotContext->loadContextIdLookup(56, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(160);
+#endif
 aotContext->initLoadContextIdLookup(56);
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_StoreReg
-r7_1 = r2_1;
+r7_0 = r2_0;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(57, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(164);
+#endif
+while (!aotContext->loadContextIdLookup(57, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(164);
+#endif
 aotContext->initLoadContextIdLookup(57);
 if (aotContext->engine->hasError())
     return ;
 }
 // generate_GetLookup
-r2_2 = QVariant(aotContext->lookupResultMetaType(58));
-while (!aotContext->getObjectLookup(58, r2_1, r2_2.data())) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(166);
-aotContext->initGetObjectLookup(58, r2_1, r2_2.metaType());
+#endif
+r2_1 = QVariant(aotContext->lookupResultMetaType(58));
+while (!aotContext->getObjectLookup(58, r2_0, r2_1.data())) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(166);
+#endif
+aotContext->initGetObjectLookup(58, r2_0, r2_1.metaType());
 if (aotContext->engine->hasError())
     return ;
-r2_2 = QVariant(aotContext->lookupResultMetaType(58));
+r2_1 = QVariant(aotContext->lookupResultMetaType(58));
 }
 // generate_StoreReg
-r10_2 = r2_2;
+r10_1 = r2_1;
 // generate_CallPropertyLookup
 {
-void *args[] = { nullptr, r10_2.data() };
-const QMetaType types[] = { QMetaType(), r10_2.metaType() };
-while (!aotContext->callObjectPropertyLookup(59, r7_1, args, types, 1)) {
+void *args[] = { nullptr, r10_1.data() };
+const QMetaType types[] = { QMetaType(), r10_1.metaType() };
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(173);
+#endif
+while (!aotContext->callObjectPropertyLookup(59, r7_0, args, types, 1)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(173);
+#endif
 aotContext->initCallObjectPropertyLookup(59);
 if (aotContext->engine->hasError())
     return ;
@@ -2683,8 +2938,8 @@ if (aotContext->engine->hasError())
 return;
 });}
  },{ 10, QMetaType::fromType<void>(), { QMetaType::fromType<QObject *>() }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for onWheel at line 67, column 13
@@ -2696,8 +2951,8 @@ Q_UNUSED(argumentsPtr)
 return;
 });}
  },{ 12, QMetaType::fromType<void>(), { QMetaType::fromType<QObject *>() }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for onPressed at line 84, column 13
@@ -2708,48 +2963,9 @@ Q_UNUSED(argumentsPtr)
 // generate_Ret
 return;
 });}
- },{ 13, QMetaType::fromType<void>(), { QMetaType::fromType<QObject *>() }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
-Q_UNUSED(aotContext)
-Q_UNUSED(argumentsPtr)
-//  at line 84, column 24
-QObject *r6_1 = *static_cast<QObject **>(argumentsPtr[0]);
-QObject *r2_2;
-bool r2_1;
-double r2_3;
-// generate_LoadTrue
-r2_1 = true;
-// generate_StoreNameSloppy
-aotContext->storeNameSloppy(55, &r2_1, QMetaType::fromType<bool>());
-// generate_LoadReg
-r2_2 = r6_1;
-// generate_GetLookup
-while (!aotContext->getObjectLookup(87, r2_2, &r2_3)) {
-aotContext->setInstructionPointer(7);
-aotContext->initGetObjectLookup(87, r2_2, QMetaType::fromType<double>());
-if (aotContext->engine->hasError())
-    return ;
-}
-// generate_StoreNameSloppy
-aotContext->storeNameSloppy(56, &r2_3, QMetaType::fromType<double>());
-// generate_LoadReg
-r2_2 = r6_1;
-// generate_GetLookup
-while (!aotContext->getObjectLookup(88, r2_2, &r2_3)) {
-aotContext->setInstructionPointer(13);
-aotContext->initGetObjectLookup(88, r2_2, QMetaType::fromType<double>());
-if (aotContext->engine->hasError())
-    return ;
-}
-// generate_StoreNameSloppy
-aotContext->storeNameSloppy(57, &r2_3, QMetaType::fromType<double>());
-// generate_Ret
-return;
-});}
  },{ 14, QMetaType::fromType<void>(), { QMetaType::fromType<QObject *>() }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for onReleased at line 89, column 13
@@ -2761,22 +2977,22 @@ Q_UNUSED(argumentsPtr)
 return;
 });}
  },{ 15, QMetaType::fromType<void>(), { QMetaType::fromType<QObject *>() }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 //  at line 89, column 25
-bool r2_1;
+bool r2_0;
 // generate_LoadFalse
-r2_1 = false;
+r2_0 = false;
 // generate_StoreNameSloppy
-aotContext->storeNameSloppy(55, &r2_1, QMetaType::fromType<bool>());
+aotContext->storeNameSloppy(55, &r2_0, QMetaType::fromType<bool>());
 // generate_Ret
 return;
 });}
  },{ 16, QMetaType::fromType<void>(), { QMetaType::fromType<QObject *>() }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for onPositionChanged at line 93, column 13
@@ -2788,8 +3004,8 @@ Q_UNUSED(argumentsPtr)
 return;
 });}
  },{ 18, QMetaType::fromType<void>(), { QMetaType::fromType<QObject *>() }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for onClicked at line 108, column 13
@@ -2801,70 +3017,87 @@ Q_UNUSED(argumentsPtr)
 return;
 });}
  },{ 20, QMetaType::fromType<QObject*>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for fill at line 78, column 13
-QObject *r2_1;
+QObject *r2_0;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadScopeObjectPropertyLookup(144, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(5);
+#endif
+while (!aotContext->loadScopeObjectPropertyLookup(144, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(5);
+#endif
 aotContext->initLoadScopeObjectPropertyLookup(144, []() { static const auto t = QMetaType::fromName("QQuickItem*"); return t; }());
 if (aotContext->engine->hasError())
     return static_cast<QObject *>(nullptr);
 }
 // generate_Ret
-return r2_1;
+return r2_0;
 });}
  },{ 22, QMetaType::fromType<QVariant>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for scale at line 141, column 17
-double r11_1;
-QObject *r7_1;
-QVariant r2_2;
-QObject *r2_1;
-double r10_1;
-double r12_1;
+QObject *r2_0;
+QObject *r7_0;
+double r11_0;
+QVariant r2_1;
+double r12_0;
+double r10_0;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadSingletonLookup(147, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(5);
+#endif
+while (!aotContext->loadSingletonLookup(147, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(5);
+#endif
 aotContext->initLoadSingletonLookup(147, QQmlPrivate::AOTCompiledContext::InvalidStringId);
 if (aotContext->engine->hasError())
     return QVariant();
 }
 // generate_StoreReg
-r7_1 = r2_1;
+r7_0 = r2_0;
 // generate_MoveConst
-r10_1 = 1.19999999999999996;
+r10_0 = 1.19999999999999996;
 // generate_MoveConst
-r11_1 = 1.19999999999999996;
+r11_0 = 1.19999999999999996;
 // generate_MoveConst
-r12_1 = 1.19999999999999996;
+r12_0 = 1.19999999999999996;
 // generate_CallPropertyLookup
 {
 QVariant callResult;
-void *args[] = { &callResult, &r10_1, &r11_1, &r12_1 };
+void *args[] = { &callResult, &r10_0, &r11_0, &r12_0 };
 const QMetaType types[] = { QMetaType::fromType<QVariant>(), QMetaType::fromType<double>(), QMetaType::fromType<double>(), QMetaType::fromType<double>() };
-while (!aotContext->callObjectPropertyLookup(148, r7_1, args, types, 3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(33);
+#endif
+while (!aotContext->callObjectPropertyLookup(148, r7_0, args, types, 3)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(33);
+#endif
 aotContext->initCallObjectPropertyLookup(148);
 if (aotContext->engine->hasError())
     return QVariant();
 }
-r2_2 = std::move(callResult);
+r2_1 = std::move(callResult);
 }
 // generate_Ret
-if (!r2_2.isValid())
+if (!r2_1.isValid())
     aotContext->setReturnValueUndefined();
-return r2_2;
+return r2_1;
 });}
  },{ 25, QMetaType::fromType<void>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for onBoundsChanged at line 162, column 17
@@ -2876,25 +3109,31 @@ Q_UNUSED(argumentsPtr)
 return;
 });}
  },{ 26, QMetaType::fromType<QObject*>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for instanceRoot at line 177, column 25
-QObject *r2_1;
+QObject *r2_0;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(167, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(5);
+#endif
+while (!aotContext->loadContextIdLookup(167, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(5);
+#endif
 aotContext->initLoadContextIdLookup(167);
 if (aotContext->engine->hasError())
     return static_cast<QObject *>(nullptr);
 }
 // generate_Ret
-return r2_1;
+return r2_0;
 });}
  },{ 27, QMetaType::fromType<void>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for onCompleted at line 179, column 25
@@ -2906,146 +3145,186 @@ Q_UNUSED(argumentsPtr)
 return;
 });}
  },{ 35, QMetaType::fromType<int>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for innerCubeCount at line 194, column 29
-int r2_1;
+int r2_0;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadScopeObjectPropertyLookup(187, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(5);
+#endif
+while (!aotContext->loadScopeObjectPropertyLookup(187, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(5);
+#endif
 aotContext->initLoadScopeObjectPropertyLookup(187, QMetaType::fromType<int>());
 if (aotContext->engine->hasError())
     return int();
 }
 // generate_Ret
-return r2_1;
+return r2_0;
 });}
  },{ 36, QMetaType::fromType<int>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for rowsColumns at line 196, column 29
-double r16_1;
-double r14_1;
-double r2_1;
-int r2_2;
-double r15_1;
-double r10_1;
+double r15_0;
+double r2_0;
+double r14_0;
+double r16_0;
+double r10_0;
+int r2_1;
+// generate_LoadQmlContextPropertyLookup
 // generate_LoadQmlContextPropertyLookup
 {
 int retrieved;
-while (!aotContext->loadScopeObjectPropertyLookup(190, &retrieved)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(19);
+#endif
+while (!aotContext->loadScopeObjectPropertyLookup(190, &retrieved)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(19);
+#endif
 aotContext->initLoadScopeObjectPropertyLookup(190, QMetaType::fromType<int>());
 if (aotContext->engine->hasError())
     return int();
 }
-r2_1 = double(retrieved);
+r2_0 = double(retrieved);
 }
 // generate_StoreReg
-r14_1 = r2_1;
+r14_0 = r2_0;
 // generate_MoveConst
-r16_1 = double(1);
+r16_0 = double(1);
 // generate_LoadInt
-r2_1 = double(3);
+r2_0 = double(3);
 // generate_Div
-r2_1 = (r16_1 / r2_1);
+r2_0 = (r16_0 / r2_0);
 // generate_StoreReg
-r15_1 = r2_1;
+r15_0 = r2_0;
 // generate_CallPropertyLookup
 {
-const double arg1 = r14_1;
-const double arg2 = r15_1;
-r2_1 = QQmlPrivate::jsExponentiate(arg1, arg2);
+const double arg1 = r14_0;
+const double arg2 = r15_0;
+r2_0 = QQmlPrivate::jsExponentiate(arg1, arg2);
 }
 // generate_StoreReg
-r10_1 = r2_1;
+r10_0 = r2_0;
 // generate_CallPropertyLookup
 {
 double retrieved;
 {
-const double arg1 = r10_1;
+const double arg1 = r10_0;
 retrieved = (arg1 < 0.0 && arg1 > -1.0) ? std::copysign(0.0, -1.0) : std::ceil(arg1);
 }
-r2_2 = QJSNumberCoercion::toInteger(retrieved);
+r2_1 = QJSNumberCoercion::toInteger(retrieved);
 }
 // generate_Ret
-return r2_2;
+return r2_1;
 });}
  },{ 37, QMetaType::fromType<double>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for innerCubeScale at line 197, column 29
-double r9_1;
-double r7_1;
-double r8_1;
-QVariant r2_2;
-double r2_3;
-QObject *r2_1;
+double r8_0;
+double r2_2;
+double r7_0;
+QObject *r2_0;
+double r9_0;
+QVariant r2_1;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadContextIdLookup(193, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(5);
+#endif
+while (!aotContext->loadContextIdLookup(193, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(5);
+#endif
 aotContext->initLoadContextIdLookup(193);
 if (aotContext->engine->hasError())
     return double();
 }
 // generate_GetLookup
-r2_2 = QVariant(aotContext->lookupResultMetaType(194));
-while (!aotContext->getObjectLookup(194, r2_1, r2_2.data())) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(10);
-aotContext->initGetObjectLookup(194, r2_1, r2_2.metaType());
+#endif
+r2_1 = QVariant(aotContext->lookupResultMetaType(194));
+while (!aotContext->getObjectLookup(194, r2_0, r2_1.data())) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(10);
+#endif
+aotContext->initGetObjectLookup(194, r2_0, r2_1.metaType());
 if (aotContext->engine->hasError())
     return double();
-r2_2 = QVariant(aotContext->lookupResultMetaType(194));
+r2_1 = QVariant(aotContext->lookupResultMetaType(194));
 }
 // generate_GetLookup
-while (!aotContext->getValueLookup(195, r2_2.data(), &r2_3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(15);
+#endif
+while (!aotContext->getValueLookup(195, r2_1.data(), &r2_2)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(15);
+#endif
 aotContext->initGetValueLookup(195, []() { static const auto t = QMetaType::fromName("QQuickVector3DValueType"); return t; }().metaObject(), QMetaType::fromType<double>());
 if (aotContext->engine->hasError())
     return double();
 }
 // generate_StoreReg
-r7_1 = r2_3;
+r7_0 = r2_2;
+// generate_LoadQmlContextPropertyLookup
 // generate_LoadQmlContextPropertyLookup
 {
 int retrieved;
-while (!aotContext->loadScopeObjectPropertyLookup(196, &retrieved)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(22);
+#endif
+while (!aotContext->loadScopeObjectPropertyLookup(196, &retrieved)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(22);
+#endif
 aotContext->initLoadScopeObjectPropertyLookup(196, QMetaType::fromType<int>());
 if (aotContext->engine->hasError())
     return double();
 }
-r2_3 = double(retrieved);
+r2_2 = double(retrieved);
 }
 // generate_Div
-r2_3 = (r7_1 / r2_3);
+r2_2 = (r7_0 / r2_2);
 // generate_StoreReg
-r8_1 = r2_3;
+r8_0 = r2_2;
 // generate_MoveConst
-r9_1 = double(1);
+r9_0 = double(1);
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadScopeObjectPropertyLookup(197, &r2_3)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(34);
+#endif
+while (!aotContext->loadScopeObjectPropertyLookup(197, &r2_2)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(34);
+#endif
 aotContext->initLoadScopeObjectPropertyLookup(197, QMetaType::fromType<double>());
 if (aotContext->engine->hasError())
     return double();
 }
 // generate_Sub
-r2_3 = (r9_1 - r2_3);
+r2_2 = (r9_0 - r2_2);
 // generate_Mul
-r2_3 = (r8_1 * r2_3);
+r2_2 = (r8_0 * r2_2);
 // generate_Ret
-return r2_3;
+return r2_2;
 });}
  },{ 38, QMetaType::fromType<void>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for onCompleted at line 198, column 29
@@ -3057,49 +3336,60 @@ Q_UNUSED(argumentsPtr)
 return;
 });}
  },{ 39, QMetaType::fromType<QVariant>(), {  }, 
-    [](const QQmlPrivate::AOTCompiledContext *aotContext, void *dataPtr, void **argumentsPtr) {
-        wrapCall(aotContext, dataPtr, argumentsPtr, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
+    [](const QQmlPrivate::AOTCompiledContext *context, void *data, void **argv) {
+        wrapCall(context, data, argv, [](const QQmlPrivate::AOTCompiledContext *aotContext, void **argumentsPtr) {
 Q_UNUSED(aotContext)
 Q_UNUSED(argumentsPtr)
 // expression for eulerRotation at line 218, column 13
-double r11_1;
-QObject *r7_1;
-QObject *r2_1;
-QVariant r2_2;
-double r10_1;
-double r12_1;
+QObject *r2_0;
+QObject *r7_0;
+double r11_0;
+QVariant r2_1;
+double r12_0;
+double r10_0;
 // generate_LoadQmlContextPropertyLookup
-while (!aotContext->loadSingletonLookup(198, &r2_1)) {
+// generate_LoadQmlContextPropertyLookup
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(5);
+#endif
+while (!aotContext->loadSingletonLookup(198, &r2_0)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(5);
+#endif
 aotContext->initLoadSingletonLookup(198, QQmlPrivate::AOTCompiledContext::InvalidStringId);
 if (aotContext->engine->hasError())
     return QVariant();
 }
 // generate_StoreReg
-r7_1 = r2_1;
+r7_0 = r2_0;
 // generate_MoveConst
-r10_1 = double(250);
+r10_0 = double(250);
 // generate_MoveConst
-r11_1 = double(-30);
+r11_0 = double(-30);
 // generate_MoveConst
-r12_1 = double(0);
+r12_0 = double(0);
 // generate_CallPropertyLookup
 {
 QVariant callResult;
-void *args[] = { &callResult, &r10_1, &r11_1, &r12_1 };
+void *args[] = { &callResult, &r10_0, &r11_0, &r12_0 };
 const QMetaType types[] = { QMetaType::fromType<QVariant>(), QMetaType::fromType<double>(), QMetaType::fromType<double>(), QMetaType::fromType<double>() };
-while (!aotContext->callObjectPropertyLookup(199, r7_1, args, types, 3)) {
+#ifndef QT_NO_DEBUG
 aotContext->setInstructionPointer(33);
+#endif
+while (!aotContext->callObjectPropertyLookup(199, r7_0, args, types, 3)) {
+#ifdef QT_NO_DEBUG
+aotContext->setInstructionPointer(33);
+#endif
 aotContext->initCallObjectPropertyLookup(199);
 if (aotContext->engine->hasError())
     return QVariant();
 }
-r2_2 = std::move(callResult);
+r2_1 = std::move(callResult);
 }
 // generate_Ret
-if (!r2_2.isValid())
+if (!r2_1.isValid())
     aotContext->setReturnValueUndefined();
-return r2_2;
+return r2_1;
 });}
  },{ 0, QMetaType::fromType<void>(), {}, nullptr }};
 QT_WARNING_POP

@@ -1,0 +1,172 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 28,
+                        "durationMicroseconds": 45,
+                        "errorMessage": "Cannot access value for name controller",
+                        "functionName": "fd_id",
+                        "line": 12
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 28,
+                        "durationMicroseconds": 29,
+                        "errorMessage": "Cannot access value for name controller",
+                        "functionName": "onCompleted",
+                        "line": 14
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 136,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 23
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 20,
+                        "durationMicroseconds": 3,
+                        "errorMessage": "Cannot resolve property type  for binding on width.",
+                        "functionName": "width",
+                        "line": 26
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 20,
+                        "durationMicroseconds": 98,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 31
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 20,
+                        "durationMicroseconds": 436,
+                        "errorMessage": "Cannot access value for name controller",
+                        "functionName": "model",
+                        "line": 33
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 28,
+                        "durationMicroseconds": 103,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 39
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 28,
+                        "durationMicroseconds": 31,
+                        "errorMessage": "Cannot access value for name model",
+                        "functionName": "color",
+                        "line": 42
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 36,
+                        "durationMicroseconds": 29,
+                        "errorMessage": "Type (component in /home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_8_0-Debug/Table_Userid_Selection.qml)::parent with type QQuickItem does not have a property hover for writing",
+                        "functionName": "onEntered",
+                        "line": 50
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 35,
+                        "durationMicroseconds": 20,
+                        "errorMessage": "Type (component in /home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_8_0-Debug/Table_Userid_Selection.qml)::parent with type QQuickItem does not have a property hover for writing",
+                        "functionName": "onExited",
+                        "line": 51
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 36,
+                        "durationMicroseconds": 30,
+                        "errorMessage": "Cannot access value for name model",
+                        "functionName": "onClicked",
+                        "line": 52
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 39,
+                        "durationMicroseconds": 66,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 48
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 32,
+                        "durationMicroseconds": 96,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 58
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 33,
+                        "durationMicroseconds": 92,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 59
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 47,
+                        "durationMicroseconds": 96,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 65
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 35,
+                        "durationMicroseconds": 32,
+                        "errorMessage": "Cannot access value for name model",
+                        "functionName": "text",
+                        "line": 69
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 47,
+                        "durationMicroseconds": 90,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 70
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 93,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 77
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 32,
+                        "durationMicroseconds": 14,
+                        "errorMessage": "Cannot resolve property type  for binding on onClicked.",
+                        "functionName": "onClicked",
+                        "line": 83
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 47,
+                        "durationMicroseconds": 2,
+                        "errorMessage": "Cannot resolve property type  for binding on horizontalCenter.",
+                        "functionName": "horizontalCenter",
+                        "line": 82
+                    }
+                ],
+                "filepath": "/home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_8_0-Debug/Table_Userid_Selection.qml"
+            }
+        ],
+        "moduleId": "GUI_Cluster(appGUI_Cluster)"
+    }
+]

@@ -73,7 +73,7 @@ Window {
         Component.onCompleted: {
             if(db_connection_success){
                 nodesList.initialize(controller.getDatabaseConnection)
-                nodesList.startThread()
+                //nodesList.startThread()
             }
         }
     }
@@ -86,7 +86,8 @@ Window {
                 nodesList.setOption(0);
             }
             console.log("liveSlurmID");
-            nodesList.setSlurmID(slurm_id);
+            nodesList.set_slurm_id(slurm_id);
+            slurmnotifier.sl_id = slurm_id
         }
 
         onConnectionSignal: (success)=>{
@@ -98,7 +99,7 @@ Window {
                 } else {
                     var dbConnection = controller.getDatabaseConnection()
                     nodesList.initialize(dbConnection, true);
-                    nodesList.startThread()
+
                 }
             } else {
                 success_color = "red"
@@ -154,6 +155,25 @@ Window {
 
     }
 
+    Rectangle{
+        id: slurmnotifier
+        property int sl_id: 0
+        width: parent.width
+        height: 30
+        anchors {
+            top: menu.bottom
+        }
+        color: "#4d4d4d"
+        Text {
+            text: "EduMPI-Run ID: " + slurmnotifier.sl_id
+            verticalAlignment: Text.AlignVCenter
+            leftPadding: 5
+            width: parent.width
+            height: parent.height
+            color: "#00FF00"
+        }
+    }
+
     /*Sidebar {
         id: sidebar
         anchors.top: menu.bottom
@@ -177,7 +197,7 @@ Window {
         anchors {
             left: parent.left
             right: options.left
-            top: menu.bottom
+            top: slurmnotifier.bottom
             bottom: parent.bottom
         }
 
