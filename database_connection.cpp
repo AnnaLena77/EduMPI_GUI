@@ -25,7 +25,7 @@ bool Database_Connection::connectToDB(const QString &hostname, const QString &da
     if (QSqlDatabase::contains(m_connectionName)) {
         auto db = QSqlDatabase::database(m_connectionName);
         if (db.isOpen()) {
-            qDebug() << "Datenbankverbindung unter" << m_connectionName << "ist bereits offen.";
+            qDebug() << "Database Connection " << m_connectionName << "i already open.";
             return true;
         }
     }

@@ -53,6 +53,9 @@ void Controller::connect(QString hostname, QString databasename, int port, QStri
     //Hier stand vorher nur True, kann sein, dass das gebraucht wird!
     m_connection_ready = connect;
     m_job_table = new Table_UserID();
+    if(!m_cluster_ident.isEmpty()){
+        m_job_table->loadJobs(m_cluster_ident);
+    }
     //m_job_table->setDatabaseConnection(m_dbConnection);
     emit connectionSignal(connect);
 }
@@ -89,11 +92,14 @@ void Controller::copyOutputFile(){
 }
 
 QString Controller::connectCluster(const QString &address, const QString &ident, const QString &path){
-
 //QString Controller::connectCluster(QString &address, QString &ident, QString &path){
     m_cluster_address = address;
     m_cluster_ident = ident;
     m_cluster_eduMPI_path = path;
+
+    if(m_connection_ready){
+        m_job_table->loadJobs(m_cluster_ident);
+    }
 
     QString filePath = "/home/" + ident + "/eduMPI_files/tmp/";
 
@@ -217,8 +223,11 @@ void Controller::writeLocalBashFile(QString local_path, bool file, int proc_num)
             if(file){
                 out << "scp " + local_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 out << "scp " + m_remote_bash_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
-                out << "scp " + QString::fromStdString(m_envFilePath) + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
                 m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files";
+                if(m_option != 3){
+                    out << "scp " + QString::fromStdString(m_envFilePath) + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
+                    //m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files";
+                }
             } else{
                 out << "mkdir " + local_path  + "/tmp\n";
                 out << "scp -r " + local_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
@@ -348,10 +357,19 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
     if(scriptFile.is_open()){
         scriptFile << "#!/usr/bin/env bash\n";
         scriptFile << "#SBATCH --partition=all\n";
-        scriptFile << "#SBATCH --ntasks=" << proc_num << "\n";
-        scriptFile << "#SBATCH --job-name=eduMPI\n";
+        if(option == 3){
+            scriptFile << "#SBATCH --ntasks=1\n";
+            scriptFile << "#SBATCH --job-name=eduMPI_OpenMP\n";
+            scriptFile << "#SBATCH --nodes=1\n";
+        } else {
+            scriptFile << "#SBATCH --ntasks=" << proc_num << "\n";
+            scriptFile << "#SBATCH --job-name=eduMPI\n";
+        }
+
         if(option == 0){
             scriptFile << "#SBATCH --cpus-per-task=2\n\n";
+        } else if (option == 3){
+            scriptFile << "#SBATCH --cpus-per-task=" << proc_num <<"\n\n";
         } else {
             scriptFile << "#SBATCH --cpus-per-task=1\n\n";
         }
@@ -364,6 +382,8 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
         } else if(option == 2){
             scriptFile << "export PATH=\"$PATH:/opt/scalasca/bin\"\n";
             scriptFile << "export PATH=\"$PATH:/opt/scorep/bin\"\n";
+        } else if(option == 3){
+            scriptFile << "export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK\n";
         }
 
         if(option == 0){
@@ -375,6 +395,9 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
         } else if(option == 2) {
             scriptFile << "scorep mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << " -lm" << "\n";
             scriptFile << "scalasca -analyze -e scorep_" << program_name.toStdString() << "_" << proc_num << "_$SLURM_JOB_ID mpiexec -n " << proc_num << " ./"+program_name.toStdString();
+        } else if(option == 3){
+            scriptFile << "gcc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << " -lm -fopenmp" << "\n";
+            scriptFile << "./" << program_name.toStdString();
         }
         scriptFile.close();
 
@@ -402,27 +425,29 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
 
 
 void Controller::slurm_status_changed(QString status){
-    if(status == "running"){
+    qDebug() << "Call Slurm_Status_Changed " << status;
+    if(status.contains("running")||status.contains("pending")){
         m_status_running = true;
     }
     //std::cout << "slurm_status_changed Methode, m_option " << m_option << std::endl;
     if(m_option == 0){
         if(status == "completed" && m_componentsBuilt){
             std::cout << "slurm_status_changed, completed, comp build" << std::endl;
-            if(m_start_timestamp != QTime()){
+            //if(m_start_timestamp != QTime()){
                 //std::cout << "m_start_timestamp" << m_start_timestamp << std::endl;
                 //startAndStop(true);
                 copyOutputFile();
-            } else {
+            /*} else {
                 std::cout << "m_start_timestamp same" << std::endl;
                 m_status_running = false;
                 return;
-            }
+            }*/
         } else {
             //std::cout << "slurm_status_changed, status: " << status.toStdString() << " m_componentsBuild" << m_componentsBuilt << std::endl;
         }
     } else {
         if(status == "completed" && m_status_running){
+            qDebug() << "Call CopyOutputFile\n";
             copyOutputFile();
             //slurm_process->killProcess();
         }

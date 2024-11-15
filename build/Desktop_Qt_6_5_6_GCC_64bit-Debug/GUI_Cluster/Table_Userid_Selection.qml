@@ -10,6 +10,7 @@ ApplicationWindow {
     title: "Job List Example"
 
     property int selected_slurm_id: 0
+    property int selected_end_time: 0
 
     Column {
         spacing: 10
@@ -44,6 +45,15 @@ ApplicationWindow {
                         onExited: parent.hover = false
                         onClicked: {
                             selected_slurm_id = model.jobID
+
+                            var timestamp = model.endTime
+                            var hours = timestamp.getHours();
+                            var minutes = timestamp.getMinutes();
+                            var seconds = timestamp.getSeconds();
+
+                            var secondsSinceMidnight = hours * 3600 + minutes * 60 + seconds;
+
+                            selected_end_time = secondsSinceMidnight
                         }
                     }
 
@@ -53,13 +63,14 @@ ApplicationWindow {
                         columns: 2 // Anzahl der Spalten
 
                         Text {
-                            text: "Job ID:"
+                            text: "Job ID: " + model.jobID
                             font.bold: true
                             Layout.alignment: Qt.AlignLeft
                         }
 
                         Text {
-                            text: model.jobID
+                            property date timestamp : model.startTime
+                            text: "Start-Timestamp: " + Qt.formatDateTime(new Date(timestamp), "dd.MM.yyyy hh:mm:ss")
                             Layout.alignment: Qt.AlignLeft
                         }
                     }
@@ -81,7 +92,7 @@ ApplicationWindow {
                                 /*if(controller == null){
                                     console.log("CONTROLLER NULL TABLE_USERID")
                                 }*/
-                                var window = component.createObject(root, {"analysis_slurm_id": selected_slurm_id, "controller":controller});
+                                var window = component.createObject(root, {"analysis_slurm_id": selected_slurm_id, "controller":controller, "endTime":selected_end_time});
                                 window.x = (root.width - window.width) / 2;
                                 window.y = (root.height - window.height) / 2;
                                 window.show();

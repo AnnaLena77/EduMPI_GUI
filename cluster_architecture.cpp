@@ -2,7 +2,7 @@
 #include "database_thread.h"
 
 Cluster_Architecture::Cluster_Architecture(QObject *parent) : QObject(parent) {
-    qDebug() << "Current thread Main1:" << QThread::currentThread();
+
 }
 
 Cluster_Architecture::~Cluster_Architecture()
@@ -21,7 +21,7 @@ Cluster_Architecture::~Cluster_Architecture()
 void Cluster_Architecture::initialize(QString db_connection, bool live){
 
     m_connectionName = db_connection;
-    m_live_run = true;
+    m_live_run = live;
 }
 
 void Cluster_Architecture::setOption(int opt){
@@ -31,7 +31,7 @@ void Cluster_Architecture::setOption(int opt){
 
 void Cluster_Architecture::startThread(){
     if(!QSqlDatabase::contains(m_connectionName)) {
-        qDebug() << "Verbindungsname" << m_connectionName << "existiert nicht.";
+        qDebug() << "Connection " << m_connectionName << " does not exist.";
         return;
     }
     QString name_helper = "Thread_%1";
@@ -42,7 +42,7 @@ void Cluster_Architecture::startThread(){
     }
     QString thread_connection_name = name_helper.arg(m_slurm_id);
 
-    m_dbThread = new Database_Thread(thread_connection_name, m_slurm_id, m_proc_num);
+    m_dbThread = new Database_Thread(thread_connection_name, m_slurm_id, m_proc_num, m_live_run);
     m_dbThread->moveToThread(&database_thread);
     //clone_db.moveToThread(&database_thread);
 
@@ -62,13 +62,11 @@ void Cluster_Architecture::startThread(){
 
     //database_thread.start();
     database_thread.start();
-    qDebug() << "TEST " << database_thread.isRunning() ;
-    qDebug() << "Current thread Main2:" << QThread::currentThread();
 
 }
 
 void Cluster_Architecture::buildClusterComponents(const QMap<QString, QVector<int>> &map){
-    std::cout << "componentsBuilt 1!" << std::endl;
+    //std::cout << "componentsBuilt 1!" << std::endl;
     if(m_option!=0){
         std::cout << "m_option NULL Fehler, " << m_option << std::endl;
         return;
@@ -91,9 +89,10 @@ void Cluster_Architecture::buildClusterComponents(const QMap<QString, QVector<in
             }
         }
     }
-    if(m_live_run){
-        timerId = startTimer(1000);
-    }
+    //if(m_live_run){
+        //timerId = startTimer(1000);
+    emit signalToUpdateData(m_time_display);
+    //}
     emit componentsBuilt();
     //std::cout << "componentsBuilt 2!" << std::endl;
     m_componentsBuilt = true;
@@ -145,7 +144,7 @@ void Cluster_Architecture::set_p2p_recv_max(long max){
 }
 void Cluster_Architecture::set_slurm_id(int id){
     m_slurm_id = id;
-    qDebug() << "set_slurm_id";
+    //qDebug() << "set_slurm_id";
     startThread();
     emit signalToDBConnection();
     emit startDatabaseThread();

@@ -23,3 +23,4 @@
 /GUI_Cluster/Application_Start_Scorep.qml
 /GUI_Cluster/Table_Userid_Selection.qml
 /GUI_Cluster/MPI_Run_Analysis.qml
+/GUI_Cluster/Application_Start_OpenMP.qml

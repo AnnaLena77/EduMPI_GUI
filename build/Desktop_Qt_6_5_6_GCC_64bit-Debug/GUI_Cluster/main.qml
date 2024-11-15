@@ -64,15 +64,18 @@ Window {
             var qtime = qTimestamp;
             enable_timeline = true;
             if(slurm_status === "completed" || slurm_status === "cancelled"){
-                nodesList.startAndStop(true);
+                //nodesList.startAndStop(true);
                 nodesList.showConditionAt(0,0)
+            } else {
+                 //nodesList.startAndStop(false);
             }
+
             controller.setTimestamp(qtime)
             console.log("startTime: "+ startTime)
         }
         Component.onCompleted: {
             if(db_connection_success){
-                nodesList.initialize(controller.getDatabaseConnection)
+                //nodesList.initialize(controller.getDatabaseConnection)
                 //nodesList.startThread()
             }
         }

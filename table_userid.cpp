@@ -62,8 +62,11 @@ QVariant Table_UserID::data(const QModelIndex &index, int role) const {
     }
     QVariantList rowindex = m_edumpi_runs.at(index.row());
     if(role == JobIdRole){
-        //std::cout << "Test: " << m_edumpi_runs.at(index.row()) << std::endl;
         return rowindex.at(0);
+    } else if (role == StartTime){
+        return rowindex.at(1);
+    } else if (role == EndTime){
+        return rowindex.at(2);
     }
     return QVariant();
 }
@@ -71,6 +74,8 @@ QVariant Table_UserID::data(const QModelIndex &index, int role) const {
 QHash<int, QByteArray> Table_UserID::roleNames() const {
     QHash<int, QByteArray> roles;
     roles[JobIdRole] = "jobID";
+    roles[StartTime] = "startTime";
+    roles[EndTime] = "endTime";
     return roles;
 }
 

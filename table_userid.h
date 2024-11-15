@@ -18,7 +18,9 @@ public:
     //Q_INVOKABLE void setDatabaseConnection(Database_Connection *dbConnection);
 
     enum Roles {
-        JobIdRole = Qt::UserRole + 1
+        JobIdRole = Qt::UserRole + 1,
+        StartTime = Qt::UserRole + 2,
+        EndTime = Qt::UserRole +3
     };
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;

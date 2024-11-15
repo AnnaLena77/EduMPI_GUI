@@ -152,6 +152,13 @@ namespace _0x5f_GUI_Cluster_MPI_Run_Analysis_qml {
         reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
     };
 }
+namespace _0x5f_GUI_Cluster_Application_Start_OpenMP_qml { 
+    extern const unsigned char qmlData[];
+    extern const QQmlPrivate::TypedFunction aotBuiltFunctions[];
+    const QQmlPrivate::CachedQmlUnit unit = {
+        reinterpret_cast<const QV4::CompiledData::Unit*>(&qmlData), &aotBuiltFunctions[0], nullptr
+    };
+}
 
 }
 namespace {
@@ -187,6 +194,7 @@ Registry::Registry() {
     resourcePathToCachedUnit.insert(QStringLiteral("/GUI_Cluster/Application_Start_Scorep.qml"), &QmlCacheGeneratedCode::_0x5f_GUI_Cluster_Application_Start_Scorep_qml::unit);
     resourcePathToCachedUnit.insert(QStringLiteral("/GUI_Cluster/Table_Userid_Selection.qml"), &QmlCacheGeneratedCode::_0x5f_GUI_Cluster_Table_Userid_Selection_qml::unit);
     resourcePathToCachedUnit.insert(QStringLiteral("/GUI_Cluster/MPI_Run_Analysis.qml"), &QmlCacheGeneratedCode::_0x5f_GUI_Cluster_MPI_Run_Analysis_qml::unit);
+    resourcePathToCachedUnit.insert(QStringLiteral("/GUI_Cluster/Application_Start_OpenMP.qml"), &QmlCacheGeneratedCode::_0x5f_GUI_Cluster_Application_Start_OpenMP_qml::unit);
     QQmlPrivate::RegisterQmlUnitCacheHook registration;
     registration.structVersion = 0;
     registration.lookupCachedQmlUnit = &lookupCachedUnit;
