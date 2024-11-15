@@ -28,5 +28,6 @@
 /home/anna-lena/GUI_Cluster/Application_Start_Scorep.qml
 /home/anna-lena/GUI_Cluster/Table_Userid_Selection.qml
 /home/anna-lena/GUI_Cluster/MPI_Run_Analysis.qml
+/home/anna-lena/GUI_Cluster/Application_Start_OpenMP.qml
 --json
 /home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_5_6_GCC_64bit-Debug/appGUI_Cluster_qmllint.json

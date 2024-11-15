@@ -102,7 +102,7 @@ Item {
                             container_stopPositionX = timeline_container.contentX
                             positionmarker_stopPositionX = timeline_positionmarker.x
                             timeline_container.interactive=true
-                            nodesList.startAndStop(true);
+                            //nodesList.startAndStop(true);
                         }
                         else {
                             icon.color = "red"
@@ -112,7 +112,7 @@ Item {
                             timeline_container.contentX=container_stopPositionX
                             timeline_positionmarker.x = positionmarker_stopPositionX
                             timeline_container.interactive=false
-                            nodesList.startAndStop(false);
+                            //nodesList.startAndStop(false);
                         }
                     }
                 }
@@ -300,6 +300,11 @@ Item {
             timeline_positionmarker.x +=tick
             ticker_counter++
             var mappedPosition = timeline_positionmarker.mapToItem(rootItem, 0.0, 0.0);
+            nodesList.signalToUpdateData(nodesList.time_display)
+
+            if(timeline_positionmarker.x/tick >= endTime-startTime){
+                playbutton.clicked()
+            }
 
             if(mappedPosition.x>=parent.width-50){
                 //currentTime=0

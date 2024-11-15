@@ -27,6 +27,7 @@ Window {
     //Properties for timeline
     property bool enable_timeline
     property int startTime: 0
+    property int endTime: 0
     property string loaderText: ""
     property bool visualization: true
 
@@ -34,7 +35,12 @@ Window {
     property bool build_numbers: false
 
     onControllerChanged: {
-        console.log("Controller changed")
+        //console.log("Controller changed")
+    }
+
+    onStartTimeChanged: {
+        //console.log("startTime: " + startTime)
+        //console.log("endTime: " + endTime)
     }
 
 

@@ -64,6 +64,7 @@ qt_add_qml_module(appGUI_Cluster
         Application_Start_Scorep.qml
         Table_Userid_Selection.qml
         MPI_Run_Analysis.qml
+        QML_FILES Application_Start_OpenMP.qml
 )
 
 set_target_properties(appGUI_Cluster PROPERTIES

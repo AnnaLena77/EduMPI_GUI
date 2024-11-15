@@ -28,7 +28,7 @@ class Database_Thread : public QObject
 
 
 public:
-    explicit Database_Thread(QString dbConnectionName, int slurm_id, int proc_num, QObject *parent = nullptr);
+    explicit Database_Thread(QString dbConnectionName, int slurm_id, int proc_num, bool live_run, QObject *parent = nullptr);
     ~Database_Thread();
 
 public slots:
@@ -60,6 +60,7 @@ private:
     QTime m_firstDBEntryTime;
     int m_slurm_id;
     int m_proc_num;
+    bool m_live_run;
 };
 
 #endif // DATABASE_THREAD_H

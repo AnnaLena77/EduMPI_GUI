@@ -181,8 +181,8 @@ Window {
                     //nodesList.removeClusterComponents();
                     visualization=false;
                     enable_timeline = false;
-                    nodesList.writeRemoteBashFile(programNameField.text, parseInt(numProcs.text), 2)
-                    nodesList.writeLocalBashFile(uploadPath.text, fileButton.checked ? true : false, parseInt(numProcs.text));
+                    controller.writeRemoteBashFile(programNameField.text, parseInt(numProcs.text), 2)
+                    controller.writeLocalBashFile(uploadPath.text, fileButton.checked ? true : false, parseInt(numProcs.text));
                     startup();
 
                     //nodesList.buildClusterComponents(parseInt(numProcs.text))
@@ -202,7 +202,7 @@ Window {
             }
 
             onClicked:{
-                nodesList.cancelRunningJob()
+                controller.cancelRunningJob()
             }
         }
     }
@@ -222,7 +222,7 @@ Window {
     function checkInput(){
         var component = Qt.createComponent("Error.qml");
         var window;
-        if(!nodesList.db_connection){
+        if(!controller.db_connection){
             if(component.status === Component.Ready){
                 window = component.createObject(root, {"message": "There is no database connection to a timescale DB. Please establish a connection: \nSettings > Database Connection"});
                 window.x = (root.width - window.width) / 2;
@@ -232,7 +232,7 @@ Window {
             }
         }
 
-        else if(!nodesList.cluster_connection){
+        else if(!controller.cluster_connection){
             if(component.status === Component.Ready){
                 window = component.createObject(root, {"message": "There is no valid connection to a HPC Cluster. Please establish a connection: \nSettings > Cluster Connection"});
                 window.x = (root.width - window.width) / 2;
@@ -252,7 +252,7 @@ Window {
             }
         }
 
-        else if(!nodesList.checkFile(uploadPath.text, programNameField.text, fileButton.checked ? true : false)){
+        else if(!controller.checkFile(uploadPath.text, programNameField.text, fileButton.checked ? true : false)){
             if(component.status === Component.Ready){
                 window = component.createObject(root, {"message": "There are problems with the specified program/folder path or with the specified program name. Please check the details."});
                 window.x = (root.width - window.width) / 2;

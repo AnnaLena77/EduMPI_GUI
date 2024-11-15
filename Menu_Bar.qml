@@ -49,7 +49,7 @@ Item {
                     var component, window;
                     if(controller.db_connection && controller.cluster_connection){
                         var fd_id = controller.getClusterIdent();
-                        controller.getJobTable().loadJobs(fd_id);
+                        //controller.getJobTable().loadJobs(fd_id);
 
                         component = Qt.createComponent("Table_Userid_Selection.qml");
                         window = component.createObject(root);
@@ -130,7 +130,7 @@ Item {
             title: qsTr("Non-Visualization")
 
             Action {
-                text: qsTr("MPI-Program")
+                text: qsTr("MPI Program")
                 onTriggered: {
                     var component = Qt.createComponent("Application_Start_without.qml");
                     var window = component.createObject(root);
@@ -138,9 +138,17 @@ Item {
                 }
             }
             Action {
-                text: qsTr("MPI-Program with Score-P")
+                text: qsTr("MPI Program with Score-P")
                 onTriggered: {
                     var component = Qt.createComponent("Application_Start_Scorep.qml");
+                    var window = component.createObject(root);
+                    window.show();
+                }
+            }
+            Action {
+                text: qsTr("OpenMP Program")
+                onTriggered: {
+                    var component = Qt.createComponent("Application_Start_OpenMP.qml");
                     var window = component.createObject(root);
                     window.show();
                 }
