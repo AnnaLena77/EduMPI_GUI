@@ -1,0 +1,23 @@
+<RCC>
+  <qresource prefix="/GUI_Cluster/">
+    <file alias="main.qml">/home/anna-lena/GUI_Cluster/main.qml</file>
+    <file alias="Cores2D.qml">/home/anna-lena/GUI_Cluster/Cores2D.qml</file>
+    <file alias="Cores3D.qml">/home/anna-lena/GUI_Cluster/Cores3D.qml</file>
+    <file alias="Menu_Bar.qml">/home/anna-lena/GUI_Cluster/Menu_Bar.qml</file>
+    <file alias="Bottom_Bar.qml">/home/anna-lena/GUI_Cluster/Bottom_Bar.qml</file>
+    <file alias="Cluster_Connection_Formular.qml">/home/anna-lena/GUI_Cluster/Cluster_Connection_Formular.qml</file>
+    <file alias="DB_Connection_Formular.qml">/home/anna-lena/GUI_Cluster/DB_Connection_Formular.qml</file>
+    <file alias="Key_Gen_Guide.qml">/home/anna-lena/GUI_Cluster/Key_Gen_Guide.qml</file>
+    <file alias="Bash_Skript_Manual.qml">/home/anna-lena/GUI_Cluster/Bash_Skript_Manual.qml</file>
+    <file alias="Error.qml">/home/anna-lena/GUI_Cluster/Error.qml</file>
+    <file alias="Custom_BusyIndicator.qml">/home/anna-lena/GUI_Cluster/Custom_BusyIndicator.qml</file>
+    <file alias="Loading.qml">/home/anna-lena/GUI_Cluster/Loading.qml</file>
+    <file alias="Output_File.qml">/home/anna-lena/GUI_Cluster/Output_File.qml</file>
+    <file alias="Application_Start_without.qml">/home/anna-lena/GUI_Cluster/Application_Start_without.qml</file>
+    <file alias="Application_Start_Scorep.qml">/home/anna-lena/GUI_Cluster/Application_Start_Scorep.qml</file>
+    <file alias="Table_Userid_Selection.qml">/home/anna-lena/GUI_Cluster/Table_Userid_Selection.qml</file>
+    <file alias="MPI_Run_Analysis.qml">/home/anna-lena/GUI_Cluster/MPI_Run_Analysis.qml</file>
+    <file alias="Application_Start_OpenMP.qml">/home/anna-lena/GUI_Cluster/Application_Start_OpenMP.qml</file>
+  </qresource>
+</RCC>
+

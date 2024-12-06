@@ -1,0 +1,12 @@
+--resource
+/home/anna-lena/GUI_Cluster/deploy_test/Sidebar/.qt/rcc/qmake_Sidebar.qrc
+--resource
+/home/anna-lena/GUI_Cluster/deploy_test/Sidebar/.qt/rcc/sidebar_raw_qml_0.qrc
+/qt/qml/Sidebar/Sidebar.qml
+/qt/qml/Sidebar/Sidebar_Item.qml
+/qt/qml/Sidebar/MPI_Application_Start.qml
+/qt/qml/Sidebar/Sidebar_Run_Analysis.qml
+/qt/qml/Sidebar/Options.qml
+/qt/qml/Sidebar/Options_Bar.qml
+/qt/qml/Sidebar/Options_Views.qml
+/qt/qml/Sidebar/Screenshot.qml

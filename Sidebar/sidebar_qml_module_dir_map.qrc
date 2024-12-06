@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/">
+    <file alias="/qt/qml/Sidebar">/home/anna-lena/GUI_Cluster/Sidebar</file>
+
+  </qresource>
+</RCC>

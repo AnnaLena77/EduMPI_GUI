@@ -1,8 +1,23 @@
 <RCC>
     <qresource prefix="/">
-        <file>shaders/glass.frag</file>
-        <file>shaders/simple.vert</file>
-        <file>3D-Scene/Menu_Bar.qml</file>
+        <file>main.qml</file>
+        <file>Cores2D.qml</file>
+        <file>Cores3D.qml</file>
+        <file>Menu_Bar.qml</file>
+        <file>Bottom_Bar.qml</file>
+        <file>Cluster_Connection_Formular.qml</file>
+        <file>DB_Connection_Formular.qml</file>
+        <file>Key_Gen_Guide.qml</file>
+        <file>Bash_Skript_Manual.qml</file>
+        <file>Error.qml</file>
+        <file>Custom_BusyIndicator.qml</file>
+        <file>Loading.qml</file>
+        <file>Output_File.qml</file>
+        <file>Application_Start_without.qml</file>
+        <file>Application_Start_Scorep.qml</file>
+        <file>Table_Userid_Selection.qml</file>
+        <file>MPI_Run_Analysis.qml</file>
+        <file>Application_Start_OpenMP.qml</file>
         <file>icons/play.png</file>
         <file>icons/pause.png</file>
         <file>icons/backward_step.png</file>
@@ -12,6 +27,23 @@
         <file>icons/slider.png</file>
         <file>icons/terminal.png</file>
         <file>icons/xmark.png</file>
+        <file>icons/checkmark.png</file>
+        <file>icons/view.png</file>
+        <file>icons/camera.png</file>
         <file>bash_files/local_bash_skript.sh</file>
+        <file>bash_files/remote_scorep_skript.sh</file>
+        <file>bash_files/local_bash_skript_scorep.sh</file>
     </qresource>
+    
+    <qresource prefix="/Sidebar">
+        <file>Sidebar/MPI_Application_Start.qml</file>
+        <file>Sidebar/Sidebar.qml</file>
+        <file>Sidebar/Sidebar_Item.qml</file>
+        <file>Sidebar/Sidebar_Run_Analysis.qml</file>
+        <file>Sidebar/Options_Bar.qml</file>
+        <file>Sidebar/Options.qml</file>
+        <file>Sidebar/Options_Views.qml</file>
+        <file>Sidebar/Screenshot.qml</file>
+    </qresource>
+    
 </RCC>

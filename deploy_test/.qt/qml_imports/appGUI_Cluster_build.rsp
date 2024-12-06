@@ -1,0 +1,14 @@
+-rootPath
+/home/anna-lena/GUI_Cluster
+-cmake-output
+-output-file
+/home/anna-lena/GUI_Cluster/deploy_test/.qt/qml_imports/appGUI_Cluster_build.cmake
+-importPath
+/home/anna-lena/GUI_Cluster/GUI_Cluster
+-importPath
+/home/anna-lena/GUI_Cluster/deploy_test
+-importPath
+/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/qml
+-qrcFiles
+/home/anna-lena/GUI_Cluster/deploy_test/.qt/rcc/qmake_GUI_Cluster.qrc
+/home/anna-lena/GUI_Cluster/deploy_test/.qt/rcc/appGUI_Cluster_raw_qml_0.qrc

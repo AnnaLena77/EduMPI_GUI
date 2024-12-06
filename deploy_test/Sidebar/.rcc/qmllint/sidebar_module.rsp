@@ -1,0 +1,10 @@
+-I
+/home/anna-lena/GUI_Cluster
+-I
+/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/qml
+--resource
+/home/anna-lena/GUI_Cluster/deploy_test/Sidebar/.qt/rcc/qmake_Sidebar.qrc
+--resource
+/home/anna-lena/GUI_Cluster/deploy_test/Sidebar/.qt/rcc/sidebar_raw_qml_0.qrc
+--module
+Sidebar

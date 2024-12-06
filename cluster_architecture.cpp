@@ -60,6 +60,9 @@ void Cluster_Architecture::startThread(){
     Database_Thread::connect(this, &Cluster_Architecture::signalToShowTimestampData, m_dbThread, &Database_Thread::showDataFromTimePeriod);
     Database_Thread::connect(m_dbThread, &Database_Thread::setTimestamp, this, &Cluster_Architecture::handleTimestamp);
 
+    Database_Thread::connect(this, &Cluster_Architecture::waitForEnd, m_dbThread, &Database_Thread::selectEndTimestamp);
+    Database_Thread::connect(this, &Cluster_Architecture::end_timeChanged, m_dbThread, &Database_Thread::set_end_timestamp_db);
+
     //database_thread.start();
     database_thread.start();
 
@@ -129,18 +132,26 @@ int Cluster_Architecture::proc_num(){
     return m_proc_num;
 }
 
+int Cluster_Architecture::end_time(){
+    return m_end_time;
+}
+
 void Cluster_Architecture::set_coll_send_max(long max){
     m_coll_send_max = max;
+    emit coll_send_max_changed();
 }
 void Cluster_Architecture::set_p2p_send_max(long max){
     m_p2p_send_max = max;
+    emit p2p_send_max_changed();
 }
 
 void Cluster_Architecture::set_coll_recv_max(long max){
     m_coll_recv_max = max;
+    emit coll_recv_max_changed();
 }
 void Cluster_Architecture::set_p2p_recv_max(long max){
     m_p2p_recv_max = max;
+    emit p2p_recv_max_changed();
 }
 void Cluster_Architecture::set_slurm_id(int id){
     m_slurm_id = id;
@@ -151,6 +162,13 @@ void Cluster_Architecture::set_slurm_id(int id){
 }
 void Cluster_Architecture::set_proc_num(int proc){
     m_proc_num = proc;
+    emit proc_num_changed();
+}
+
+void Cluster_Architecture::set_end_time(int time){
+    m_end_time = time;
+    QDateTime timestamp = m_start_timestamp.addSecs(time);
+    emit end_timeChanged(timestamp);
 }
 
 Cluster_Node* Cluster_Architecture::nodeAt(int index){
@@ -176,10 +194,14 @@ void Cluster_Architecture::updateDataToUI(const QList<DataColumn> &list){
             r->set_coll_sendDatasize(0);
             r->set_p2p_recvDatasize(0);
             r->set_p2p_sendDatasize(0);
+
             r->set_p2p_late_sender(0);
             r->set_p2p_late_recvr(0);
             r->set_coll_late_sender(0);
             r->set_coll_late_recvr(0);
+
+            r->set_p2p_timediff(0);
+            r->set_coll_timediff(0);
         }
     }
     set_p2p_recv_max(0);
@@ -259,14 +281,20 @@ void Cluster_Architecture::startAndStop(bool start){
     }
 }
 
-void Cluster_Architecture::handleTimestamp(QDateTime timestamp){
-    std::cout << "Timestamp: " << timestamp.toString("yyyy-MM-d HH:mm:ss").toStdString() << std::endl;
-    m_start_timestamp = timestamp;
-    QTime qtimeTimestamp = timestamp.time();
+void Cluster_Architecture::handleTimestamp(QDateTime timestamp, bool start){
+    QTime qtimeTimestamp;
+    int seconds;
+    if(start){
+        std::cout << "Start-Timestamp: " << timestamp.toString("yyyy-MM-d HH:mm:ss").toStdString() << std::endl;
+        m_start_timestamp = timestamp;
+    } else {
+        std::cout << "End-Timestamp: " << timestamp.toString("yyyy-MM-d HH:mm:ss").toStdString() << std::endl;
+    }
+    qtimeTimestamp = timestamp.time();
     QTime midnight;
     midnight.setHMS(0,0,0);
-    int seconds = midnight.secsTo(qtimeTimestamp);
-    emit dataIn(seconds, qtimeTimestamp);
+    seconds = midnight.secsTo(qtimeTimestamp);
+    emit dataIn(seconds, qtimeTimestamp, start);
 }
 
 void Cluster_Architecture::showConditionAt(int timeSecondsA, int timeSecondsB){

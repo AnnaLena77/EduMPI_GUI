@@ -7,6 +7,8 @@
 #include <bash_process_manager.h>
 #include "table_userid.h"
 
+#include <QtQml/qqmlregistration.h>
+
 
 class Controller;
 
@@ -73,6 +75,8 @@ signals:
     void signalSlurmStatusChanged(QString status);
     void copiedOutputFile(QString output);
 
+    void signalEndTime(int time);
+
     //Signals for Thread
     void signalToConnect(const QString &, const QString &, const int &, const QString &, const QString &);
     void setProcNum(const int proc_num);
@@ -91,6 +95,7 @@ public slots:
     //void updateDataToUI(const QList<DataColumn> &);
     //void removeClusterComponents();
     //void handleTimestamp(QTime timestamp);
+    void slotEndTime(QDateTime time);
     void slurm_status_changed(QString status);
     void getSlurmID(const int id);
 

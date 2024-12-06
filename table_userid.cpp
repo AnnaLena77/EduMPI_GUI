@@ -3,7 +3,8 @@
 #include "QSql"
 #include <QSqlQuery>
 #include <QSqlError>
-#include <iostream>>
+#include <iostream>
+#include <qdatetime.h>
 
 Table_UserID::Table_UserID(QObject *parent)
     : QAbstractTableModel(parent)
@@ -24,7 +25,7 @@ void Table_UserID::loadJobs(const QString &userId){
         return;
     }
     QSqlQuery query(db);
-    query.prepare("SELECT edumpi_run_id, start_time, end_time FROM edumpi_runs WHERE user_id = :user_id ORDER BY edumpi_run_id");
+    query.prepare("SELECT edumpi_run_id, start_time, end_time FROM edumpi_runs WHERE (user_id = :user_id OR user_id = 'all_users') ORDER BY edumpi_run_id");
     query.bindValue(":user_id", userId);
     query.exec();
 
@@ -42,6 +43,9 @@ void Table_UserID::loadJobs(const QString &userId){
                 << query.value(1)  // start_time
                 << query.value(2); // end_time
         m_edumpi_runs.append(rowData);
+
+        //qDebug() << query.value(1).toString();
+        //qDebug() << start.toString("yyyy-MM-dd HH:mm:ss");
     }
 
     endResetModel();

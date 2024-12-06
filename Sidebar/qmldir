@@ -1,0 +1,15 @@
+module Sidebar
+linktarget sidebarplugin
+optional plugin sidebarplugin
+classname SidebarPlugin
+typeinfo sidebar.qmltypes
+prefer :/qt/qml/Sidebar/
+Sidebar 1.0 Sidebar.qml
+Sidebar_Item 1.0 Sidebar_Item.qml
+MPI_Application_Start 1.0 MPI_Application_Start.qml
+Sidebar_Run_Analysis 1.0 Sidebar_Run_Analysis.qml
+Options 1.0 Options.qml
+Options_Bar 1.0 Options_Bar.qml
+Options_Views 1.0 Options_Views.qml
+Screenshot 1.0 Screenshot.qml
+

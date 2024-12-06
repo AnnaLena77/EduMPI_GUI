@@ -162,10 +162,14 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
             /*std::cout << "Full_Percent: " << full_percent << " Send_Percent: " << send_percent << " Recv_Percent: " << recv_percent << std::endl;
             QDateTime current_time = QDateTime::currentDateTime();
             std::cout << "Frontend-Time: " << current_time.toString("yyyy-MM-dd HH:mm:ss").toStdString() << std::endl;*/
+            if(full_percent==0){
+                red = green = blue = 255;
+            } else {
+                red = recv_percent * 255; // Je höher der Empfangsanteil, desto mehr Rot
+                green = send_percent * 255; // Je höher der Sendeanteil, desto mehr Grün
+                blue = 255 - (red + green); // Rest wird in Blau gemischt
+            }
 
-            red = recv_percent * 255; // Je höher der Empfangsanteil, desto mehr Rot
-            green = send_percent * 255; // Je höher der Sendeanteil, desto mehr Grün
-            blue = 255 - (red + green); // Rest wird in Blau gemischt
         } else if(m_combobox == "Max Send Ratio (over all Procs)"){
             if(m_p2p_show && m_coll_show){
                 full_percent = static_cast<double>(m_nodes->coll_send_max()) + static_cast<double>(m_nodes->p2p_send_max());
@@ -227,6 +231,10 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
             red = 255 - lateSenderData*255;
             green = 255 - lateSenderData*255;
 
+            if(qIsNaN(lateSenderData)){
+                blue = red = green = 224;
+            }
+
         } else if(m_combobox == "Wait for Late Recver (per Proc)"){
             float lateRecvrData = 0;
             float coll_data = m_instanceRanks->rankAt(i)->coll_late_recvr();
@@ -257,6 +265,10 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
             blue = 255;
             red = 255 - lateRecvrData*255;
             green = 255 - lateRecvrData*255;
+
+            if(qIsNaN(lateRecvrData)){
+                blue = red = green = 224;
+            }
         }
 
         QColor col(red, green, blue);

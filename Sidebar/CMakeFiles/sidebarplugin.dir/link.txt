@@ -1,0 +1,2 @@
+/bin/ar qc libsidebarplugin.a CMakeFiles/sidebarplugin.dir/sidebarplugin_autogen/mocs_compilation.cpp.o CMakeFiles/sidebarplugin.dir/sidebarplugin_SidebarPlugin.cpp.o
+/bin/ranlib libsidebarplugin.a
