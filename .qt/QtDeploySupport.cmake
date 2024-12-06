@@ -5,6 +5,9 @@ cmake_minimum_required(VERSION 3.16...3.21)
 if(NOT QT_DEPLOY_BIN_DIR)
     set(QT_DEPLOY_BIN_DIR "bin")
 endif()
+if(NOT QT_DEPLOY_LIBEXEC_DIR)
+    set(QT_DEPLOY_LIBEXEC_DIR "libexec")
+endif()
 if(NOT QT_DEPLOY_LIB_DIR)
     set(QT_DEPLOY_LIB_DIR "lib")
 endif()
@@ -24,7 +27,7 @@ if(QT_DEPLOY_PREFIX STREQUAL "")
     set(QT_DEPLOY_PREFIX .)
 endif()
 if(NOT QT_DEPLOY_IGNORED_LIB_DIRS)
-    set(QT_DEPLOY_IGNORED_LIB_DIRS "/usr/lib/gcc/x86_64-linux-gnu/9;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib")
+    set(QT_DEPLOY_IGNORED_LIB_DIRS "/usr/lib/gcc/x86_64-linux-gnu/11;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib")
 endif()
 
 # These are internal implementation details. They may be removed at any time.
@@ -39,19 +42,25 @@ set(__QT_DEPLOY_ACTIVE_CONFIG "")
 set(__QT_NO_CREATE_VERSIONLESS_FUNCTIONS "")
 set(__QT_DEFAULT_MAJOR_VERSION "6")
 set(__QT_DEPLOY_QT_ADDITIONAL_PACKAGES_PREFIX_PATH "")
-set(__QT_DEPLOY_QT_INSTALL_PREFIX "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64")
+set(__QT_DEPLOY_QT_INSTALL_PREFIX "/home/anna-lena/QtDesignStudio/6.8.1/gcc_64")
 set(__QT_DEPLOY_QT_INSTALL_BINS "bin")
-set(__QT_DEPLOY_QT_INSTALL_PLUGINS "./plugins")
-set(__QT_DEPLOY_QT_INSTALL_TRANSLATIONS "./translations")
+set(__QT_DEPLOY_QT_INSTALL_DATA ".")
+set(__QT_DEPLOY_QT_INSTALL_LIBEXECS "libexec")
+set(__QT_DEPLOY_QT_INSTALL_PLUGINS "plugins")
+set(__QT_DEPLOY_QT_INSTALL_TRANSLATIONS "translations")
+set(__QT_DEPLOY_TARGET_QT_PATHS_PATH "/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/bin/qtpaths6")
 set(__QT_DEPLOY_PLUGINS "")
 set(__QT_DEPLOY_MUST_ADJUST_PLUGINS_RPATH "")
 set(__QT_DEPLOY_USE_PATCHELF "")
-set(__QT_DEPLOY_PATCHELF_EXECUTABLE "/usr/bin/patchelf")
+set(__QT_DEPLOY_PATCHELF_EXECUTABLE "")
+set(__QT_DEPLOY_QT_IS_MULTI_CONFIG_BUILD_WITH_DEBUG "FALSE")
+set(__QT_DEPLOY_QT_DEBUG_POSTFIX "")
 
 # Define the CMake commands to be made available during deployment.
 set(__qt_deploy_support_files
-    "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6Core/Qt6CoreDeploySupport.cmake"
-    "/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib/cmake/Qt6Qml/Qt6QmlDeploySupport.cmake"
+    "/home/anna-lena/GUI_Cluster/.qt/QtDeployTargets.cmake"
+    "/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/lib/cmake/Qt6Core/Qt6CoreDeploySupport.cmake"
+    "/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/lib/cmake/Qt6Qml/Qt6QmlDeploySupport.cmake"
 )
 foreach(__qt_deploy_support_file IN LISTS __qt_deploy_support_files)
     include("${__qt_deploy_support_file}")

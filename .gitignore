@@ -1,0 +1,10 @@
+deploy_1.0.0/
+deploy_1.0.2/
+deploy_1.0.3/
+build/
+
+*.log
+*.tmp
+*.bak
+
+CMakeCache.txt

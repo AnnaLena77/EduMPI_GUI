@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/GUI_Cluster">
-    <file alias="qmldir">/home/anna-lena/GUI_Cluster/build/Desktop_Qt_5_15_16_GCC_64bit-Debug/GUI_Cluster/qmldir</file>
-  </qresource>
-</RCC>
-

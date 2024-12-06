@@ -10,6 +10,7 @@
 #include <bash_process_manager.h>
 
 #include <database_connection.h>
+#include <QtQml/qqmlregistration.h>
 
 class Cluster_Architecture;
 
@@ -17,6 +18,7 @@ class Cluster_Architecture : public QObject
 {
 
     Q_OBJECT
+    QML_ELEMENT
     Q_PROPERTY(int count READ count CONSTANT)
     Q_PROPERTY(long p2p_send_max READ p2p_send_max WRITE set_p2p_send_max NOTIFY p2p_send_max_changed)
     Q_PROPERTY(long coll_send_max READ coll_send_max WRITE set_coll_send_max NOTIFY coll_send_max_changed)
@@ -26,6 +28,8 @@ class Cluster_Architecture : public QObject
 
     Q_PROPERTY(int slurm_id READ slurm_id WRITE set_slurm_id NOTIFY slurm_id_changed)
     Q_PROPERTY(int proc_num READ proc_num WRITE set_proc_num NOTIFY proc_num_changed)
+
+    Q_PROPERTY(int end_time READ end_time WRITE set_end_time NOTIFY end_timeChanged)
 
     QThread database_thread;
 
@@ -41,6 +45,7 @@ public:
     long coll_recv_max();
     int slurm_id();
     int proc_num();
+    int end_time();
 
     void set_p2p_send_max(long max);
     void set_coll_send_max(long max);
@@ -61,6 +66,8 @@ public:
 
     Q_INVOKABLE Cluster_Node* nodeAt(int index);
 
+    Q_INVOKABLE void set_end_time(int time);
+
     //void buildClusterComponents();
     void updateDatasize();
     int timerId;
@@ -73,6 +80,7 @@ signals:
     void coll_recv_max_changed();
     void slurm_id_changed();
     void proc_num_changed();
+    void end_timeChanged(QDateTime time);
 
     //Signals for Thread
     void signalToConnect(const QString &, const QString &, const int &, const QString &, const QString &);
@@ -81,11 +89,13 @@ signals:
     void signalToShowTimestampData(const QDateTime timestampA, const QDateTime timestampB);
     void startDatabaseThread();
     void signalToDBConnection();
+    void waitForEnd();
 
     //Signals for QML
     void componentsBuilt();
     void connectionSignal(bool success);
-    void dataIn(int timestamp, QTime qTimestamp);
+    //set bool = 1 for start-timestamp and bool = 0 for end-timestamp
+    void dataIn(int timestamp, QTime qTimestamp, bool start);
     void signalSlurmStatusChanged(QString status);
     void copiedOutputFile(QString output);
 
@@ -94,7 +104,8 @@ public slots:
     void buildClusterComponents(const QMap<QString, QVector<int>> &);
     void updateDataToUI(const QList<DataColumn> &);
     void removeClusterComponents();
-    void handleTimestamp(QDateTime timestamp);
+    //set bool = 1 for start-timestamp and bool = 0 for end-timestamp
+    void handleTimestamp(QDateTime timestamp, bool start);
 
 private:
 
@@ -127,6 +138,7 @@ private:
     int m_option;
     bool m_status_running=false;
     bool m_live_run;
+    int m_end_time;
 
 protected:
     void timerEvent(QTimerEvent *event);

@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <QDebug>
 #include <iostream>
+#include <QDateTime>
 
 /*Bash_Process_Manager::Bash_Process_Manager(QObject *parent) : QObject(parent)
 {
@@ -84,6 +85,20 @@ void Bash_Process_Manager::handleOutput()
                 }
             }
         }
+    }
+    else if(output.contains("EndTime")){
+        output = output.trimmed();
+        QString timestamp = output.section(' ', 0, 0);
+        QDateTime endTime = QDateTime::fromString(timestamp, Qt::ISODate);
+
+        // Überprüfung und Ausgabe
+        if (endTime.isValid()) {
+            emit slotEndTime(endTime);
+            std::cout << "QDateTime: " << endTime.toString(Qt::ISODate).toStdString() << std::endl;
+        } else {
+            std::cerr << "Invalid QDateTime!" << std::endl;
+        }
+
     }
     else{
             qDebug() << "Output:" << output;

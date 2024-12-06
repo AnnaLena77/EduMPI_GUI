@@ -40,13 +40,18 @@ public slots:
 
     void getProcNum(const int proc_num);
     void fetchEduMPIJobs(const QString &userId);
+    void selectEndTimestamp();
+
+    void set_end_timestamp_db(QDateTime timestamp);
+
 
 signals:
     void connectedToDB(const bool &success);
     void clusterComponentsReady(const QMap<QString, QVector<int>> &map);
     void updateDataReady(const QList<DataColumn> &list);
     void dbCleared();
-    void setTimestamp(QDateTime timestamp);
+    //set bool = 1 for start-timestamp and bool = 0 for end-timestamp
+    void setTimestamp(QDateTime timestamp, bool start);
     void eduMPIJobsFetched(const QVariantList &jobIds);
 
 private:

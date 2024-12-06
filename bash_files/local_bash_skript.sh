@@ -70,7 +70,10 @@ while true; do
     
      # Überprüfen, ob der Job abgeschlossen ist
     if [[ "$JOB_STATUS" == "COMPLETED" || "$JOB_STATUS" == "FAILED" || "$JOB_STATUS" == "CANCELLED" || -z "$JOB_STATUS" ]]; then
-        echo "Break Job!"
+        sleep 0.5
+        END_TIME=$(remote_command "scontrol show job $JOB_ID | grep EndTime | cut -d= -f3")
+        echo "$END_TIME EndTime"
+
         break
     fi
 
@@ -81,7 +84,7 @@ done
 
 
 # Hier können Sie beliebige weitere Kommandos ausführen
-remote_command "echo Hallo"
+#remote_command "echo Hallo"
 #remote_command "sleep 10"
 #remote_command "df -h"
 #remote_command "ls -l /home/${REMOTE_USER}"

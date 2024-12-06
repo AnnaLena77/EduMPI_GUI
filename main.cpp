@@ -16,6 +16,8 @@
 int main(int argc, char *argv[])
 {
     qputenv("QT_IM_MODULE", QByteArray());
+    qputenv("QT_WAYLAND_DISABLE_TEXT_INPUT", "1");
+    qputenv("QT_LOGGING_RULES", "qt.qpa.wayland.textinput=false");
 
     //QScopedPointer<Database_Connection> db(new Database_Connection);
 
@@ -23,11 +25,25 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    qmlRegisterType<Controller>("Qt.db.Singleton", 1, 0, "Controller");
-    qmlRegisterType<Cluster_Architecture>("Qt.db.nodes", 1, 0, "Nodes_List");
+    //engine.addImportPath("qrc:/");
+    //engine.addImportPath("qrc:/Sidebar/"); // Speziell für Sidebar
+
+    const char *homeDir = getenv("HOME");
+    if (homeDir == nullptr) {
+        homeDir = ""; // Fallback, falls HOME nicht definiert ist
+    }
+
+    // Übergabe des Home-Verzeichnisses an QML
+    engine.rootContext()->setContextProperty("homeDirectory", QString(homeDir));
+
+    //qmlRegisterType<Controller>("appGui_Cluster.Controller", 1, 0, "Controller");
+    //qmlRegisterType<Cluster_Architecture>("appGui_Cluster.Nodes", 1, 0, "Nodes_List");
     //qmlRegisterType<Table_UserID>("Qt.db.models", 1, 0, "TableUserID");
 
-    const QUrl url(u"qrc:/GUI_Cluster/main.qml"_qs);
+    //const QUrl url(u"qrc:/GUI_Cluster/main.qml"_qs);
+
+    const QUrl url(QStringLiteral("qrc:/GUI_Cluster/main.qml"));
+
     /*QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)

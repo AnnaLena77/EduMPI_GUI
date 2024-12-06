@@ -1,2 +1,0 @@
-set(__QT_DEPLOY_TARGET_appGUI_Cluster_FILE /home/anna-lena/GUI_Cluster/build/Desktop_Qt_6_8_0-Debug/appGUI_Cluster)
-set(__QT_DEPLOY_TARGET_appGUI_Cluster_TYPE EXECUTABLE)

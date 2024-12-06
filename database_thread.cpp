@@ -6,6 +6,7 @@
 #include <QDateTime>
 #include <QStandardItemModel>
 #include <QSqlError>
+#include <QTimeZone>
 
 Database_Thread::Database_Thread(QString dbConnectionName, int slurm_id, int proc_num, bool live_run, QObject *parent)
     : QObject(parent) {
@@ -91,31 +92,45 @@ void Database_Thread::updateData(const int &time_display){
     }
 
     QSqlQuery queryy(db);
+    QDateTime timestamp_runtime;
     QDateTime timestamp;
 
     if(m_firstDBEntryTime.isNull()){
-        //queryy.prepare("SELECT time_second FROM edumpi_data_secondly WHERE edumpi_run_id=:slurm_id order by time_second DESC LIMIT 1");
+        queryy.prepare("SELECT start_time FROM edumpi_runs WHERE edumpi_run_id = :run_id");
+        queryy.bindValue(":run_id", m_slurm_id);
         while(true){
-            queryy.prepare("SELECT time_start, time_end FROM edumpi_secondly_data WHERE edumpi_run_id=:slurm_id order by time_start ASC LIMIT 1");
-            queryy.bindValue(":slurm_id", m_slurm_id);
+            queryy.exec();
+            if(queryy.next()){
+                timestamp_runtime = queryy.value(0).toDateTime();
+                timestamp_runtime = timestamp_runtime.toLocalTime();
+                //qDebug() << "Timestamp_runtime: " << timestamp_runtime;
+                break;
+            }
+        }
+        queryy.prepare("SELECT time_start, time_end FROM edumpi_secondly_data WHERE edumpi_run_id=:slurm_id order by time_start ASC LIMIT 1");
+        queryy.bindValue(":slurm_id", m_slurm_id);
+        while(true){
             queryy.exec();
             if(queryy.next()){
                 timestamp = queryy.value(0).toDateTime();
                 QDateTime timestamp_end = queryy.value(1).toDateTime();
+                timestamp_runtime = timestamp_runtime.toLocalTime();
 
-                int diff = timestamp.msecsTo(timestamp_end);
+
+                int diff = timestamp_runtime.msecsTo(timestamp);
+                int diff2 = timestamp.msecsTo(timestamp_end);
                 if(m_live_run){
-                    if(diff < 3000){
-                        qDebug() << "Timediff < 3000: " << diff << " " << timestamp.toString() << ", " <<  timestamp_end.toString();
+                    if(diff < 3000 && diff2 < 3000){
+                        qDebug() << "Timediff < 3000: " << diff << " " << timestamp_runtime.toString() << ", " <<  timestamp.toString();
                         sleep(3);
                     } else {
-                        qDebug() << "Timediff > 3000: " << diff << " " << timestamp.toString() << ", " << timestamp_end.toString();
+                        qDebug() << "Timediff > 300: " << diff << " " << timestamp_runtime.toString() << ", " << timestamp.toString();
                     }
                 }
 
-                m_firstDBEntryTime = timestamp.time();
-                m_actualDBEntryTime = timestamp;
-                emit setTimestamp(timestamp);
+                m_firstDBEntryTime = timestamp_runtime.time();
+                m_actualDBEntryTime = timestamp_runtime;
+                emit setTimestamp(timestamp_runtime, 1);
             break;
             }
         }
@@ -128,7 +143,8 @@ void Database_Thread::updateData(const int &time_display){
 
     if(time_display == 0){
         //queryString = QString("SELECT * FROM edumpi_data_secondly WHERE time_second = '%1' AND edumpi_run_id = %2;").arg(m_actualDBEntryTime.toString("yyyy-MM-dd HH:mm:ss")).arg(m_slurm_id);
-        queryString = QString("SELECT processorname, processrank, communicationtype, SUM(send_ds) AS send_ds, SUM(recv_ds) AS recv_ds, SUM(time_diff) AS time_diff, SUM(latesendertime) AS latesendertime, SUM(laterecvrtime) AS laterecvrtime FROM edumpi_secondly_data WHERE edumpi_run_id = %1 AND time_end >= '%2' AND time_start <= '%2' GROUP BY processorname, processrank, communicationtype;").arg(m_slurm_id).arg(m_actualDBEntryTime.toString("yyyy-MM-dd HH:mm:ss"));
+        QDateTime ts_toUTC = m_actualDBEntryTime.toUTC();
+        queryString = QString("SELECT processorname, processrank, communicationtype, SUM(send_ds) AS send_ds, SUM(recv_ds) AS recv_ds, SUM(time_diff) AS time_diff, SUM(latesendertime) AS latesendertime, SUM(laterecvrtime) AS laterecvrtime FROM edumpi_secondly_data WHERE edumpi_run_id = %1 AND time_end >= '%2' AND time_start <= '%2' GROUP BY processorname, processrank, communicationtype;").arg(m_slurm_id).arg(ts_toUTC.toString("yyyy-MM-dd HH:mm:ss"));
     }
     else if(time_display == 1){
         queryString = QString("SELECT processrank, processorname, communicationtype, SUM(sendDatasize) AS send_ds, SUM(recvDatasize) AS recv_ds FROM edumpi_running_data WHERE edumpi_run_id=%1 GROUP BY processorname, processrank, communicationtype ORDER BY processrank ASC").arg(m_slurm_id);
@@ -170,6 +186,31 @@ void Database_Thread::updateData(const int &time_display){
 
 }
 
+void Database_Thread::selectEndTimestamp(){
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
+        return;
+    }
+    QSqlQuery queryy(db);
+    QDateTime timestamp_runtime;
+    QDateTime timestamp_end;
+
+    queryy.prepare("SELECT end_time FROM edumpi_runs WHERE edumpi_run_id = :run_id");
+    queryy.bindValue(":run_id", m_slurm_id);
+    for(int i=0; i<5; i++){
+        queryy.exec();
+        if(queryy.next()){
+            timestamp_end = queryy.value(0).toDateTime();
+            timestamp_runtime = timestamp_runtime.toLocalTime();
+            emit setTimestamp(timestamp_end, 0);
+            break;
+        }
+        sleep(1);
+    }
+
+}
+
 void Database_Thread::showDataFromTimePeriod(const QDateTime timestampA, const QDateTime timestampB){
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     if (!db.isOpen()) {
@@ -179,13 +220,16 @@ void Database_Thread::showDataFromTimePeriod(const QDateTime timestampA, const Q
 
     QString queryString = "SELECT processorname, processrank, communicationtype, SUM(send_ds) AS send_ds, SUM(recv_ds) AS recv_ds, SUM(time_diff) AS time_diff, SUM(latesendertime) AS latesendertime, SUM(laterecvrtime) AS laterecvrtime FROM edumpi_secondly_data WHERE edumpi_run_id = :slurm_id AND ((time_end >= :endtime AND time_start <= :starttime) OR (time_end BETWEEN :starttime AND :endtime)) GROUP BY processorname, processrank, communicationtype;";
 
+    QDateTime a = timestampA.toUTC();
+    QDateTime b = timestampB.toUTC();
+
     QSqlQuery query(db);
     query.prepare(queryString);
-    query.bindValue(":starttime", timestampA.toString("yyyy-MM-dd HH:mm:ss"));
-    query.bindValue(":endtime", timestampB.toString("yyyy-MM-dd HH:mm:ss"));
+    query.bindValue(":starttime", a.toString("yyyy-MM-dd HH:mm:ss"));
+    query.bindValue(":endtime", b.toString("yyyy-MM-dd HH:mm:ss"));
     query.bindValue(":slurm_id", m_slurm_id);
 
-    //std::cout << "Starttime" << a.toString("yyyy-MM-d HH:mm:ss").toStdString() << std::endl;
+    //std::cout << "Test Starttime" << a.toString("yyyy-MM-d HH:mm:ss").toStdString() << std::endl;
 
     if (query.exec()) {
         QList<DataColumn> list;
@@ -241,4 +285,26 @@ void Database_Thread::getProcNum(const int proc_num){
 
 void Database_Thread::fetchEduMPIJobs(const QString &userId){
 
+}
+
+void Database_Thread::set_end_timestamp_db(QDateTime timestamp){
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
+        return;
+    }
+
+    QString queryString = "UPDATE edumpi_runs SET end_time = :endtime WHERE edumpi_run_id = :slurm_id";
+
+    QDateTime end = timestamp.toUTC();
+
+    QSqlQuery query(db);
+    query.prepare(queryString);
+    query.bindValue(":endtime", end.toString("yyyy-MM-dd HH:mm:ss"));
+    query.bindValue(":slurm_id", m_slurm_id);
+
+    if(!query.exec()){
+        QSqlError fehler = query.lastError();
+        qDebug() << "Query Update Error:" << fehler.text();
+    }
 }

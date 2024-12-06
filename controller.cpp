@@ -20,6 +20,7 @@ Controller::Controller(QObject *parent) : QObject(parent)
 
     QObject::connect(slurm_process, &Bash_Process_Manager::slurmIdReady, this, &Controller::getSlurmID);
     QObject::connect(slurm_process, &Bash_Process_Manager::slurm_status_changed, this, &Controller::slurm_status_changed);
+    QObject::connect(slurm_process, &Bash_Process_Manager::slotEndTime, this, &Controller::slotEndTime);
 
     m_connectionName = "mainConnection";
 }
@@ -361,6 +362,7 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
             scriptFile << "#SBATCH --ntasks=1\n";
             scriptFile << "#SBATCH --job-name=eduMPI_OpenMP\n";
             scriptFile << "#SBATCH --nodes=1\n";
+            scriptFile << "#SBATCH --exclusive\n";
         } else {
             scriptFile << "#SBATCH --ntasks=" << proc_num << "\n";
             scriptFile << "#SBATCH --job-name=eduMPI\n";
@@ -453,6 +455,16 @@ void Controller::slurm_status_changed(QString status){
         }
     }
     emit signalSlurmStatusChanged(status);
+}
+
+void Controller::slotEndTime(QDateTime time){
+    QTime qtimeTimestamp;
+    int seconds;
+    qtimeTimestamp = time.time();
+    QTime midnight;
+    midnight.setHMS(0,0,0);
+    seconds = midnight.secsTo(qtimeTimestamp);
+    emit signalEndTime(seconds);
 }
 
 void Controller::getSlurmID(const int id){

@@ -3,11 +3,12 @@
 
 #include <QObject>
 #include <QProcess>
+#include <QDateTime>
 
 class Bash_Process_Manager : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(long status NOTIFY slurm_status_changed)
+    //Q_PROPERTY(long status NOTIFY slurm_status_changed)
 
 public:
     //explicit Bash_Process_Manager(QObject *parent = nullptr);
@@ -21,6 +22,7 @@ public:
 signals:
     void slurmIdReady(const int);
     void slurm_status_changed(QString status);
+    void slotEndTime(QDateTime(time));
 
 private slots:
     void handleOutput();

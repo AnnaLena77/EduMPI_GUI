@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/GUI_Cluster">
+    <file alias="qmldir">/home/anna-lena/GUI_Cluster/GUI_Cluster/qmldir</file>
+  </qresource>
+</RCC>
+
