@@ -10,6 +10,8 @@ Rectangle {
     implicitHeight: 150
     color: "#383936"
 
+    property Item main_item
+
     Rectangle {
         id: rectangle
         //anchors.fill: parent
@@ -33,7 +35,7 @@ Rectangle {
 
             Text {
                 id: text_view
-                text: qsTr("Take a Screenshot of EduMPI Window")
+                text: qsTr("Take a Screenshot of EduMPI Window. Screenshots will be stored in ~/Pictures")
                 color: "white"
                 font.pointSize: 12
                 Layout.alignment: Qt.AlignHCenter
@@ -46,6 +48,10 @@ Rectangle {
                 Layout.alignment: Qt.AlignCenter
                 onClicked: {
                     screenshot()
+                }
+                HoverHandler {
+                    id: stylus
+                    cursorShape: Qt.PointingHandCursor
                 }
             }
 
@@ -61,6 +67,8 @@ Rectangle {
             result.saveToFile(filePath)
         })
         console.log("Screenshot saved to", filePath);
+
+        main_item.flash();
     }
 
 }

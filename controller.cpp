@@ -68,28 +68,28 @@ Controller::~Controller()
 }
 
 void Controller::copyOutputFile(){
-    QProcess proc;
-    const char *homeDir = getenv("HOME");
-    QString filePath = QString(homeDir);
+    QtConcurrent::run([this]() {
+        QProcess proc;
+        const char *homeDir = getenv("HOME");
+        QString filePath = QString(homeDir);
 
-    QString sshCommand = QString("scp %1@%2:%3/slurm-%4.out %5").arg(m_cluster_ident, m_cluster_address, m_remote_dir_bash, QString::number(m_slurm_id), filePath);
-    std::cout << sshCommand.toStdString() << std::endl;
+        QString sshCommand = QString("scp %1@%2:%3/slurm-%4.out %5").arg(m_cluster_ident, m_cluster_address, m_remote_dir_bash, QString::number(m_slurm_id), filePath);
+        std::cout << sshCommand.toStdString() << std::endl;
 
-    proc.start("bash", QStringList() << "-c" << sshCommand);
+        proc.start("bash", QStringList() << "-c" << sshCommand);
 
-    // Warten, bis der Prozess gestartet ist
-    if (!proc.waitForStarted()) {
-        proc.kill();
-        //return "Error! The SSH process could not be started. Please check all details and your network connection. A VPN connection may be necessary. Restart the application.";
-    }
+        // Warten, bis der Prozess gestartet ist
+        if (!proc.waitForStarted()) {
+            proc.kill();
+        }
 
-    // Warten, bis der Prozess beendet ist
-    if (!proc.waitForFinished()) {
-        proc.kill();
-        //return "Error! The SSH process could not be started. Please check all details and your network connection. A VPN connection may be necessary. Restart the application.! ";
-    }
-    QString outputPath = filePath + "/slurm-" + QString::number(m_slurm_id) + ".out";
-    emit copiedOutputFile(outputPath);
+        // Warten, bis der Prozess beendet ist
+        if (!proc.waitForFinished()) {
+            proc.kill();
+        }
+        QString outputPath = filePath + "/slurm-" + QString::number(m_slurm_id) + ".out";
+        emit copiedOutputFile(outputPath);
+    });
 }
 
 QString Controller::connectCluster(const QString &address, const QString &ident, const QString &path){
@@ -222,20 +222,20 @@ void Controller::writeLocalBashFile(QString local_path, bool file, int proc_num)
         out << line << "\n";
         if(lineNumber == 9) {
             if(file){
-                out << "scp " + local_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
-                out << "scp " + m_remote_bash_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
+                out << "scp \"" + local_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
+                out << "scp \"" + m_remote_bash_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files";
                 if(m_option != 3){
-                    out << "scp " + QString::fromStdString(m_envFilePath) + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
+                    out << "scp \"" + QString::fromStdString(m_envFilePath) + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
                     //m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files";
                 }
             } else{
                 out << "mkdir " + local_path  + "/tmp\n";
-                out << "scp -r " + local_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
+                out << "scp -r \"" + local_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 int lastSlashIndex = local_path.lastIndexOf("/");
                 QString dir_name = local_path.mid(lastSlashIndex + 1);
-                out << "scp " + m_remote_bash_path + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/" + "\"\n";
-                out << "scp " + QString::fromStdString(m_envFilePath) + " \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
+                out << "scp \"" + m_remote_bash_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/" + "\"\n";
+                out << "scp \"" + QString::fromStdString(m_envFilePath) + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
                 m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files/" + dir_name;
             }
         }

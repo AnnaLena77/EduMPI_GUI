@@ -1,6 +1,7 @@
 deploy_1.0.0/
 deploy_1.0.2/
 deploy_1.0.3/
+deploy_test/
 build/
 
 *.log

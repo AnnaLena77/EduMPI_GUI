@@ -63,6 +63,8 @@ void Cluster_Architecture::startThread(){
     Database_Thread::connect(this, &Cluster_Architecture::waitForEnd, m_dbThread, &Database_Thread::selectEndTimestamp);
     Database_Thread::connect(this, &Cluster_Architecture::end_timeChanged, m_dbThread, &Database_Thread::set_end_timestamp_db);
 
+    Database_Thread::connect(this, &Cluster_Architecture::reset_bottom_bar, m_dbThread, &Database_Thread::reset_actual_timestamp);
+
     //database_thread.start();
     database_thread.start();
 

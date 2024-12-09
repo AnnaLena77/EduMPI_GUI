@@ -20,7 +20,7 @@ Item {
     property bool bar_enable_timeline : enable_timeline
 
     onStatusChanged: {
-        if(status === "completed" && playbutton.icon.name==="pause" && timeline_timer.running && on_enable_timeline){
+        if(status === "completed" && playbutton.icon.name==="pause" && timeline_timer.running && bar_enable_timeline){
             //console.log("Playbutton clicked");
             //playbutton.clicked();
             if(timeline_positionmarker.x == 0){
@@ -102,7 +102,14 @@ Item {
                             icon.name= "play"
                             timeline_timer.stop()
                             container_stopPositionX = timeline_container.contentX
-                            positionmarker_stopPositionX = timeline_positionmarker.x
+                            /*if(timeline_positionmarker.x >= timeline_endmarker.x){
+                                positionmarker_stopPositionX = 0
+                                nodesList.reset_bottom_bar()
+
+                            } else {*/
+                                positionmarker_stopPositionX = timeline_positionmarker.x
+                           // }
+
                             timeline_container.interactive=true
                             //nodesList.startAndStop(true);
                         }
@@ -321,14 +328,20 @@ Item {
         property int ticker_counter: 0
 
         onTriggered: {
-            timeline_positionmarker.x +=tick
+            if(endTime != 0 && timeline_positionmarker.x >= timeline_endmarker.x){
+                timeline_positionmarker.x = 0
+                ticker_counter = 0;
+            } else {
+                timeline_positionmarker.x +=tick
+            }
             ticker_counter++
             var mappedPosition = timeline_positionmarker.mapToItem(rootItem, 0.0, 0.0);
             nodesList.signalToUpdateData(nodesList.time_display)
 
-            if(endTime != 0 && live){
+            if(endTime != 0){
                 if(timeline_positionmarker.x >= timeline_endmarker.x){
                     playbutton.clicked()
+                    nodesList.reset_bottom_bar()
                 }
             }
 

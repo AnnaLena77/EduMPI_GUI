@@ -99,6 +99,8 @@ signals:
     void signalSlurmStatusChanged(QString status);
     void copiedOutputFile(QString output);
 
+    void reset_bottom_bar();
+
 
 public slots:
     void buildClusterComponents(const QMap<QString, QVector<int>> &);

@@ -51,6 +51,22 @@ Window {
         anchors.fill: parent
         property int endTime: run_analysis_win.endTime
 
+        function flash() {
+            opacityAnimation.start();
+        }
+
+        // Transparenz-Animation
+        NumberAnimation {
+            id: opacityAnimation
+            target: run_analysis_win_Item
+            property: "opacity"
+            from: 1.0
+            to: 0.1
+            duration: 400 // Dauer des Aufblitzens (ms)
+            onStopped: run_analysis_win_Item.opacity = 1.0 // Zurück zur Original-Transparenz
+        }
+
+
         Cluster_Architecture{
             id: nodesList
 
@@ -128,8 +144,8 @@ Window {
         Sidebar_Run_Analysis{
             id: options_analysis
             anchors.right: parent.right
+            height: parent.height - bottom_main.height
             //anchors.verticalCenter: parent.verticalCenter
-            anchors.bottom: bottom_main.top
             anchors.top: parent.top
             //anchors.top: menu.bottom
         }
