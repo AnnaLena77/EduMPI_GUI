@@ -43,6 +43,7 @@ public slots:
     void selectEndTimestamp();
 
     void set_end_timestamp_db(QDateTime timestamp);
+    void reset_actual_timestamp();
 
 
 signals:
@@ -62,6 +63,7 @@ private:
 
     bool m_clearingProc = false;
     QDateTime m_actualDBEntryTime;
+    QDateTime m_firstDBEntryDate;
     QTime m_firstDBEntryTime;
     int m_slurm_id;
     int m_proc_num;

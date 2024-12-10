@@ -108,7 +108,25 @@ Window {
         FileDialog {
         id: fileDialog
             //currentFolder: StandardPaths.standardLocations(StandardPaths.PicturesLocation)[0]
-            onAccepted: uploadPath.text = selectedFile
+            onAccepted: {
+                uploadPath.text = selectedFile
+                var fileName = uploadPath.text.split('/').pop()
+                if(fileName.split('.').pop() == "c"){
+                    fileName = fileName.split('.').shift()
+                    programNameField.text = fileName
+                }
+                else {
+                    var component = Qt.createComponent("/Error.qml");
+                    var window;
+                    if(component.status === Component.Ready){
+                        window = component.createObject(root, {"message": "The selected file is not a .c file. Please select an MPI program that is written in .c."});
+                        window.x = (root.width - window.width) / 2;
+                        window.y = (root.height - window.height) / 2;
+                        window.show();
+                        return false;
+                    }
+                }
+            }
         }
         FolderDialog {
         id: folderDialog

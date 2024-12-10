@@ -8,7 +8,7 @@ import QtQuick.Dialogs
 
 Item {
     id: item_sidebar_run
-    width: 250
+    width: 270
     height: parent.height
     //implicitHeight: height
     property Item rootScreen: parent
@@ -113,21 +113,40 @@ Item {
 
 
         ListView {
-            //Visualization of List-Elements
             id: listing
             width: parent.width
-            height: parent.height
+            height: rectangle.height
             model: sidebarModel
-
-            property string expandedSection: sidebarModel.get(0).name
-
             delegate: listdelegate
 
-            //sectionicon.property: "icon"
+            property string expandedSection: sidebarModel.get(0).name
 
             section.property: "name"
             section.criteria: ViewSection.FullString
             section.delegate: sections
+            boundsBehavior: Flickable.StopAtBounds
+
+            ScrollBar.vertical: ScrollBar { // Scrollbar hinzufügen
+                anchors.right: parent.right
+                policy: ScrollBar.AlwaysOn
+
+                contentItem: Rectangle {
+                    implicitWidth: 5
+                    color: "#444444" // Hintergrundfarbe der Scrollbar
+                    radius: 6
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+
+                    Rectangle {
+                        width: parent.width
+                        height: Math.max(50, (listing.height / listing.contentHeight) * parent.height)  // Höhe des Scrollbar-Griffs
+                        color: "#555555" // Farbe des Scrollbar-Griffs
+                        radius: 6
+                        y: (listing.contentY / listing.contentHeight) * (listing.height)
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                }
+            }
         }
 
         Component {

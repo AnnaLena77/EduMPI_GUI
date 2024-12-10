@@ -129,6 +129,7 @@ void Database_Thread::updateData(const int &time_display){
                 }
 
                 m_firstDBEntryTime = timestamp_runtime.time();
+                m_firstDBEntryDate = timestamp_runtime;
                 m_actualDBEntryTime = timestamp_runtime;
                 emit setTimestamp(timestamp_runtime, 1);
             break;
@@ -142,12 +143,11 @@ void Database_Thread::updateData(const int &time_display){
     QString queryString;
 
     if(time_display == 0){
-        //queryString = QString("SELECT * FROM edumpi_data_secondly WHERE time_second = '%1' AND edumpi_run_id = %2;").arg(m_actualDBEntryTime.toString("yyyy-MM-dd HH:mm:ss")).arg(m_slurm_id);
         QDateTime ts_toUTC = m_actualDBEntryTime.toUTC();
         queryString = QString("SELECT processorname, processrank, communicationtype, SUM(send_ds) AS send_ds, SUM(recv_ds) AS recv_ds, SUM(time_diff) AS time_diff, SUM(latesendertime) AS latesendertime, SUM(laterecvrtime) AS laterecvrtime FROM edumpi_secondly_data WHERE edumpi_run_id = %1 AND time_end >= '%2' AND time_start <= '%2' GROUP BY processorname, processrank, communicationtype;").arg(m_slurm_id).arg(ts_toUTC.toString("yyyy-MM-dd HH:mm:ss"));
     }
     else if(time_display == 1){
-        queryString = QString("SELECT processrank, processorname, communicationtype, SUM(sendDatasize) AS send_ds, SUM(recvDatasize) AS recv_ds FROM edumpi_running_data WHERE edumpi_run_id=%1 GROUP BY processorname, processrank, communicationtype ORDER BY processrank ASC").arg(m_slurm_id);
+        queryString = QString("SELECT processrank, processorname, communicationtype, SUM(sendDatasize) AS send_ds, SUM(recvDatasize) AS recv_ds FROM edumpi_secondly_data WHERE edumpi_run_id=%1 GROUP BY processorname, processrank, communicationtype ORDER BY processrank ASC").arg(m_slurm_id);
     }
 
     //std::cout << queryString.toStdString() << std::endl;
@@ -264,21 +264,6 @@ void Database_Thread::showDataFromTimePeriod(const QDateTime timestampA, const Q
 
 }
 
-/*void Database_Thread::getSlurmId(const int id){
-    std::cout << "Slurm_ID ANGEKOMMEN" << std::endl;
-    m_slurm_id = id;
-    QString name_helper = "Thread %1";
-    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
-    if (!db.isOpen()) {
-        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
-        return;
-    }
-    m_connectionName = name_helper.arg(m_slurm_id);
-    QSqlDatabase clone_db = QSqlDatabase::cloneDatabase(db, m_connectionName);
-    clone_db.open();
-    threadbuildClusterComponents();
-}*/
-
 void Database_Thread::getProcNum(const int proc_num){
     m_proc_num = proc_num;
 }
@@ -307,4 +292,8 @@ void Database_Thread::set_end_timestamp_db(QDateTime timestamp){
         QSqlError fehler = query.lastError();
         qDebug() << "Query Update Error:" << fehler.text();
     }
+}
+
+void Database_Thread::reset_actual_timestamp(){
+    m_actualDBEntryTime = m_firstDBEntryDate.addMSecs(-1);
 }

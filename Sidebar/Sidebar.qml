@@ -8,15 +8,12 @@ import QtQuick.Dialogs
 
 Item {
     id: item
-    width: 250
-    height: parent.height - 60 -70
+    width: 270
     property Item rootScreen: parent
+
 
     Rectangle {
         id: rectangle
-        //anchors.fill: parent
-        //x: 0
-        //y: 0
         width: parent.width
         height: parent.height
         anchors.fill: parent
@@ -39,6 +36,11 @@ Item {
                 color: "transparent"
                 height: 30
 
+                HoverHandler {
+                    id: stylus
+                    cursorShape: Qt.PointingHandCursor
+                }
+
                 property bool isExpanded: ListView.view.expandedSection === section
 
                 onIsExpandedChanged: {
@@ -59,7 +61,7 @@ Item {
                         Layout.alignment: Qt.AlignLeft
                         Layout.leftMargin: 5
                         //anchors.rightMargin: 5
-                        icon.color: sectionsRect.isExpanded ? "#00FF00" : "white"
+                        icon.color: sectionsRect.isExpanded ? "#00FF00" : "#999999"
                         background: Rectangle{
                             color: "transparent"
                             border.width: 0
@@ -78,7 +80,7 @@ Item {
                         text: section
                         height: parent.height
                         //verticalAlignment: Text.AlignVCenter
-                        color: sectionsRect.isExpanded ? "#00FF00" : "white"
+                        color: sectionsRect.isExpanded ? "#00FF00" : "#999999"
                         //anchors.centerIn: parent
                     }
 
@@ -89,11 +91,13 @@ Item {
                         Layout.rightMargin: 10
                         //anchors.rightMargin: 10
                         icon.source: sectionsRect.isExpanded ? "qrc:/icons/up.png" : "qrc:/icons/down.png"
-                        icon.color: sectionsRect.isExpanded ? "#00FF00" : "white"
+                        icon.color: sectionsRect.isExpanded ? "#00FF00" : "#999999"
                         background: Rectangle{
                             color: "transparent"
                             border.width: 0
                         }
+
+
                     }
                 }
 
@@ -101,11 +105,10 @@ Item {
                     anchors.fill: parent
                     onClicked: {
                         sectionsRect.isExpanded = !sectionsRect.isExpanded;
-                        /*if(sectionHeaderRect.isExpanded){
-                            iconUpDown.icon.source = "qrc:/icons/up.png"
-                        } else{
-                            iconUpDown.icon.source = "qrc:/icons/down.png"
-                        }*/
+                    }
+                    hoverEnabled: true
+                    HoverHandler{
+                        cursorShape: Qt.PointingHandCursor
                     }
                 }
             }
@@ -113,22 +116,42 @@ Item {
 
 
         ListView {
-            //Visualization of List-Elements
             id: listing
             width: parent.width
-            height: parent.height
+            height: rectangle.height
             model: sidebarModel
-
-            property string expandedSection: sidebarModel.get(0).name
-
             delegate: listdelegate
 
-            //sectionicon.property: "icon"
+            property string expandedSection: sidebarModel.get(0).name
 
             section.property: "name"
             section.criteria: ViewSection.FullString
             section.delegate: sections
+            boundsBehavior: Flickable.StopAtBounds
+
+            ScrollBar.vertical: ScrollBar { // Scrollbar hinzufügen
+                anchors.right: parent.right
+                policy: ScrollBar.AlwaysOn
+
+                contentItem: Rectangle {
+                    implicitWidth: 5
+                    color: "#444444" // Hintergrundfarbe der Scrollbar
+                    radius: 6
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+
+                    Rectangle {
+                        width: parent.width
+                        height: Math.max(50, (listing.height / listing.contentHeight) * parent.height)  // Höhe des Scrollbar-Griffs
+                        color: "#555555" // Farbe des Scrollbar-Griffs
+                        radius: 6
+                        y: (listing.contentY / listing.contentHeight) * (listing.height)
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                }
+            }
         }
+
 
         Component {
 
@@ -149,6 +172,9 @@ Item {
                 onLoaded:{
                     if(aSource == "Options_Views.qml"){
                         menuItem.item.view = actualScreen
+                    }
+                    else if(aSource == "Screenshot.qml"){
+                        menuItem.item.main_item = rootScreen
                     }
 
                     /*console.log("Test: " +item.implicitHeight)

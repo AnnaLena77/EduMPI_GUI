@@ -53,6 +53,21 @@ Window {
         anchors.fill: parent
         property int endTime: root.endTime
 
+        function flash() {
+            opacityAnimation.start();
+        }
+
+        // Transparenz-Animation
+        NumberAnimation {
+            id: opacityAnimation
+            target: rootItem
+            property: "opacity"
+            from: 1.0
+            to: 0.1
+            duration: 400 // Dauer des Aufblitzens (ms)
+            onStopped: rootItem.opacity = 1.0 // Zurück zur Original-Transparenz
+        }
+
 
         Cluster_Architecture{
             id: nodesList
@@ -233,9 +248,10 @@ Window {
         }
         Sidebar{
             id: options
+            height: root.height - timeline_main.height - menu.height
             anchors.right: parent.right
             //anchors.verticalCenter: parent.verticalCenter
-            anchors.bottom: timeline_main.top
+            //anchors.bottom: timeline_main.top
             anchors.top: menu.bottom
         }
         Bottom_Bar{
