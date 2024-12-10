@@ -26,6 +26,36 @@ void Cluster_Architecture::initialize(QString db_connection, bool live){
     m_live_run = live;
 }
 
+void Cluster_Architecture::resetCluster_Architecture(){
+
+    if (database_thread.isRunning()) {
+        if (database_thread.isRunning()) {
+            // Signal zum Beenden des Threads senden
+            emit signalToClearDB();
+            database_thread.quit();  // Veranlasst den Thread, die Ereignisschleife zu verlassen
+            database_thread.wait();  // Wartet, bis der Thread beendet ist
+            delete m_dbThread;
+        }
+        //delete database_thread;  // Löscht den Thread, nachdem er beendet wurde
+        //database_thread = nullptr;
+    }
+
+    m_componentsBuilt = false;
+    m_nodes.clear();
+    m_p2p_send_max = 0;
+    m_coll_send_max = 0;
+    m_p2p_recv_max = 0;
+    m_coll_recv_max = 0;
+    m_time_display = 0;
+
+    m_start_timestamp = QDateTime();
+
+    m_slurm_id = 0;
+    m_proc_num = 0;
+    m_status_running=false;
+    m_end_time = 0;
+}
+
 void Cluster_Architecture::setOption(int opt){
     std::cout << "setOption" << std::endl;
     m_option = opt;

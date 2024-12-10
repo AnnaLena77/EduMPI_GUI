@@ -342,6 +342,7 @@ Item {
                 if(timeline_positionmarker.x >= timeline_endmarker.x){
                     playbutton.clicked()
                     nodesList.reset_bottom_bar()
+                    enable_start = true
                 }
             }
 

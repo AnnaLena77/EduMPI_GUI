@@ -210,6 +210,7 @@ Rectangle {
 
                 onClicked:{
                     if(checkInput()){
+                        restarts++;
                         //nodesList.removeClusterComponents();
                         visualization = true;
                         enable_start = false;
@@ -218,8 +219,6 @@ Rectangle {
                         controller.writeLocalBashFile(uploadPath.text, fileButton.checked ? true : false, parseInt(numProcs.text));
                         nodesList.set_proc_num(parseInt(numProcs.text))
                         startup();
-
-
                         //nodesList.buildClusterComponents(parseInt(numProcs.text))
                     }
                 }

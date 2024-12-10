@@ -68,6 +68,8 @@ public:
 
     Q_INVOKABLE void set_end_time(int time);
 
+    Q_INVOKABLE void resetCluster_Architecture();
+
     //void buildClusterComponents();
     void updateDatasize();
     int timerId;

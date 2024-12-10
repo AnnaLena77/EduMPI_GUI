@@ -19,7 +19,7 @@ Window {
 
     onStatusChanged: {
         if(status === "completed"){
-            busyindicator.running = false;
+            //busyindicator.running = false;
             load.close()
         }
     }
