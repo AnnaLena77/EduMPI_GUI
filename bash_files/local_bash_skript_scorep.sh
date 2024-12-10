@@ -23,7 +23,7 @@ function remote_command() {
 function handle_cancel_signal() {
     echo "Signal empfangen, breche Job $JOB_ID ab..."
     remote_command "scancel $JOB_ID"
-    echo "Job $JOB_ID wurde abgebrochen."
+    echo "Job $JOB_ID CANCELLED."
     ssh ${SSH_OPTIONS} -O exit -p ${SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST}
     echo "SSH-Verbindung geschlossen"
     exit 0
