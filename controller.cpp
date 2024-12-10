@@ -482,11 +482,6 @@ void Controller::cancelRunningJob(){
 void Controller::closeApp(){
     qDebug() << "CLOSE APP";
     //removeClusterComponents();
-    if (QSqlDatabase::contains(m_connectionName)) {
-        auto db = QSqlDatabase::database(m_connectionName);
-        db.close();
-        QSqlDatabase::removeDatabase(m_connectionName);
-    }
     if (!m_envFilePath.empty()) {
         if (unlink(m_envFilePath.c_str()) != 0) {
             std::cerr << "Failed to delete temporary file" << std::endl;

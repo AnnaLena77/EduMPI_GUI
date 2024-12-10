@@ -53,7 +53,6 @@ ApplicationWindow {
                             var seconds = timestamp.getSeconds();
 
                             var secondsSinceMidnight = hours * 3600 + minutes * 60 + seconds;
-                            console.log(hours+"::"+minutes+"::"+seconds)
 
                             selected_end_time = secondsSinceMidnight
                         }
@@ -90,10 +89,9 @@ ApplicationWindow {
                     text: "Select EduMPI-Run"
                     anchors.horizontalCenter: parent.horizontalCenter
                     onClicked: {
-                        console.log("slurm id: " + selected_slurm_id)
+                        console.log("Slurm ID: " + selected_slurm_id)
                         if(selected_slurm_id != 0){
                             var component = Qt.createComponent("MPI_Run_Analysis.qml");
-                            console.log("Component-Status: " + component.errorString());
                             if(component.status === Component.Ready){
                                 /*if(controller == null){
                                     console.log("CONTROLLER NULL TABLE_USERID")

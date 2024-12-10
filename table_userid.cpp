@@ -14,7 +14,11 @@ Table_UserID::Table_UserID(QObject *parent)
 
 Table_UserID::~Table_UserID()
 {
-    qDebug() << "Table User ID Destructor call";
+    if (QSqlDatabase::contains(m_connectionName)) {
+        auto db = QSqlDatabase::database(m_connectionName);
+        db.close();
+    }
+    QSqlDatabase::removeDatabase(m_connectionName);
 }
 
 void Table_UserID::loadJobs(const QString &userId){
@@ -33,6 +37,7 @@ void Table_UserID::loadJobs(const QString &userId){
         qWarning() << "Query failed: " << query.lastError();
         return;
     }
+    beginResetModel();
 
     m_edumpi_runs.clear();
 

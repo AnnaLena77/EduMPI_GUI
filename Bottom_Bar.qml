@@ -240,11 +240,11 @@ Item {
                         x : (endTime - startTime)*tick
                         onXChanged:{
                             visible = true
-                            console.log("timeline_endmarker set: "+ timeline_endmarker.x)
+                            //console.log("timeline_endmarker set: "+ timeline_endmarker.x)
 
                             if(startTime!=0 && !live){
                                 if(timeline.width < (endTime - startTime)*tick){
-                                    console.log("resize timeline width")
+                                    //console.log("resize timeline width")
                                     timeline.width = 100 + (endTime - startTime)*tick
                                 }
                             }
