@@ -193,7 +193,7 @@ Rectangle {
                             innerCubeScale: outerCube.scale.x / rowsColumns * (1 - innerCubeSpacing) // Berechnung der Skalierung des inneren Würfels
                             Component.onCompleted: {
                                 //console.log(model.index + ", " + index)
-                                console.log("Rows: " + rowsColumns)
+                                //console.log("Rows: " + rowsColumns)
                             }
                         }
 
@@ -220,7 +220,7 @@ Rectangle {
         }
     }
    Component.onDestruction: {
-       console.log("destroy")
+       //console.log("destroy")
        viewport.destroy()
    }
 }

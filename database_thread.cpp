@@ -18,17 +18,18 @@ Database_Thread::Database_Thread(QString dbConnectionName, int slurm_id, int pro
 }
 
 Database_Thread::~Database_Thread(){
-    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
-    if (!db.isOpen()) {
-        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
-        return;
-    }
-    db.close();
-    QSqlDatabase::removeDatabase(m_connectionName);
 }
 
 void Database_Thread::clearDatabase(){
-
+    {
+        QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+        if (!db.isOpen()) {
+            qDebug() << "Databaseconnection " << m_connectionName << " is not open";
+            return;
+        }
+        db.close();
+    }
+    QSqlDatabase::removeDatabase(m_connectionName);
 }
 
 void Database_Thread::connectToDB(){
@@ -135,6 +136,7 @@ void Database_Thread::updateData(const int &time_display){
             break;
             }
         }
+        queryy.finish();
     } else{
         m_actualDBEntryTime = m_actualDBEntryTime.addSecs(1);
     }
@@ -181,7 +183,7 @@ void Database_Thread::updateData(const int &time_display){
             //std::cout << "In der edumpi_running_data stehen Daten bis Timestamp: "  << max.toStdString() << "\n" << std::endl;
         }*/
     }
-
+    query.finish();
     emit updateDataReady(list);
 
 }
@@ -208,6 +210,7 @@ void Database_Thread::selectEndTimestamp(){
         }
         sleep(1);
     }
+    queryy.finish();
 
 }
 
@@ -260,7 +263,7 @@ void Database_Thread::showDataFromTimePeriod(const QDateTime timestampA, const Q
         QSqlError fehler = query.lastError();
         qDebug() << "Query Error:" << fehler.text();
     }
-
+    query.finish();
 
 }
 
@@ -292,6 +295,7 @@ void Database_Thread::set_end_timestamp_db(QDateTime timestamp){
         QSqlError fehler = query.lastError();
         qDebug() << "Query Update Error:" << fehler.text();
     }
+    query.finish();
 }
 
 void Database_Thread::reset_actual_timestamp(){

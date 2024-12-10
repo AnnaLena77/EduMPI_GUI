@@ -13,6 +13,13 @@ Window {
     height: 810
     visible: true
 
+    onClosing: {
+        ascreen.clear();
+        if(nodesList){
+            nodesList.destroy();
+        }
+    }
+
     //property alias ascreen: ascreen
     title: qsTr("EduMPI")
 
@@ -71,7 +78,6 @@ Window {
             id: nodesList
 
             onComponentsBuilt: {
-                console.log("components build from run analysis")
                 ascreen.push("Cores3D.qml", {listNodes: nodesList})
                 //actualScreen.sourceComponent.nodesListModel = nodesList;
                 //playbutton.enabled = true
@@ -85,7 +91,7 @@ Window {
                           //nodesList.startAndStop(true);
                           nodesList.showConditionAt(0,0)
                           //controller.setTimestamp(qtime)
-                          console.log("startTime: "+ timestamp)
+                          //console.log("startTime: "+ timestamp)
                       }
             Component.onCompleted: {
                 if(run_analysis_win.controller == null){
@@ -115,31 +121,12 @@ Window {
                 top: parent.top
                 bottom: parent.bottom
             }
-
-            onDepthChanged: {
-                console.log(ascreen.depth)
-            }
-
-
-
             Component.onCompleted: {
                 /*Qt.callLater(() => {
                 ascreen.push("Cores3D.qml", {listNodes: nodesList})
             })*/
 
             }
-
-            /*onLoaded: {
-                if(ascreen.source == "Cores3D.qml"){
-                    //ascreen.item.listNodes = nodesList
-                } else if(ascreen.source == "Cores2D.qml"){
-                   // ascreen.item.listNodes = nodesList
-                }
-        }*/
-            /*function reload(){
-            ascreen.source = "";
-            ascreen.reload()
-        }*/
         }
         Sidebar_Run_Analysis{
             id: options_analysis

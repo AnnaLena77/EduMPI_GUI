@@ -10,8 +10,10 @@ Cluster_Architecture::~Cluster_Architecture()
     if (database_thread.isRunning()) {
         if (database_thread.isRunning()) {
             // Signal zum Beenden des Threads senden
+            emit signalToClearDB();
             database_thread.quit();  // Veranlasst den Thread, die Ereignisschleife zu verlassen
             database_thread.wait();  // Wartet, bis der Thread beendet ist
+            delete m_dbThread;
         }
         //delete database_thread;  // Löscht den Thread, nachdem er beendet wurde
         //database_thread = nullptr;
