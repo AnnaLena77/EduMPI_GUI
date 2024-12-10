@@ -8,7 +8,7 @@ import QtQuick.Dialogs
 
 Item {
     id: item
-    width: 270
+    width: 260
     property Item rootScreen: parent
 
 
@@ -32,7 +32,7 @@ Item {
 
             Rectangle {
                 id: sectionsRect
-                width: parent.width
+                width: parent.width - 20
                 color: "transparent"
                 height: 30
 
@@ -57,6 +57,7 @@ Item {
 
                     Button{
                         id: iconSection
+                        //Layout.fillWidth: true
                         height: parent.height
                         Layout.alignment: Qt.AlignLeft
                         Layout.leftMargin: 5
@@ -77,15 +78,21 @@ Item {
 
                     Text {
                         id: sectionsText
+                        Layout.fillWidth: true
                         text: section
                         height: parent.height
-                        //verticalAlignment: Text.AlignVCenter
+                        //horizontalAlignment: Text.AlignRight
+                        //verticalAlignment: Text.AlignRight
+                        Layout.alignment: Qt.AlignLeft
+                        Layout.leftMargin: 10
                         color: sectionsRect.isExpanded ? "#00FF00" : "#999999"
+                        verticalAlignment: Text.AlignVCenter
                         //anchors.centerIn: parent
                     }
 
                     Button{
                         id: iconUpDown
+                        //Layout.fillWidth: true
                         height: parent.height
                         Layout.alignment: Qt.AlignRight
                         Layout.rightMargin: 10
