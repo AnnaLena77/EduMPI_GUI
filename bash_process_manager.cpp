@@ -69,22 +69,12 @@ void Bash_Process_Manager::handleOutput()
         if(m_status != "cancelled"){
             m_status = "cancelled";
             emit slurm_status_changed(m_status);
-            if(m_kill_signal){
-                if(process->state() == QProcess::Running){
-                    process->kill();
-                }
-            }
         }
     }
     else if(output.contains("COMPLETED") || output.contains("FAILED") || output.contains("Status: \n")){
         if(m_status != "completed"){
             m_status = "completed";
             emit slurm_status_changed(m_status);
-            if(m_kill_signal){
-                if(process->state() == QProcess::Running){
-                    process->kill();
-                }
-            }
         }
     }
     else if(output.contains("EndTime")){
@@ -99,7 +89,13 @@ void Bash_Process_Manager::handleOutput()
         } else {
             std::cerr << "Invalid QDateTime!" << std::endl;
         }
-
+        if(m_status == "cancelled" || m_status == "completed"){
+            if(m_kill_signal){
+                if(process->state() == QProcess::Running){
+                    process->kill();
+                }
+            }
+        }
     }
     else{
             qDebug() << "Output:" << output;

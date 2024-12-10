@@ -163,6 +163,7 @@ Window {
                                                     root.slurm_status = "running"
                                                     root.loaderText = "Job-Status: Running! \nYour Slurm job is in the start process, waiting for MPI communication... ."
                                                 } else if(status === "cancelled"){
+                                                    nodesList.waitForEnd()
                                                     root.slurm_status = "cancelled"
                                                     root.loaderText = "Job-Status: Cancelled!"
                                                 } else if(status === "completed"){
