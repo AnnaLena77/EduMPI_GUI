@@ -29,12 +29,13 @@ void Bash_Process_Manager::startProcess(const QStringList &arguments)
     process->start();
     m_status = "";
 
-    qDebug() << "Start Process";
+    //qDebug() << "Start Process";
 }
 
 void Bash_Process_Manager::sendSignal(int signal)
 {
     if (process->state() == QProcess::Running) {
+        qDebug() << "Kill Signal";
         ::kill(process->processId(), signal); // Sendet das angegebene Signal an den Prozess
     }
 }

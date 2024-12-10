@@ -337,7 +337,6 @@ Item {
                 timeline.width += parent.width + 50
                 timeline_container.contentX+=ticker_counter*tick
                 ticker_counter=0
-                //timestamp.text=Date()
             }
         }
     }

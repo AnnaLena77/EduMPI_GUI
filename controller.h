@@ -65,6 +65,8 @@ public:
     Q_INVOKABLE Table_UserID *getJobTable();
     Q_INVOKABLE QString getClusterIdent();
 
+    Q_INVOKABLE bool copyEnvFile();
+
 signals:
 
     //Signals for QML

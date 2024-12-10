@@ -48,6 +48,21 @@ Window {
     property bool enable_start: true
     property bool build_numbers: false
 
+    property int restarts: -1
+
+    onRestartsChanged: {
+        if(restarts > 0) {
+            controller.copyEnvFile();
+            actualScreen.clear();
+            endTime = 0;
+            enable_timeline = false;
+            controller.setComponentsBuild(false);
+            nodesList.resetCluster_Architecture();
+            loaderText = ""
+        }
+    }
+
+
     Item {
         id: rootItem
         anchors.fill: parent
