@@ -489,9 +489,13 @@ void Controller::closeApp(){
             std::cout << "Temporary .env file deleted" << std::endl;
         }
     }
-
-    int signal = SIGTERM;
-    slurm_process->sendSignal(signal);
+    if(slurm_process){
+        int signal = SIGTERM;
+        slurm_process->sendSignal(signal);
+        slurm_process->killProcess();
+    } else {
+        qDebug() << "slurm_process is already removed";
+    }
     /*std::cout << db.isOpen() << std::endl;
     if(m_connection_ready){
         QSqlQuery query;
