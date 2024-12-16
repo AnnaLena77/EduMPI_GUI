@@ -15,6 +15,7 @@ Database_Thread::Database_Thread(QString dbConnectionName, int slurm_id, int pro
     m_proc_num = proc_num;
     m_slurm_id = slurm_id;
     m_live_run = live_run;
+    m_thread_running = true;
 }
 
 Database_Thread::~Database_Thread(){
@@ -22,6 +23,7 @@ Database_Thread::~Database_Thread(){
 
 void Database_Thread::clearDatabase(){
     {
+        qDebug() << "ClearDatabase from Database_Thread";
         QSqlDatabase db = QSqlDatabase::database(m_connectionName);
         if (!db.isOpen()) {
             qDebug() << "Databaseconnection " << m_connectionName << " is not open";
@@ -29,6 +31,7 @@ void Database_Thread::clearDatabase(){
         }
         db.close();
     }
+    qDebug() << "ClearDatabase from Database_Thread 2";
     QSqlDatabase::removeDatabase(m_connectionName);
 }
 
@@ -108,9 +111,16 @@ void Database_Thread::updateData(const int &time_display){
                 break;
             }
         }
-        queryy.prepare("SELECT time_start, time_end FROM edumpi_secondly_data WHERE edumpi_run_id=:slurm_id order by time_start ASC LIMIT 1");
+
+        m_firstDBEntryTime = timestamp_runtime.time();
+        m_firstDBEntryDate = timestamp_runtime;
+        m_actualDBEntryTime = timestamp_runtime;
+        emit setTimestamp(timestamp_runtime, 1);
+
+        sleep(4);
+        /*queryy.prepare("SELECT time_start, time_end FROM edumpi_secondly_data WHERE edumpi_run_id=:slurm_id order by time_start ASC LIMIT 1");
         queryy.bindValue(":slurm_id", m_slurm_id);
-        while(true){
+        while(m_thread_running){
             queryy.exec();
             if(queryy.next()){
                 timestamp = queryy.value(0).toDateTime();
@@ -133,9 +143,15 @@ void Database_Thread::updateData(const int &time_display){
                 m_firstDBEntryDate = timestamp_runtime;
                 m_actualDBEntryTime = timestamp_runtime;
                 emit setTimestamp(timestamp_runtime, 1);
-            break;
+                break;
             }
-        }
+            else {
+                sleep(1);
+                qDebug() << m_thread_running;
+            }
+        }*/
+
+
         queryy.finish();
     } else{
         m_actualDBEntryTime = m_actualDBEntryTime.addSecs(1);
@@ -171,7 +187,6 @@ void Database_Thread::updateData(const int &time_display){
             dc.late_receiver = query.value("laterecvrtime").toFloat();
             dc.time_diff = query.value("time_diff").toFloat();
             list.append(dc);
-
         }while(query.next());
     } else{
         //std::cout << "Keine Daten \n" << std::endl;
@@ -215,6 +230,7 @@ void Database_Thread::selectEndTimestamp(){
 }
 
 void Database_Thread::showDataFromTimePeriod(const QDateTime timestampA, const QDateTime timestampB){
+    qDebug() << "showDataFromTimePeriod";
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     if (!db.isOpen()) {
         qDebug() << "Databaseconnection " << m_connectionName << " is not open";
@@ -239,6 +255,7 @@ void Database_Thread::showDataFromTimePeriod(const QDateTime timestampA, const Q
 
         if(query.next()){
             do {
+
                 DataColumn dc;
                 dc.proc_name = query.value("processorname").toString();
                 dc.comm_type = query.value("communicationtype").toString();
@@ -300,4 +317,13 @@ void Database_Thread::set_end_timestamp_db(QDateTime timestamp){
 
 void Database_Thread::reset_actual_timestamp(){
     m_actualDBEntryTime = m_firstDBEntryDate.addMSecs(-1);
+}
+
+void Database_Thread::set_thread_running(bool running){
+    m_thread_running = running;
+    emit thread_runningChanged();
+}
+
+bool Database_Thread::thread_running() const{
+    return m_thread_running;
 }

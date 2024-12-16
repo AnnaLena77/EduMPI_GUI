@@ -131,7 +131,7 @@ Rectangle {
         var recv_ds = get_recv_ds(nodeIndex, modelIndex);
         var full_percent, send_percent, recv_percent = 1;
         var red, green, blue = 255;
-        if(option == "Send/Recv Ratio (per Proc)"){
+        if(option == "send/recv ratio (per proc)"){
             gradient1 = "green"
             gradient2 = "red"
             full_percent = Number(send_ds) + Number(recv_ds)
@@ -148,7 +148,7 @@ Rectangle {
                 blue = 224;
             }
         }
-        else if(option == "Max Send Ratio (over all Procs)"){
+        else if(option == "max send ratio (across all procs)"){
             gradient1 = "green"
             gradient2 = "white"
             if(p2p && collective){
@@ -168,7 +168,7 @@ Rectangle {
                 blue = 224;
             }
         }
-        else if(option == "Max Recv Ratio (over all Procs)"){
+        else if(option == "max recv ratio (across all procs)"){
             if(p2p && collective){
                 full_percent = Number(listNodes.coll_recv_max) + Number(listNodes.p2p_recv_max);
                 //console.log(modelIndex + ": " +listNodes.p2p_recv_max);
@@ -188,7 +188,7 @@ Rectangle {
             }
 
         }
-        else if(option == "Wait for Late Sender (per Proc)"){
+        else if(option == "wait for late sender (per proc)"){
             var lateSenderData = 1;
             coll_data = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).coll_late_sender);
             p2p_data = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).p2p_late_sender);
@@ -225,7 +225,7 @@ Rectangle {
             }
 
         }
-        else if(option == "Wait for Late Recver (per Proc)"){
+        else if(option == "wait for late recver (per proc)"){
             var lateRecvrData;
             coll_data = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).coll_late_recvr);
             p2p_data = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).p2p_late_recvr);

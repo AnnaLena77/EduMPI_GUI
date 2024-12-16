@@ -7,6 +7,7 @@ import QtQuick.Layouts
 Window {
     id: outputfile
     property string path: ""
+    property bool success
 
     title: "Slurm Job Finished!"
     visible: true
@@ -28,8 +29,8 @@ Window {
             //anchors.rightMargin: 10
             icon.width: 40
             icon.height: 40
-            icon.source: "qrc:/icons/checkmark.png"
-            icon.color: "green"
+            icon.source: outputfile.success ? "qrc:/icons/checkmark.png" : "qrc:/icons/xmark.png"
+            icon.color: outputfile.success ?"green" : "red"
             background: Rectangle{
                 color: "transparent"
                 border.width: 0
@@ -42,7 +43,8 @@ Window {
 
 
         Text {
-            text: "The Slurm job has been completed. \nOutput: " + path
+            text: outputfile.success ? "The Slurm job has been completed. \nOutput: " + outputfile.path :
+                                       "Your Slurm job ended unexpectedly or you started no MPI Program. \nSee Output: " + path
             Layout.fillWidth: true
             wrapMode: Text.WordWrap
             Layout.margins: 5

@@ -21,7 +21,7 @@ Window {
 
     property bool p2p: true
     property bool collective: true
-    property string option: "Send/Recv Ratio (per Proc)"
+    property string option: "send/recv ratio (per proc)"
     property color gradient1: "green"
     property color gradient2: "red"
     property string gradient_text1: "Send"
@@ -182,21 +182,37 @@ Window {
                                                     slurm_status = "cancelled"
                                                     loaderText = "Job-Status: Cancelled! "
                                                 } else if(status === "completed"){
+
                                                     slurm_status = "completed"
                                                     loaderText = "Job-Status: Completed!"
                                                 }
                                             }
                                         }
             onCopiedOutputFile: (output_path) => {
-                                    var window;
-                                    var component = Qt.createComponent("Output_File.qml");
-                                    if(component.status === Component.Ready){
-                                        window = component.createObject(root, {"path": output_path});
-                                        window.x = (root.width - window.width) / 2;
-                                        window.y = (root.height - window.height) / 2;
-                                        window.show();
-                                    }
-                                }
+                if(root.visualization && root.startTime == 0){
+                    var window;
+                    var component = Qt.createComponent("Output_File.qml");
+                    if(component.status === Component.Ready){
+                        window = component.createObject(root, {"path": output_path, "success" : false});
+                        window.x = (root.width - window.width) / 2;
+                        window.y = (root.height - window.height) / 2;
+                        window.show();
+                    }
+                    root.startTime = 0;
+                    root.endTime = 0;
+                    root.enable_start = true;
+
+                } else {
+                    var window;
+                    var component = Qt.createComponent("Output_File.qml");
+                    if(component.status === Component.Ready){
+                        window = component.createObject(root, {"path": output_path, "success": true});
+                        window.x = (root.width - window.width) / 2;
+                        window.y = (root.height - window.height) / 2;
+                        window.show();
+                    }
+                }
+            }
         }
 
         Menu_Bar{

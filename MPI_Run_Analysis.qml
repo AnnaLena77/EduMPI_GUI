@@ -28,7 +28,7 @@ Window {
 
     property bool p2p: true
     property bool collective: true
-    property string option: "Send/Recv Ratio (per Proc)"
+    property string option: "send/recv ratio (per proc)"
     property color gradient1: "green"
     property color gradient2: "red"
     property string gradient_text1: "Send"

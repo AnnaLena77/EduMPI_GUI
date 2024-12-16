@@ -49,53 +49,53 @@ Rectangle {
                 model: ListModel {
                     id: model
                     ListElement {
-                        text: "Send/Recv Ratio (per Proc)"
+                        text: "send/recv ratio (per proc)"
 
                     }
                     ListElement {
-                        text: "Max Send Ratio (over all Procs)"
+                        text: "max send ratio (across all procs)"
                         //font.pointSize: 11
                     }
                     ListElement {
-                        text: "Max Recv Ratio (over all Procs)"
+                        text: "max recv ratio (across all procs)"
                         //font.pointSize: 11
                     }
                     ListElement {
-                        text: "Wait for Late Sender (per Proc)"
+                        text: "wait for late sender (per proc)"
                     }
                     ListElement {
-                        text: "Wait for Late Recver (per Proc)"
+                        text: "wait for late recver (per proc)"
                     }
 
                     //ListElement { text: "Wait Ratio" }
                 }
                 onActivated:{
                     option = currentValue;
-                    if(option == "Send/Recv Ratio (per Proc)"){
+                    if(option == "send/recv ratio (per proc)"){
                         gradient1 = "green"
                         gradient2 = "red"
                         gradient_text1 = "Send"
                         gradient_text2 = "Recv"
                     }
-                    else if (option == "Max Send Ratio (over all Procs)"){
+                    else if (option == "max send ratio (across all procs)"){
                         gradient1 = "green"
                         gradient2 = "white"
                         gradient_text1 = "Max Send"
                         gradient_text2 = "No Send"
                     }
-                    else if(option == "Max Recv Ratio (over all Procs)"){
+                    else if(option == "max recv ratio (across all procs)"){
                         gradient1 = "white"
                         gradient2 = "red"
                         gradient_text1 = "No Recv"
                         gradient_text2 = "Max Recv"
                     }
-                    else if(option == "Wait for Late Sender (per Proc)"){
+                    else if(option == "wait for late sender (per proc)"){
                         gradient1 = "white"
                         gradient2 = "blue"
                         gradient_text1 = "low (%)"
                         gradient_text2 = "high (%)"
                     }
-                    else if(option == "Wait for Late Recver (per Proc)"){
+                    else if(option == "wait for late recver (per proc)"){
                         gradient1 = "white"
                         gradient2 = "blue"
                         gradient_text1 = "low (%)"

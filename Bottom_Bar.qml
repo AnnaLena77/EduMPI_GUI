@@ -9,6 +9,7 @@ Item {
     property int tick: 15;
     property int screenEdge: parent.width
     property int container_stopPositionX: 0
+    property int container_startPositionX: 0
     property int positionmarker_stopPositionX: 0
     property int currentTime: 0
 
@@ -176,6 +177,10 @@ Item {
                     visible: timeline_container.interactive
 
                 }
+                Component.onCompleted: {
+                    container_startPositionX = timeline_container.contentX
+                }
+
                 WheelHandler{
                     onWheel: event=>{
                         if(timeline_container.interactive){
@@ -331,6 +336,8 @@ Item {
             if(endTime != 0 && timeline_positionmarker.x >= timeline_endmarker.x){
                 timeline_positionmarker.x = 0
                 ticker_counter = 0;
+
+                timeline_container.contentX = container_startPositionX
             } else {
                 timeline_positionmarker.x +=tick
             }

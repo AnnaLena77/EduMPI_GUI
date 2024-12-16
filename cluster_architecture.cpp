@@ -10,6 +10,7 @@ Cluster_Architecture::~Cluster_Architecture()
     if (database_thread.isRunning()) {
         if (database_thread.isRunning()) {
             // Signal zum Beenden des Threads senden
+            m_dbThread->set_thread_running(false);
             emit signalToClearDB();
             database_thread.quit();  // Veranlasst den Thread, die Ereignisschleife zu verlassen
             database_thread.wait();  // Wartet, bis der Thread beendet ist
@@ -32,9 +33,13 @@ void Cluster_Architecture::resetCluster_Architecture(){
         if (database_thread.isRunning()) {
             // Signal zum Beenden des Threads senden
             emit signalToClearDB();
+            qDebug() << "Test 1";
             database_thread.quit();  // Veranlasst den Thread, die Ereignisschleife zu verlassen
+            qDebug() << "Test 2";
             database_thread.wait();  // Wartet, bis der Thread beendet ist
+            qDebug() << "Test 3";
             delete m_dbThread;
+            qDebug() << "Test 4";
         }
         //delete database_thread;  // Löscht den Thread, nachdem er beendet wurde
         //database_thread = nullptr;
@@ -54,6 +59,7 @@ void Cluster_Architecture::resetCluster_Architecture(){
     m_proc_num = 0;
     m_status_running=false;
     m_end_time = 0;
+    qDebug() << "Test 5";
 }
 
 void Cluster_Architecture::setOption(int opt){
