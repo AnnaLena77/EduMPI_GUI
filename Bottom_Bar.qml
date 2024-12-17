@@ -20,16 +20,6 @@ Item {
 
     property bool bar_enable_timeline : enable_timeline
 
-    onStatusChanged: {
-        if(status === "completed" && playbutton.icon.name==="pause" && timeline_timer.running && bar_enable_timeline){
-            //console.log("Playbutton clicked");
-            //playbutton.clicked();
-            if(timeline_positionmarker.x == 0){
-                nodesList.showConditionAt(0,0)
-            }
-        }
-    }
-
     id: bottom_timeline_bar
     width: parent.width
     height: 70
@@ -80,6 +70,7 @@ Item {
                             icon.color = "red"
                             timeline.width+=1
                             if(!live){
+                                //console.log("enable playbutton clicked")
                                 playbutton.clicked()
                             }
                         } else if (enabled == false) {
@@ -244,9 +235,13 @@ Item {
                         border.color: "blue"
                         x : (endTime - startTime)*tick
                         onXChanged:{
-                            visible = true
-                            //console.log("timeline_endmarker set: "+ timeline_endmarker.x)
-
+                            if(endTime == 0){
+                                visible = false;
+                            }
+                            else {
+                                visible = true
+                                //console.log("timeline_endmarker set: "+ timeline_endmarker.x)
+                            }
                             if(startTime!=0 && !live){
                                 if(timeline.width < (endTime - startTime)*tick){
                                     //console.log("resize timeline width")
@@ -333,10 +328,9 @@ Item {
         property int ticker_counter: 0
 
         onTriggered: {
-            if(endTime != 0 && timeline_positionmarker.x >= timeline_endmarker.x){
+            if(bottom_timeline_bar.endTime != 0 && timeline_positionmarker.x >= timeline_endmarker.x){
                 timeline_positionmarker.x = 0
                 ticker_counter = 0;
-
                 timeline_container.contentX = container_startPositionX
             } else {
                 timeline_positionmarker.x +=tick

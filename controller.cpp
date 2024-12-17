@@ -456,11 +456,7 @@ void Controller::slurm_status_changed(QString status){
     }
     //std::cout << "slurm_status_changed Methode, m_option " << m_option << std::endl;
     if(m_option == 0){
-        if((status == "completed" || status == "cancelled") && m_componentsBuilt){
-            std::cout << "slurm_status_changed, completed, comp build" << std::endl;
-            //if(m_start_timestamp != QTime()){
-                //std::cout << "m_start_timestamp" << m_start_timestamp << std::endl;
-                //startAndStop(true);
+        if((status == "completed" || status == "cancelled")){
                 copyOutputFile();
             /*} else {
                 std::cout << "m_start_timestamp same" << std::endl;
