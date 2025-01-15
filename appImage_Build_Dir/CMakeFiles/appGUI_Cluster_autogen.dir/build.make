@@ -71,7 +71,7 @@ CMakeFiles/appGUI_Cluster_autogen: appGUI_Cluster_autogen/timestamp
 appGUI_Cluster_autogen/timestamp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc
 appGUI_Cluster_autogen/timestamp: CMakeFiles/appGUI_Cluster_autogen.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target appGUI_Cluster"
-	/home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E cmake_autogen /home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles/appGUI_Cluster_autogen.dir/AutogenInfo.json ""
+	/home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E cmake_autogen /home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles/appGUI_Cluster_autogen.dir/AutogenInfo.json Debug
 	/home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E touch /home/anna-lena/GUI_Cluster/appImage_Build_Dir/appGUI_Cluster_autogen/timestamp
 
 appGUI_Cluster_autogen: CMakeFiles/appGUI_Cluster_autogen

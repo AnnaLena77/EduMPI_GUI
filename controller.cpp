@@ -135,10 +135,6 @@ QString Controller::connectCluster(const QString &address, const QString &ident,
     m_cluster_ident = ident;
     m_cluster_eduMPI_path = path;
 
-    if(m_connection_ready){
-        m_job_table->loadJobs(m_cluster_ident);
-    }
-
     QString filePath = "/home/" + ident + "/eduMPI_files/tmp/";
 
     QProcess process;
@@ -204,6 +200,9 @@ void Controller::connectClusterAsync(const QString &address, const QString &iden
                 callback.call(QJSValueList() << result);
             }, Qt::QueuedConnection);
     });
+    if(m_connection_ready){
+        m_job_table->loadJobs(m_cluster_ident);
+    }
 }
 
 void Controller::writeLocalBashFile(QString local_path, bool file, int proc_num){
@@ -223,6 +222,7 @@ void Controller::writeLocalBashFile(QString local_path, bool file, int proc_num)
 
     QProcess bash_proc;
     QString resourcePath;
+
     if(m_option != 2){
         resourcePath = ":/bash_files/local_bash_skript.sh";
     } else {
@@ -456,11 +456,7 @@ void Controller::slurm_status_changed(QString status){
     }
     //std::cout << "slurm_status_changed Methode, m_option " << m_option << std::endl;
     if(m_option == 0){
-        if((status == "completed" || status == "cancelled") && m_componentsBuilt){
-            std::cout << "slurm_status_changed, completed, comp build" << std::endl;
-            //if(m_start_timestamp != QTime()){
-                //std::cout << "m_start_timestamp" << m_start_timestamp << std::endl;
-                //startAndStop(true);
+        if((status == "completed" || status == "cancelled")){
                 copyOutputFile();
             /*} else {
                 std::cout << "m_start_timestamp same" << std::endl;

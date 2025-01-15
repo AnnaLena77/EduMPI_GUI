@@ -288,6 +288,20 @@ sidebarplugin_init/fast:
 .PHONY : sidebarplugin_init/fast
 
 # Convenience name for target.
+Sidebar/CMakeFiles/sidebar_generate_qmlls_ini_file.dir/rule:
+	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Sidebar/CMakeFiles/sidebar_generate_qmlls_ini_file.dir/rule
+.PHONY : Sidebar/CMakeFiles/sidebar_generate_qmlls_ini_file.dir/rule
+
+# Convenience name for target.
+sidebar_generate_qmlls_ini_file: Sidebar/CMakeFiles/sidebar_generate_qmlls_ini_file.dir/rule
+.PHONY : sidebar_generate_qmlls_ini_file
+
+# fast build rule for target.
+sidebar_generate_qmlls_ini_file/fast:
+	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir && $(MAKE) $(MAKESILENT) -f Sidebar/CMakeFiles/sidebar_generate_qmlls_ini_file.dir/build.make Sidebar/CMakeFiles/sidebar_generate_qmlls_ini_file.dir/build
+.PHONY : sidebar_generate_qmlls_ini_file/fast
+
+# Convenience name for target.
 Sidebar/CMakeFiles/sidebar_autogen_timestamp_deps.dir/rule:
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Sidebar/CMakeFiles/sidebar_autogen_timestamp_deps.dir/rule
 .PHONY : Sidebar/CMakeFiles/sidebar_autogen_timestamp_deps.dir/rule
@@ -841,6 +855,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... sidebar_autogen"
 	@echo "... sidebar_autogen_timestamp_deps"
+	@echo "... sidebar_generate_qmlls_ini_file"
 	@echo "... sidebar_qmllint"
 	@echo "... sidebar_qmllint_json"
 	@echo "... sidebar_qmllint_module"

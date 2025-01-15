@@ -154,7 +154,7 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
 
         double full_percent = 0, send_percent = 0, recv_percent = 0;
 
-        if(m_combobox == "Send/Recv Ratio (per Proc)"){
+        if(m_combobox == "send/recv ratio (per proc)"){
             full_percent = static_cast<double>(send_data) + static_cast<double>(recv_data);
             send_percent = send_data / full_percent;
             recv_percent = recv_data / full_percent;
@@ -170,7 +170,7 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
                 blue = 255 - (red + green); // Rest wird in Blau gemischt
             }
 
-        } else if(m_combobox == "Max Send Ratio (over all Procs)"){
+        } else if(m_combobox == "max send ratio (across all procs)"){
             if(m_p2p_show && m_coll_show){
                 full_percent = static_cast<double>(m_nodes->coll_send_max()) + static_cast<double>(m_nodes->p2p_send_max());
             } else if(m_p2p_show){
@@ -185,7 +185,7 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
 
             //std::cout << "Send_data: " << send_data << " Full_Perc: " << full_percent << " Send_Perc: " << send_percent << " Coll_send_max: " << m_nodes->coll_send_max() << " p2p_send_max: " << m_nodes->p2p_send_max() << std::endl;
 
-        } else if(m_combobox == "Max Recv Ratio (over all Procs)"){
+        } else if(m_combobox == "max recv ratio (across all procs)"){
             if(m_p2p_show && m_coll_show){
                 full_percent = static_cast<double>(m_nodes->coll_recv_max()) + static_cast<double>(m_nodes->p2p_recv_max());
             } else if(m_p2p_show){
@@ -199,7 +199,7 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
             green = 255 - recv_percent*255;
             blue = 255 - recv_percent*255;
 
-        } else if(m_combobox == "Wait for Late Sender (per Proc)"){
+        } else if(m_combobox == "wait for late sender (per proc)"){
 
             float lateSenderData = 0;
             float coll_data = m_instanceRanks->rankAt(i)->coll_late_sender();
@@ -235,7 +235,7 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
                 blue = red = green = 224;
             }
 
-        } else if(m_combobox == "Wait for Late Recver (per Proc)"){
+        } else if(m_combobox == "wait for late recver (per proc)"){
             float lateRecvrData = 0;
             float coll_data = m_instanceRanks->rankAt(i)->coll_late_recvr();
             float p2p_data = m_instanceRanks->rankAt(i)->p2p_late_recvr();

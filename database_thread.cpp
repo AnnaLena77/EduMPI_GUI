@@ -7,6 +7,7 @@
 #include <QStandardItemModel>
 #include <QSqlError>
 #include <QTimeZone>
+#include <QCoreApplication>
 
 Database_Thread::Database_Thread(QString dbConnectionName, int slurm_id, int proc_num, bool live_run, QObject *parent)
     : QObject(parent) {
@@ -15,6 +16,7 @@ Database_Thread::Database_Thread(QString dbConnectionName, int slurm_id, int pro
     m_proc_num = proc_num;
     m_slurm_id = slurm_id;
     m_live_run = live_run;
+    m_thread_running = true;
 }
 
 Database_Thread::~Database_Thread(){
@@ -59,12 +61,15 @@ void Database_Thread::threadbuildClusterComponents(){
     query.bindValue(":slurm_id", m_slurm_id);
     query.exec();
 
-    while(query.size()<m_proc_num || m_proc_num<=0){
+    while((query.size()<m_proc_num || m_proc_num<=0) && m_thread_running){
         query.exec();
         if(m_proc_num == -1234){
             break;
         }
-        sleep(1);
+        QThread::msleep(1000);
+    }
+    if(!m_thread_running){
+        return;
     }
     //std::cout << "Size passt!!!!!" << std::endl;
 
@@ -99,7 +104,9 @@ void Database_Thread::updateData(const int &time_display){
     if(m_firstDBEntryTime.isNull()){
         queryy.prepare("SELECT start_time FROM edumpi_runs WHERE edumpi_run_id = :run_id");
         queryy.bindValue(":run_id", m_slurm_id);
-        while(true){
+        while(m_thread_running){
+            QCoreApplication::processEvents();
+            QThread::msleep(1000);
             queryy.exec();
             if(queryy.next()){
                 timestamp_runtime = queryy.value(0).toDateTime();
@@ -110,7 +117,7 @@ void Database_Thread::updateData(const int &time_display){
         }
         queryy.prepare("SELECT time_start, time_end FROM edumpi_secondly_data WHERE edumpi_run_id=:slurm_id order by time_start ASC LIMIT 1");
         queryy.bindValue(":slurm_id", m_slurm_id);
-        while(true){
+        while(m_thread_running){
             queryy.exec();
             if(queryy.next()){
                 timestamp = queryy.value(0).toDateTime();
@@ -133,7 +140,10 @@ void Database_Thread::updateData(const int &time_display){
                 m_firstDBEntryDate = timestamp_runtime;
                 m_actualDBEntryTime = timestamp_runtime;
                 emit setTimestamp(timestamp_runtime, 1);
-            break;
+                break;
+            }
+            else {
+                QThread::msleep(1000);
             }
         }
         queryy.finish();
@@ -158,6 +168,7 @@ void Database_Thread::updateData(const int &time_display){
     query.exec(queryString);
     QList<DataColumn> list;
 
+
     if(query.next()){
         do {
             DataColumn dc;
@@ -171,7 +182,6 @@ void Database_Thread::updateData(const int &time_display){
             dc.late_receiver = query.value("laterecvrtime").toFloat();
             dc.time_diff = query.value("time_diff").toFloat();
             list.append(dc);
-
         }while(query.next());
     } else{
         //std::cout << "Keine Daten \n" << std::endl;
@@ -239,6 +249,7 @@ void Database_Thread::showDataFromTimePeriod(const QDateTime timestampA, const Q
 
         if(query.next()){
             do {
+
                 DataColumn dc;
                 dc.proc_name = query.value("processorname").toString();
                 dc.comm_type = query.value("communicationtype").toString();
@@ -300,4 +311,13 @@ void Database_Thread::set_end_timestamp_db(QDateTime timestamp){
 
 void Database_Thread::reset_actual_timestamp(){
     m_actualDBEntryTime = m_firstDBEntryDate.addMSecs(-1);
+}
+
+void Database_Thread::set_thread_running(bool running){
+    m_thread_running = running;
+    emit thread_runningChanged();
+}
+
+bool Database_Thread::thread_running() const{
+    return m_thread_running;
 }

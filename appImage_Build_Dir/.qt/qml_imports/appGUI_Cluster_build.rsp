@@ -4,7 +4,7 @@
 -output-file
 /home/anna-lena/GUI_Cluster/appImage_Build_Dir/.qt/qml_imports/appGUI_Cluster_build.cmake
 -importPath
-/home/anna-lena/GUI_Cluster/GUI_Cluster
+/home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster
 -importPath
 /home/anna-lena/GUI_Cluster/appImage_Build_Dir
 -importPath

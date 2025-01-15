@@ -180,7 +180,7 @@ Item {
                     if(aSource == "Options_Views.qml"){
                         menuItem.item.view = actualScreen
                     }
-                    else if(aSource == "Screenshot.qml"){
+                    if(aSource == "Screenshot.qml"){
                         menuItem.item.main_item = rootScreen
                     }
 

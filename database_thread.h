@@ -25,11 +25,18 @@ struct DataColumn
 class Database_Thread : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool thread_running READ thread_running WRITE set_thread_running NOTIFY thread_runningChanged)
+
+
 
 
 public:
     explicit Database_Thread(QString dbConnectionName, int slurm_id, int proc_num, bool live_run, QObject *parent = nullptr);
     ~Database_Thread();
+
+    // Getter und Setter für die Property
+    bool thread_running() const;
+    void set_thread_running(bool running);
 
 public slots:
     void connectToDB();
@@ -43,7 +50,8 @@ public slots:
     void selectEndTimestamp();
 
     void set_end_timestamp_db(QDateTime timestamp);
-    void reset_actual_timestamp();
+    void reset_actual_timestamp(); 
+    //Q_INVOKABLE void set_thread_running(bool running);
 
 
 signals:
@@ -54,6 +62,7 @@ signals:
     //set bool = 1 for start-timestamp and bool = 0 for end-timestamp
     void setTimestamp(QDateTime timestamp, bool start);
     void eduMPIJobsFetched(const QVariantList &jobIds);
+    void thread_runningChanged();
 
 private:
 
@@ -64,6 +73,7 @@ private:
     bool m_clearingProc = false;
     QDateTime m_actualDBEntryTime;
     QDateTime m_firstDBEntryDate;
+    bool m_thread_running;
     QTime m_firstDBEntryTime;
     int m_slurm_id;
     int m_proc_num;

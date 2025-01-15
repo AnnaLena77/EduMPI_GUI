@@ -70,28 +70,28 @@ Sidebar/CMakeFiles/sidebar_qmltyperegistration: Sidebar/sidebar_qmltyperegistrat
 Sidebar/CMakeFiles/sidebar_qmltyperegistration: /home/anna-lena/GUI_Cluster/Sidebar/sidebar.qmltypes
 
 Sidebar/sidebar_qmltyperegistrations.cpp: Sidebar/qmltypes/sidebar_foreign_types.txt
-Sidebar/sidebar_qmltyperegistrations.cpp: Sidebar/meta_types/qt6sidebar_metatypes.json
+Sidebar/sidebar_qmltyperegistrations.cpp: Sidebar/meta_types/qt6sidebar_debug_metatypes.json
 Sidebar/sidebar_qmltyperegistrations.cpp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/qmltyperegistrar
 Sidebar/sidebar_qmltyperegistrations.cpp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/metatypes/qt6qml_relwithdebinfo_metatypes.json
 Sidebar/sidebar_qmltyperegistrations.cpp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/metatypes/qt6core_relwithdebinfo_metatypes.json
 Sidebar/sidebar_qmltyperegistrations.cpp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/metatypes/qt6network_relwithdebinfo_metatypes.json
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic QML type registration for target sidebar"
-	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/qmltyperegistrar --generate-qmltypes=/home/anna-lena/GUI_Cluster/Sidebar/sidebar.qmltypes --import-name=Sidebar --major-version=1 --minor-version=0 @/home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/qmltypes/sidebar_foreign_types.txt -o /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/sidebar_qmltyperegistrations.cpp /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/qt6sidebar_metatypes.json
+	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/qmltyperegistrar --generate-qmltypes=/home/anna-lena/GUI_Cluster/Sidebar/sidebar.qmltypes --import-name=Sidebar --major-version=1 --minor-version=0 @/home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/qmltypes/sidebar_foreign_types.txt -o /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/sidebar_qmltyperegistrations.cpp /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/qt6sidebar_debug_metatypes.json
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E make_directory /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.qt/qmltypes
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E touch /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.qt/qmltypes/sidebar.qmltypes
 
 /home/anna-lena/GUI_Cluster/Sidebar/sidebar.qmltypes: Sidebar/sidebar_qmltyperegistrations.cpp
 	@$(CMAKE_COMMAND) -E touch_nocreate /home/anna-lena/GUI_Cluster/Sidebar/sidebar.qmltypes
 
-Sidebar/meta_types/qt6sidebar_metatypes.json: Sidebar/meta_types/qt6sidebar_metatypes.json.gen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating meta_types/qt6sidebar_metatypes.json"
+Sidebar/meta_types/qt6sidebar_debug_metatypes.json: Sidebar/meta_types/qt6sidebar_debug_metatypes.json.gen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating meta_types/qt6sidebar_debug_metatypes.json"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E true
 
-Sidebar/meta_types/qt6sidebar_metatypes.json.gen: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc
-Sidebar/meta_types/qt6sidebar_metatypes.json.gen: Sidebar/meta_types/sidebar_json_file_list.txt
+Sidebar/meta_types/qt6sidebar_debug_metatypes.json.gen: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc
+Sidebar/meta_types/qt6sidebar_debug_metatypes.json.gen: Sidebar/meta_types/sidebar_json_file_list.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Running moc --collect-json for target sidebar"
-	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc -o /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/qt6sidebar_metatypes.json.gen --collect-json @/home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/sidebar_json_file_list.txt
-	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy_if_different /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/qt6sidebar_metatypes.json.gen /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/qt6sidebar_metatypes.json
+	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc -o /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/qt6sidebar_debug_metatypes.json.gen --collect-json @/home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/sidebar_json_file_list.txt
+	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy_if_different /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/qt6sidebar_debug_metatypes.json.gen /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/qt6sidebar_debug_metatypes.json
 
 Sidebar/meta_types/sidebar_json_file_list.txt: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/cmake_automoc_parser
 Sidebar/meta_types/sidebar_json_file_list.txt: Sidebar/sidebar_autogen/timestamp
@@ -101,13 +101,13 @@ Sidebar/meta_types/sidebar_json_file_list.txt: Sidebar/sidebar_autogen/timestamp
 Sidebar/sidebar_autogen/timestamp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc
 Sidebar/sidebar_autogen/timestamp: Sidebar/CMakeFiles/sidebar_qmltyperegistration.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Automatic MOC and UIC for target sidebar"
-	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E cmake_autogen /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/CMakeFiles/sidebar_autogen.dir/AutogenInfo.json ""
+	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E cmake_autogen /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/CMakeFiles/sidebar_autogen.dir/AutogenInfo.json Debug
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E touch /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/sidebar_autogen/timestamp
 
 sidebar_qmltyperegistration: /home/anna-lena/GUI_Cluster/Sidebar/sidebar.qmltypes
 sidebar_qmltyperegistration: Sidebar/CMakeFiles/sidebar_qmltyperegistration
-sidebar_qmltyperegistration: Sidebar/meta_types/qt6sidebar_metatypes.json
-sidebar_qmltyperegistration: Sidebar/meta_types/qt6sidebar_metatypes.json.gen
+sidebar_qmltyperegistration: Sidebar/meta_types/qt6sidebar_debug_metatypes.json
+sidebar_qmltyperegistration: Sidebar/meta_types/qt6sidebar_debug_metatypes.json.gen
 sidebar_qmltyperegistration: Sidebar/meta_types/sidebar_json_file_list.txt
 sidebar_qmltyperegistration: Sidebar/sidebar_autogen/timestamp
 sidebar_qmltyperegistration: Sidebar/sidebar_qmltyperegistrations.cpp

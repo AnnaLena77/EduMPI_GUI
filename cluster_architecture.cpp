@@ -10,6 +10,7 @@ Cluster_Architecture::~Cluster_Architecture()
     if (database_thread.isRunning()) {
         if (database_thread.isRunning()) {
             // Signal zum Beenden des Threads senden
+            m_dbThread->set_thread_running(false);
             emit signalToClearDB();
             database_thread.quit();  // Veranlasst den Thread, die Ereignisschleife zu verlassen
             database_thread.wait();  // Wartet, bis der Thread beendet ist
@@ -200,9 +201,14 @@ void Cluster_Architecture::set_proc_num(int proc){
 }
 
 void Cluster_Architecture::set_end_time(int time){
-    m_end_time = time;
-    QDateTime timestamp = m_start_timestamp.addSecs(time);
-    emit end_timeChanged(timestamp);
+    if(time == -1){
+        QThread::msleep(2000);
+        m_dbThread->set_thread_running(false);
+    } else {
+        m_end_time = time;
+        QDateTime timestamp = m_start_timestamp.addSecs(time);
+        emit end_timeChanged(timestamp);
+    }
 }
 
 Cluster_Node* Cluster_Architecture::nodeAt(int index){

@@ -8,6 +8,7 @@
 /home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles/all_qmllint_json.dir
 /home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles/all_qmllint_module.dir
 /home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles/appGUI_Cluster_tooling.dir
+/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles/appGUI_Cluster_generate_qmlls_ini_file.dir
 /home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles/module_appGUI_Cluster_aotstats_target.dir
 /home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles/module_sidebar_aotstats_target.dir
 /home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles/all_aotstats.dir
@@ -29,6 +30,7 @@
 /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/CMakeFiles/sidebar_qmllint_module.dir
 /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/CMakeFiles/sidebar_resources_2.dir
 /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/CMakeFiles/sidebarplugin_init.dir
+/home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/CMakeFiles/sidebar_generate_qmlls_ini_file.dir
 /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/CMakeFiles/edit_cache.dir
 /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/CMakeFiles/rebuild_cache.dir
 /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/CMakeFiles/list_install_components.dir

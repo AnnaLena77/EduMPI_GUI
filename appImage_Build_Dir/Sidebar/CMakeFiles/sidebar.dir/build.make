@@ -69,20 +69,20 @@ include Sidebar/CMakeFiles/sidebar.dir/progress.make
 # Include the compile flags for this target's objects.
 include Sidebar/CMakeFiles/sidebar.dir/flags.make
 
-Sidebar/meta_types/qt6sidebar_metatypes.json.gen: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc
-Sidebar/meta_types/qt6sidebar_metatypes.json.gen: Sidebar/meta_types/sidebar_json_file_list.txt
+Sidebar/meta_types/qt6sidebar_debug_metatypes.json.gen: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc
+Sidebar/meta_types/qt6sidebar_debug_metatypes.json.gen: Sidebar/meta_types/sidebar_json_file_list.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Running moc --collect-json for target sidebar"
-	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc -o /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/qt6sidebar_metatypes.json.gen --collect-json @/home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/sidebar_json_file_list.txt
-	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy_if_different /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/qt6sidebar_metatypes.json.gen /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/qt6sidebar_metatypes.json
+	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc -o /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/qt6sidebar_debug_metatypes.json.gen --collect-json @/home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/sidebar_json_file_list.txt
+	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy_if_different /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/qt6sidebar_debug_metatypes.json.gen /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/qt6sidebar_debug_metatypes.json
 
 Sidebar/sidebar_qmltyperegistrations.cpp: Sidebar/qmltypes/sidebar_foreign_types.txt
-Sidebar/sidebar_qmltyperegistrations.cpp: Sidebar/meta_types/qt6sidebar_metatypes.json
+Sidebar/sidebar_qmltyperegistrations.cpp: Sidebar/meta_types/qt6sidebar_debug_metatypes.json
 Sidebar/sidebar_qmltyperegistrations.cpp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/qmltyperegistrar
 Sidebar/sidebar_qmltyperegistrations.cpp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/metatypes/qt6qml_relwithdebinfo_metatypes.json
 Sidebar/sidebar_qmltyperegistrations.cpp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/metatypes/qt6core_relwithdebinfo_metatypes.json
 Sidebar/sidebar_qmltyperegistrations.cpp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/metatypes/qt6network_relwithdebinfo_metatypes.json
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Automatic QML type registration for target sidebar"
-	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/qmltyperegistrar --generate-qmltypes=/home/anna-lena/GUI_Cluster/Sidebar/sidebar.qmltypes --import-name=Sidebar --major-version=1 --minor-version=0 @/home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/qmltypes/sidebar_foreign_types.txt -o /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/sidebar_qmltyperegistrations.cpp /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/qt6sidebar_metatypes.json
+	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/qmltyperegistrar --generate-qmltypes=/home/anna-lena/GUI_Cluster/Sidebar/sidebar.qmltypes --import-name=Sidebar --major-version=1 --minor-version=0 @/home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/qmltypes/sidebar_foreign_types.txt -o /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/sidebar_qmltyperegistrations.cpp /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/qt6sidebar_debug_metatypes.json
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E make_directory /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.qt/qmltypes
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E touch /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.qt/qmltypes/sidebar.qmltypes
 
@@ -219,25 +219,19 @@ Sidebar/.qt/rcc/qrc_sidebar_raw_qml_0.cpp: /home/anna-lena/QtDesignStudio/6.8.1/
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Running rcc for resource sidebar_raw_qml_0"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/rcc --output /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.qt/rcc/qrc_sidebar_raw_qml_0.cpp --name sidebar_raw_qml_0 /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.qt/rcc/sidebar_raw_qml_0.qrc
 
-Sidebar/sidebar_autogen/timestamp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc
-Sidebar/sidebar_autogen/timestamp: Sidebar/CMakeFiles/sidebar.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Automatic MOC and UIC for target sidebar"
-	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E cmake_autogen /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/CMakeFiles/sidebar_autogen.dir/AutogenInfo.json ""
-	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E touch /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/sidebar_autogen/timestamp
-
 Sidebar/meta_types/sidebar_json_file_list.txt: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/cmake_automoc_parser
 Sidebar/meta_types/sidebar_json_file_list.txt: Sidebar/sidebar_autogen/timestamp
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Running AUTOMOC file extraction for target sidebar"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Running AUTOMOC file extraction for target sidebar"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/cmake_automoc_parser --cmake-autogen-cache-file /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/CMakeFiles/sidebar_autogen.dir/ParseCache.txt --cmake-autogen-info-file /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/CMakeFiles/sidebar_autogen.dir/AutogenInfo.json --output-file-path /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/sidebar_json_file_list.txt --timestamp-file-path /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/meta_types/sidebar_json_file_list.txt.timestamp --cmake-autogen-include-dir-path /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/sidebar_autogen/include
 
-Sidebar/meta_types/qt6sidebar_metatypes.json: Sidebar/meta_types/qt6sidebar_metatypes.json.gen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Generating meta_types/qt6sidebar_metatypes.json"
+Sidebar/meta_types/qt6sidebar_debug_metatypes.json: Sidebar/meta_types/qt6sidebar_debug_metatypes.json.gen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Generating meta_types/qt6sidebar_debug_metatypes.json"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E true
 
 Sidebar/CMakeFiles/sidebar.dir/sidebar_autogen/mocs_compilation.cpp.o: Sidebar/CMakeFiles/sidebar.dir/flags.make
 Sidebar/CMakeFiles/sidebar.dir/sidebar_autogen/mocs_compilation.cpp.o: Sidebar/sidebar_autogen/mocs_compilation.cpp
 Sidebar/CMakeFiles/sidebar.dir/sidebar_autogen/mocs_compilation.cpp.o: Sidebar/CMakeFiles/sidebar.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/sidebar_autogen/mocs_compilation.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/sidebar_autogen/mocs_compilation.cpp.o"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT Sidebar/CMakeFiles/sidebar.dir/sidebar_autogen/mocs_compilation.cpp.o -MF CMakeFiles/sidebar.dir/sidebar_autogen/mocs_compilation.cpp.o.d -o CMakeFiles/sidebar.dir/sidebar_autogen/mocs_compilation.cpp.o -c /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/sidebar_autogen/mocs_compilation.cpp
 
 Sidebar/CMakeFiles/sidebar.dir/sidebar_autogen/mocs_compilation.cpp.i: cmake_force
@@ -251,7 +245,7 @@ Sidebar/CMakeFiles/sidebar.dir/sidebar_autogen/mocs_compilation.cpp.s: cmake_for
 Sidebar/CMakeFiles/sidebar.dir/sidebar_qmltyperegistrations.cpp.o: Sidebar/CMakeFiles/sidebar.dir/flags.make
 Sidebar/CMakeFiles/sidebar.dir/sidebar_qmltyperegistrations.cpp.o: Sidebar/sidebar_qmltyperegistrations.cpp
 Sidebar/CMakeFiles/sidebar.dir/sidebar_qmltyperegistrations.cpp.o: Sidebar/CMakeFiles/sidebar.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/sidebar_qmltyperegistrations.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/sidebar_qmltyperegistrations.cpp.o"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT Sidebar/CMakeFiles/sidebar.dir/sidebar_qmltyperegistrations.cpp.o -MF CMakeFiles/sidebar.dir/sidebar_qmltyperegistrations.cpp.o.d -o CMakeFiles/sidebar.dir/sidebar_qmltyperegistrations.cpp.o -c /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/sidebar_qmltyperegistrations.cpp
 
 Sidebar/CMakeFiles/sidebar.dir/sidebar_qmltyperegistrations.cpp.i: cmake_force
@@ -265,7 +259,7 @@ Sidebar/CMakeFiles/sidebar.dir/sidebar_qmltyperegistrations.cpp.s: cmake_force
 Sidebar/CMakeFiles/sidebar.dir/.qt/rcc/qrc_qmake_Sidebar.cpp.o: Sidebar/CMakeFiles/sidebar.dir/flags.make
 Sidebar/CMakeFiles/sidebar.dir/.qt/rcc/qrc_qmake_Sidebar.cpp.o: Sidebar/.qt/rcc/qrc_qmake_Sidebar.cpp
 Sidebar/CMakeFiles/sidebar.dir/.qt/rcc/qrc_qmake_Sidebar.cpp.o: Sidebar/CMakeFiles/sidebar.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.qt/rcc/qrc_qmake_Sidebar.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.qt/rcc/qrc_qmake_Sidebar.cpp.o"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT Sidebar/CMakeFiles/sidebar.dir/.qt/rcc/qrc_qmake_Sidebar.cpp.o -MF CMakeFiles/sidebar.dir/.qt/rcc/qrc_qmake_Sidebar.cpp.o.d -o CMakeFiles/sidebar.dir/.qt/rcc/qrc_qmake_Sidebar.cpp.o -c /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.qt/rcc/qrc_qmake_Sidebar.cpp
 
 Sidebar/CMakeFiles/sidebar.dir/.qt/rcc/qrc_qmake_Sidebar.cpp.i: cmake_force
@@ -279,7 +273,7 @@ Sidebar/CMakeFiles/sidebar.dir/.qt/rcc/qrc_qmake_Sidebar.cpp.s: cmake_force
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_qmlcache_loader.cpp.o: Sidebar/CMakeFiles/sidebar.dir/flags.make
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_qmlcache_loader.cpp.o: Sidebar/.rcc/qmlcache/sidebar_qmlcache_loader.cpp
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_qmlcache_loader.cpp.o: Sidebar/CMakeFiles/sidebar.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_qmlcache_loader.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_qmlcache_loader.cpp.o"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_qmlcache_loader.cpp.o -MF CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_qmlcache_loader.cpp.o.d -o CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_qmlcache_loader.cpp.o -c /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.rcc/qmlcache/sidebar_qmlcache_loader.cpp
 
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_qmlcache_loader.cpp.i: cmake_force
@@ -293,7 +287,7 @@ Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_qmlcache_loader.cpp.s: cmak
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_qml.cpp.o: Sidebar/CMakeFiles/sidebar.dir/flags.make
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_qml.cpp.o: Sidebar/.rcc/qmlcache/sidebar_Sidebar_qml.cpp
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_qml.cpp.o: Sidebar/CMakeFiles/sidebar.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_qml.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_qml.cpp.o"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_qml.cpp.o -MF CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_qml.cpp.o.d -o CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_qml.cpp.o -c /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.rcc/qmlcache/sidebar_Sidebar_qml.cpp
 
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_qml.cpp.i: cmake_force
@@ -307,7 +301,7 @@ Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_qml.cpp.s: cmake_fo
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Item_qml.cpp.o: Sidebar/CMakeFiles/sidebar.dir/flags.make
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Item_qml.cpp.o: Sidebar/.rcc/qmlcache/sidebar_Sidebar_Item_qml.cpp
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Item_qml.cpp.o: Sidebar/CMakeFiles/sidebar.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Item_qml.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Item_qml.cpp.o"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Item_qml.cpp.o -MF CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Item_qml.cpp.o.d -o CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Item_qml.cpp.o -c /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.rcc/qmlcache/sidebar_Sidebar_Item_qml.cpp
 
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Item_qml.cpp.i: cmake_force
@@ -321,7 +315,7 @@ Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Item_qml.cpp.s: cma
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_MPI_Application_Start_qml.cpp.o: Sidebar/CMakeFiles/sidebar.dir/flags.make
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_MPI_Application_Start_qml.cpp.o: Sidebar/.rcc/qmlcache/sidebar_MPI_Application_Start_qml.cpp
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_MPI_Application_Start_qml.cpp.o: Sidebar/CMakeFiles/sidebar.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_MPI_Application_Start_qml.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_MPI_Application_Start_qml.cpp.o"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_MPI_Application_Start_qml.cpp.o -MF CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_MPI_Application_Start_qml.cpp.o.d -o CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_MPI_Application_Start_qml.cpp.o -c /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.rcc/qmlcache/sidebar_MPI_Application_Start_qml.cpp
 
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_MPI_Application_Start_qml.cpp.i: cmake_force
@@ -335,7 +329,7 @@ Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_MPI_Application_Start_qml.c
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Run_Analysis_qml.cpp.o: Sidebar/CMakeFiles/sidebar.dir/flags.make
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Run_Analysis_qml.cpp.o: Sidebar/.rcc/qmlcache/sidebar_Sidebar_Run_Analysis_qml.cpp
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Run_Analysis_qml.cpp.o: Sidebar/CMakeFiles/sidebar.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Run_Analysis_qml.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Run_Analysis_qml.cpp.o"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Run_Analysis_qml.cpp.o -MF CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Run_Analysis_qml.cpp.o.d -o CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Run_Analysis_qml.cpp.o -c /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.rcc/qmlcache/sidebar_Sidebar_Run_Analysis_qml.cpp
 
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Run_Analysis_qml.cpp.i: cmake_force
@@ -349,7 +343,7 @@ Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Sidebar_Run_Analysis_qml.cp
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_qml.cpp.o: Sidebar/CMakeFiles/sidebar.dir/flags.make
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_qml.cpp.o: Sidebar/.rcc/qmlcache/sidebar_Options_qml.cpp
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_qml.cpp.o: Sidebar/CMakeFiles/sidebar.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_qml.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_qml.cpp.o"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_qml.cpp.o -MF CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_qml.cpp.o.d -o CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_qml.cpp.o -c /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.rcc/qmlcache/sidebar_Options_qml.cpp
 
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_qml.cpp.i: cmake_force
@@ -363,7 +357,7 @@ Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_qml.cpp.s: cmake_fo
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Bar_qml.cpp.o: Sidebar/CMakeFiles/sidebar.dir/flags.make
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Bar_qml.cpp.o: Sidebar/.rcc/qmlcache/sidebar_Options_Bar_qml.cpp
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Bar_qml.cpp.o: Sidebar/CMakeFiles/sidebar.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Bar_qml.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Bar_qml.cpp.o"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Bar_qml.cpp.o -MF CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Bar_qml.cpp.o.d -o CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Bar_qml.cpp.o -c /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.rcc/qmlcache/sidebar_Options_Bar_qml.cpp
 
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Bar_qml.cpp.i: cmake_force
@@ -377,7 +371,7 @@ Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Bar_qml.cpp.s: cmak
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Views_qml.cpp.o: Sidebar/CMakeFiles/sidebar.dir/flags.make
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Views_qml.cpp.o: Sidebar/.rcc/qmlcache/sidebar_Options_Views_qml.cpp
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Views_qml.cpp.o: Sidebar/CMakeFiles/sidebar.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Views_qml.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Views_qml.cpp.o"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Views_qml.cpp.o -MF CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Views_qml.cpp.o.d -o CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Views_qml.cpp.o -c /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.rcc/qmlcache/sidebar_Options_Views_qml.cpp
 
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Views_qml.cpp.i: cmake_force
@@ -391,7 +385,7 @@ Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Options_Views_qml.cpp.s: cm
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Screenshot_qml.cpp.o: Sidebar/CMakeFiles/sidebar.dir/flags.make
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Screenshot_qml.cpp.o: Sidebar/.rcc/qmlcache/sidebar_Screenshot_qml.cpp
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Screenshot_qml.cpp.o: Sidebar/CMakeFiles/sidebar.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Screenshot_qml.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Screenshot_qml.cpp.o"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Screenshot_qml.cpp.o -MF CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Screenshot_qml.cpp.o.d -o CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Screenshot_qml.cpp.o -c /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.rcc/qmlcache/sidebar_Screenshot_qml.cpp
 
 Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Screenshot_qml.cpp.i: cmake_force
@@ -405,7 +399,7 @@ Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Screenshot_qml.cpp.s: cmake
 Sidebar/CMakeFiles/sidebar.dir/.qt/rcc/qrc_sidebar_raw_qml_0.cpp.o: Sidebar/CMakeFiles/sidebar.dir/flags.make
 Sidebar/CMakeFiles/sidebar.dir/.qt/rcc/qrc_sidebar_raw_qml_0.cpp.o: Sidebar/.qt/rcc/qrc_sidebar_raw_qml_0.cpp
 Sidebar/CMakeFiles/sidebar.dir/.qt/rcc/qrc_sidebar_raw_qml_0.cpp.o: Sidebar/CMakeFiles/sidebar.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.qt/rcc/qrc_sidebar_raw_qml_0.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object Sidebar/CMakeFiles/sidebar.dir/.qt/rcc/qrc_sidebar_raw_qml_0.cpp.o"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT Sidebar/CMakeFiles/sidebar.dir/.qt/rcc/qrc_sidebar_raw_qml_0.cpp.o -MF CMakeFiles/sidebar.dir/.qt/rcc/qrc_sidebar_raw_qml_0.cpp.o.d -o CMakeFiles/sidebar.dir/.qt/rcc/qrc_sidebar_raw_qml_0.cpp.o -c /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/.qt/rcc/qrc_sidebar_raw_qml_0.cpp
 
 Sidebar/CMakeFiles/sidebar.dir/.qt/rcc/qrc_sidebar_raw_qml_0.cpp.i: cmake_force
@@ -450,7 +444,7 @@ Sidebar/libsidebar.a: Sidebar/CMakeFiles/sidebar.dir/.rcc/qmlcache/sidebar_Scree
 Sidebar/libsidebar.a: Sidebar/CMakeFiles/sidebar.dir/.qt/rcc/qrc_sidebar_raw_qml_0.cpp.o
 Sidebar/libsidebar.a: Sidebar/CMakeFiles/sidebar.dir/build.make
 Sidebar/libsidebar.a: Sidebar/CMakeFiles/sidebar.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Linking CXX static library libsidebar.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Linking CXX static library libsidebar.a"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && $(CMAKE_COMMAND) -P CMakeFiles/sidebar.dir/cmake_clean_target.cmake
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sidebar.dir/link.txt --verbose=$(VERBOSE)
 
@@ -482,10 +476,9 @@ Sidebar/CMakeFiles/sidebar.dir/depend: Sidebar/.rcc/qmlcache/sidebar_Sidebar_Run
 Sidebar/CMakeFiles/sidebar.dir/depend: Sidebar/.rcc/qmlcache/sidebar_Sidebar_qml.cpp
 Sidebar/CMakeFiles/sidebar.dir/depend: Sidebar/.rcc/qmlcache/sidebar_Sidebar_qml.cpp.aotstats
 Sidebar/CMakeFiles/sidebar.dir/depend: Sidebar/.rcc/qmlcache/sidebar_qmlcache_loader.cpp
-Sidebar/CMakeFiles/sidebar.dir/depend: Sidebar/meta_types/qt6sidebar_metatypes.json
-Sidebar/CMakeFiles/sidebar.dir/depend: Sidebar/meta_types/qt6sidebar_metatypes.json.gen
+Sidebar/CMakeFiles/sidebar.dir/depend: Sidebar/meta_types/qt6sidebar_debug_metatypes.json
+Sidebar/CMakeFiles/sidebar.dir/depend: Sidebar/meta_types/qt6sidebar_debug_metatypes.json.gen
 Sidebar/CMakeFiles/sidebar.dir/depend: Sidebar/meta_types/sidebar_json_file_list.txt
-Sidebar/CMakeFiles/sidebar.dir/depend: Sidebar/sidebar_autogen/timestamp
 Sidebar/CMakeFiles/sidebar.dir/depend: Sidebar/sidebar_qmltyperegistrations.cpp
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/anna-lena/GUI_Cluster /home/anna-lena/GUI_Cluster/Sidebar /home/anna-lena/GUI_Cluster/appImage_Build_Dir /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/CMakeFiles/sidebar.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : Sidebar/CMakeFiles/sidebar.dir/depend
