@@ -266,6 +266,7 @@ Window {
 
         StackView{
             id: actualScreen
+            property int twoD_columns: 10
 
             anchors {
                 left: parent.left

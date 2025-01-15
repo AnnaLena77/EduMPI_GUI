@@ -113,6 +113,7 @@ Window {
         }
         StackView{
             id: ascreen
+            property int twoD_columns: 10
 
             //focus: true
             anchors {

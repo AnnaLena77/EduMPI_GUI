@@ -10,6 +10,7 @@ Rectangle {
     //anchors.fill: parent
     color: "#999999"
     property Cluster_Architecture listNodes: null
+    property int columns2D: parent.twoD_columns || 10
 
     ScrollView{
         anchors.fill: parent
@@ -46,7 +47,7 @@ Rectangle {
                         y: 30
                         width: parent.width
                         height: parent.height-30 // Hoehe - 20 für den Namen
-                        columns: 10
+                        columns: columns2D
                         spacing: calculate_spacing(ranks_in_node, columns)
 
                         function calculate_spacing(ranks_in_node, columns){
@@ -60,8 +61,8 @@ Rectangle {
                             delegate: Rectangle {
                                 id: datarect
 
-                                property real send_ds: get_send_ds(node_index, model.index);//listNodes.nodeAt(node_index).rankAt(model.index).send_datasize
-                                property real recv_ds: get_recv_ds(node_index, model.index);//listNodes.nodeAt(node_index).rankAt(model.index).p2p_recv_datasize
+                                property real send_ds: get_send_ds(node_index, model.index);
+                                property real recv_ds: get_recv_ds(node_index, model.index);
 
                                 height: (parent.height/parent.spacing)-5
                                 width: parent.width/parent.columns-5
