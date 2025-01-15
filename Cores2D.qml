@@ -1,20 +1,20 @@
 import QtQuick
 import QtQuick.Window
 import QtQuick.Controls 6.2
+import QtQuick.Layouts
 import GUI_Cluster
 
 Rectangle {
     //Component.onCompleted: listNodes.buildClusterComponents();
     id: screen
     //anchors.fill: parent
-    //height: parent.height
     color: "#999999"
     property Cluster_Architecture listNodes: null
 
     ScrollView{
         anchors.fill: parent
 
-        Column {
+        ColumnLayout {
             anchors{
                 margins: 5
             }

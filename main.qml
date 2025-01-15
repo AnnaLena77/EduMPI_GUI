@@ -271,7 +271,7 @@ Window {
                 left: parent.left
                 right: options.left
                 top: slurmnotifier.bottom
-                bottom: parent.bottom
+                bottom: timeline_main.top
             }
 
             /*onLoaded: {

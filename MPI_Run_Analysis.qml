@@ -119,7 +119,7 @@ Window {
                 left: parent.left
                 right: options_analysis.left
                 top: parent.top
-                bottom: parent.bottom
+                bottom: bottom_main.top
             }
             Component.onCompleted: {
                 /*Qt.callLater(() => {
