@@ -30,7 +30,7 @@ ApplicationWindow {
 
         ScrollView { // Verwenden Sie ScrollView für den Scrollbereich
             width: parent.width
-            height: 440 // Höhe an Ihren Bedarf anpassen
+            height: parent.height-button_item.height // Höhe an Ihren Bedarf anpassen
             clip: true
 
         // ListView zur Anzeige der Jobs als Tabellenstruktur
@@ -73,6 +73,9 @@ ApplicationWindow {
 
                             selected_end_time = secondsSinceMidnight
                         }
+                        onDoubleClicked: {
+                            eduMPIButton.click()
+                        }
                     }
 
                     GridLayout {
@@ -106,8 +109,9 @@ ApplicationWindow {
             }
         }
         Item {
+                id: button_item
                 width: parent.width
-                height: 20 // Definieren Sie dieses Maß entsprechend.
+                height: 50 // Definieren Sie dieses Maß entsprechend.
                 Button {
                     id: eduMPIButton
                     text: "Select EduMPI-Run"
