@@ -169,6 +169,9 @@ Item {
                     if(aSource == "Options_Views.qml"){
                         menuItem.item.view = ascreen
                     }
+                    if(aSource == "Screenshot.qml"){
+                        menuItem.item.main_item = rootScreen
+                    }
                     /*console.log("Test: " +item.implicitHeight)
                     menuItemHeight = item.height
 

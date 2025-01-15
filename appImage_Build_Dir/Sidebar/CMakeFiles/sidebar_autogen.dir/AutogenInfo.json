@@ -28,7 +28,6 @@
 	[
 		"QT_CORE_LIB",
 		"QT_NETWORK_LIB",
-		"QT_NO_DEBUG",
 		"QT_QMLINTEGRATION_LIB",
 		"QT_QML_LIB"
 	],

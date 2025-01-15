@@ -1,0 +1,116 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 17,
+                        "durationMicroseconds": 170,
+                        "errorMessage": "",
+                        "functionName": "height",
+                        "line": 14
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 100,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 15
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 24,
+                        "durationMicroseconds": 115,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 23
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 32,
+                        "durationMicroseconds": 32,
+                        "errorMessage": "Instruction \"generate_MoveRegExp\" not implemented",
+                        "functionName": "model",
+                        "line": 28
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 35,
+                        "durationMicroseconds": 23,
+                        "errorMessage": "Cannot access value for name index",
+                        "functionName": "text",
+                        "line": 30
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 32,
+                        "durationMicroseconds": 47,
+                        "errorMessage": "cannot convert from (component in Bash_Skript_Manual.qml)::parent with type QQuickItem to double",
+                        "functionName": "width",
+                        "line": 39
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 35,
+                        "durationMicroseconds": 101,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 40
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 31,
+                        "durationMicroseconds": 391,
+                        "errorMessage": "Cannot access value for name nodesList",
+                        "functionName": "text",
+                        "line": 43
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 44,
+                        "durationMicroseconds": 86,
+                        "errorMessage": "",
+                        "functionName": "fillHeight",
+                        "line": 42
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 24,
+                        "durationMicroseconds": 7,
+                        "errorMessage": "Cannot resolve property type  for binding on onClicked.",
+                        "functionName": "onClicked",
+                        "line": 55
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 103,
+                        "errorMessage": "",
+                        "functionName": "cursorShape",
+                        "line": 60
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 26,
+                        "durationMicroseconds": 161,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: changeBashButton",
+                        "functionName": "onPressed",
+                        "line": 65
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 62,
+                        "errorMessage": "",
+                        "functionName": "onPressed",
+                        "line": 65
+                    }
+                ],
+                "filepath": "Bash_Skript_Manual.qml"
+            }
+        ],
+        "moduleId": "GUI_Cluster(appGUI_Cluster)"
+    }
+]

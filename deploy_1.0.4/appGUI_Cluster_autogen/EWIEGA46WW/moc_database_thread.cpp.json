@@ -1,0 +1,209 @@
+{
+    "classes": [
+        {
+            "className": "Database_Thread",
+            "lineNumber": 25,
+            "object": true,
+            "properties": [
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 0,
+                    "name": "thread_running",
+                    "notify": "thread_runningChanged",
+                    "read": "thread_running",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "bool",
+                    "user": false,
+                    "write": "set_thread_running"
+                }
+            ],
+            "qualifiedClassName": "Database_Thread",
+            "signals": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "success",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 0,
+                    "name": "connectedToDB",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "map",
+                            "type": "QMap<QString,QList<int>>"
+                        }
+                    ],
+                    "index": 1,
+                    "name": "clusterComponentsReady",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "list",
+                            "type": "QList<DataColumn>"
+                        }
+                    ],
+                    "index": 2,
+                    "name": "updateDataReady",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 3,
+                    "name": "dbCleared",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "timestamp",
+                            "type": "QDateTime"
+                        },
+                        {
+                            "name": "start",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 4,
+                    "name": "setTimestamp",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "jobIds",
+                            "type": "QVariantList"
+                        }
+                    ],
+                    "index": 5,
+                    "name": "eduMPIJobsFetched",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 6,
+                    "name": "thread_runningChanged",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "index": 7,
+                    "name": "connectToDB",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 8,
+                    "name": "threadbuildClusterComponents",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "time_display",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 9,
+                    "name": "updateData",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "timestampA",
+                            "type": "QDateTime"
+                        },
+                        {
+                            "name": "timestampB",
+                            "type": "QDateTime"
+                        }
+                    ],
+                    "index": 10,
+                    "name": "showDataFromTimePeriod",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 11,
+                    "name": "clearDatabase",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "proc_num",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 12,
+                    "name": "getProcNum",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "userId",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 13,
+                    "name": "fetchEduMPIJobs",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 14,
+                    "name": "selectEndTimestamp",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "timestamp",
+                            "type": "QDateTime"
+                        }
+                    ],
+                    "index": 15,
+                    "name": "set_end_timestamp_db",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 16,
+                    "name": "reset_actual_timestamp",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "database_thread.h",
+    "outputRevision": 68
+}

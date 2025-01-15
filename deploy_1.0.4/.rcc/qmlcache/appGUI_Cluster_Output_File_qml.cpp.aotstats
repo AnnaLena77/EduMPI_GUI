@@ -1,0 +1,116 @@
+[
+    {
+        "moduleFiles": [
+            {
+                "entries": [
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 16,
+                        "durationMicroseconds": 167,
+                        "errorMessage": "",
+                        "functionName": "width",
+                        "line": 21
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 71,
+                        "errorMessage": "",
+                        "functionName": "fill",
+                        "line": 20
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 27,
+                        "durationMicroseconds": 113,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 22
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 26,
+                        "durationMicroseconds": 6,
+                        "errorMessage": "Cannot resolve property type  for binding on source.",
+                        "functionName": "source",
+                        "line": 32
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 25,
+                        "durationMicroseconds": 3,
+                        "errorMessage": "Cannot resolve property type  for binding on color.",
+                        "functionName": "color",
+                        "line": 33
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 31,
+                        "durationMicroseconds": 92,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 38
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 19,
+                        "durationMicroseconds": 84,
+                        "errorMessage": "Cannot access value for name path",
+                        "functionName": "text",
+                        "line": 46
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 23,
+                        "durationMicroseconds": 90,
+                        "errorMessage": "",
+                        "functionName": "wrapMode",
+                        "line": 49
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 24,
+                        "durationMicroseconds": 7,
+                        "errorMessage": "Cannot resolve property type  for binding on onClicked.",
+                        "functionName": "onClicked",
+                        "line": 59
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 30,
+                        "durationMicroseconds": 96,
+                        "errorMessage": "",
+                        "functionName": "cursorShape",
+                        "line": 57
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 31,
+                        "durationMicroseconds": 89,
+                        "errorMessage": "",
+                        "functionName": "alignment",
+                        "line": 60
+                    },
+                    {
+                        "codegenSuccessfull": false,
+                        "column": 26,
+                        "durationMicroseconds": 144,
+                        "errorMessage": "Cannot retrieve a non-object type by ID: ok_button",
+                        "functionName": "onPressed",
+                        "line": 62
+                    },
+                    {
+                        "codegenSuccessfull": true,
+                        "column": 26,
+                        "durationMicroseconds": 62,
+                        "errorMessage": "",
+                        "functionName": "onPressed",
+                        "line": 62
+                    }
+                ],
+                "filepath": "Output_File.qml"
+            }
+        ],
+        "moduleId": "GUI_Cluster(appGUI_Cluster)"
+    }
+]

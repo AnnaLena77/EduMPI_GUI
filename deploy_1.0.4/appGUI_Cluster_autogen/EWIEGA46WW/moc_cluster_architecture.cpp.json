@@ -1,0 +1,500 @@
+{
+    "classes": [
+        {
+            "classInfos": [
+                {
+                    "name": "QML.Element",
+                    "value": "auto"
+                }
+            ],
+            "className": "Cluster_Architecture",
+            "lineNumber": 17,
+            "methods": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "db_connection",
+                            "type": "QString"
+                        },
+                        {
+                            "name": "live",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 24,
+                    "name": "initialize",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 25,
+                    "name": "startThread",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "id",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 26,
+                    "name": "set_slurm_id",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "proc",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 27,
+                    "name": "set_proc_num",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "opt",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 28,
+                    "name": "setOption",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "timeSecondsA",
+                            "type": "int"
+                        },
+                        {
+                            "name": "timeSecondsB",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 29,
+                    "name": "showConditionAt",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "start",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 30,
+                    "name": "startAndStop",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "index",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 31,
+                    "name": "nodeAt",
+                    "returnType": "Cluster_Node*"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "time",
+                            "type": "int"
+                        }
+                    ],
+                    "index": 32,
+                    "name": "set_end_time",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 33,
+                    "name": "resetCluster_Architecture",
+                    "returnType": "void"
+                }
+            ],
+            "object": true,
+            "properties": [
+                {
+                    "constant": true,
+                    "designable": true,
+                    "final": false,
+                    "index": 0,
+                    "name": "count",
+                    "read": "count",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 1,
+                    "name": "p2p_send_max",
+                    "notify": "p2p_send_max_changed",
+                    "read": "p2p_send_max",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "long",
+                    "user": false,
+                    "write": "set_p2p_send_max"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 2,
+                    "name": "coll_send_max",
+                    "notify": "coll_send_max_changed",
+                    "read": "coll_send_max",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "long",
+                    "user": false,
+                    "write": "set_coll_send_max"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 3,
+                    "name": "p2p_recv_max",
+                    "notify": "p2p_recv_max_changed",
+                    "read": "p2p_recv_max",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "long",
+                    "user": false,
+                    "write": "set_p2p_recv_max"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 4,
+                    "name": "coll_recv_max",
+                    "notify": "coll_recv_max_changed",
+                    "read": "coll_recv_max",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "long",
+                    "user": false,
+                    "write": "set_coll_recv_max"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 5,
+                    "name": "slurm_id",
+                    "notify": "slurm_id_changed",
+                    "read": "slurm_id",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false,
+                    "write": "set_slurm_id"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 6,
+                    "name": "proc_num",
+                    "notify": "proc_num_changed",
+                    "read": "proc_num",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false,
+                    "write": "set_proc_num"
+                },
+                {
+                    "constant": false,
+                    "designable": true,
+                    "final": false,
+                    "index": 7,
+                    "name": "end_time",
+                    "notify": "end_timeChanged",
+                    "read": "end_time",
+                    "required": false,
+                    "scriptable": true,
+                    "stored": true,
+                    "type": "int",
+                    "user": false,
+                    "write": "set_end_time"
+                }
+            ],
+            "qualifiedClassName": "Cluster_Architecture",
+            "signals": [
+                {
+                    "access": "public",
+                    "index": 0,
+                    "name": "p2p_send_max_changed",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 1,
+                    "name": "coll_send_max_changed",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 2,
+                    "name": "p2p_recv_max_changed",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 3,
+                    "name": "coll_recv_max_changed",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 4,
+                    "name": "slurm_id_changed",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 5,
+                    "name": "proc_num_changed",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "time",
+                            "type": "QDateTime"
+                        }
+                    ],
+                    "index": 6,
+                    "name": "end_timeChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "type": "QString"
+                        },
+                        {
+                            "type": "QString"
+                        },
+                        {
+                            "type": "int"
+                        },
+                        {
+                            "type": "QString"
+                        },
+                        {
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 7,
+                    "name": "signalToConnect",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "type": "int"
+                        }
+                    ],
+                    "index": 8,
+                    "name": "signalToUpdateData",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 9,
+                    "name": "signalToClearDB",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "timestampA",
+                            "type": "QDateTime"
+                        },
+                        {
+                            "name": "timestampB",
+                            "type": "QDateTime"
+                        }
+                    ],
+                    "index": 10,
+                    "name": "signalToShowTimestampData",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 11,
+                    "name": "startDatabaseThread",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 12,
+                    "name": "signalToDBConnection",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 13,
+                    "name": "waitForEnd",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 14,
+                    "name": "componentsBuilt",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "success",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 15,
+                    "name": "connectionSignal",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "timestamp",
+                            "type": "int"
+                        },
+                        {
+                            "name": "qTimestamp",
+                            "type": "QTime"
+                        },
+                        {
+                            "name": "start",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 16,
+                    "name": "dataIn",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "status",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 17,
+                    "name": "signalSlurmStatusChanged",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "output",
+                            "type": "QString"
+                        }
+                    ],
+                    "index": 18,
+                    "name": "copiedOutputFile",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 19,
+                    "name": "reset_bottom_bar",
+                    "returnType": "void"
+                }
+            ],
+            "slots": [
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "type": "QMap<QString,QList<int>>"
+                        }
+                    ],
+                    "index": 20,
+                    "name": "buildClusterComponents",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "type": "QList<DataColumn>"
+                        }
+                    ],
+                    "index": 21,
+                    "name": "updateDataToUI",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "index": 22,
+                    "name": "removeClusterComponents",
+                    "returnType": "void"
+                },
+                {
+                    "access": "public",
+                    "arguments": [
+                        {
+                            "name": "timestamp",
+                            "type": "QDateTime"
+                        },
+                        {
+                            "name": "start",
+                            "type": "bool"
+                        }
+                    ],
+                    "index": 23,
+                    "name": "handleTimestamp",
+                    "returnType": "void"
+                }
+            ],
+            "superClasses": [
+                {
+                    "access": "public",
+                    "name": "QObject"
+                }
+            ]
+        }
+    ],
+    "inputFile": "cluster_architecture.h",
+    "outputRevision": 68
+}

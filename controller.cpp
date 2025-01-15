@@ -135,10 +135,6 @@ QString Controller::connectCluster(const QString &address, const QString &ident,
     m_cluster_ident = ident;
     m_cluster_eduMPI_path = path;
 
-    if(m_connection_ready){
-        m_job_table->loadJobs(m_cluster_ident);
-    }
-
     QString filePath = "/home/" + ident + "/eduMPI_files/tmp/";
 
     QProcess process;
@@ -204,6 +200,9 @@ void Controller::connectClusterAsync(const QString &address, const QString &iden
                 callback.call(QJSValueList() << result);
             }, Qt::QueuedConnection);
     });
+    if(m_connection_ready){
+        m_job_table->loadJobs(m_cluster_ident);
+    }
 }
 
 void Controller::writeLocalBashFile(QString local_path, bool file, int proc_num){
@@ -223,6 +222,7 @@ void Controller::writeLocalBashFile(QString local_path, bool file, int proc_num)
 
     QProcess bash_proc;
     QString resourcePath;
+
     if(m_option != 2){
         resourcePath = ":/bash_files/local_bash_skript.sh";
     } else {

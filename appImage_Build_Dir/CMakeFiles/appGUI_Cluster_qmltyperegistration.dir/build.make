@@ -67,10 +67,10 @@ include CMakeFiles/appGUI_Cluster_qmltyperegistration.dir/compiler_depend.make
 include CMakeFiles/appGUI_Cluster_qmltyperegistration.dir/progress.make
 
 CMakeFiles/appGUI_Cluster_qmltyperegistration: appgui_cluster_qmltyperegistrations.cpp
-CMakeFiles/appGUI_Cluster_qmltyperegistration: /home/anna-lena/GUI_Cluster/GUI_Cluster/appGUI_Cluster.qmltypes
+CMakeFiles/appGUI_Cluster_qmltyperegistration: GUI_Cluster/appGUI_Cluster.qmltypes
 
 appgui_cluster_qmltyperegistrations.cpp: qmltypes/appGUI_Cluster_foreign_types.txt
-appgui_cluster_qmltyperegistrations.cpp: meta_types/qt6appgui_cluster_metatypes.json
+appgui_cluster_qmltyperegistrations.cpp: meta_types/qt6appgui_cluster_debug_metatypes.json
 appgui_cluster_qmltyperegistrations.cpp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/qmltyperegistrar
 appgui_cluster_qmltyperegistrations.cpp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/metatypes/qt6core_relwithdebinfo_metatypes.json
 appgui_cluster_qmltyperegistrations.cpp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/metatypes/qt6qml_relwithdebinfo_metatypes.json
@@ -88,25 +88,25 @@ appgui_cluster_qmltyperegistrations.cpp: /home/anna-lena/QtDesignStudio/6.8.1/gc
 appgui_cluster_qmltyperegistrations.cpp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/metatypes/qt6shadertools_relwithdebinfo_metatypes.json
 appgui_cluster_qmltyperegistrations.cpp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/metatypes/qt6concurrent_relwithdebinfo_metatypes.json
 appgui_cluster_qmltyperegistrations.cpp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/metatypes/qt6sql_relwithdebinfo_metatypes.json
-appgui_cluster_qmltyperegistrations.cpp: Sidebar/meta_types/qt6sidebar_metatypes.json
-appgui_cluster_qmltyperegistrations.cpp: Sidebar/meta_types/qt6sidebarplugin_init_metatypes.json
+appgui_cluster_qmltyperegistrations.cpp: Sidebar/meta_types/qt6sidebar_debug_metatypes.json
+appgui_cluster_qmltyperegistrations.cpp: Sidebar/meta_types/qt6sidebarplugin_init_debug_metatypes.json
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic QML type registration for target appGUI_Cluster"
-	/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/qmltyperegistrar --generate-qmltypes=/home/anna-lena/GUI_Cluster/GUI_Cluster/appGUI_Cluster.qmltypes --import-name=GUI_Cluster --major-version=1 --minor-version=0 @/home/anna-lena/GUI_Cluster/appImage_Build_Dir/qmltypes/appGUI_Cluster_foreign_types.txt -o /home/anna-lena/GUI_Cluster/appImage_Build_Dir/appgui_cluster_qmltyperegistrations.cpp /home/anna-lena/GUI_Cluster/appImage_Build_Dir/meta_types/qt6appgui_cluster_metatypes.json
+	/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/qmltyperegistrar --generate-qmltypes=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/appGUI_Cluster.qmltypes --import-name=GUI_Cluster --major-version=1 --minor-version=0 @/home/anna-lena/GUI_Cluster/appImage_Build_Dir/qmltypes/appGUI_Cluster_foreign_types.txt -o /home/anna-lena/GUI_Cluster/appImage_Build_Dir/appgui_cluster_qmltyperegistrations.cpp /home/anna-lena/GUI_Cluster/appImage_Build_Dir/meta_types/qt6appgui_cluster_debug_metatypes.json
 	/home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E make_directory /home/anna-lena/GUI_Cluster/appImage_Build_Dir/.qt/qmltypes
 	/home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E touch /home/anna-lena/GUI_Cluster/appImage_Build_Dir/.qt/qmltypes/appGUI_Cluster.qmltypes
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/appGUI_Cluster.qmltypes: appgui_cluster_qmltyperegistrations.cpp
-	@$(CMAKE_COMMAND) -E touch_nocreate /home/anna-lena/GUI_Cluster/GUI_Cluster/appGUI_Cluster.qmltypes
+GUI_Cluster/appGUI_Cluster.qmltypes: appgui_cluster_qmltyperegistrations.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate GUI_Cluster/appGUI_Cluster.qmltypes
 
-meta_types/qt6appgui_cluster_metatypes.json: meta_types/qt6appgui_cluster_metatypes.json.gen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating meta_types/qt6appgui_cluster_metatypes.json"
+meta_types/qt6appgui_cluster_debug_metatypes.json: meta_types/qt6appgui_cluster_debug_metatypes.json.gen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating meta_types/qt6appgui_cluster_debug_metatypes.json"
 	/home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E true
 
-meta_types/qt6appgui_cluster_metatypes.json.gen: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc
-meta_types/qt6appgui_cluster_metatypes.json.gen: meta_types/appGUI_Cluster_json_file_list.txt
+meta_types/qt6appgui_cluster_debug_metatypes.json.gen: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc
+meta_types/qt6appgui_cluster_debug_metatypes.json.gen: meta_types/appGUI_Cluster_json_file_list.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Running moc --collect-json for target appGUI_Cluster"
-	/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc -o /home/anna-lena/GUI_Cluster/appImage_Build_Dir/meta_types/qt6appgui_cluster_metatypes.json.gen --collect-json @/home/anna-lena/GUI_Cluster/appImage_Build_Dir/meta_types/appGUI_Cluster_json_file_list.txt
-	/home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy_if_different /home/anna-lena/GUI_Cluster/appImage_Build_Dir/meta_types/qt6appgui_cluster_metatypes.json.gen /home/anna-lena/GUI_Cluster/appImage_Build_Dir/meta_types/qt6appgui_cluster_metatypes.json
+	/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc -o /home/anna-lena/GUI_Cluster/appImage_Build_Dir/meta_types/qt6appgui_cluster_debug_metatypes.json.gen --collect-json @/home/anna-lena/GUI_Cluster/appImage_Build_Dir/meta_types/appGUI_Cluster_json_file_list.txt
+	/home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy_if_different /home/anna-lena/GUI_Cluster/appImage_Build_Dir/meta_types/qt6appgui_cluster_debug_metatypes.json.gen /home/anna-lena/GUI_Cluster/appImage_Build_Dir/meta_types/qt6appgui_cluster_debug_metatypes.json
 
 meta_types/appGUI_Cluster_json_file_list.txt: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/cmake_automoc_parser
 meta_types/appGUI_Cluster_json_file_list.txt: appGUI_Cluster_autogen/timestamp
@@ -116,16 +116,16 @@ meta_types/appGUI_Cluster_json_file_list.txt: appGUI_Cluster_autogen/timestamp
 appGUI_Cluster_autogen/timestamp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc
 appGUI_Cluster_autogen/timestamp: CMakeFiles/appGUI_Cluster_qmltyperegistration.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Automatic MOC and UIC for target appGUI_Cluster"
-	/home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E cmake_autogen /home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles/appGUI_Cluster_autogen.dir/AutogenInfo.json ""
+	/home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E cmake_autogen /home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles/appGUI_Cluster_autogen.dir/AutogenInfo.json Debug
 	/home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E touch /home/anna-lena/GUI_Cluster/appImage_Build_Dir/appGUI_Cluster_autogen/timestamp
 
-appGUI_Cluster_qmltyperegistration: /home/anna-lena/GUI_Cluster/GUI_Cluster/appGUI_Cluster.qmltypes
 appGUI_Cluster_qmltyperegistration: CMakeFiles/appGUI_Cluster_qmltyperegistration
+appGUI_Cluster_qmltyperegistration: GUI_Cluster/appGUI_Cluster.qmltypes
 appGUI_Cluster_qmltyperegistration: appGUI_Cluster_autogen/timestamp
 appGUI_Cluster_qmltyperegistration: appgui_cluster_qmltyperegistrations.cpp
 appGUI_Cluster_qmltyperegistration: meta_types/appGUI_Cluster_json_file_list.txt
-appGUI_Cluster_qmltyperegistration: meta_types/qt6appgui_cluster_metatypes.json
-appGUI_Cluster_qmltyperegistration: meta_types/qt6appgui_cluster_metatypes.json.gen
+appGUI_Cluster_qmltyperegistration: meta_types/qt6appgui_cluster_debug_metatypes.json
+appGUI_Cluster_qmltyperegistration: meta_types/qt6appgui_cluster_debug_metatypes.json.gen
 appGUI_Cluster_qmltyperegistration: CMakeFiles/appGUI_Cluster_qmltyperegistration.dir/build.make
 .PHONY : appGUI_Cluster_qmltyperegistration
 

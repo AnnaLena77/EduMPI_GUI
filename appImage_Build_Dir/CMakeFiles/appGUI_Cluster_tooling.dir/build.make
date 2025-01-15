@@ -66,96 +66,96 @@ include CMakeFiles/appGUI_Cluster_tooling.dir/compiler_depend.make
 # Include the progress variables for this target.
 include CMakeFiles/appGUI_Cluster_tooling.dir/progress.make
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/main.qml: /home/anna-lena/GUI_Cluster/main.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Copying main.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/main.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/main.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/main.qml
+GUI_Cluster/main.qml: /home/anna-lena/GUI_Cluster/main.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Copying main.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/main.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/main.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/main.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/Cores2D.qml: /home/anna-lena/GUI_Cluster/Cores2D.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Copying Cores2D.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/Cores2D.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Cores2D.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/Cores2D.qml
+GUI_Cluster/Cores2D.qml: /home/anna-lena/GUI_Cluster/Cores2D.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Copying Cores2D.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Cores2D.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Cores2D.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Cores2D.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/Cores3D.qml: /home/anna-lena/GUI_Cluster/Cores3D.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Copying Cores3D.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/Cores3D.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Cores3D.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/Cores3D.qml
+GUI_Cluster/Cores3D.qml: /home/anna-lena/GUI_Cluster/Cores3D.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Copying Cores3D.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Cores3D.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Cores3D.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Cores3D.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/Menu_Bar.qml: /home/anna-lena/GUI_Cluster/Menu_Bar.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Copying Menu_Bar.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/Menu_Bar.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Menu_Bar.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/Menu_Bar.qml
+GUI_Cluster/Menu_Bar.qml: /home/anna-lena/GUI_Cluster/Menu_Bar.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Copying Menu_Bar.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Menu_Bar.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Menu_Bar.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Menu_Bar.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/Bottom_Bar.qml: /home/anna-lena/GUI_Cluster/Bottom_Bar.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Copying Bottom_Bar.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/Bottom_Bar.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Bottom_Bar.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/Bottom_Bar.qml
+GUI_Cluster/Bottom_Bar.qml: /home/anna-lena/GUI_Cluster/Bottom_Bar.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Copying Bottom_Bar.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Bottom_Bar.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Bottom_Bar.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Bottom_Bar.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/Cluster_Connection_Formular.qml: /home/anna-lena/GUI_Cluster/Cluster_Connection_Formular.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Copying Cluster_Connection_Formular.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/Cluster_Connection_Formular.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Cluster_Connection_Formular.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/Cluster_Connection_Formular.qml
+GUI_Cluster/Cluster_Connection_Formular.qml: /home/anna-lena/GUI_Cluster/Cluster_Connection_Formular.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Copying Cluster_Connection_Formular.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Cluster_Connection_Formular.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Cluster_Connection_Formular.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Cluster_Connection_Formular.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/DB_Connection_Formular.qml: /home/anna-lena/GUI_Cluster/DB_Connection_Formular.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Copying DB_Connection_Formular.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/DB_Connection_Formular.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/DB_Connection_Formular.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/DB_Connection_Formular.qml
+GUI_Cluster/DB_Connection_Formular.qml: /home/anna-lena/GUI_Cluster/DB_Connection_Formular.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Copying DB_Connection_Formular.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/DB_Connection_Formular.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/DB_Connection_Formular.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/DB_Connection_Formular.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/Key_Gen_Guide.qml: /home/anna-lena/GUI_Cluster/Key_Gen_Guide.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Copying Key_Gen_Guide.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/Key_Gen_Guide.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Key_Gen_Guide.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/Key_Gen_Guide.qml
+GUI_Cluster/Key_Gen_Guide.qml: /home/anna-lena/GUI_Cluster/Key_Gen_Guide.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Copying Key_Gen_Guide.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Key_Gen_Guide.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Key_Gen_Guide.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Key_Gen_Guide.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/Bash_Skript_Manual.qml: /home/anna-lena/GUI_Cluster/Bash_Skript_Manual.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Copying Bash_Skript_Manual.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/Bash_Skript_Manual.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Bash_Skript_Manual.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/Bash_Skript_Manual.qml
+GUI_Cluster/Bash_Skript_Manual.qml: /home/anna-lena/GUI_Cluster/Bash_Skript_Manual.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Copying Bash_Skript_Manual.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Bash_Skript_Manual.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Bash_Skript_Manual.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Bash_Skript_Manual.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/Error.qml: /home/anna-lena/GUI_Cluster/Error.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Copying Error.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/Error.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Error.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/Error.qml
+GUI_Cluster/Error.qml: /home/anna-lena/GUI_Cluster/Error.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Copying Error.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Error.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Error.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Error.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/Custom_BusyIndicator.qml: /home/anna-lena/GUI_Cluster/Custom_BusyIndicator.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Copying Custom_BusyIndicator.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/Custom_BusyIndicator.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Custom_BusyIndicator.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/Custom_BusyIndicator.qml
+GUI_Cluster/Custom_BusyIndicator.qml: /home/anna-lena/GUI_Cluster/Custom_BusyIndicator.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Copying Custom_BusyIndicator.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Custom_BusyIndicator.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Custom_BusyIndicator.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Custom_BusyIndicator.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/Loading.qml: /home/anna-lena/GUI_Cluster/Loading.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Copying Loading.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/Loading.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Loading.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/Loading.qml
+GUI_Cluster/Loading.qml: /home/anna-lena/GUI_Cluster/Loading.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Copying Loading.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Loading.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Loading.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Loading.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/Output_File.qml: /home/anna-lena/GUI_Cluster/Output_File.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Copying Output_File.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/Output_File.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Output_File.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/Output_File.qml
+GUI_Cluster/Output_File.qml: /home/anna-lena/GUI_Cluster/Output_File.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Copying Output_File.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Output_File.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Output_File.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Output_File.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/Application_Start_without.qml: /home/anna-lena/GUI_Cluster/Application_Start_without.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Copying Application_Start_without.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/Application_Start_without.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Application_Start_without.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/Application_Start_without.qml
+GUI_Cluster/Application_Start_without.qml: /home/anna-lena/GUI_Cluster/Application_Start_without.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Copying Application_Start_without.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Application_Start_without.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Application_Start_without.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Application_Start_without.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/Application_Start_Scorep.qml: /home/anna-lena/GUI_Cluster/Application_Start_Scorep.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Copying Application_Start_Scorep.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/Application_Start_Scorep.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Application_Start_Scorep.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/Application_Start_Scorep.qml
+GUI_Cluster/Application_Start_Scorep.qml: /home/anna-lena/GUI_Cluster/Application_Start_Scorep.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Copying Application_Start_Scorep.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Application_Start_Scorep.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Application_Start_Scorep.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Application_Start_Scorep.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/Table_Userid_Selection.qml: /home/anna-lena/GUI_Cluster/Table_Userid_Selection.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Copying Table_Userid_Selection.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/Table_Userid_Selection.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Table_Userid_Selection.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/Table_Userid_Selection.qml
+GUI_Cluster/Table_Userid_Selection.qml: /home/anna-lena/GUI_Cluster/Table_Userid_Selection.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Copying Table_Userid_Selection.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Table_Userid_Selection.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Table_Userid_Selection.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Table_Userid_Selection.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/MPI_Run_Analysis.qml: /home/anna-lena/GUI_Cluster/MPI_Run_Analysis.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Copying MPI_Run_Analysis.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/MPI_Run_Analysis.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/MPI_Run_Analysis.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/MPI_Run_Analysis.qml
+GUI_Cluster/MPI_Run_Analysis.qml: /home/anna-lena/GUI_Cluster/MPI_Run_Analysis.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Copying MPI_Run_Analysis.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/MPI_Run_Analysis.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/MPI_Run_Analysis.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/MPI_Run_Analysis.qml
 
-/home/anna-lena/GUI_Cluster/GUI_Cluster/Application_Start_OpenMP.qml: /home/anna-lena/GUI_Cluster/Application_Start_OpenMP.qml
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Copying Application_Start_OpenMP.qml to /home/anna-lena/GUI_Cluster/GUI_Cluster/Application_Start_OpenMP.qml"
-	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Application_Start_OpenMP.qml /home/anna-lena/GUI_Cluster/GUI_Cluster/Application_Start_OpenMP.qml
+GUI_Cluster/Application_Start_OpenMP.qml: /home/anna-lena/GUI_Cluster/Application_Start_OpenMP.qml
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Copying Application_Start_OpenMP.qml to /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Application_Start_OpenMP.qml"
+	cd /home/anna-lena/GUI_Cluster && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E copy /home/anna-lena/GUI_Cluster/Application_Start_OpenMP.qml /home/anna-lena/GUI_Cluster/appImage_Build_Dir/GUI_Cluster/Application_Start_OpenMP.qml
 
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/Application_Start_OpenMP.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/Application_Start_Scorep.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/Application_Start_without.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/Bash_Skript_Manual.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/Bottom_Bar.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/Cluster_Connection_Formular.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/Cores2D.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/Cores3D.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/Custom_BusyIndicator.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/DB_Connection_Formular.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/Error.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/Key_Gen_Guide.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/Loading.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/MPI_Run_Analysis.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/Menu_Bar.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/Output_File.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/Table_Userid_Selection.qml
-appGUI_Cluster_tooling: /home/anna-lena/GUI_Cluster/GUI_Cluster/main.qml
+appGUI_Cluster_tooling: GUI_Cluster/Application_Start_OpenMP.qml
+appGUI_Cluster_tooling: GUI_Cluster/Application_Start_Scorep.qml
+appGUI_Cluster_tooling: GUI_Cluster/Application_Start_without.qml
+appGUI_Cluster_tooling: GUI_Cluster/Bash_Skript_Manual.qml
+appGUI_Cluster_tooling: GUI_Cluster/Bottom_Bar.qml
+appGUI_Cluster_tooling: GUI_Cluster/Cluster_Connection_Formular.qml
+appGUI_Cluster_tooling: GUI_Cluster/Cores2D.qml
+appGUI_Cluster_tooling: GUI_Cluster/Cores3D.qml
+appGUI_Cluster_tooling: GUI_Cluster/Custom_BusyIndicator.qml
+appGUI_Cluster_tooling: GUI_Cluster/DB_Connection_Formular.qml
+appGUI_Cluster_tooling: GUI_Cluster/Error.qml
+appGUI_Cluster_tooling: GUI_Cluster/Key_Gen_Guide.qml
+appGUI_Cluster_tooling: GUI_Cluster/Loading.qml
+appGUI_Cluster_tooling: GUI_Cluster/MPI_Run_Analysis.qml
+appGUI_Cluster_tooling: GUI_Cluster/Menu_Bar.qml
+appGUI_Cluster_tooling: GUI_Cluster/Output_File.qml
+appGUI_Cluster_tooling: GUI_Cluster/Table_Userid_Selection.qml
+appGUI_Cluster_tooling: GUI_Cluster/main.qml
 appGUI_Cluster_tooling: CMakeFiles/appGUI_Cluster_tooling.dir/build.make
 .PHONY : appGUI_Cluster_tooling
 

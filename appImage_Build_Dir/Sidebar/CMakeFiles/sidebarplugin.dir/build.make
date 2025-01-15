@@ -69,16 +69,10 @@ include Sidebar/CMakeFiles/sidebarplugin.dir/progress.make
 # Include the compile flags for this target's objects.
 include Sidebar/CMakeFiles/sidebarplugin.dir/flags.make
 
-Sidebar/sidebarplugin_autogen/timestamp: /home/anna-lena/QtDesignStudio/6.8.1/gcc_64/libexec/moc
-Sidebar/sidebarplugin_autogen/timestamp: Sidebar/CMakeFiles/sidebarplugin.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Automatic MOC and UIC for target sidebarplugin"
-	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E cmake_autogen /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/CMakeFiles/sidebarplugin_autogen.dir/AutogenInfo.json ""
-	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake -E touch /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/sidebarplugin_autogen/timestamp
-
 Sidebar/CMakeFiles/sidebarplugin.dir/sidebarplugin_autogen/mocs_compilation.cpp.o: Sidebar/CMakeFiles/sidebarplugin.dir/flags.make
 Sidebar/CMakeFiles/sidebarplugin.dir/sidebarplugin_autogen/mocs_compilation.cpp.o: Sidebar/sidebarplugin_autogen/mocs_compilation.cpp
 Sidebar/CMakeFiles/sidebarplugin.dir/sidebarplugin_autogen/mocs_compilation.cpp.o: Sidebar/CMakeFiles/sidebarplugin.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object Sidebar/CMakeFiles/sidebarplugin.dir/sidebarplugin_autogen/mocs_compilation.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object Sidebar/CMakeFiles/sidebarplugin.dir/sidebarplugin_autogen/mocs_compilation.cpp.o"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT Sidebar/CMakeFiles/sidebarplugin.dir/sidebarplugin_autogen/mocs_compilation.cpp.o -MF CMakeFiles/sidebarplugin.dir/sidebarplugin_autogen/mocs_compilation.cpp.o.d -o CMakeFiles/sidebarplugin.dir/sidebarplugin_autogen/mocs_compilation.cpp.o -c /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/sidebarplugin_autogen/mocs_compilation.cpp
 
 Sidebar/CMakeFiles/sidebarplugin.dir/sidebarplugin_autogen/mocs_compilation.cpp.i: cmake_force
@@ -92,7 +86,7 @@ Sidebar/CMakeFiles/sidebarplugin.dir/sidebarplugin_autogen/mocs_compilation.cpp.
 Sidebar/CMakeFiles/sidebarplugin.dir/sidebarplugin_SidebarPlugin.cpp.o: Sidebar/CMakeFiles/sidebarplugin.dir/flags.make
 Sidebar/CMakeFiles/sidebarplugin.dir/sidebarplugin_SidebarPlugin.cpp.o: Sidebar/sidebarplugin_SidebarPlugin.cpp
 Sidebar/CMakeFiles/sidebarplugin.dir/sidebarplugin_SidebarPlugin.cpp.o: Sidebar/CMakeFiles/sidebarplugin.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object Sidebar/CMakeFiles/sidebarplugin.dir/sidebarplugin_SidebarPlugin.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object Sidebar/CMakeFiles/sidebarplugin.dir/sidebarplugin_SidebarPlugin.cpp.o"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT Sidebar/CMakeFiles/sidebarplugin.dir/sidebarplugin_SidebarPlugin.cpp.o -MF CMakeFiles/sidebarplugin.dir/sidebarplugin_SidebarPlugin.cpp.o.d -o CMakeFiles/sidebarplugin.dir/sidebarplugin_SidebarPlugin.cpp.o -c /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/sidebarplugin_SidebarPlugin.cpp
 
 Sidebar/CMakeFiles/sidebarplugin.dir/sidebarplugin_SidebarPlugin.cpp.i: cmake_force
@@ -115,7 +109,7 @@ sidebarplugin_EXTERNAL_OBJECTS =
 /home/anna-lena/GUI_Cluster/Sidebar/libsidebarplugin.a: Sidebar/CMakeFiles/sidebarplugin.dir/sidebarplugin_SidebarPlugin.cpp.o
 /home/anna-lena/GUI_Cluster/Sidebar/libsidebarplugin.a: Sidebar/CMakeFiles/sidebarplugin.dir/build.make
 /home/anna-lena/GUI_Cluster/Sidebar/libsidebarplugin.a: Sidebar/CMakeFiles/sidebarplugin.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library /home/anna-lena/GUI_Cluster/Sidebar/libsidebarplugin.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/anna-lena/GUI_Cluster/appImage_Build_Dir/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX static library /home/anna-lena/GUI_Cluster/Sidebar/libsidebarplugin.a"
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && $(CMAKE_COMMAND) -P CMakeFiles/sidebarplugin.dir/cmake_clean_target.cmake
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sidebarplugin.dir/link.txt --verbose=$(VERBOSE)
 
@@ -127,7 +121,7 @@ Sidebar/CMakeFiles/sidebarplugin.dir/clean:
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar && $(CMAKE_COMMAND) -P CMakeFiles/sidebarplugin.dir/cmake_clean.cmake
 .PHONY : Sidebar/CMakeFiles/sidebarplugin.dir/clean
 
-Sidebar/CMakeFiles/sidebarplugin.dir/depend: Sidebar/sidebarplugin_autogen/timestamp
+Sidebar/CMakeFiles/sidebarplugin.dir/depend:
 	cd /home/anna-lena/GUI_Cluster/appImage_Build_Dir && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/anna-lena/GUI_Cluster /home/anna-lena/GUI_Cluster/Sidebar /home/anna-lena/GUI_Cluster/appImage_Build_Dir /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar /home/anna-lena/GUI_Cluster/appImage_Build_Dir/Sidebar/CMakeFiles/sidebarplugin.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : Sidebar/CMakeFiles/sidebarplugin.dir/depend
 

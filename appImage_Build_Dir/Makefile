@@ -292,6 +292,19 @@ appGUI_Cluster_tooling/fast:
 .PHONY : appGUI_Cluster_tooling/fast
 
 #=============================================================================
+# Target rules for targets named appGUI_Cluster_generate_qmlls_ini_file
+
+# Build rule for target.
+appGUI_Cluster_generate_qmlls_ini_file: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 appGUI_Cluster_generate_qmlls_ini_file
+.PHONY : appGUI_Cluster_generate_qmlls_ini_file
+
+# fast build rule for target.
+appGUI_Cluster_generate_qmlls_ini_file/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/appGUI_Cluster_generate_qmlls_ini_file.dir/build.make CMakeFiles/appGUI_Cluster_generate_qmlls_ini_file.dir/build
+.PHONY : appGUI_Cluster_generate_qmlls_ini_file/fast
+
+#=============================================================================
 # Target rules for targets named module_appGUI_Cluster_aotstats_target
 
 # Build rule for target.
@@ -485,6 +498,19 @@ sidebarplugin_init: cmake_check_build_system
 sidebarplugin_init/fast:
 	$(MAKE) $(MAKESILENT) -f Sidebar/CMakeFiles/sidebarplugin_init.dir/build.make Sidebar/CMakeFiles/sidebarplugin_init.dir/build
 .PHONY : sidebarplugin_init/fast
+
+#=============================================================================
+# Target rules for targets named sidebar_generate_qmlls_ini_file
+
+# Build rule for target.
+sidebar_generate_qmlls_ini_file: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sidebar_generate_qmlls_ini_file
+.PHONY : sidebar_generate_qmlls_ini_file
+
+# fast build rule for target.
+sidebar_generate_qmlls_ini_file/fast:
+	$(MAKE) $(MAKESILENT) -f Sidebar/CMakeFiles/sidebar_generate_qmlls_ini_file.dir/build.make Sidebar/CMakeFiles/sidebar_generate_qmlls_ini_file.dir/build
+.PHONY : sidebar_generate_qmlls_ini_file/fast
 
 #=============================================================================
 # Target rules for targets named sidebar_autogen_timestamp_deps
@@ -1423,6 +1449,7 @@ help:
 	@echo "... all_qmltyperegistrations"
 	@echo "... appGUI_Cluster_autogen"
 	@echo "... appGUI_Cluster_autogen_timestamp_deps"
+	@echo "... appGUI_Cluster_generate_qmlls_ini_file"
 	@echo "... appGUI_Cluster_qmlimportscan"
 	@echo "... appGUI_Cluster_qmllint"
 	@echo "... appGUI_Cluster_qmllint_json"
@@ -1432,6 +1459,7 @@ help:
 	@echo "... module_sidebar_aotstats_target"
 	@echo "... sidebar_autogen"
 	@echo "... sidebar_autogen_timestamp_deps"
+	@echo "... sidebar_generate_qmlls_ini_file"
 	@echo "... sidebar_qmllint"
 	@echo "... sidebar_qmllint_json"
 	@echo "... sidebar_qmllint_module"

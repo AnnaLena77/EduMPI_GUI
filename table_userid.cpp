@@ -29,7 +29,7 @@ void Table_UserID::loadJobs(const QString &userId){
         return;
     }
     QSqlQuery query(db);
-    query.prepare("SELECT edumpi_run_id, start_time, end_time FROM edumpi_runs WHERE (user_id = :user_id OR user_id = 'all_users') ORDER BY edumpi_run_id");
+    query.prepare("SELECT edumpi_run_id, start_time, end_time, program_name FROM edumpi_runs WHERE (user_id = :user_id OR user_id = 'all_users') ORDER BY edumpi_run_id");
     query.bindValue(":user_id", userId);
     query.exec();
 
@@ -46,7 +46,8 @@ void Table_UserID::loadJobs(const QString &userId){
         QVariantList rowData;
         rowData << query.value(0)  // edumpi_run_id
                 << query.value(1)  // start_time
-                << query.value(2); // end_time
+                << query.value(2) // end_time
+                << query.value(3); // program_name
         m_edumpi_runs.append(rowData);
 
         //qDebug() << query.value(1).toString();
@@ -62,7 +63,7 @@ int Table_UserID::rowCount(const QModelIndex &parent) const {
 }
 int Table_UserID::columnCount(const QModelIndex &parent) const {
     Q_UNUSED(parent);
-    return 3;  // Beispiel: Anzahl der Spalten (z.B. für Job-ID, Startzeit, Endzeit)
+    return 4;  // Beispiel: Anzahl der Spalten (z.B. für Job-ID, Startzeit, Endzeit)
 }
 
 QVariant Table_UserID::data(const QModelIndex &index, int role) const {
@@ -76,6 +77,8 @@ QVariant Table_UserID::data(const QModelIndex &index, int role) const {
         return rowindex.at(1);
     } else if (role == EndTime){
         return rowindex.at(2);
+    } else if (role == ProgramName){
+        return rowindex.at(3);
     }
     return QVariant();
 }
@@ -85,6 +88,7 @@ QHash<int, QByteArray> Table_UserID::roleNames() const {
     roles[JobIdRole] = "jobID";
     roles[StartTime] = "startTime";
     roles[EndTime] = "endTime";
+    roles[ProgramName] = "programName";
     return roles;
 }
 

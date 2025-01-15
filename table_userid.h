@@ -20,7 +20,8 @@ public:
     enum Roles {
         JobIdRole = Qt::UserRole + 1,
         StartTime = Qt::UserRole + 2,
-        EndTime = Qt::UserRole +3
+        EndTime = Qt::UserRole +3,
+        ProgramName = Qt::UserRole + 4
     };
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;

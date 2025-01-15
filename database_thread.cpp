@@ -168,6 +168,7 @@ void Database_Thread::updateData(const int &time_display){
     query.exec(queryString);
     QList<DataColumn> list;
 
+
     if(query.next()){
         do {
             DataColumn dc;
