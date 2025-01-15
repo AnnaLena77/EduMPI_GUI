@@ -1,1 +1,0 @@
---foreign-types=/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/./metatypes/qt6qml_relwithdebinfo_metatypes.json,/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/./metatypes/qt6core_relwithdebinfo_metatypes.json,/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/./metatypes/qt6network_relwithdebinfo_metatypes.json

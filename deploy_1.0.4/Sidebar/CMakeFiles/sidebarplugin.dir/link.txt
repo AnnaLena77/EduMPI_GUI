@@ -1,2 +1,0 @@
-/usr/bin/ar qc /home/anna-lena/GUI_Cluster/Sidebar/libsidebarplugin.a CMakeFiles/sidebarplugin.dir/sidebarplugin_autogen/mocs_compilation.cpp.o CMakeFiles/sidebarplugin.dir/sidebarplugin_SidebarPlugin.cpp.o
-/usr/bin/ranlib /home/anna-lena/GUI_Cluster/Sidebar/libsidebarplugin.a
