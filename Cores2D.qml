@@ -89,11 +89,19 @@ Rectangle {
                                     }
                                     Text{
                                         text: "Send: " + parse_ds(send_ds)
-                                        visible: (width <= parent.width) && (option == "send/recv ratio (per proc)") || option == "max send ratio (across all procs)"
+                                        visible: (width <= parent.width) && ((option == "send/recv ratio (per proc)") || option == "max send ratio (across all procs)")
                                     }
                                     Text{
                                         text: "Recv: " + parse_ds(recv_ds)
-                                        visible: (width <= parent.width) && (option == "send/recv ratio (per proc)") || option == "max recv ratio (across all procs)"
+                                        visible: (width <= parent.width) && ((option == "send/recv ratio (per proc)") || option == "max recv ratio (across all procs)")
+                                    }
+                                    Text{
+                                        text: "Wait: " + waitForLatePercent(node_index, model.index, "send")
+                                        visible: (width <= parent.width) && (option == "wait for late sender (per proc)")
+                                    }
+                                    Text{
+                                        text: "Wait: " + waitForLatePercent(node_index, model.index, "recv")
+                                        visible: (width <= parent.width) && (option == "wait for late recver (per proc)")
                                     }
                                 }
 
@@ -301,6 +309,66 @@ Rectangle {
 
         //console.log("Red: " + red + " Green: " + green + " Blue: " + blue)
         return "#" + componentToHex(red) + componentToHex(green) + componentToHex(blue);
+    }
+
+    function waitForLatePercent(nodeIndex, modelIndex, send_recv){
+        var coll_data, p2p_data, coll_time_diff, p2p_time_diff, p2p_lates, coll_lates, time_diff, weight_p2p, weight_coll;
+        var full_percent, send_percent, recv_percent = 1;
+        if(send_recv == "send"){
+            var lateSenderData = 1;
+            coll_data = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).coll_late_sender);
+            p2p_data = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).p2p_late_sender);
+            coll_time_diff = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).coll_timediff);
+            p2p_time_diff = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).p2p_timediff);
+
+            if(p2p && collective){
+                if(coll_data === 0) {
+                    return (p2p_data/p2p_time_diff * 100).toFixed(2) + "%";
+                } else if (p2p_data === 0){
+                    return (coll_data/coll_time_diff * 100).toFixed(2) + "%";
+                } else {
+                    p2p_lates = p2p_data/p2p_time_diff;
+                    coll_lates = coll_data/coll_time_diff;
+                    time_diff = p2p_time_diff + coll_time_diff;
+
+                    weight_p2p = (p2p_time_diff/time_diff) * p2p_lates;
+                    weight_coll = (coll_time_diff/time_diff) * coll_lates;
+
+                    return (weight_p2p + weight_coll).toFixed(2) + "%";
+                }
+            } else if(p2p) {
+                return (p2p_data/p2p_time_diff * 100).toFixed(2)+ "%" ;
+            } else if(coll) {
+                return (coll_data/coll_time_diff * 100).toFixed(2) + "%";
+            }
+        } else if(send_recv == "recv"){
+            var lateRecvrData;
+            coll_data = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).coll_late_recvr);
+            p2p_data = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).p2p_late_recvr);
+            coll_time_diff = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).coll_timediff);
+            p2p_time_diff = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).p2p_timediff);
+
+            if(p2p && collective){
+                if(coll_data === 0) {
+                    return (p2p_data/p2p_time_diff).toFixed(2) + "%";
+                } else if (p2p_data === 0){
+                    return (coll_data/coll_time_diff).toFixed(2) + "%";
+                } else {
+                    p2p_lates = p2p_data/p2p_time_diff;
+                    coll_lates = coll_data/coll_time_diff;
+                    time_diff = p2p_time_diff + coll_time_diff;
+
+                    weight_p2p = (p2p_time_diff/time_diff) * p2p_lates;
+                    weight_coll = (coll_time_diff/time_diff) * coll_lates;
+
+                    return (weight_p2p + weight_coll).toFixed(2) + "%";
+                }
+            } else if(p2p) {
+                return (p2p_data/p2p_time_diff).toFixed(2) + "%";
+            } else if(coll) {
+                return (coll_data/coll_time_diff).toFixed(2) + "%";
+            }
+        }
     }
 
     function componentToHex(c) {
