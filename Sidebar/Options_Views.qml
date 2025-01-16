@@ -6,8 +6,8 @@ import QtQuick.Dialogs
 Rectangle {
     id: option_views
     width: 250
-    height: 150
-    implicitHeight: 150
+    height: 200
+    implicitHeight: 200
     color: "#383936"
 
     property StackView view;
@@ -72,8 +72,150 @@ Rectangle {
                     three_d_check.checked = !two_d_check.checked
                 }
             }
-        }
 
+            Rectangle {
+                id: slider_rect
+                width: parent.width
+                height: 80
+                color: "transparent"
+                Layout.alignment: Qt.AlignHCenter
+                visible: two_d_check.checked
+
+                ColumnLayout {
+                    anchors.fill: parent
+                    //anchors.margins: 5
+
+                    Text {
+                        text: "Columns:   " + mySlider.value.toFixed(0)
+                        color: "white"
+                        font.pointSize: 12
+                    }
+
+                    Slider {
+                        id: mySlider
+                        from: 1      // Minimalwert
+                        to: 32       // Maximalwert
+                        stepSize: 1  // Schrittweite
+                        value: 10    // Initialwert
+                        Layout.alignment: Qt.AlignHCenter
+
+                        onValueChanged: {
+                            view.twoD_columns = value;
+                        }
+
+                        background: Rectangle {
+                            x: mySlider.leftPadding
+                            y: mySlider.topPadding + mySlider.availableHeight/2 - height/2
+                            implicitWidth: 200
+                            width: mySlider.availableWidth
+                            implicitHeight: 5
+                            height: 5
+                            color: "#00FF00"
+                            }
+                        }
+
+                        RowLayout {
+                            //spacing: 10
+                            //Layout.leftMargin: mySlider.leftPadding
+                            Layout.alignment: Qt.AlignHCenter
+                            Layout.fillWidth: mySlider.availableWidth
+                            Layout.preferredWidth: mySlider.width
+
+                            Text {
+                                text: mySlider.from
+                                font.pixelSize: 14
+                                color: "gray"
+                                Layout.alignment: Qt.AlignLeft
+                                //Layout.preferredWidth: mySlider.width / 3
+                            }
+
+                            /*Text {
+                                text: mySlider.value.toFixed(0) // Runden auf ganze Zahlen
+                                font.pixelSize: 14
+                                font.bold: true
+                                Layout.alignment: Qt.AlignHCenter
+                                //Layout.preferredWidth: mySlider.width
+                            }*/
+
+                            Text {
+                                text: mySlider.to
+                                font.pixelSize: 14
+                                color: "gray"
+                                Layout.alignment: Qt.AlignRight
+                                //Layout.preferredWidth: mySlider.width / 3
+                            }
+                        }
+                    }
+                }
+                /*Rectangle {
+                id: slider_rect_3D
+                width: parent.width
+                height: 80
+                color: "transparent"
+                Layout.alignment: Qt.AlignHCenter
+                visible: three_d_check.checked
+
+                ColumnLayout {
+                    anchors.fill: parent
+                    //anchors.margins: 5
+
+                    Text {
+                        text: "Depth:   " + slider_3D.value.toFixed(0)
+                        color: "white"
+                        font.pointSize: 12
+                    }
+
+                    Slider {
+                        id: slider_3D
+                        from: 1      // Minimalwert
+                        to: 32       // Maximalwert
+                        stepSize: 1  // Schrittweite
+                        value: 10    // Initialwert
+                        Layout.alignment: Qt.AlignHCenter
+
+                        onValueChanged: {
+                            view.threeD_depth = value;
+                        }
+
+                        background: Rectangle {
+                            x: slider_3D.leftPadding
+                            y: slider_3D.topPadding + slider_3D.availableHeight/2 - height/2
+                            implicitWidth: 200
+                            width: slider_3D.availableWidth
+                            implicitHeight: 5
+                            height: 5
+                            color: "#00FF00"
+                            }
+                        }
+
+                        RowLayout {
+                            //spacing: 10
+                            //Layout.leftMargin: slider_3D.leftPadding
+                            Layout.alignment: Qt.AlignHCenter
+                            Layout.fillWidth: slider_3D.availableWidth
+                            Layout.preferredWidth: slider_3D.width
+
+                            Text {
+                                text: slider_3D.from
+                                font.pixelSize: 14
+                                color: "gray"
+                                Layout.alignment: Qt.AlignLeft
+                                //Layout.preferredWidth: slider_3D.width / 3
+                            }
+
+                            Text {
+                                text: slider_3D.to
+                                font.pixelSize: 14
+                                color: "gray"
+                                Layout.alignment: Qt.AlignRight
+                                //Layout.preferredWidth: slider_3D.width / 3
+                            }
+                        }
+                    }
+                }*/
+            }
+        }
     }
-}
+
+
 
