@@ -265,7 +265,7 @@ Rectangle {
             green = 255 - lateSenderData*255;
 
             if(isNaN(lateSenderData)){
-                blue = red = green = 255;
+                blue = red = green = 224;
             }
 
         }
@@ -302,7 +302,7 @@ Rectangle {
             green = 255 - lateRecvrData*255;
 
             if(isNaN(lateRecvrData)){
-                blue = red = green = 255;
+                blue = red = green = 224;
             }
 
         }
@@ -320,6 +320,10 @@ Rectangle {
             p2p_data = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).p2p_late_sender);
             coll_time_diff = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).coll_timediff);
             p2p_time_diff = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).p2p_timediff);
+
+            if(coll_data == 0 && p2p_data == 0 && coll_time_diff == 0 && p2p_time_diff == 0){
+                return "0.00%"
+            }
 
             if(p2p && collective){
                 if(coll_data === 0) {
@@ -347,6 +351,10 @@ Rectangle {
             p2p_data = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).p2p_late_recvr);
             coll_time_diff = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).coll_timediff);
             p2p_time_diff = Number(listNodes.nodeAt(nodeIndex).rankAt(modelIndex).p2p_timediff);
+
+            if(coll_data == 0 && p2p_data == 0 && coll_time_diff == 0 && p2p_time_diff == 0){
+                return "0.00%"
+            }
 
             if(p2p && collective){
                 if(coll_data === 0) {
