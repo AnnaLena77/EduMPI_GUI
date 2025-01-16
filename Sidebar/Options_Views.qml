@@ -79,6 +79,7 @@ Rectangle {
                 height: 80
                 color: "transparent"
                 Layout.alignment: Qt.AlignHCenter
+                visible: two_d_check.checked
 
                 ColumnLayout {
                     anchors.fill: parent
@@ -146,6 +147,72 @@ Rectangle {
                         }
                     }
                 }
+                /*Rectangle {
+                id: slider_rect_3D
+                width: parent.width
+                height: 80
+                color: "transparent"
+                Layout.alignment: Qt.AlignHCenter
+                visible: three_d_check.checked
+
+                ColumnLayout {
+                    anchors.fill: parent
+                    //anchors.margins: 5
+
+                    Text {
+                        text: "Depth:   " + slider_3D.value.toFixed(0)
+                        color: "white"
+                        font.pointSize: 12
+                    }
+
+                    Slider {
+                        id: slider_3D
+                        from: 1      // Minimalwert
+                        to: 32       // Maximalwert
+                        stepSize: 1  // Schrittweite
+                        value: 10    // Initialwert
+                        Layout.alignment: Qt.AlignHCenter
+
+                        onValueChanged: {
+                            view.threeD_depth = value;
+                        }
+
+                        background: Rectangle {
+                            x: slider_3D.leftPadding
+                            y: slider_3D.topPadding + slider_3D.availableHeight/2 - height/2
+                            implicitWidth: 200
+                            width: slider_3D.availableWidth
+                            implicitHeight: 5
+                            height: 5
+                            color: "#00FF00"
+                            }
+                        }
+
+                        RowLayout {
+                            //spacing: 10
+                            //Layout.leftMargin: slider_3D.leftPadding
+                            Layout.alignment: Qt.AlignHCenter
+                            Layout.fillWidth: slider_3D.availableWidth
+                            Layout.preferredWidth: slider_3D.width
+
+                            Text {
+                                text: slider_3D.from
+                                font.pixelSize: 14
+                                color: "gray"
+                                Layout.alignment: Qt.AlignLeft
+                                //Layout.preferredWidth: slider_3D.width / 3
+                            }
+
+                            Text {
+                                text: slider_3D.to
+                                font.pixelSize: 14
+                                color: "gray"
+                                Layout.alignment: Qt.AlignRight
+                                //Layout.preferredWidth: slider_3D.width / 3
+                            }
+                        }
+                    }
+                }*/
             }
         }
     }

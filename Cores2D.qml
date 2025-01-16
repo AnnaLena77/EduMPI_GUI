@@ -358,23 +358,23 @@ Rectangle {
 
             if(p2p && collective){
                 if(coll_data === 0) {
-                    return (p2p_data/p2p_time_diff).toFixed(2) + "%";
+                    return (p2p_data/p2p_time_diff * 100).toFixed(2) + "%";
                 } else if (p2p_data === 0){
-                    return (coll_data/coll_time_diff).toFixed(2) + "%";
+                    return (coll_data/coll_time_diff * 100).toFixed(2) + "%";
                 } else {
                     p2p_lates = p2p_data/p2p_time_diff;
                     coll_lates = coll_data/coll_time_diff;
                     time_diff = p2p_time_diff + coll_time_diff;
 
-                    weight_p2p = (p2p_time_diff/time_diff) * p2p_lates;
+                    weight_p2p = (p2p_time_diff/time_diff * 100) * p2p_lates;
                     weight_coll = (coll_time_diff/time_diff) * coll_lates;
 
-                    return (weight_p2p + weight_coll).toFixed(2) + "%";
+                    return (weight_p2p + weight_coll * 100).toFixed(2) + "%";
                 }
             } else if(p2p) {
-                return (p2p_data/p2p_time_diff).toFixed(2) + "%";
+                return (p2p_data/p2p_time_diff * 100).toFixed(2) + "%";
             } else if(coll) {
-                return (coll_data/coll_time_diff).toFixed(2) + "%";
+                return (coll_data/coll_time_diff * 100).toFixed(2) + "%";
             }
         }
     }

@@ -269,6 +269,7 @@ Window {
         StackView{
             id: actualScreen
             property int twoD_columns: 10
+            property int threeD_depth: 2
             height: parent.height
 
             anchors {
