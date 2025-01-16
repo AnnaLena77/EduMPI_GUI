@@ -10,10 +10,11 @@ Rectangle {
     //anchors.fill: parent
     color: "#999999"
     property Cluster_Architecture listNodes: null
-    property int columns2D: parent.twoD_columns || 10
+    property int cols: parent ? parent.twoD_columns : 0
 
     ScrollView{
         anchors.fill: parent
+        clip: true
 
         ColumnLayout {
             anchors{
@@ -23,12 +24,19 @@ Rectangle {
             spacing: 3
 
             Repeater {
-
+                id: outerrepeater
                 model: screen.listNodes.count
 
                 delegate: Rectangle {
+                    property int ranks_in_node: listNodes.nodeAt(model.index).count
+                    property int node_index: model.index
+                    property int columns2D: cols
+                    property int rows2D: Math.ceil(ranks_in_node/cols)
+
                     width: screen.width
-                    height: 300
+                    height: rows2D * (60 + grid.spacing) + 35
+                    Layout.preferredWidth: width
+                    Layout.preferredHeight: height
                     color: "#999999"
 
                     Rectangle{
@@ -39,21 +47,21 @@ Rectangle {
                         }
                     }
 
-                    property int ranks_in_node: listNodes.nodeAt(model.index).count
-                    property int node_index: model.index
-
                     Grid{
+                        id: grid
                         x: 5
                         y: 30
-                        width: parent.width
-                        height: parent.height-30 // Hoehe - 20 für den Namen
+                        width: parent.width - 10
+                        height: parent.height-20 // Hoehe - 20 für den Namen
                         columns: columns2D
-                        spacing: calculate_spacing(ranks_in_node, columns)
+                        //rows: rows2D
+                        spacing: 1
+                        //spacing: calculate_spacing(ranks_in_node, columns)
 
-                        function calculate_spacing(ranks_in_node, columns){
-                           var spacing = ranks_in_node/columns;
-                           return spacing >= 1 ? Math.ceil(spacing) : 1;
-                        }
+                        /*onRowsChanged: {
+                            console.log("Columns: " + columns)
+                            console.log("Rows: " + rows)
+                        }*/
 
                         Repeater{
                             model: ranks_in_node
@@ -64,22 +72,30 @@ Rectangle {
                                 property real send_ds: get_send_ds(node_index, model.index);
                                 property real recv_ds: get_recv_ds(node_index, model.index);
 
-                                height: (parent.height/parent.spacing)-5
-                                width: parent.width/parent.columns-5
-
-                                Text{
-                                    //text: listNodes.nodeAt(node_index).rankAt(model.index).getId()
-                                }
-                                Text{
-                                    y: 20
-                                    text: "Send: " + send_ds
-                                }
-                                Text{
-                                    y: 40
-                                    text: "Recv: " + recv_ds
-                                }
+                                height: 60//Math.ceil(ranks_in_node/parent.columns))
+                                width: (parent.width/parent.columns) -1
 
                                 color: createColor(node_index, model.index)
+
+                                ColumnLayout{
+                                    anchors.fill: parent
+                                    width: parent.width
+
+                                    Text{
+                                        text: "Proc: " + listNodes.nodeAt(node_index).rankAt(model.index).getId()
+                                        font.pixelSize: 10
+                                        color: "#383936"
+                                        visible: (width <= parent.width)
+                                    }
+                                    Text{
+                                        text: "Send: " + parse_ds(send_ds)
+                                        visible: (width <= parent.width) && (option == "send/recv ratio (per proc)") || option == "max send ratio (across all procs)"
+                                    }
+                                    Text{
+                                        text: "Recv: " + parse_ds(recv_ds)
+                                        visible: (width <= parent.width) && (option == "send/recv ratio (per proc)") || option == "max recv ratio (across all procs)"
+                                    }
+                                }
 
                                 /*Component.onCompleted: {
                                     console.log("Rectangle, modelindex: " + model.index)
@@ -109,6 +125,25 @@ Rectangle {
             return 0;
         }
     }
+
+    function parse_ds(datasize) {
+        function formatValue(value) {
+            // Entferne ".00", wenn keine Nachkommastellen nötig sind
+            return value % 1 === 0 ? value.toString() : value.toFixed(2);
+        }
+
+        if (datasize < 1000) {
+            return datasize + " Byte";
+        } else if (datasize < 1000000) {
+            return formatValue(datasize / 1000) + " KB";
+        } else if (datasize < 1000000000) {
+            return formatValue(datasize / 1000000) + " MB";
+        } else {
+            return formatValue(datasize / 1000000000) + " GB";
+        }
+    }
+
+
 
     function get_recv_ds(nodeIndex, modelIndex){
         if(p2p && collective){

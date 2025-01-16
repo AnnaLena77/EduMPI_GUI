@@ -118,10 +118,11 @@ Window {
             //focus: true
             anchors {
                 left: parent.left
-                right: options_analysis.left
+                //right: options_analysis.left
                 top: parent.top
                 bottom: bottom_main.top
             }
+            width: run_analysis_win.width - options_analysis.width
             Component.onCompleted: {
                 /*Qt.callLater(() => {
                 ascreen.push("Cores3D.qml", {listNodes: nodesList})

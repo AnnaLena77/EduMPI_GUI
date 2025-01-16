@@ -69,6 +69,8 @@ Window {
     Item {
         id: rootItem
         anchors.fill: parent
+        width: parent.width
+        height: parent.height
         property int endTime: root.endTime
 
         function flash() {
@@ -267,13 +269,15 @@ Window {
         StackView{
             id: actualScreen
             property int twoD_columns: 10
+            height: parent.height
 
             anchors {
                 left: parent.left
-                right: options.left
+                //right: options.left
                 top: slurmnotifier.bottom
                 bottom: timeline_main.top
             }
+            width: root.width - options.width
 
             /*onLoaded: {
             //if(actualScreen.item) {
@@ -290,6 +294,7 @@ Window {
         }
         Sidebar{
             id: options
+
             height: root.height - timeline_main.height - menu.height
             anchors.right: parent.right
             //anchors.verticalCenter: parent.verticalCenter
