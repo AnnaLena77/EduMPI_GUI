@@ -38,6 +38,8 @@ public:
     bool thread_running() const;
     void set_thread_running(bool running);
 
+    void detailed_p2p_Query(const QDateTime timestampA, const QDateTime timestampB);
+
 public slots:
     void connectToDB();
     void threadbuildClusterComponents();
@@ -58,6 +60,7 @@ signals:
     void connectedToDB(const bool &success);
     void clusterComponentsReady(const QMap<QString, QVector<int>> &map);
     void updateDataReady(const QList<DataColumn> &list);
+    void updateDetailedP2P(QList<QVariantList>);
     void dbCleared();
     //set bool = 1 for start-timestamp and bool = 0 for end-timestamp
     void setTimestamp(QDateTime timestamp, bool start);

@@ -79,6 +79,8 @@ qt_add_qml_module(appGUI_Cluster
         controller.h
         cluster_architecture.cpp
         cluster_architecture.h
+        detailed_p2p_data.h
+        detailed_p2p_data.cpp
 )
 
 add_subdirectory(Sidebar)
