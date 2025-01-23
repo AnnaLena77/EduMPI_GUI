@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick3D 6.8
 import GUI_Cluster
+import QtQuick3D.Helpers
 //import Qt3D.Render 2.5
 
 Rectangle {
@@ -133,6 +134,7 @@ Rectangle {
             model: listNodes.count
             delegate: Model {
                 id: outerCube
+                property int outerCubeId: index
                 source: "#Cube"
                 scale: Qt.vector3d(1.2, 1.2, 1.2)
                 position: Qt.vector3d(
@@ -170,15 +172,13 @@ Rectangle {
                     Model {
                         id: innerCube
                         source: "#Cube"
-                        instanceRoot: outerCube
+                        //instanceRoot: outerCube
 
-                        Component.onCompleted: {
-                            //console.log("Nodes" +listNodes.nodeAt(0))
-                        }
+                        depthBias: 0.01
 
                         instancing: Ranks_Instances {
                             //outerInstanceData : outerCube.instancing.instancePosition()
-                            id: instanceData
+                            id: instanceDatas
                             p2p_show: p2p
                             coll_show: collective
                             combobox: option
@@ -191,20 +191,55 @@ Rectangle {
                             innerCubeSpacing: 0.45
                             rowsColumns: Math.ceil(Math.pow(innerCubeCount, 1/3));
                             innerCubeScale: outerCube.scale.x / rowsColumns * (1 - innerCubeSpacing) // Berechnung der Skalierung des inneren Würfels
-                            Component.onCompleted: {
-                                //console.log(model.index + ", " + index)
-                                //console.log("Rows: " + rowsColumns)
-                            }
+                        }
+                        Component.onCompleted: {
+                            //console.log(instanceDatas.innerCubeCount)
                         }
 
                         materials: [
-                            PrincipledMaterial{
-                               //baseColor: Qt.rgba(Math.random(), Math.random(), Math.random(), 1)
-                                //opacity: 0.5
+                            DefaultMaterial{
+                                depthDrawMode: Material.AlwaysDepthDraw
+
                             }
                         ]
+                    }
+                }
+                Repeater3D {
+                    id: innerCubeNumbers
+                    visible: true
+                    model: listNodes.nodeAt(outerCubeId).count
+                    delegate: Model {
+                        property double sc: outerCube.scale.x / Math.ceil(Math.pow(listNodes.nodeAt(outerCubeId).count, 1/3)) * (1 - 0.45) + 0.001
+                        source: "#Cube"
+                        position: listNodes.nodeAt(outerCubeId).rankAt(index).position
+                        scale: Qt.vector3d(sc, sc, sc)
+                        //opacity: 0
+                        materials: [
+                            DefaultMaterial{
+                                depthDrawMode: Material.AlwaysDepthDraw
+                                diffuseMap: Texture {
+                                    sourceItem: Rectangle {
+                                        width: 100 / instanceDatas.rowsColumns
+                                        height: 100 / instanceDatas.rowsColumns
+                                        color: "transparent"
 
-                        //onBoundsChanged: console.log("hallo" + index)
+                                        Text {
+                                            anchors.left: parent.left
+                                            anchors.bottom: parent.bottom
+                                            text: "" + listNodes.nodeAt(outerCubeId).rankAt(index).getId()
+                                            color: "black"
+                                            font.pixelSize: 12
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                        onPositionChanged: {
+                            //console.log(listNodes.nodeAt(outerCubeId).rankAt(index).getId() + ": " + listNodes.nodeAt(outerCubeId).rankAt(index).position)
+                            //console.log("OuterCube: " + outerCubeId);
+                            //console.log("Rank at: " + index);
+                            //console.log("Name: " + listNodes.nodeAt(outerCubeId).getName())
+                        }
                     }
                 }
             }

@@ -1,6 +1,7 @@
 #include "controller.h"
 #include "cluster_architecture.h"
 #include "table_userid.h"
+#include "ranks_instances.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -35,6 +36,7 @@ int main(int argc, char *argv[])
 
     // Übergabe des Home-Verzeichnisses an QML
     engine.rootContext()->setContextProperty("homeDirectory", QString(homeDir));
+
 
     //qmlRegisterType<Controller>("appGui_Cluster.Controller", 1, 0, "Controller");
     //qmlRegisterType<Cluster_Architecture>("appGui_Cluster.Nodes", 1, 0, "Nodes_List");

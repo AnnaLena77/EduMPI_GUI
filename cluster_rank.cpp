@@ -1,6 +1,7 @@
 #include "cluster_rank.h"
 #include "qdebug.h"
 #include "controller.h"
+#include <QDebug>>
 
 
 Cluster_Rank::Cluster_Rank(QObject *parent)
@@ -23,6 +24,7 @@ Cluster_Rank::Cluster_Rank(QObject *parent, int id) : QObject(parent), m_id(id)
 }
 
 int Cluster_Rank::getId() const{
+    //qDebug() << "Test: " << m_id;
     return this->m_id;
 }
 
@@ -64,6 +66,7 @@ float Cluster_Rank::coll_timediff(){
     return m_coll_timediff;
 }
 QVector3D Cluster_Rank::position(){
+    //qDebug() << "Test: " << m_position;
     return m_position;
 }
 

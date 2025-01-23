@@ -30,10 +30,10 @@ void Detailed_p2p_data::queryData(QList<QVariantList> query){
             for (const QVariant& value : row) {
                 rowStrings << value.toString();
             }
-            qDebug() << "Row" << i << ":" << rowStrings.join(", ");
+            //qDebug() << "Row" << i << ":" << rowStrings.join(", ");
         }
     } else {
-        qDebug() << "No data to display.";
+        //qDebug() << "No data to display.";
     }
 }
 
