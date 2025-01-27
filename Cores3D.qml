@@ -3,6 +3,7 @@ import QtQuick3D 6.8
 import GUI_Cluster
 import QtQuick3D.Helpers
 //import Qt3D.Render 2.5
+//import CustomGeometry 1.0
 
 Rectangle {
     id: rectangle
@@ -12,9 +13,42 @@ Rectangle {
 
     property Cluster_Architecture listNodes: null
 
-    /*Component.onCompleted: {
-        console.log("Nodes_List received:", listNodes)
-    }*/
+    property var p2pData: null
+
+    property var positionMap: []
+
+    onListNodesChanged: {
+        if(listNodes){
+            p2pData =  listNodes.detailedP2P
+        }
+    }
+
+    Connections {
+        target: p2pData
+        function onNewDataInsertion() {
+            if(lineModelRecv.visible || lineModelSend.visible){
+                customGeoSend.clearLines()
+                customGeoRecv.clearLines()
+                for(var row=0; row< p2pData.rowCount(); row++){
+                    var type = p2pData.simple_data(row, "function")
+                    var proc = p2pData.simple_data(row, "processrank")
+                    var partner = p2pData.simple_data(row, "partnerrank")
+
+                    if(type == "MPI_Send"){
+                        //console.log(positionMap[proc])
+                        //console.log(customGeo)
+                        customGeoSend.addLine(positionMap[proc], positionMap[partner])
+                    }
+                    else if(type == "MPI_Recv"){
+                        customGeoRecv.addLine(positionMap[proc], positionMap[partner])
+                    }
+                }
+                customGeoSend.newFrame()
+                customGeoRecv.newFrame()
+            }
+        }
+    }
+
 
    View3D {
 
@@ -219,8 +253,8 @@ Rectangle {
                                 depthDrawMode: Material.AlwaysDepthDraw
                                 diffuseMap: Texture {
                                     sourceItem: Rectangle {
-                                        width: 100 / instanceDatas.rowsColumns
-                                        height: 100 / instanceDatas.rowsColumns
+                                        width: 200 / instanceDatas.rowsColumns
+                                        height: 200 / instanceDatas.rowsColumns
                                         color: "transparent"
 
                                         Text {
@@ -228,13 +262,18 @@ Rectangle {
                                             anchors.bottom: parent.bottom
                                             text: "" + listNodes.nodeAt(outerCubeId).rankAt(index).getId()
                                             color: "black"
-                                            font.pixelSize: 12
+                                            font.pixelSize: 20
                                         }
                                     }
                                 }
                             }
                         ]
                         onPositionChanged: {
+                            if(position != Qt.vector3d(0.0, 0.0, 0.0)){
+                                var id = listNodes.nodeAt(outerCubeId).rankAt(index).getId()
+                                var pos = mapPositionToScene(position)
+                                rectangle.positionMap[id] = pos //Qt.vector3d(pos.x, pos.y, pos.z);
+                            }
                             //console.log(listNodes.nodeAt(outerCubeId).rankAt(index).getId() + ": " + listNodes.nodeAt(outerCubeId).rankAt(index).position)
                             //console.log("OuterCube: " + outerCubeId);
                             //console.log("Rank at: " + index);
@@ -242,6 +281,36 @@ Rectangle {
                         }
                     }
                 }
+            }
+        }
+        Model {
+            id: lineModelSend
+            geometry: CustomLineGeometry{
+                id: customGeoSend
+            }
+            visible: false
+
+            materials: DefaultMaterial {
+                diffuseColor: "#00FF00"
+                emissiveFactor: Qt.vector3d(0.1, 0.1, 0.1)
+                lineWidth: 1.0
+            }
+        }
+
+        Model {
+            id: lineModelRecv
+            geometry: CustomLineGeometry{
+                id: customGeoRecv
+            }
+
+            visible: false
+
+            position: Qt.vector3d(0,2,0);
+
+            materials: DefaultMaterial {
+                diffuseColor: "red"
+                emissiveFactor: Qt.vector3d(0.1, 0.1, 0.1)
+                lineWidth: 1.0
             }
         }
 

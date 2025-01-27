@@ -6,8 +6,8 @@ import QtQuick.Dialogs
 Rectangle {
     id: option_views
     width: 250
-    height: 200
-    implicitHeight: 200
+    height: 220
+    implicitHeight: 220
     color: "#383936"
 
     property StackView view;
@@ -87,7 +87,7 @@ Rectangle {
 
                     Text {
                         text: "Columns:   " + mySlider.value.toFixed(0)
-                        color: "white"
+                        color: "#999999"
                         font.pointSize: 12
                     }
 
@@ -111,40 +111,81 @@ Rectangle {
                             implicitHeight: 5
                             height: 5
                             color: "#00FF00"
-                            }
+                        }
+                    }
+
+                    RowLayout {
+                        //spacing: 10
+                        //Layout.leftMargin: mySlider.leftPadding
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.fillWidth: mySlider.availableWidth
+                        Layout.preferredWidth: mySlider.width
+
+                        Text {
+                            text: mySlider.from
+                            font.pixelSize: 14
+                            color: "#999999"
+                            Layout.alignment: Qt.AlignLeft
+                            //Layout.preferredWidth: mySlider.width / 3
                         }
 
-                        RowLayout {
-                            //spacing: 10
-                            //Layout.leftMargin: mySlider.leftPadding
-                            Layout.alignment: Qt.AlignHCenter
-                            Layout.fillWidth: mySlider.availableWidth
-                            Layout.preferredWidth: mySlider.width
-
-                            Text {
-                                text: mySlider.from
-                                font.pixelSize: 14
-                                color: "gray"
-                                Layout.alignment: Qt.AlignLeft
-                                //Layout.preferredWidth: mySlider.width / 3
-                            }
-
-                            /*Text {
-                                text: mySlider.value.toFixed(0) // Runden auf ganze Zahlen
-                                font.pixelSize: 14
-                                font.bold: true
-                                Layout.alignment: Qt.AlignHCenter
-                                //Layout.preferredWidth: mySlider.width
-                            }*/
-
-                            Text {
-                                text: mySlider.to
-                                font.pixelSize: 14
-                                color: "gray"
-                                Layout.alignment: Qt.AlignRight
-                                //Layout.preferredWidth: mySlider.width / 3
-                            }
+                        Text {
+                            text: mySlider.to
+                            font.pixelSize: 14
+                            color: "#999999"
+                            Layout.alignment: Qt.AlignRight
+                            //Layout.preferredWidth: mySlider.width / 3
                         }
+                    }
+                }
+            }
+
+            Rectangle {
+                id: communication_lines_checker
+                width: parent.width
+                height: 100
+                color: "transparent"
+                Layout.alignment: Qt.AlignHCenter
+                visible: three_d_check.checked
+
+                ColumnLayout{
+                    anchors.fill: parent
+
+                    Text {
+                        width: rectangle.width
+                        text: qsTr("Show detailed communication links:")
+                        font.pointSize: 12
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.preferredWidth: parent.width
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        color: "#999999"
+                    }
+
+                    Switch {
+                        id: sendlines
+                        HoverHandler {
+                            cursorShape: Qt.PointingHandCursor
+                        }
+                        Layout.alignment: Qt.AlignCenter
+                        Layout.leftMargin: 40
+                        checked: false
+                        text: qsTr("P2P - Send lines")
+                    }
+                    Switch {
+                        id: recvlines
+                        HoverHandler {
+                            cursorShape: Qt.PointingHandCursor
+                        }
+                        Layout.alignment: Qt.AlignCenter
+                        Layout.leftMargin: 40
+                        checked: false
+                        text: Text {
+                            text: "test"
+                        }
+
+                        //qsTr("P2P - Recv lines")
+                        //text.color: "#999999"
                     }
                 }
                 /*Rectangle {
@@ -216,6 +257,7 @@ Rectangle {
             }
         }
     }
+}
 
 
 

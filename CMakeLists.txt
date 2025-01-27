@@ -83,6 +83,8 @@ qt_add_qml_module(appGUI_Cluster
         detailed_p2p_data.cpp
         ranks_instances.h
         ranks_instances.cpp
+        customlinegeometry.h
+        customlinegeometry.cpp
 )
 
 add_subdirectory(Sidebar)

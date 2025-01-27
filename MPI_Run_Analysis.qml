@@ -57,6 +57,7 @@ Window {
         id: run_analysis_win_Item
         anchors.fill: parent
         property int endTime: run_analysis_win.endTime
+        property string option: run_analysis_win.option
 
         function flash() {
             opacityAnimation.start();

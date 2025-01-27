@@ -72,6 +72,7 @@ Window {
         width: parent.width
         height: parent.height
         property int endTime: root.endTime
+        property string option: root.option
 
         function flash() {
             opacityAnimation.start();

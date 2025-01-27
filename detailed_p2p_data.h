@@ -28,10 +28,14 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    Q_INVOKABLE QVariant simple_data(int row, const QString &role) const;
     QHash<int, QByteArray> roleNames() const override;
 
 public slots:
     void queryData(QList<QVariantList> query);
+
+signals:
+    void newDataInsertion();
 
 
 
