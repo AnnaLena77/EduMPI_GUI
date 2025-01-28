@@ -51,6 +51,9 @@ Window {
 
     property int restarts: -1
 
+    property bool p2p_send_lines: false
+    property bool p2p_recv_lines: false
+
     onRestartsChanged: {
         if(restarts > 0) {
             controller.copyEnvFile();

@@ -183,7 +183,6 @@ void Database_Thread::updateData(const int &time_display){
             dc.time_diff = query.value("time_diff").toFloat();
             list.append(dc);
         }while(query.next());
-        emit updateDataReady(list);
     } else{
         //std::cout << "Keine Daten \n" << std::endl;
         /*query.prepare("SELECT MAX(time_end) FROM edumpi_running_data WHERE edumpi_run_id = :slurm_id");
@@ -195,6 +194,8 @@ void Database_Thread::updateData(const int &time_display){
         }*/
     }
     query.finish();
+    emit updateDataReady(list);
+    detailed_p2p_Query(m_actualDBEntryTime.toUTC(), m_actualDBEntryTime.toUTC());
 
 }
 

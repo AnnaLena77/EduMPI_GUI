@@ -26,7 +26,7 @@ Rectangle {
     Connections {
         target: p2pData
         function onNewDataInsertion() {
-            if(lineModelRecv.visible || lineModelSend.visible){
+            //if(lineModelRecv.visible || lineModelSend.visible){
                 customGeoSend.clearLines()
                 customGeoRecv.clearLines()
                 for(var row=0; row< p2pData.rowCount(); row++){
@@ -45,7 +45,7 @@ Rectangle {
                 }
                 customGeoSend.newFrame()
                 customGeoRecv.newFrame()
-            }
+            //}
         }
     }
 
@@ -288,7 +288,7 @@ Rectangle {
             geometry: CustomLineGeometry{
                 id: customGeoSend
             }
-            visible: false
+            visible: p2p_send_lines
 
             materials: DefaultMaterial {
                 diffuseColor: "#00FF00"
@@ -303,7 +303,7 @@ Rectangle {
                 id: customGeoRecv
             }
 
-            visible: false
+            visible: p2p_recv_lines
 
             position: Qt.vector3d(0,2,0);
 

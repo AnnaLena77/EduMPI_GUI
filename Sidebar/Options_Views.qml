@@ -29,24 +29,26 @@ Rectangle {
             width: rectangle.width
             anchors.fill: parent
             //height: parent.height
-            Layout.alignment: Qt.AlignHCenter
+            Layout.alignment: Qt.AlignRight
             Layout.fillWidth: true
             anchors.margins: 5
 
             Text {
                 id: text_view
                 text: qsTr("Select representation view:")
-                color: "white"
-                font.pointSize: 12
-                Layout.alignment: Qt.AlignHCenter
+                topPadding: 6
+                color: "#00FF00"
+                //font.pointSize: 12
+                //Layout.alignment: Qt.AlignHCenter
             }
             CheckBox {
                 id: three_d_check
                 HoverHandler {
                     cursorShape: Qt.PointingHandCursor
                 }
-                Layout.alignment: Qt.AlignLeft
-                Layout.leftMargin: 40
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignRight
+                Layout.rightMargin: 40
                 checked: true
                 text: qsTr("3D Nodes (Cube View)")
                 onCheckStateChanged: {
@@ -61,8 +63,9 @@ Rectangle {
                 HoverHandler {
                     cursorShape: Qt.PointingHandCursor
                 }
-                Layout.alignment: Qt.AlignLeft
-                Layout.leftMargin: 40
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignRight
+                Layout.rightMargin: 40
                 checked: false
                 text: qsTr("2D Nodes (List View)")
                 onCheckStateChanged: {
@@ -153,39 +156,115 @@ Rectangle {
 
                     Text {
                         width: rectangle.width
-                        text: qsTr("Show detailed communication links:")
-                        font.pointSize: 12
+                        text: qsTr("Show detailed MPI communication connections:")
+                        //font.pointSize: 12
                         Layout.alignment: Qt.AlignHCenter
                         Layout.preferredWidth: parent.width
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
                         color: "#999999"
                     }
+                    Row {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        spacing: 8
 
-                    Switch {
-                        id: sendlines
-                        HoverHandler {
-                            cursorShape: Qt.PointingHandCursor
+                        Switch {
+                            id: sendlines
+                            HoverHandler {
+                                cursorShape: Qt.PointingHandCursor
+                            }
+
+                            indicator: Rectangle{
+                                radius: 13
+                                color: sendlines.checked ? "#00FF00" : "#999999"
+                                implicitHeight: 20
+                                implicitWidth:  40
+                                x: sendlines.width - width - sendlines.rightPadding
+                                y: parent.height / 2 - height /2
+                                border.color: "#999999"
+
+                                Rectangle {
+                                    x: sendlines.checked ? parent.width - width : 0
+                                    width: 20
+                                    height: 20
+                                    radius: 13
+                                    border.color: "#999999"
+                                }
+                            }
+
+                            //Layout.alignment: Qt.AlignRight
+                            Layout.alignment: Qt.AlignVCenter
+                            //Layout.rightMargin: 40
+                            checked: false
+
+                            onCheckedChanged: {
+                                if(checked){
+                                    p2p_send_lines = true
+                                } else {
+                                    p2p_send_lines = false
+                                }
+                            }
                         }
-                        Layout.alignment: Qt.AlignCenter
-                        Layout.leftMargin: 40
-                        checked: false
-                        text: qsTr("P2P - Send lines")
+
+                        Text {
+                            text: "P2P - Send lines"
+                            color: "#999999"
+                            Layout.alignment: Qt.AlignBottom
+                            Layout.fillHeight: true
+                            Layout.preferredHeight: sendlines.height
+                        }
                     }
-                    Switch {
-                        id: recvlines
-                        HoverHandler {
-                            cursorShape: Qt.PointingHandCursor
+
+                    Row {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        spacing: 8
+
+                        Switch {
+                            id: recvlines
+                            HoverHandler {
+                                cursorShape: Qt.PointingHandCursor
+                            }
+
+                            indicator: Rectangle{
+                                radius: 13
+                                color: recvlines.checked ? "red" : "#999999"
+                                implicitHeight: 20
+                                implicitWidth:  40
+                                x: recvlines.width - width - recvlines.rightPadding
+                                y: parent.height / 2 - height /2
+                                border.color: "#999999"
+
+                                Rectangle {
+                                    x: recvlines.checked ? parent.width - width : 0
+                                    width: 20
+                                    height: 20
+                                    radius: 13
+                                    border.color: "#999999"
+                                }
+                            }
+
+                            //Layout.alignment: Qt.AlignRight
+                            Layout.alignment: Qt.AlignVCenter
+                            Layout.rightMargin: 40
+                            checked: false
+
+                            onCheckedChanged: {
+                                if(checked){
+                                    p2p_recv_lines = true
+                                } else {
+                                    p2p_recv_lines = false
+                                }
+                            }
                         }
-                        Layout.alignment: Qt.AlignCenter
-                        Layout.leftMargin: 40
-                        checked: false
-                        text: Text {
-                            text: "test"
+                        Text {
+                            text: "P2P - Recv lines"
+                            color: "#999999"
+                            Layout.alignment: Qt.AlignVCenter
+                            Layout.fillHeight: true
                         }
 
-                        //qsTr("P2P - Recv lines")
-                        //text.color: "#999999"
                     }
                 }
                 /*Rectangle {
