@@ -20,6 +20,17 @@ Item {
 
     property bool bar_enable_timeline : enable_timeline
 
+    property string options: parent.option
+
+    property var timestampA: null
+    property var timestampB: null
+
+    onOptionsChanged: {
+        if(bar_enable_timeline &&  playbutton.icon.name==="play"){
+            nodesList.showConditionAt(timestampA, timestampB)
+        }
+    }
+
     id: bottom_timeline_bar
     width: parent.width
     height: 70
@@ -295,8 +306,8 @@ Item {
                                      timeline_positionmarker.width = markerareaWidth + 2
                                 }
 
-                                var timestampA = timeline_positionmarker.x/tick;
-                                var timestampB = markerareaEnd/tick;
+                                timestampA = timeline_positionmarker.x/tick;
+                                timestampB = markerareaEnd/tick;
                                 nodesList.showConditionAt(timestampA, timestampB)
                             }
 

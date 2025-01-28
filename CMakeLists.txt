@@ -41,7 +41,7 @@ qt_add_executable(appGUI_Cluster
     #controller.h
     #controller.cpp
     nodes_instances.h nodes_instances.cpp
-    ranks_instances.h ranks_instances.cpp
+    #ranks_instances.h ranks_instances.cpp
     database_thread.h database_thread.cpp
     bash_process_manager.h bash_process_manager.cpp
     table_userid.h table_userid.cpp
@@ -79,6 +79,12 @@ qt_add_qml_module(appGUI_Cluster
         controller.h
         cluster_architecture.cpp
         cluster_architecture.h
+        detailed_p2p_data.h
+        detailed_p2p_data.cpp
+        ranks_instances.h
+        ranks_instances.cpp
+        customlinegeometry.h
+        customlinegeometry.cpp
 )
 
 add_subdirectory(Sidebar)

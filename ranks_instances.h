@@ -1,13 +1,12 @@
 #include "cluster_node.h"
 #include "cluster_architecture.h"
-#include <QtQuick3D/qquick3dinstancing.h>
+#include <QQuick3DInstancing>
 
 QT_FORWARD_DECLARE_CLASS(QRandomGenerator)
 
 class Ranks_Instances : public QQuick3DInstancing
 {
     Q_OBJECT
-    QML_ELEMENT
 
     Q_PROPERTY(int instanceCount READ instanceCount WRITE setInstanceCount NOTIFY instanceCountChanged)
     Q_PROPERTY(int outerCubeLength READ outerCubeLength WRITE setOuterCubeLength NOTIFY outerCubeLengthChanged)
@@ -25,6 +24,10 @@ class Ranks_Instances : public QQuick3DInstancing
 
     Q_PROPERTY(Cluster_Architecture* nodes MEMBER m_nodes NOTIFY nodesChanged)
     Q_PROPERTY(Cluster_Node* instanceRanks READ instanceRanks WRITE setInstanceRanks NOTIFY instanceRanksChanged)
+
+    Q_PROPERTY(QByteArray instanceData READ instanceData NOTIFY instanceDataChanged)
+
+    QML_ELEMENT
 
 
 public:
@@ -45,6 +48,8 @@ public:
     bool p2p_show();
     bool coll_show();
     bool components_build();
+
+    QByteArray instanceData();
 
 public slots:
     void setInstanceCount(int count);
@@ -78,6 +83,8 @@ signals:
     void collBoolChanged();
     void combobox_optionChanged();
     void components_buildChanged();
+
+    void instanceDataChanged();
 
 protected:
     QByteArray getInstanceBuffer(int *instanceCount) override;

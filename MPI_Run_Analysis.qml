@@ -57,6 +57,7 @@ Window {
         id: run_analysis_win_Item
         anchors.fill: parent
         property int endTime: run_analysis_win.endTime
+        property string option: run_analysis_win.option
 
         function flash() {
             opacityAnimation.start();
@@ -111,6 +112,25 @@ Window {
                 }
             }
         }
+
+        Rectangle{
+            id: slurmnotifier
+            width: parent.width
+            height: 30
+            anchors {
+                top: parent.top
+            }
+            color: "#4d4d4d"
+            Text {
+                text: "EduMPI-Run ID: " + run_analysis_win.analysis_slurm_id
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: 5
+                width: parent.width
+                height: parent.height
+                color: "#00FF00"
+            }
+        }
+
         StackView{
             id: ascreen
             property int twoD_columns: 10
@@ -120,7 +140,7 @@ Window {
             anchors {
                 left: parent.left
                 //right: options_analysis.left
-                top: parent.top
+                top: slurmnotifier.bottom
                 bottom: bottom_main.top
             }
             width: run_analysis_win.width - options_analysis.width

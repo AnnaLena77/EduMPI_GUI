@@ -195,7 +195,49 @@ void Database_Thread::updateData(const int &time_display){
     }
     query.finish();
     emit updateDataReady(list);
+    detailed_p2p_Query(m_actualDBEntryTime.toUTC(), m_actualDBEntryTime.toUTC());
 
+}
+
+void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDateTime timestampB){
+    QList<QVariantList> query_list;
+
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if (!db.isOpen()) {
+        qDebug() << "Databaseconnection " << m_connectionName << " is not open";
+        return;
+    }
+
+    QString queryString = "SELECT function, processrank, partnerrank, SUM(send_ds) AS send_ds, SUM(recv_ds) AS recv_ds FROM edumpi_p2p_data WHERE edumpi_run_id = :slurm_id AND ((time_end >= :endtime AND time_start <= :starttime) OR (time_end BETWEEN :starttime AND :endtime)) GROUP BY function, processrank, partnerrank;";
+
+    QDateTime a = timestampA.toUTC();
+    QDateTime b = timestampB.toUTC();
+
+    QSqlQuery query(db);
+    query.prepare(queryString);
+    query.bindValue(":starttime", a.toString("yyyy-MM-dd HH:mm:ss"));
+    query.bindValue(":endtime", b.toString("yyyy-MM-dd HH:mm:ss"));
+    query.bindValue(":slurm_id", m_slurm_id);
+
+    //std::cout << "Test Starttime" << a.toString("yyyy-MM-d HH:mm:ss").toStdString() << std::endl;
+
+    if (query.exec()) {
+        while(query.next()){
+            QVariantList list;
+            list << query.value(0)  // edumpi_run_id
+                    << query.value(1)  // start_time
+                    << query.value(2) // end_time
+                    << query.value(3) // program_name
+                    << query.value(4); // program_name
+            query_list.append(list);
+        }
+
+    } else {
+        QSqlError fehler = query.lastError();
+        qDebug() << "Query Error:" << fehler.text();
+    }
+    query.finish();
+    emit updateDetailedP2P(query_list);
 }
 
 void Database_Thread::selectEndTimestamp(){
@@ -275,6 +317,7 @@ void Database_Thread::showDataFromTimePeriod(const QDateTime timestampA, const Q
         qDebug() << "Query Error:" << fehler.text();
     }
     query.finish();
+    detailed_p2p_Query(timestampA, timestampB);
 
 }
 

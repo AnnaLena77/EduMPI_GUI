@@ -3,6 +3,7 @@
 #include <QRandomGenerator>
 #include <iostream>
 #include <cmath>
+#include <QQuick3DInstancing>
 
 Ranks_Instances::Ranks_Instances(QQuick3DObject *parent)
     :QQuick3DInstancing(parent)
@@ -47,6 +48,10 @@ bool Ranks_Instances::coll_show(){
 }
 bool Ranks_Instances::components_build(){
     return m_components_build;
+}
+
+QByteArray Ranks_Instances::instanceData(){
+    return m_instanceData;
 }
 
 /*QByteArray Ranks_Instances::outerInstanceData(){
@@ -117,6 +122,8 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
     //std::cout << "m_rowsColumns " << m_rowsColumns << ": m_outerCubeLength= " << m_outerCubeLength << ", m_innerCubeSpacing =" << m_innerCubeSpacing << std::endl;
     //std::cout << "test " << m_nodes->coll_send_max() << std::endl;
 
+    setDepthSortingEnabled(true);
+
     m_instanceData.resize(0);
 
     int instanceNumber = 0;
@@ -126,6 +133,12 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
         float x = (i % m_rowsColumns) * (m_outerCubeLength/m_rowsColumns + m_innerCubeSpacing) - m_outerCubeLength/2 + m_outerCubeLength/(2*m_rowsColumns);
         float y = int(floor(i/m_rowsColumns)) % m_rowsColumns * (m_outerCubeLength/m_rowsColumns + m_innerCubeSpacing) - m_outerCubeLength/2 + m_outerCubeLength/(2*m_rowsColumns);
         float z = floor(i / (m_rowsColumns * m_rowsColumns)) * (-m_outerCubeLength/m_rowsColumns) + m_outerCubeLength/2 - m_outerCubeLength/(m_rowsColumns * 2) - m_innerCubeSpacing;
+
+        float cubeSize = 12.0;
+
+        float z_pos = z - cubeSize / 2 + floor(i / (m_rowsColumns * m_rowsColumns)) * (cubeSize / 4 + m_innerCubeSpacing);
+        float x_pos = x - cubeSize / 2 + floor(i / (m_rowsColumns * m_rowsColumns)) * (cubeSize / 4 + m_innerCubeSpacing);
+        float y_pos = y - cubeSize / 2 + floor(i / (m_rowsColumns * m_rowsColumns)) * (cubeSize / 4 + m_innerCubeSpacing);
 
         m_instanceRanks->rankAt(i)->set_position({x,y,z});
 
@@ -273,8 +286,11 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
 
         QColor col(red, green, blue);
 
+        float index = i;
+
         //std::cout << "Instance " << i << ": x=" << x << ", y=" << y << ", z=" << z << std::endl;
-        auto entry = calculateTableEntry({ x, y, z }, {scale, scale, scale}, {}, {col}, {x,y,z,0});
+        auto entry = calculateTableEntry({ x, y, z }, {scale, scale, scale}, {}, {col}, {index,0,0,0});
+        //qDebug() << "Position: " << x << ", " << y << ", " << z;
         m_instanceData.append(reinterpret_cast<const char *>(&entry), sizeof(entry));
         instanceNumber++;
     }

@@ -97,6 +97,7 @@ void Cluster_Architecture::startThread(){
     Database_Thread::connect(this, &Cluster_Architecture::end_timeChanged, m_dbThread, &Database_Thread::set_end_timestamp_db);
 
     Database_Thread::connect(this, &Cluster_Architecture::reset_bottom_bar, m_dbThread, &Database_Thread::reset_actual_timestamp);
+    Database_Thread::connect(m_dbThread, &Database_Thread::updateDetailedP2P, &m_detailed_p2p, &Detailed_p2p_data::queryData);
 
     //database_thread.start();
     database_thread.start();
@@ -343,4 +344,8 @@ void Cluster_Architecture::showConditionAt(int timeSecondsA, int timeSecondsB){
     //std::cout << "Timestamp A: " << timestampA.toString("hh:mm:ss").toStdString() << std::endl;
     //std::cout << "Timestamp B: " << timestampB.toString("hh:mm:ss").toStdString() << std::endl;
     emit signalToShowTimestampData(timestampA, timestampB);
+}
+
+Detailed_p2p_data* Cluster_Architecture::detailedP2P() {
+    return &m_detailed_p2p;
 }

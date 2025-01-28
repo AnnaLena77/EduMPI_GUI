@@ -6,8 +6,8 @@ import QtQuick.Dialogs
 Rectangle {
     id: option_views
     width: 250
-    height: 200
-    implicitHeight: 200
+    height: 220
+    implicitHeight: 220
     color: "#383936"
 
     property StackView view;
@@ -29,24 +29,26 @@ Rectangle {
             width: rectangle.width
             anchors.fill: parent
             //height: parent.height
-            Layout.alignment: Qt.AlignHCenter
+            Layout.alignment: Qt.AlignRight
             Layout.fillWidth: true
             anchors.margins: 5
 
             Text {
                 id: text_view
                 text: qsTr("Select representation view:")
-                color: "white"
-                font.pointSize: 12
-                Layout.alignment: Qt.AlignHCenter
+                topPadding: 6
+                color: "#00FF00"
+                //font.pointSize: 12
+                //Layout.alignment: Qt.AlignHCenter
             }
             CheckBox {
                 id: three_d_check
                 HoverHandler {
                     cursorShape: Qt.PointingHandCursor
                 }
-                Layout.alignment: Qt.AlignLeft
-                Layout.leftMargin: 40
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignRight
+                Layout.rightMargin: 40
                 checked: true
                 text: qsTr("3D Nodes (Cube View)")
                 onCheckStateChanged: {
@@ -61,8 +63,9 @@ Rectangle {
                 HoverHandler {
                     cursorShape: Qt.PointingHandCursor
                 }
-                Layout.alignment: Qt.AlignLeft
-                Layout.leftMargin: 40
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignRight
+                Layout.rightMargin: 40
                 checked: false
                 text: qsTr("2D Nodes (List View)")
                 onCheckStateChanged: {
@@ -87,7 +90,7 @@ Rectangle {
 
                     Text {
                         text: "Columns:   " + mySlider.value.toFixed(0)
-                        color: "white"
+                        color: "#999999"
                         font.pointSize: 12
                     }
 
@@ -111,40 +114,157 @@ Rectangle {
                             implicitHeight: 5
                             height: 5
                             color: "#00FF00"
+                        }
+                    }
+
+                    RowLayout {
+                        //spacing: 10
+                        //Layout.leftMargin: mySlider.leftPadding
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.fillWidth: mySlider.availableWidth
+                        Layout.preferredWidth: mySlider.width
+
+                        Text {
+                            text: mySlider.from
+                            font.pixelSize: 14
+                            color: "#999999"
+                            Layout.alignment: Qt.AlignLeft
+                            //Layout.preferredWidth: mySlider.width / 3
+                        }
+
+                        Text {
+                            text: mySlider.to
+                            font.pixelSize: 14
+                            color: "#999999"
+                            Layout.alignment: Qt.AlignRight
+                            //Layout.preferredWidth: mySlider.width / 3
+                        }
+                    }
+                }
+            }
+
+            Rectangle {
+                id: communication_lines_checker
+                width: parent.width
+                height: 100
+                color: "transparent"
+                Layout.alignment: Qt.AlignHCenter
+                visible: three_d_check.checked
+
+                ColumnLayout{
+                    anchors.fill: parent
+
+                    Text {
+                        width: rectangle.width
+                        text: qsTr("Show detailed MPI communication connections:")
+                        //font.pointSize: 12
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.preferredWidth: parent.width
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        color: "#999999"
+                    }
+                    Row {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        spacing: 8
+
+                        Switch {
+                            id: sendlines
+                            HoverHandler {
+                                cursorShape: Qt.PointingHandCursor
+                            }
+
+                            indicator: Rectangle{
+                                radius: 13
+                                color: sendlines.checked ? "#00FF00" : "#999999"
+                                implicitHeight: 20
+                                implicitWidth:  40
+                                x: sendlines.width - width - sendlines.rightPadding
+                                y: parent.height / 2 - height /2
+                                border.color: "#999999"
+
+                                Rectangle {
+                                    x: sendlines.checked ? parent.width - width : 0
+                                    width: 20
+                                    height: 20
+                                    radius: 13
+                                    border.color: "#999999"
+                                }
+                            }
+
+                            //Layout.alignment: Qt.AlignRight
+                            Layout.alignment: Qt.AlignVCenter
+                            //Layout.rightMargin: 40
+                            checked: false
+
+                            onCheckedChanged: {
+                                if(checked){
+                                    p2p_send_lines = true
+                                } else {
+                                    p2p_send_lines = false
+                                }
                             }
                         }
 
-                        RowLayout {
-                            //spacing: 10
-                            //Layout.leftMargin: mySlider.leftPadding
-                            Layout.alignment: Qt.AlignHCenter
-                            Layout.fillWidth: mySlider.availableWidth
-                            Layout.preferredWidth: mySlider.width
+                        Text {
+                            text: "P2P - Send lines"
+                            color: "#999999"
+                            Layout.alignment: Qt.AlignBottom
+                            Layout.fillHeight: true
+                            Layout.preferredHeight: sendlines.height
+                        }
+                    }
 
-                            Text {
-                                text: mySlider.from
-                                font.pixelSize: 14
-                                color: "gray"
-                                Layout.alignment: Qt.AlignLeft
-                                //Layout.preferredWidth: mySlider.width / 3
+                    Row {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        spacing: 8
+
+                        Switch {
+                            id: recvlines
+                            HoverHandler {
+                                cursorShape: Qt.PointingHandCursor
                             }
 
-                            /*Text {
-                                text: mySlider.value.toFixed(0) // Runden auf ganze Zahlen
-                                font.pixelSize: 14
-                                font.bold: true
-                                Layout.alignment: Qt.AlignHCenter
-                                //Layout.preferredWidth: mySlider.width
-                            }*/
+                            indicator: Rectangle{
+                                radius: 13
+                                color: recvlines.checked ? "red" : "#999999"
+                                implicitHeight: 20
+                                implicitWidth:  40
+                                x: recvlines.width - width - recvlines.rightPadding
+                                y: parent.height / 2 - height /2
+                                border.color: "#999999"
 
-                            Text {
-                                text: mySlider.to
-                                font.pixelSize: 14
-                                color: "gray"
-                                Layout.alignment: Qt.AlignRight
-                                //Layout.preferredWidth: mySlider.width / 3
+                                Rectangle {
+                                    x: recvlines.checked ? parent.width - width : 0
+                                    width: 20
+                                    height: 20
+                                    radius: 13
+                                    border.color: "#999999"
+                                }
+                            }
+
+                            //Layout.alignment: Qt.AlignRight
+                            Layout.alignment: Qt.AlignVCenter
+                            Layout.rightMargin: 40
+                            checked: false
+
+                            onCheckedChanged: {
+                                if(checked){
+                                    p2p_recv_lines = true
+                                } else {
+                                    p2p_recv_lines = false
+                                }
                             }
                         }
+                        Text {
+                            text: "P2P - Recv lines"
+                            color: "#999999"
+                            Layout.alignment: Qt.AlignVCenter
+                            Layout.fillHeight: true
+                        }
+
                     }
                 }
                 /*Rectangle {
@@ -216,6 +336,7 @@ Rectangle {
             }
         }
     }
+}
 
 
 
