@@ -431,6 +431,7 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
         }
 
         if(option == 0){
+            scriptFile << "export EDUMPI_PROGRAM=" << program_name.toStdString() << ".c\n";
             scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << " -lm" << "\n";
             scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpirun -n " << proc_num << " --map-by :PE=2 --mca pml ob1 ./"+program_name.toStdString();
         } else if(option == 1) {
