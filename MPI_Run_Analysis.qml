@@ -44,6 +44,10 @@ Window {
     property bool enable_start: true
     property bool build_numbers: false
 
+    property bool p2p_send_lines: false
+    property bool p2p_recv_lines: false
+    property bool coll_lines: false
+
     onControllerChanged: {
         //console.log("Controller changed")
     }
@@ -133,13 +137,15 @@ Window {
 
         StackView{
             id: ascreen
+            property var map: []
             property int twoD_columns: 10
             property int threeD_depth: 2
+            property bool reload: true
 
             //focus: true
             anchors {
                 left: parent.left
-                //right: options_analysis.left
+                right: options_analysis.left
                 top: slurmnotifier.bottom
                 bottom: bottom_main.top
             }

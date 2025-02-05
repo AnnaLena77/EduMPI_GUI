@@ -61,6 +61,7 @@ signals:
     void clusterComponentsReady(const QMap<QString, QVector<int>> &map);
     void updateDataReady(const QList<DataColumn> &list);
     void updateDetailedP2P(QList<QVariantList>);
+    void updateDetailedColl(QList<QVariantList>);
     void dbCleared();
     //set bool = 1 for start-timestamp and bool = 0 for end-timestamp
     void setTimestamp(QDateTime timestamp, bool start);

@@ -13,6 +13,7 @@
 #include <QtQml/qqmlregistration.h>
 
 #include <detailed_p2p_data.h>
+#include <detailed_coll_data.h>
 
 class Cluster_Architecture;
 
@@ -34,6 +35,7 @@ class Cluster_Architecture : public QObject
     Q_PROPERTY(int end_time READ end_time WRITE set_end_time NOTIFY end_timeChanged)
 
     Q_PROPERTY(Detailed_p2p_data* detailedP2P READ detailedP2P CONSTANT)
+    Q_PROPERTY(Detailed_coll_data* detailedColl READ detailedColl CONSTANT)
 
     QThread database_thread;
 
@@ -43,6 +45,7 @@ public:
     ~Cluster_Architecture();
 
     Detailed_p2p_data* detailedP2P();
+    Detailed_coll_data* detailedColl();
 
     int count() const;
     long p2p_send_max();
@@ -152,6 +155,7 @@ private:
 
     //database detailed data
     Detailed_p2p_data m_detailed_p2p;
+    Detailed_coll_data m_detailed_coll;
 
 protected:
     void timerEvent(QTimerEvent *event);

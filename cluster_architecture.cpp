@@ -98,6 +98,7 @@ void Cluster_Architecture::startThread(){
 
     Database_Thread::connect(this, &Cluster_Architecture::reset_bottom_bar, m_dbThread, &Database_Thread::reset_actual_timestamp);
     Database_Thread::connect(m_dbThread, &Database_Thread::updateDetailedP2P, &m_detailed_p2p, &Detailed_p2p_data::queryData);
+    Database_Thread::connect(m_dbThread, &Database_Thread::updateDetailedColl, &m_detailed_coll, &Detailed_coll_data::queryData);
 
     //database_thread.start();
     database_thread.start();
@@ -348,4 +349,8 @@ void Cluster_Architecture::showConditionAt(int timeSecondsA, int timeSecondsB){
 
 Detailed_p2p_data* Cluster_Architecture::detailedP2P() {
     return &m_detailed_p2p;
+}
+
+Detailed_coll_data* Cluster_Architecture::detailedColl() {
+    return &m_detailed_coll;
 }
