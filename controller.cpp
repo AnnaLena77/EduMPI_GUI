@@ -436,7 +436,7 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
             scriptFile << m_cluster_eduMPI_path.toStdString() << "/bin/mpirun -n " << proc_num << " --map-by :PE=2 --mca pml ob1 ./"+program_name.toStdString();
         } else if(option == 1) {
             scriptFile << "mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << " -lm" << "\n";
-            scriptFile << "mpirun -n " << proc_num << " ./"+program_name.toStdString();
+            scriptFile << "time mpirun -n " << proc_num << " ./"+program_name.toStdString();
         } else if(option == 2) {
             scriptFile << "scorep mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << " -lm" << "\n";
             scriptFile << "scalasca -analyze -e scorep_" << program_name.toStdString() << "_" << proc_num << "_$SLURM_JOB_ID mpiexec -n " << proc_num << " ./"+program_name.toStdString();

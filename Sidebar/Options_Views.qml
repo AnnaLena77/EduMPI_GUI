@@ -6,8 +6,8 @@ import QtQuick.Dialogs
 Rectangle {
     id: option_views
     width: 250
-    height: 220
-    implicitHeight: 220
+    height: 260
+    implicitHeight: 260
     color: "#383936"
 
     property StackView view;
@@ -266,73 +266,57 @@ Rectangle {
                         }
 
                     }
+                    Row {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        spacing: 8
+
+                        Switch {
+                            id: colllines
+                            HoverHandler {
+                                cursorShape: Qt.PointingHandCursor
+                            }
+
+                            indicator: Rectangle{
+                                radius: 13
+                                color: colllines.checked ? "black" : "#999999"
+                                implicitHeight: 20
+                                implicitWidth:  40
+                                x: colllines.width - width - colllines.rightPadding
+                                y: parent.height / 2 - height /2
+                                border.color: "#999999"
+
+                                Rectangle {
+                                    x: colllines.checked ? parent.width - width : 0
+                                    width: 20
+                                    height: 20
+                                    radius: 13
+                                    border.color: "#999999"
+                                }
+                            }
+
+                            //Layout.alignment: Qt.AlignRight
+                            Layout.alignment: Qt.AlignVCenter
+                            Layout.rightMargin: 40
+                            checked: false
+
+                            onCheckedChanged: {
+                                if(checked){
+                                    coll_lines = true
+                                } else {
+                                    coll_lines = false
+                                }
+                            }
+                        }
+                        Text {
+                            text: "Collective lines"
+                            color: "#999999"
+                            Layout.alignment: Qt.AlignVCenter
+                            Layout.fillHeight: true
+                        }
+
+                    }
                 }
-                /*Rectangle {
-                id: slider_rect_3D
-                width: parent.width
-                height: 80
-                color: "transparent"
-                Layout.alignment: Qt.AlignHCenter
-                visible: three_d_check.checked
-
-                ColumnLayout {
-                    anchors.fill: parent
-                    //anchors.margins: 5
-
-                    Text {
-                        text: "Depth:   " + slider_3D.value.toFixed(0)
-                        color: "white"
-                        font.pointSize: 12
-                    }
-
-                    Slider {
-                        id: slider_3D
-                        from: 1      // Minimalwert
-                        to: 32       // Maximalwert
-                        stepSize: 1  // Schrittweite
-                        value: 10    // Initialwert
-                        Layout.alignment: Qt.AlignHCenter
-
-                        onValueChanged: {
-                            view.threeD_depth = value;
-                        }
-
-                        background: Rectangle {
-                            x: slider_3D.leftPadding
-                            y: slider_3D.topPadding + slider_3D.availableHeight/2 - height/2
-                            implicitWidth: 200
-                            width: slider_3D.availableWidth
-                            implicitHeight: 5
-                            height: 5
-                            color: "#00FF00"
-                            }
-                        }
-
-                        RowLayout {
-                            //spacing: 10
-                            //Layout.leftMargin: slider_3D.leftPadding
-                            Layout.alignment: Qt.AlignHCenter
-                            Layout.fillWidth: slider_3D.availableWidth
-                            Layout.preferredWidth: slider_3D.width
-
-                            Text {
-                                text: slider_3D.from
-                                font.pixelSize: 14
-                                color: "gray"
-                                Layout.alignment: Qt.AlignLeft
-                                //Layout.preferredWidth: slider_3D.width / 3
-                            }
-
-                            Text {
-                                text: slider_3D.to
-                                font.pixelSize: 14
-                                color: "gray"
-                                Layout.alignment: Qt.AlignRight
-                                //Layout.preferredWidth: slider_3D.width / 3
-                            }
-                        }
-                    }
-                }*/
             }
         }
     }

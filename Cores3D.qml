@@ -14,12 +14,17 @@ Rectangle {
     property Cluster_Architecture listNodes: null
 
     property var p2pData: null
+    property var collData: null
 
     property var positionMap: []
 
+    property bool load: true
+
     onListNodesChanged: {
+        updateCheckTimer.start()
         if(listNodes){
             p2pData =  listNodes.detailedP2P
+            collData = listNodes.detailedColl
         }
     }
 
@@ -34,6 +39,9 @@ Rectangle {
                     var proc = p2pData.simple_data(row, "processrank")
                     var partner = p2pData.simple_data(row, "partnerrank")
 
+                    //console.log(proc)
+                    //console.log(positionMap[proc])
+
                     if(type == "MPI_Send"){
                         //console.log(positionMap[proc])
                         //console.log(customGeo)
@@ -46,6 +54,29 @@ Rectangle {
                 customGeoSend.newFrame()
                 customGeoRecv.newFrame()
             //}
+        }
+    }
+
+    Connections {
+        target: collData
+        function onNewDataInsertion() {
+            customGeoColl.clearLines()
+            for(var row=0; row< collData.rowCount(); row++){
+                var type = collData.simple_data(row, "function")
+                var proc = collData.simple_data(row, "processrank")
+                var partner = collData.simple_data(row, "coll_partnerranks")
+
+                if(partner != ""){
+                    if (!(partner instanceof Array)) {
+                        partner = Object.values(partner);  // Falls partner ein Objekt ist
+                    }
+                    for(var par of partner){
+                        //console.log(proc + " -> " + par)
+                        customGeoColl.addLine(positionMap[proc], positionMap[par])
+                    }
+                }
+            }
+            customGeoColl.newFrame()
         }
     }
 
@@ -233,7 +264,6 @@ Rectangle {
                         materials: [
                             DefaultMaterial{
                                 depthDrawMode: Material.AlwaysDepthDraw
-
                             }
                         ]
                     }
@@ -269,16 +299,23 @@ Rectangle {
                             }
                         ]
                         onPositionChanged: {
-                            if(position != Qt.vector3d(0.0, 0.0, 0.0)){
-                                var id = listNodes.nodeAt(outerCubeId).rankAt(index).getId()
-                                var pos = mapPositionToScene(position)
-                                rectangle.positionMap[id] = pos //Qt.vector3d(pos.x, pos.y, pos.z);
+                            if(rectangle.load){
+                                if(position != Qt.vector3d(0.0, 0.0, 0.0)){
+                                    var id = listNodes.nodeAt(outerCubeId).rankAt(index).getId()
+                                    var pos = mapPositionToScene(position)
+                                    //rectangle.parent.map[id] = pos //Qt.vector3d(pos.x, pos.y, pos.z);
+                                    positionMap[id] = pos
+                                }
                             }
-                            //console.log(listNodes.nodeAt(outerCubeId).rankAt(index).getId() + ": " + listNodes.nodeAt(outerCubeId).rankAt(index).position)
+
+                            /*if(outerCubeId == 0 && index == 0){
+                                console.log(listNodes.nodeAt(outerCubeId).rankAt(index).getId() + ": " + listNodes.nodeAt(outerCubeId).rankAt(index).position)
+                            }*/
                             //console.log("OuterCube: " + outerCubeId);
                             //console.log("Rank at: " + index);
                             //console.log("Name: " + listNodes.nodeAt(outerCubeId).getName())
                         }
+
                     }
                 }
             }
@@ -313,6 +350,18 @@ Rectangle {
                 lineWidth: 1.0
             }
         }
+        Model {
+            id: lineModelColl
+            geometry: CustomLineGeometry{
+                id: customGeoColl
+            }
+            visible: coll_lines
+            materials: DefaultMaterial {
+                diffuseColor: "black"
+                emissiveFactor: Qt.vector3d(0.1, 0.1, 0.1)
+                lineWidth: 1.0
+            }
+        }
 
         DirectionalLight {
             eulerRotation: Qt.vector3d(250, -30, 0);
@@ -323,8 +372,24 @@ Rectangle {
             intensity: 1.0*/
         }
     }
+    Timer {
+       id: updateCheckTimer
+       interval: 200 // Wartezeit in Millisekunden (anpassen, falls nötig)
+       repeat: false
+       onTriggered: {
+            if(rectangle.parent.reload){
+               rectangle.parent.map = positionMap
+               rectangle.parent.reload = false
+            } else {
+                rectangle.parent.reload = false
+                positionMap = rectangle.parent.map
+            }
+       }
+   }
+
    Component.onDestruction: {
        //console.log("destroy")
+       cameraNode.destroy()
        viewport.destroy()
    }
 }

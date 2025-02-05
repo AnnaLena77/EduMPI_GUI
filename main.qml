@@ -53,6 +53,7 @@ Window {
 
     property bool p2p_send_lines: false
     property bool p2p_recv_lines: false
+    property bool coll_lines: false
 
     onRestartsChanged: {
         if(restarts > 0) {
@@ -275,6 +276,9 @@ Window {
             property int twoD_columns: 10
             property int threeD_depth: 2
             height: parent.height
+
+            property bool reload: true
+            property var map: []
 
             anchors {
                 left: parent.left
