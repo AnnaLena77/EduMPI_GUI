@@ -25,6 +25,31 @@ Item {
     property var timestampA: null
     property var timestampB: null
 
+    property bool close: false
+
+    onCloseChanged: {
+        timeline_timer.stop()
+    }
+
+    /*property int timedisplay: 0
+
+    onTimedisplayChanged: {
+        console.log("test")
+    }*/
+
+    Connections {
+        target: nodesList
+        function onTime_displayChanged(){
+            if(nodesList.time_display == 0){
+                timeline_positionmarker.x = timeline_positionmarker.width - 2
+                timeline_positionmarker.width = 2
+            } else if(nodesList.time_display == 1){
+                timeline_positionmarker.width = timeline_positionmarker.x
+                timeline_positionmarker.x = 0
+            }
+        }
+    }
+
     onOptionsChanged: {
         if(bar_enable_timeline &&  playbutton.icon.name==="play"){
             nodesList.showConditionAt(timestampA, timestampB)
@@ -344,11 +369,17 @@ Item {
                 ticker_counter = 0;
                 timeline_container.contentX = container_startPositionX
             } else {
-                timeline_positionmarker.x +=tick
+                if(nodesList.time_display == 0){
+                    timeline_positionmarker.x +=tick
+                } else if(nodesList.time_display == 1){
+                    timeline_positionmarker.width +=tick
+                }
             }
             ticker_counter++
             var mappedPosition = timeline_positionmarker.mapToItem(rootItem, 0.0, 0.0);
-            nodesList.signalToUpdateData(nodesList.time_display)
+            if(nodesList){
+                nodesList.signalToUpdateData(nodesList.time_display)
+            }
 
             if(endTime != 0){
                 if(timeline_positionmarker.x >= timeline_endmarker.x){

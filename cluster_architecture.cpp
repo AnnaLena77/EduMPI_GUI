@@ -173,6 +173,15 @@ int Cluster_Architecture::end_time(){
     return m_end_time;
 }
 
+int Cluster_Architecture::time_display(){
+    return m_time_display;
+}
+
+void Cluster_Architecture::set_time_display(int dis){
+    m_time_display = dis;
+    emit time_displayChanged();
+}
+
 void Cluster_Architecture::set_coll_send_max(long max){
     m_coll_send_max = max;
     emit coll_send_max_changed();

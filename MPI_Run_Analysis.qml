@@ -16,12 +16,13 @@ Window {
     onClosing: {
         ascreen.clear();
         if(nodesList){
+            bottom_main.close = true
             nodesList.destroy();
         }
     }
 
     //property alias ascreen: ascreen
-    title: qsTr("EduMPI")
+
 
     property int analysis_slurm_id: 0
     property Controller controller: null
