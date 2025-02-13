@@ -424,10 +424,13 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
         }
 
         if(option == 0){
+            QFileInfo fileInfo(QString::fromStdString(m_envFilePath));
+            std::string fileName = "/tmp/" + fileInfo.fileName().toStdString();
+
             scriptFile << "for i in {1..5}; do\n";
-            scriptFile << "    if source ." << m_envFilePath << " 2>/dev/null; then\n";
-            scriptFile << "        export $(cut -d= -f1 ." << m_envFilePath << ")\n";
-            scriptFile << "        rm ." << m_envFilePath << "\n";
+            scriptFile << "    if source ." << fileName << " 2>/dev/null; then\n";
+            scriptFile << "        export $(cut -d= -f1 ." << fileName << ")\n";
+            scriptFile << "        rm ." << fileName << "\n";
             scriptFile << "        break\n";
             scriptFile << "    else\n";
             scriptFile << "        sleep 1\n";
