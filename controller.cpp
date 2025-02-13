@@ -401,7 +401,7 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
         program_name.chop(2);
     }
 
-    std::ofstream scriptFile(filePath.toStdString());
+    std::ofstream scriptFile(filePath.toStdString(), std::ios::binary);
     if(scriptFile.is_open()){
         scriptFile << "#!/usr/bin/env bash\n";
         scriptFile << "#SBATCH --partition=all\n";
