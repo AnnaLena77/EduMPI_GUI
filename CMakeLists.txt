@@ -26,7 +26,6 @@ else ()
 endif ()
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick QuickControls2 Quick3D Sql)
-find_package(PkgConfig REQUIRED)
 
 qt_standard_project_setup()
 
@@ -35,7 +34,6 @@ qt_policy(SET QTP0002 NEW)  # Neues Verhalten für Build-/Installationsverzeichn
 qt_policy(SET QTP0003 NEW)  # Für Plugins, wenn benötigt
 qt_policy(SET QTP0004 NEW)  # Module mit mehreren QML-Dateien benötigen ein qmldir
 
-pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 
 
 INCLUDE_DIRECTORIES("/usr/include/postgresql")
