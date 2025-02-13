@@ -328,8 +328,7 @@ bool Controller::checkFile(QString source, QString program, bool file){
 }
 
 QString Controller::readBash(){
-    const char *homeDir = getenv("HOME");
-    QString filePath = QString(homeDir) + "/skript.sh";
+    const QString filePath = QDir::homePath() + "/skript.sh";
 
     QFile file(filePath);
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
@@ -343,8 +342,7 @@ QString Controller::readBash(){
 }
 
 void Controller::writeBash(QString content){
-    const char *homeDir = getenv("HOME");
-    QString filePath = QString(homeDir) + "/skript.sh";
+    const QString filePath = QDir::homePath() + "/skript.sh";
 
     QFile file(filePath);
     if(!file.open(QIODevice::WriteOnly | QIODevice::Text)){
@@ -367,8 +365,7 @@ void Controller::startBash(int proc_num){
     }
     //emit signalToBuildComponents(proc_num);
     std::cout << "StartBash" << std::endl;
-    QString homedir = getenv("HOME");
-    QString dir = homedir + "/skript.sh";
+    const QString dir = QDir::homePath() + "/skript.sh";
     chmod(dir.toStdString().c_str(), S_IRWXU | S_IRWXG | S_IRWXO);
     QProcess process;
 
@@ -381,8 +378,8 @@ void Controller::startBash(int proc_num){
 void Controller::writeRemoteBashFile(QString program_name, int proc_num, int option){
     m_option = option;
 
-    const char *homeDir = getenv("HOME");
-    QString filePath = QString::fromUtf8(homeDir)  + "/remote_bash_eduMPI.sh";
+    const QString homeDir = QDir::homePath();
+    const QString filePath = homeDir + "/remote_bash_eduMPI.sh";
     m_remote_bash_path = filePath;
 
 
