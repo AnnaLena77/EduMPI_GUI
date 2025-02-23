@@ -145,7 +145,7 @@ private:
     QString m_remote_bash_path;
     QString m_remote_dir_bash;
 
-    std::string m_envFilePath;
+    QString m_envFilePath;
     int m_slurm_id;
     int m_proc_num;
     int m_option;

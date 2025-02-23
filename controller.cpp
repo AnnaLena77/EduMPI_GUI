@@ -26,38 +26,29 @@ Controller::Controller(QObject *parent) : QObject(parent)
 }
 
 void Controller::connect(QString hostname, QString databasename, int port, QString username, QString password){
-    char tempFileTemplate[] = "/tmp/XXXXXX.env";
-    std::cout << "Temp file template: " << tempFileTemplate << std::endl;
-    int fd = mkstemps(tempFileTemplate, 4);
-    m_envFilePath = tempFileTemplate;
-    if (fd == -1) {
-        std::cerr << "Failed to create temporary file: " << strerror(errno) << std::endl;
-        return;
-    }
-    close(fd);
+    QTemporaryFile tempFile;
+    tempFile.setAutoRemove(false);
+    tempFile.open();
 
-    std::cout << "Temporary file created: " << m_envFilePath << std::endl;
+    m_envFilePath = tempFile.fileName();
 
-    std::ofstream tempFile(m_envFilePath,  std::ofstream::trunc);
-    if (!tempFile.is_open()) {
-        std::cerr << "Failed to open temporary file for writing: " << strerror(errno) << std::endl;
-        return;
-    }
+    QTextStream textStream(&tempFile);
+    textStream << "DB_HOST=" << hostname << "\n";
+    textStream << "DB_NAME=" << databasename << "\n";
+    textStream << "DB_PORT=" << port << "\n";
+    textStream << "DB_USER=" << username << "\n";
+    textStream << "DB_PW=" << password << "\n";
 
-    tempFile << "DB_HOST=" << hostname.toStdString() << "\n";
-    tempFile << "DB_NAME=" << databasename.toStdString() << "\n";
-    tempFile << "DB_PORT=" << port << "\n";
-    tempFile << "DB_USER=" << username.toStdString() << "\n";
-    tempFile << "DB_PW=" << password.toStdString() << "\n";
+    textStream.flush();
+    tempFile.close();
 
     bool connect = connectToDB(hostname, databasename, port, username, password);
-    //Hier stand vorher nur True, kann sein, dass das gebraucht wird!
+
     m_connection_ready = connect;
     m_job_table = new Table_UserID();
     if(!m_cluster_ident.isEmpty()){
         m_job_table->loadJobs(m_cluster_ident);
     }
-    //m_job_table->setDatabaseConnection(m_dbConnection);
     emit connectionSignal(connect);
 }
 
@@ -69,14 +60,11 @@ Controller::~Controller()
 
 QString removeFilePrefix(const QString &file_path){
     QString adjustedPath = file_path;
-    if (adjustedPath.startsWith("file:///"))
-    {
-        if (QOperatingSystemVersion::currentType() == QOperatingSystemVersion::Windows)
-        {
+    if (adjustedPath.startsWith("file:///")) {
+        if (QOperatingSystemVersion::currentType() == QOperatingSystemVersion::Windows) {
             adjustedPath.remove(0, 8);
         }
-        else
-        {
+        else {
             adjustedPath.remove(0, 7);
         }
     }
@@ -85,39 +73,29 @@ QString removeFilePrefix(const QString &file_path){
 }
 
 bool Controller::copyEnvFile(){
-    char tempFileTemplate[] = "/tmp/XXXXXX.env";
-    int fd = mkstemps(tempFileTemplate, 4);
-    std::string temp_string = tempFileTemplate;
-    if (fd == -1) {
-        std::cerr << "Failed to create temporary file: " << strerror(errno) << std::endl;
-        return false;
-    }
-    close(fd);
+    QTemporaryFile newTempFile;
+    newTempFile.setAutoRemove(false);
+    newTempFile.open();
 
-    QFile sourceFile(QString::fromStdString(m_envFilePath));
-    QFile destFile(QString::fromStdString(temp_string));
-
-    if (!destFile.open(QIODevice::WriteOnly)) {
-        qWarning() << "Failed to open destination file:" << temp_string;
-        return false;
-    }
-    if (!sourceFile.open(QIODevice::ReadOnly)) {
-        qWarning() << "Failed to open source file:" << m_envFilePath;
+    QFile oldTempFile(m_envFilePath);
+    if (!oldTempFile.open(QIODevice::ReadOnly)) {
+        qDebug() << "Failed to open env file";
         return false;
     }
 
-    QByteArray fileData = sourceFile.readAll();
-    destFile.write(fileData);
+    const QByteArray oldTempFileData = oldTempFile.readAll();
+    newTempFile.write(oldTempFileData);
+    newTempFile.close();
 
-    if (!m_envFilePath.empty()) {
-        if (unlink(m_envFilePath.c_str()) != 0) {
-            std::cerr << "Failed to delete temporary file" << std::endl;
-        } else {
-            std::cout << "Temporary .env file deleted" << std::endl;
-        }
+    oldTempFile.close();
+
+    if (!oldTempFile.remove()) {
+        std::cerr << "Failed to delete temporary file" << std::endl;
+    } else {
+        std::cout << "Temporary .env file deleted" << std::endl;
     }
 
-    m_envFilePath = temp_string;
+    m_envFilePath = newTempFile.fileName();
     return true;
 }
 
@@ -275,7 +253,7 @@ void Controller::writeLocalBashFile(QString local_path, bool file, int proc_num)
         if(lineNumber == 9) {
             if(file){
                 if(m_option != 3){
-                    out << "scp \"" + QString::fromStdString(m_envFilePath) + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
+                    out << "scp \"" + m_envFilePath + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
                     //m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files";
                 }
                 out << "scp \"" + local_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
@@ -286,7 +264,7 @@ void Controller::writeLocalBashFile(QString local_path, bool file, int proc_num)
                 out << "scp -r \"" + local_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 int lastSlashIndex = local_path.lastIndexOf("/");
                 QString dir_name = local_path.mid(lastSlashIndex + 1);
-                out << "scp \"" + QString::fromStdString(m_envFilePath) + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
+                out << "scp \"" + m_envFilePath + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
                 out << "scp \"" + m_remote_bash_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/" + "\"\n";
                 m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files/" + dir_name;
             }
@@ -424,8 +402,8 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
         }
 
         if(option == 0){
-            QFileInfo fileInfo(QString::fromStdString(m_envFilePath));
-            std::string fileName = "/tmp/" + fileInfo.fileName().toStdString();
+            const QFileInfo fileInfo(m_envFilePath);
+            const std::string fileName = "/tmp/" + fileInfo.fileName().toStdString();
 
             scriptFile << "for i in {1..5}; do\n";
             scriptFile << "    if source ." << fileName << " 2>/dev/null; then\n";
@@ -516,8 +494,8 @@ void Controller::cancelRunningJob(){
 void Controller::closeApp(){
     qDebug() << "CLOSE APP";
     //removeClusterComponents();
-    if (!m_envFilePath.empty()) {
-        if (unlink(m_envFilePath.c_str()) != 0) {
+    if (!m_envFilePath.isEmpty()) {
+        if (QFile envFile(m_envFilePath); !envFile.remove()) {
             std::cerr << "Failed to delete temporary file" << std::endl;
         } else {
             std::cout << "Temporary .env file deleted" << std::endl;

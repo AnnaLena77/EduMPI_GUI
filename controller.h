@@ -122,7 +122,7 @@ private:
     QString m_remote_bash_path;
     QString m_remote_dir_bash;
 
-    std::string m_envFilePath;
+    QString m_envFilePath;
     int m_slurm_id;
     int m_option;
     bool m_status_running=false;
