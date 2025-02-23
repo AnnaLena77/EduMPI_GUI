@@ -108,7 +108,7 @@ void Controller::copyOutputFile(){
         QString sshCommand = QString("scp %1@%2:%3/slurm-%4.out %5").arg(m_cluster_ident, m_cluster_address, m_remote_dir_bash, QString::number(m_slurm_id), filePath);
         std::cout << sshCommand.toStdString() << std::endl;
 
-        proc.start("bash", QStringList() << "-c" << sshCommand);
+        proc.start(Bash_Process_Manager::getBashPath(), QStringList() << "-c" << sshCommand);
 
         // Warten, bis der Prozess gestartet ist
         if (!proc.waitForStarted()) {
@@ -137,7 +137,7 @@ QString Controller::connectCluster(const QString &address, const QString &ident,
     QString sshCommand = QString("ssh %1@%2 '[ -d \"%3\" ] && echo \"exists\" || echo \"not exist\"; [ -d \"%4\" ] || mkdir -p \"%4\"'").arg(ident, address, path, filePath);
 
     // Starten des SSH-Befehls
-    process.start("bash", QStringList() << "-c" << sshCommand);
+    process.start(Bash_Process_Manager::getBashPath(), QStringList() << "-c" << sshCommand);
 
     // Warten, bis der Prozess gestartet ist
     if (!process.waitForStarted()) {

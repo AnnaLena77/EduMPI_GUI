@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <iostream>
 #include <QDateTime>
+#include <QOperatingSystemVersion>
 
 /*Bash_Process_Manager::Bash_Process_Manager(QObject *parent) : QObject(parent)
 {
@@ -22,9 +23,21 @@ Bash_Process_Manager::Bash_Process_Manager (QObject *parent)
 
 }
 
+QString Bash_Process_Manager::getBashPath()
+{
+    QOperatingSystemVersion::OSType operatingSystemType = QOperatingSystemVersion::currentType();
+
+    if (operatingSystemType == QOperatingSystemVersion::Windows) {
+        return R"(C:\Program Files\Git\bin\bash.exe)";
+    }
+    else {
+        return "bash";
+    }
+}
+
 void Bash_Process_Manager::startProcess(const QStringList &arguments)
 {
-    process->setProgram("bash");
+    process->setProgram(getBashPath());
     process->setArguments(arguments);
     process->start();
     m_status = "";

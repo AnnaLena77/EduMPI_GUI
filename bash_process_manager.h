@@ -16,6 +16,7 @@ public:
     void startProcess(const QStringList &arguments);
     void sendSignal(int signal);
     void killProcess();
+    static QString getBashPath();
 
     int slurm_job_id=0;
 
