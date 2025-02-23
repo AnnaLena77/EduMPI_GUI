@@ -39,7 +39,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("homeDirectory", QString(homeDir));
 
     // Set default pictures path for screenshots
-    engine.rootContext() ->setContextProperty("picturesDirectory", QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
+    engine.rootContext()->setContextProperty("picturesDirectory",
+                                             QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
 
     //qmlRegisterType<CustomLineGeometry>("CustomGeometry", 1, 0, "CustomLineGeometry");
 
