@@ -1,3 +1,4 @@
+import QtQuick.Controls.Fusion
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Window
