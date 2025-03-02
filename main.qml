@@ -56,6 +56,10 @@ Window {
     property bool p2p_recv_lines: false
     property bool coll_lines: false
 
+    // Properties for performance measurement
+    property double performanceStartTime: 0
+    property double performanceEndTime: 0
+
     onRestartsChanged: {
         if(restarts > 0) {
             controller.copyEnvFile();
@@ -165,6 +169,12 @@ Window {
                 }
             }
             onSignalSlurmStatusChanged: (status)=>{
+                if(status === "pending" || status === "running") {
+                    root.performanceEndTime = Date.now();
+                    const finishedLoadingDuration = root.performanceEndTime - root.performanceStartTime;
+                    console.log("Loading time until pending took " + finishedLoadingDuration + " ms");
+                }
+
                 if(root.visualization){
                     if(status === "pending"){
                         root.slurm_status = "pending"

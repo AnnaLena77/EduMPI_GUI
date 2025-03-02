@@ -111,7 +111,13 @@ Window {
                 db_port = portField.text
                 db_name = nameField.text
                 db_host = hostnameField.text
+
+                root.performanceStartTime = Date.now();
                 controller.connect(db_host, db_name, db_port , db_user, db_password)
+                root.performanceEndTime = Date.now();
+                const databaseConnectionDuration = root.performanceEndTime - root.performanceStartTime
+                console.log("Database connection took " + databaseConnectionDuration + " ms")
+
                 controller.signalToClearDB()
             }
         }
