@@ -102,8 +102,7 @@ bool Controller::copyEnvFile(){
 void Controller::copyOutputFile(){
     QtConcurrent::run([this]() {
         QProcess proc;
-        const char *homeDir = getenv("HOME");
-        QString filePath = QString(homeDir);
+        const QString filePath = QDir::homePath();
 
         QString sshCommand = QString("scp %1@%2:%3/slurm-%4.out %5").arg(m_cluster_ident, m_cluster_address, m_remote_dir_bash, QString::number(m_slurm_id), filePath);
         std::cout << sshCommand.toStdString() << std::endl;
