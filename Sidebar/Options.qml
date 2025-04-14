@@ -176,6 +176,19 @@ Rectangle {
                     collective = coll_check.checkState
                 }
             }
+            CheckBox {
+                id: osc_check
+                HoverHandler {
+                    cursorShape: Qt.PointingHandCursor
+                }
+                Layout.alignment: Qt.AlignLeft
+                Layout.leftMargin: 40
+                checked: true
+                text: qsTr("One-Sided")
+                onCheckStateChanged: {
+
+                }
+            }
             /*CheckBox {
         checked: true
         text: qsTr("One-Sided")

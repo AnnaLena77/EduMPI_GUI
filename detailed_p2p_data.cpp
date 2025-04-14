@@ -37,6 +37,7 @@ void Detailed_p2p_data::queryData(QList<QVariantList> query){
         emit newDataInsertion();
         //qDebug() << "No data to display.";
     }
+    //set_uniqueFunctions();
 }
 
 int Detailed_p2p_data::rowCount(const QModelIndex &parent) const {
@@ -63,18 +64,18 @@ QVariant Detailed_p2p_data::data(const QModelIndex &index, int role) const {
     return QVariant();
 }
 
-QVariant Detailed_p2p_data::simple_data(int row, const QString &role) const {
+QString Detailed_p2p_data::simple_data(int row, const QString &role) const {
     if(row >= 0 && m_p2p_data.size()) {
         QVariantList rowindex = m_p2p_data.at(row);
         if(role == "function"){
-            return rowindex.at(0);
+            return rowindex.at(0).toString();
         } else if (role == "processrank"){
-            return rowindex.at(1);
+            return rowindex.at(1).toString();
         } else if (role == "partnerrank"){
-            return rowindex.at(2);
+            return rowindex.at(2).toString();
         }
     }
-    return QVariant();
+    return QString();
 }
 
 QHash<int, QByteArray> Detailed_p2p_data::roleNames() const {
@@ -83,4 +84,17 @@ QHash<int, QByteArray> Detailed_p2p_data::roleNames() const {
     roles[processrank] = "processrank";
     roles[partnerrank] = "partnerrank";
     return roles;
+}
+
+void Detailed_p2p_data::set_uniqueFunctions() {
+    QSet<QString> uniqueSet;
+    for (const QVariantList &row : m_p2p_data) {
+        uniqueSet.insert(row.at(0).toString());  // Annahme: Funktion ist in Spalte 0
+    }
+    m_uniqueFunctions = uniqueSet.values().join(", ");
+    emit uniqueFunctions_Changed();
+}
+
+QString Detailed_p2p_data::uniqueFunctions() const{
+    return m_uniqueFunctions;
 }

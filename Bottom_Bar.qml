@@ -27,8 +27,16 @@ Item {
 
     property bool close: false
 
+    property var p2pData : nodesList.detailedP2P
+    property var collData : nodesList.detailedColl
+
+    property string p2p_string
+    property string coll_string
+
     onCloseChanged: {
         timeline_timer.stop()
+        p2pData = null
+        collData = null
     }
 
     /*property int timedisplay: 0
@@ -49,6 +57,13 @@ Item {
             }
         }
     }
+    Connections {
+        target: p2pData
+        function onUniqueFunctions_Changed(){
+            p2p_string = p2pData.uniqueFunctions()
+        }
+    }
+
 
     onOptionsChanged: {
         if(bar_enable_timeline &&  playbutton.icon.name==="play"){
@@ -58,17 +73,70 @@ Item {
 
     id: bottom_timeline_bar
     width: parent.width
-    height: 70
+    height: 95
     onWidthChanged: {
         timeline.width = width
         currentTime=0
         screenEdge+=parent.width
     }
 
+    ColumnLayout{
+
+        id: outer_timeline_layout
+
+        width: parent.width
+        height: parent.height
+        anchors.fill: parent
+        spacing: 0
+
+        Rectangle {
+            id: functions_text
+            //width: parent.width
+            implicitHeight: 25
+            implicitWidth: parent.width
+            color: "#4d4d4d"
+            Layout.fillHeight: true
+
+            RowLayout {
+                id: texts
+                width: parent.width
+                height: parent.height
+                spacing: 2
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.alignment: Qt.AlignVCenter
+
+                Text {
+                    Layout.leftMargin: 10
+                    Layout.preferredWidth: 100
+                    Layout.maximumWidth: 100
+                    Layout.fillWidth: true
+                    id: runtime
+                    color: "#00FF00"
+                    font.bold: false
+                    font.pixelSize: 16
+                    text: "time: " + Math.floor(timeline_positionmarker.x / tick) + " s"
+                }
+
+                Text {
+                    id: functions
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: parent.width - runtime.width
+                    color: "white"
+                    font.pixelSize: 16
+                    text: "MPI functions: " + nodesList.mpi_functions
+                }
+            }
+
+        }
+
+
+
     RowLayout{
         id: timeline_layout
-        anchors.fill: parent
-        width: parent.width
+        implicitHeight: 70
+        //Layout.fillHeight: parent.height - functions_text.height
+        Layout.fillWidth: parent.width
         spacing: 0
 
         Rectangle{
@@ -352,6 +420,7 @@ Item {
                 }
             }
         }
+    }
     }
 
 

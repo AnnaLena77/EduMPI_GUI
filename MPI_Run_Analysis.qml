@@ -64,6 +64,8 @@ Window {
         property int endTime: run_analysis_win.endTime
         property string option: run_analysis_win.option
 
+        property string functions: ""
+
         function flash() {
             opacityAnimation.start();
         }

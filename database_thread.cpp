@@ -204,6 +204,8 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
     QList<QVariantList> p2p_list;
     QList<QVariantList> coll_list;
 
+    QString s = "";
+
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     if (!db.isOpen()) {
         qDebug() << "Databaseconnection " << m_connectionName << " is not open";
@@ -231,6 +233,10 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
                      << query.value(2) // processrank
                      << query.value(3) ;// partnerrank
                 p2p_list.append(list);
+                QString fun = query.value(0).toString() + ", ";
+                if(!s.contains(fun)){
+                    s.append(fun);
+                }
             } else if(query.value(1) == "collective"){
                 QVariantList list;
                 list << query.value(0) // function
@@ -238,6 +244,10 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
                      << query.value(4) // coll algorithm
                      << query.value(5); //coll_partnerranks
                 coll_list.append(list);
+                QString fun = query.value(0).toString() + " (" + query.value(4).toString() + "), ";
+                if(!s.contains(fun)){
+                    s.append(fun);
+                }
             }
         }
 
@@ -246,6 +256,7 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
         qDebug() << "Query Error:" << fehler.text();
     }
     query.finish();
+    emit setFunctionsString(s);
     emit updateDetailedP2P(p2p_list);
     emit updateDetailedColl(coll_list);
 }

@@ -42,12 +42,12 @@ Rectangle {
                     //console.log(proc)
                     //console.log(positionMap[proc])
 
-                    if(type == "MPI_Send"){
+                    if(type.includes("end")){
                         //console.log(positionMap[proc])
                         //console.log(customGeo)
                         customGeoSend.addLine(positionMap[proc], positionMap[partner])
                     }
-                    else if(type == "MPI_Recv"){
+                    else if(type.includes("ecv")){
                         customGeoRecv.addLine(positionMap[proc], positionMap[partner])
                     }
                 }
@@ -65,6 +65,8 @@ Rectangle {
                 var type = collData.simple_data(row, "function")
                 var proc = collData.simple_data(row, "processrank")
                 var partner = collData.simple_data(row, "coll_partnerranks")
+
+                //console.log(type + " : " + proc + " -> " + partner)
 
                 if(partner != ""){
                     if (!(partner instanceof Array)) {
@@ -98,7 +100,7 @@ Rectangle {
             eulerRotation: Qt.vector3d(0,0,0)
 
             property vector3d initialPosition: Qt.vector3d(0, 0, 600)
-            property vector3d target: Qt.vector3d(0,0,0)
+            property vector3d target: Qt.vector3d(0,25,0)
             property real distance: 600
             property real angleX: 0
             property real angleY: 0
@@ -112,12 +114,12 @@ Rectangle {
 
             function zoom(distance){
                 cameraNode.distance += distance
-                if (cameraNode.distance >= 600) {
-                    cameraNode.distance = 600
+                if (cameraNode.distance >= 700) {
+                    cameraNode.distance = 700
                     cameraNode.position = cameraNode.initialPosition
                     cameraNode.angleX = 0
                     cameraNode.angleY = 0
-                        cameraNode.lookAt(cameraNode.target)
+                    cameraNode.lookAt(cameraNode.target)
                 } else {
                     cameraNode.updatePosition()
                 }
@@ -128,10 +130,10 @@ Rectangle {
             acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
             onWheel: event=>{
                 if(event.angleDelta.y>0){
-                    cameraNode.zoom(-15)
+                    cameraNode.zoom(-10)
                 }
                 else {
-                    cameraNode.zoom(15);
+                    cameraNode.zoom(10);
                 }
             }
         }
@@ -164,6 +166,7 @@ Rectangle {
                     cameraNode.angleX = Math.max(Math.min(cameraNode.angleX, Math.PI / 2), -Math.PI / 2)
 
                     cameraNode.updatePosition()
+                    //console.log(cameraNode.position);
                 }
             }
 
@@ -182,9 +185,9 @@ Rectangle {
                     var objectPosition = pickedObject.position;
                     //console.log("Position " + objectPosition);
 
-                    var zoomDistance = 10; // Entfernung der Kamera zum Objekt
+                    var zoomDistance = 15; // Entfernung der Kamera zum Objekt
                     var cameraDirection = Qt.vector3d(0, 0, -1); // Richtung der Kamera (zum Beispiel nach vorne gerichtet)
-                    var cameraPosition = Qt.vector3d(objectPosition.x, objectPosition.y, objectPosition.z+150);
+                    var cameraPosition = Qt.vector3d(objectPosition.x, objectPosition.y, objectPosition.z+170);
 
                     //console.log("Kameraposition " + cameraPosition);
 
@@ -233,6 +236,7 @@ Rectangle {
                 }
 
                 Node {
+                    id: cubes
 
                     Model {
                         id: innerCube
@@ -258,12 +262,14 @@ Rectangle {
                             innerCubeScale: outerCube.scale.x / rowsColumns * (1 - innerCubeSpacing) // Berechnung der Skalierung des inneren Würfels
                         }
                         Component.onCompleted: {
-                            //console.log(instanceDatas.innerCubeCount)
+                            //console.log()
                         }
 
                         materials: [
                             DefaultMaterial{
                                 depthDrawMode: Material.AlwaysDepthDraw
+                                //lighting: DefaultMaterial.FragmentLighting
+                                opacity: (coll_lines || p2p_send_lines || p2p_recv_lines) ? 0.75 : 1.0
                             }
                         ]
                     }
@@ -280,7 +286,8 @@ Rectangle {
                         //opacity: 0
                         materials: [
                             DefaultMaterial{
-                                depthDrawMode: Material.AlwaysDepthDraw
+                                depthDrawMode: (coll_lines || p2p_send_lines || p2p_recv_lines) ?
+                                                   Material.OpaqueOnlyDepthDraw : Material.AlwaysDepthDraw
                                 diffuseMap: Texture {
                                     sourceItem: Rectangle {
                                         width: 200 / instanceDatas.rowsColumns
@@ -302,20 +309,26 @@ Rectangle {
                             if(rectangle.load){
                                 if(position != Qt.vector3d(0.0, 0.0, 0.0)){
                                     var id = listNodes.nodeAt(outerCubeId).rankAt(index).getId()
-                                    var pos = mapPositionToScene(position)
+                                    //var pos = mapPositionToScene(position)
+                                    //console.log(position)
+                                    var pos = Qt.vector3d(position.x, position.y, position.z)
+                                    var testPos = mapPositionToNode(cubes, position);
+                                    var globalPos = outerCube.position.plus(testPos);
+                                    var halfSize = sc / 2;
+                                    //var pos = Qt.vector3d(globalPos.x, globalPos.y, globalPos.z);
+
+                                    var mappedPos = mapPositionToScene(position);
+                                    //console.log("testPos: " + testPos)
+                                    //console.log("mappedPos: " + mappedPos)
+                                    //var halfSize = sc / 2;
+                                    //var pos = Qt.vector3d(mappedPos.x + halfSize, mappedPos.y + halfSize, mappedPos.z + halfSize);
+
+
                                     //rectangle.parent.map[id] = pos //Qt.vector3d(pos.x, pos.y, pos.z);
-                                    positionMap[id] = pos
+                                    positionMap[id] = globalPos
                                 }
                             }
-
-                            /*if(outerCubeId == 0 && index == 0){
-                                console.log(listNodes.nodeAt(outerCubeId).rankAt(index).getId() + ": " + listNodes.nodeAt(outerCubeId).rankAt(index).position)
-                            }*/
-                            //console.log("OuterCube: " + outerCubeId);
-                            //console.log("Rank at: " + index);
-                            //console.log("Name: " + listNodes.nodeAt(outerCubeId).getName())
                         }
-
                     }
                 }
             }
@@ -357,19 +370,19 @@ Rectangle {
             }
             visible: coll_lines
             materials: DefaultMaterial {
+                depthDrawMode: Material.AlwaysDepthDraw
                 diffuseColor: "black"
-                emissiveFactor: Qt.vector3d(0.1, 0.1, 0.1)
-                lineWidth: 1.0
+                emissiveFactor: Qt.vector3d(0.05, 0.05, 0.05)
+                lineWidth: 1.2
             }
         }
 
+
         DirectionalLight {
-            eulerRotation: Qt.vector3d(250, -30, 0);
-            brightness: 1.0
+            eulerRotation: Qt.vector3d(250, -30, 0);  // Relativ zur Kamera
+            //rotation: cameraNode.rotation  // Immer gleich zur Kamera
+            brightness: 0.8
             ambientColor: "#7f7f7f"
-            /*color: "white"
-            worldDirection: Qt.vector3d(250, -30, 0)
-            intensity: 1.0*/
         }
     }
     Timer {
