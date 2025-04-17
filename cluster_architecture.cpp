@@ -100,6 +100,8 @@ void Cluster_Architecture::startThread(){
     Database_Thread::connect(m_dbThread, &Database_Thread::updateDetailedP2P, &m_detailed_p2p, &Detailed_p2p_data::queryData);
     Database_Thread::connect(m_dbThread, &Database_Thread::updateDetailedColl, &m_detailed_coll, &Detailed_coll_data::queryData);
 
+    Database_Thread::connect(m_dbThread, &Database_Thread::setFunctionsString, this, &Cluster_Architecture::set_mpi_functions);
+
     //database_thread.start();
     database_thread.start();
 
@@ -173,6 +175,15 @@ int Cluster_Architecture::end_time(){
     return m_end_time;
 }
 
+int Cluster_Architecture::time_display(){
+    return m_time_display;
+}
+
+void Cluster_Architecture::set_time_display(int dis){
+    m_time_display = dis;
+    emit time_displayChanged();
+}
+
 void Cluster_Architecture::set_coll_send_max(long max){
     m_coll_send_max = max;
     emit coll_send_max_changed();
@@ -211,6 +222,15 @@ void Cluster_Architecture::set_end_time(int time){
         QDateTime timestamp = m_start_timestamp.addSecs(time);
         emit end_timeChanged(timestamp);
     }
+}
+
+void Cluster_Architecture::set_mpi_functions(QString string){
+    m_mpi_functions = string;
+    emit mpi_functions_changed();
+}
+
+QString Cluster_Architecture::mpi_functions(){
+    return m_mpi_functions;
 }
 
 Cluster_Node* Cluster_Architecture::nodeAt(int index){

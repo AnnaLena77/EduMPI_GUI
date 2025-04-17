@@ -15,8 +15,6 @@ void Detailed_coll_data::queryData(QList<QVariantList> query){
     beginResetModel();
     m_coll_data.clear();
 
-    //m_coll_data = query;
-
         for (const QVariantList& entry : query) {
             if (entry.size() < 4) continue;  // Stelle sicher, dass die 4. Position existiert
 
@@ -47,6 +45,7 @@ void Detailed_coll_data::queryData(QList<QVariantList> query){
 
     endResetModel();
     emit newDataInsertion();
+    //set_uniqueFunctions();
 
 }
 int Detailed_coll_data::rowCount(const QModelIndex &parent) const {
@@ -98,4 +97,16 @@ QHash<int, QByteArray> Detailed_coll_data::roleNames() const {
     roles[coll_algorithm] = "coll_algorithm";
     roles[coll_partnerranks] = "coll_partnerranks";
     return roles;
+}
+void Detailed_coll_data::set_uniqueFunctions() {
+    QSet<QString> uniqueSet;
+    for (const QVariantList &row : m_coll_data) {
+        uniqueSet.insert(row.at(0).toString());  // Annahme: Funktion ist in Spalte 0
+    }
+    m_uniqueFunctions = uniqueSet.values().join(", ");
+    emit uniqueFunctions_Changed();
+}
+
+QString Detailed_coll_data::uniqueFunctions() const{
+    return m_uniqueFunctions;
 }

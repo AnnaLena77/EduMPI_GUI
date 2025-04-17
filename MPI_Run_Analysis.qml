@@ -16,12 +16,13 @@ Window {
     onClosing: {
         ascreen.clear();
         if(nodesList){
+            bottom_main.close = true
             nodesList.destroy();
         }
     }
 
     //property alias ascreen: ascreen
-    title: qsTr("EduMPI")
+
 
     property int analysis_slurm_id: 0
     property Controller controller: null
@@ -62,6 +63,8 @@ Window {
         anchors.fill: parent
         property int endTime: run_analysis_win.endTime
         property string option: run_analysis_win.option
+
+        property string functions: ""
 
         function flash() {
             opacityAnimation.start();

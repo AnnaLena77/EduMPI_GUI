@@ -342,7 +342,7 @@ Rectangle {
                 }
             } else if(p2p) {
                 return (p2p_data/p2p_time_diff * 100).toFixed(2)+ "%" ;
-            } else if(coll) {
+            } else if(collective) {
                 return (coll_data/coll_time_diff * 100).toFixed(2) + "%";
             }
         } else if(send_recv == "recv"){
@@ -373,7 +373,7 @@ Rectangle {
                 }
             } else if(p2p) {
                 return (p2p_data/p2p_time_diff * 100).toFixed(2) + "%";
-            } else if(coll) {
+            } else if(collective) {
                 return (coll_data/coll_time_diff * 100).toFixed(2) + "%";
             }
         }

@@ -68,6 +68,8 @@ signals:
     void eduMPIJobsFetched(const QVariantList &jobIds);
     void thread_runningChanged();
 
+    void setFunctionsString(QString string);
+
 private:
 
     //database_connection
