@@ -18,7 +18,8 @@ public:
     void killProcess();
     static QString getBashPath();
 
-    int slurm_job_id=0;
+    int slurm_job_id = 0;
+    int script_pid = 0;
 
 signals:
     void slurmIdReady(const int);

@@ -15,6 +15,8 @@ SSH_PORT=22 # Standard ist 22, ändern Sie dies, falls notwendig
 #SSH_OPTIONS="-o ControlMaster=auto -o ControlPath=${CONTROL_PATH} -o ControlPersist=600"
 SSH_OPTIONS=""
 
+echo "SCRIPT_PID=$$"
+
 # Funktion zur Ausführung eines Kommandos auf dem Remote-Host
 function remote_command() {
     local COMMAND=$1

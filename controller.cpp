@@ -485,8 +485,14 @@ void Controller::getSlurmID(const int id){
 
 void Controller::cancelRunningJob(){
     std::cout << "Signal: cancelRunningJob" << std::endl;
-    int signal = SIGTERM;
-    slurm_process->sendSignal(signal);
+
+    if (QOperatingSystemVersion::currentType() == QOperatingSystemVersion::Windows) {
+        QProcess::execute(Bash_Process_Manager::getBashPath(), QStringList{ "-c", QString("kill -s SIGTERM %1").arg(slurm_process->script_pid)});
+    } else {
+        int signal = SIGTERM;
+        slurm_process->sendSignal(signal);
+    }
+
     slurm_process->killProcess();
 }
 

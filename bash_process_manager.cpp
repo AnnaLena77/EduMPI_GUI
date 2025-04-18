@@ -57,6 +57,18 @@ void Bash_Process_Manager::handleOutput()
 {
     QString output = process->readAllStandardOutput();
 
+    if (output.contains("SCRIPT_PID"))
+    {
+        QString scriptPID = output.mid(output.indexOf('=') + 1).trimmed();
+        int scriptPidToInt = scriptPID.toInt();
+
+        if (script_pid != scriptPidToInt)
+        {
+            script_pid = scriptPidToInt;
+            std::cout << "script pid changed: " << script_pid << std::endl;
+        }
+    }
+
     //if(slurm_job_id==0){
     if(output.contains("JOB_ID=")){
         QString jobId = output.mid(output.indexOf('=') + 1).trimmed();
