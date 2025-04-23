@@ -167,7 +167,8 @@ void Database_Thread::updateData(const int &time_display){
         queryString = QString("SELECT processorname, processrank, communicationtype, SUM(send_ds) AS send_ds, SUM(recv_ds) AS recv_ds, SUM(time_diff) AS time_diff, SUM(latesendertime) AS latesendertime, SUM(laterecvrtime) AS laterecvrtime FROM edumpi_secondly_data WHERE edumpi_run_id = %1 AND time_end >= '%2' AND time_start <= '%2' GROUP BY processorname, processrank, communicationtype;").arg(m_slurm_id).arg(ts_toUTC.toString("yyyy-MM-dd HH:mm:ss"));
     }
     else if(time_display == 1){
-        queryString = QString("SELECT processrank, processorname, communicationtype, SUM(sendDatasize) AS send_ds, SUM(recvDatasize) AS recv_ds FROM edumpi_secondly_data WHERE edumpi_run_id=%1 GROUP BY processorname, processrank, communicationtype ORDER BY processrank ASC").arg(m_slurm_id);
+         QDateTime ts_toUTC = m_actualDBEntryTime.toUTC();
+        queryString = QString("SELECT processorname, processrank, communicationtype, SUM(send_ds) AS send_ds, SUM(recv_ds) AS recv_ds, SUM(time_diff) AS time_diff, SUM(latesendertime) AS latesendertime, SUM(laterecvrtime) AS laterecvrtime FROM edumpi_secondly_data WHERE edumpi_run_id = %1 AND (time_end <= '%2' OR time_start <= '%2') GROUP BY processorname, processrank, communicationtype;").arg(m_slurm_id).arg(ts_toUTC.toString("yyyy-MM-dd HH:mm:ss"));
     }
 
     //std::cout << queryString.toStdString() << std::endl;
@@ -212,6 +213,8 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
     QList<QVariantList> p2p_list;
     QList<QVariantList> coll_list;
 
+    QString s = "";
+
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     if (!db.isOpen()) {
         qDebug() << "Databaseconnection " << m_connectionName << " is not open";
@@ -239,6 +242,10 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
                      << query.value(2) // processrank
                      << query.value(3) ;// partnerrank
                 p2p_list.append(list);
+                QString fun = query.value(0).toString() + ", ";
+                if(!s.contains(fun)){
+                    s.append(fun);
+                }
             } else if(query.value(1) == "collective"){
                 QVariantList list;
                 list << query.value(0) // function
@@ -246,6 +253,10 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
                      << query.value(4) // coll algorithm
                      << query.value(5); //coll_partnerranks
                 coll_list.append(list);
+                QString fun = query.value(0).toString() + " (" + query.value(4).toString() + "), ";
+                if(!s.contains(fun)){
+                    s.append(fun);
+                }
             }
         }
 
@@ -254,6 +265,7 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
         qDebug() << "Query Error:" << fehler.text();
     }
     query.finish();
+    emit setFunctionsString(s);
     emit updateDetailedP2P(p2p_list);
     emit updateDetailedColl(coll_list);
 }

@@ -42,7 +42,7 @@ trap 'handle_cancel_signal' SIGTERM
 REMOTE_COMMANDS=$(cat <<EOF
 cd $REMOTE_DIR && \
 chmod +x $JOB_SCRIPT && \
-sbatch --parsable ./$JOB_SCRIPT
+nix-shell -p --run "sbatch --parsable ./$JOB_SCRIPT"
 EOF
 )
 

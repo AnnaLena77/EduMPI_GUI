@@ -10,6 +10,8 @@ Rectangle {
     implicitHeight: 500
     color: "#383936"
 
+    //property var nodesList : parent.nodesList
+
     Rectangle {
         id: rectangle
         //anchors.fill: parent
@@ -174,6 +176,19 @@ Rectangle {
                     collective = coll_check.checkState
                 }
             }
+            CheckBox {
+                id: osc_check
+                HoverHandler {
+                    cursorShape: Qt.PointingHandCursor
+                }
+                Layout.alignment: Qt.AlignLeft
+                Layout.leftMargin: 40
+                checked: true
+                text: qsTr("One-Sided")
+                onCheckStateChanged: {
+
+                }
+            }
             /*CheckBox {
         checked: true
         text: qsTr("One-Sided")
@@ -197,7 +212,7 @@ Rectangle {
                 checked: true
                 text: qsTr("Secondly data")
                 onCheckStateChanged: {
-                    if(secondly_check.checked == true) nodesList.time_display = 0;
+                    if(secondly_check.checked == true) nodesList.set_time_display(0);
                     total_check.checked = !secondly_check.checked
                 }
             }
@@ -211,7 +226,7 @@ Rectangle {
                 checked: false
                 text: qsTr("total data")
                 onCheckStateChanged: {
-                    if(total_check.checked == true) nodesList.time_display = 1;
+                    if(total_check.checked == true) nodesList.set_time_display(1);
                     secondly_check.checked = !total_check.checked
                 }
             }

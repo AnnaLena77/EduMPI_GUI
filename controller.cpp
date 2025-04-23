@@ -259,8 +259,8 @@ void Controller::writeLocalBashFile(QString local_path, bool file, int proc_num)
                 out << "scp \"" + m_remote_bash_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files";
             } else{
-                out << "mkdir " + local_path  + "/tmp\n";
-                out << "scp -r \"" + local_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
+                out << "mkdir -p " + local_path  + "/tmp\n";
+                out << "rsync -avz \"" + local_path + "/" + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 int lastSlashIndex = local_path.lastIndexOf("/");
                 QString dir_name = local_path.mid(lastSlashIndex + 1);
                 out << "scp \"" + m_envFilePath + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
@@ -394,10 +394,13 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
 
         if(option == 0){
             scriptFile << "#SBATCH --cpus-per-task=2\n\n";
+            scriptFile << "#SBATCH --exclusive\n";
         } else if (option == 3){
             scriptFile << "#SBATCH --cpus-per-task=" << proc_num <<"\n\n";
+            scriptFile << "#SBATCH --exclusive\n";
         } else {
             scriptFile << "#SBATCH --cpus-per-task=1\n\n";
+            scriptFile << "#SBATCH --exclusive\n";
         }
 
         if(option == 0){

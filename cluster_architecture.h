@@ -34,8 +34,12 @@ class Cluster_Architecture : public QObject
 
     Q_PROPERTY(int end_time READ end_time WRITE set_end_time NOTIFY end_timeChanged)
 
+    Q_PROPERTY(int time_display READ time_display WRITE set_time_display NOTIFY time_displayChanged)
+
     Q_PROPERTY(Detailed_p2p_data* detailedP2P READ detailedP2P CONSTANT)
     Q_PROPERTY(Detailed_coll_data* detailedColl READ detailedColl CONSTANT)
+
+    Q_PROPERTY(QString mpi_functions READ mpi_functions WRITE set_mpi_functions NOTIFY mpi_functions_changed)
 
     QThread database_thread;
 
@@ -55,6 +59,8 @@ public:
     int slurm_id();
     int proc_num();
     int end_time();
+    int time_display();
+    QString mpi_functions();
 
     void set_p2p_send_max(long max);
     void set_coll_send_max(long max);
@@ -67,6 +73,7 @@ public:
     Q_INVOKABLE void startThread();
     Q_INVOKABLE void set_slurm_id(int id);
     Q_INVOKABLE void set_proc_num(int proc);
+    Q_INVOKABLE void set_time_display(int dis);
     Q_INVOKABLE void setOption(int opt);
 
     //Invokables for Timeline
@@ -92,6 +99,9 @@ signals:
     void slurm_id_changed();
     void proc_num_changed();
     void end_timeChanged(QDateTime time);
+
+    void time_displayChanged();
+    void mpi_functions_changed();
 
     //Signals for Thread
     void signalToConnect(const QString &, const QString &, const int &, const QString &, const QString &);
@@ -119,6 +129,7 @@ public slots:
     void removeClusterComponents();
     //set bool = 1 for start-timestamp and bool = 0 for end-timestamp
     void handleTimestamp(QDateTime timestamp, bool start);
+    void set_mpi_functions(QString string);
 
 private:
 
@@ -156,6 +167,8 @@ private:
     //database detailed data
     Detailed_p2p_data m_detailed_p2p;
     Detailed_coll_data m_detailed_coll;
+
+    QString m_mpi_functions;
 
 protected:
     void timerEvent(QTimerEvent *event);
