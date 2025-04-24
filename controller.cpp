@@ -253,16 +253,16 @@ void Controller::writeLocalBashFile(QString local_path, bool file, int proc_num)
             if(file){
                 if(m_option != 3){
                     out << "scp \"" + m_envFilePath + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
-                    //m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files";
                 }
                 out << "scp \"" + local_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 out << "scp \"" + m_remote_bash_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files";
             } else{
                 out << "mkdir -p " + local_path  + "/tmp\n";
-                out << "rsync -avz \"" + local_path + "/" + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 int lastSlashIndex = local_path.lastIndexOf("/");
                 QString dir_name = local_path.mid(lastSlashIndex + 1);
+                out << "ssh \"$REMOTE_USER@$REMOTE_HOST\" rm -rf \"$REMOTE_DIR/" + dir_name + "\"\n";
+                out << "scp -r \"" + local_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR" + "\"\n";
                 out << "scp \"" + m_envFilePath + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
                 out << "scp \"" + m_remote_bash_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/" + "\"\n";
                 m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files/" + dir_name;
