@@ -67,6 +67,7 @@ Rectangle {
                     text: ".c File"
                     checked: true
                     palette.buttonText: "#999999"
+                    palette.base: "#333333"
                     HoverHandler {
                         cursorShape: Qt.PointingHandCursor
                     }
@@ -76,6 +77,7 @@ Rectangle {
                     text: "Folder"
                     checked: false
                     palette.buttonText: "#999999"
+                    palette.base: "#333333"
                     HoverHandler {
                         cursorShape: Qt.PointingHandCursor
                     }
