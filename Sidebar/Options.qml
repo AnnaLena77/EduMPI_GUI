@@ -157,6 +157,7 @@ Rectangle {
                 }
                 Layout.alignment: Qt.AlignLeft
                 Layout.leftMargin: 40
+                palette.base: "#333333"
                 checked: true
                 text: qsTr("P2P")
                 onCheckStateChanged: {
@@ -170,6 +171,7 @@ Rectangle {
                 }
                 Layout.alignment: Qt.AlignLeft
                 Layout.leftMargin: 40
+                palette.base: "#333333"
                 checked: true
                 text: qsTr("Collective")
                 onCheckStateChanged: {
@@ -183,6 +185,7 @@ Rectangle {
                 }
                 Layout.alignment: Qt.AlignLeft
                 Layout.leftMargin: 40
+                palette.base: "#333333"
                 checked: true
                 text: qsTr("One-Sided")
                 onCheckStateChanged: {
@@ -209,6 +212,7 @@ Rectangle {
                 }
                 Layout.alignment: Qt.AlignLeft
                 Layout.leftMargin: 40
+                palette.base: "#333333"
                 checked: true
                 text: qsTr("Secondly data")
                 onCheckStateChanged: {
@@ -223,6 +227,7 @@ Rectangle {
                 }
                 Layout.alignment: Qt.AlignLeft
                 Layout.leftMargin: 40
+                palette.base: "#333333"
                 checked: false
                 text: qsTr("total data")
                 onCheckStateChanged: {

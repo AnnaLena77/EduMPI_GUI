@@ -49,6 +49,7 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 40
+                palette.base: "#333333"
                 checked: true
                 text: qsTr("3D Nodes (Cube View)")
                 onCheckStateChanged: {
@@ -66,6 +67,7 @@ Rectangle {
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignRight
                 Layout.rightMargin: 40
+                palette.base: "#333333"
                 checked: false
                 text: qsTr("2D Nodes (List View)")
                 onCheckStateChanged: {
