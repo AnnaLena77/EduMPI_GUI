@@ -37,21 +37,21 @@ jobs:
       - name: Create Ninja.build with CMake
         run: |
           mkdir windows-build
-          C:\Qt\Tools\CMake_64\bin\cmake.exe -G "Ninja" -S . -B windows-build -DCMAKE_MAKE_PROGRAM="C:\Qt\Tools\Ninja\ninja.exe"
+          cmake -G "Ninja" -S . -B windows-build -DCMAKE_MAKE_PROGRAM=ninja
 
       - name: Build with Ninja
-        run: C:\Qt\Tools\Ninja\ninja.exe -C windows-build
+        run: ninja -C windows-build
 
       - name: Run windeployqt
-        run: C:\Qt\6.8.1\mingw_64\bin\windeployqt.exe --qmldir .. --dir release appGUI_Cluster.exe
+        run: windeployqt --qmldir .. --dir release appGUI_Cluster.exe
 
       - name: Add Postgres DLLs
         run: |
-          copy "C:\msys64\mingw64\bin\libpq.dll" windows-build/release
-          copy "C:\msys64\mingw64\bin\libssl-3-x64.dll" windows-build/release
-          copy "C:\msys64\mingw64\bin\libcrypto-3-x64.dll" windows-build/release
-          copy "C:\msys64\mingw64\bin\libintl-8.dll" windows-build/release
-          copy "C:\msys64\mingw64\bin\libiconv-2.dll" windows-build/release
+          copy "$env:MSYS2_LOCATION\mingw64\bin\libpq.dll" windows-build/release
+          copy "$env:MSYS2_LOCATION\mingw64\bin\libssl-3-x64.dll" windows-build/release
+          copy "$env:MSYS2_LOCATION\mingw64\bin\libcrypto-3-x64.dll" windows-build/release
+          copy "$env:MSYS2_LOCATION\mingw64\bin\libintl-8.dll" windows-build/release
+          copy "$env:MSYS2_LOCATION\mingw64\bin\libiconv-2.dll" windows-build/release
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
