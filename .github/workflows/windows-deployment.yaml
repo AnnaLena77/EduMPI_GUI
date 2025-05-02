@@ -23,8 +23,7 @@ jobs:
           host: windows
           target: desktop
           arch: win64_mingw
-          dir: ${{ runner.temp }}
-          modules: qtquick3d
+          modules: 'qtquick3d'
           tools: 'tools_mingw1310 tools_cmake tools_ninja'
           cache: true
 
