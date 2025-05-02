@@ -26,7 +26,6 @@ jobs:
           dir: ${{ runner.temp }}
           modules: qtquick3d
           tools: 'tools_mingw1310 tools_cmake tools_ninja'
-          setup-python: false
           cache: true
 
       - name: Install MSYS Postgres
