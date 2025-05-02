@@ -2,7 +2,6 @@ name: Deploy EduMPI GUI for Windows
 
 env:
   QT_VERSION: 6.8.1
-  MSYS2_LOCATION: ${{ steps.msys2.outputs.msys2-location }}
 
 on:
   push:
@@ -46,6 +45,8 @@ jobs:
         run: windeployqt --qmldir .. --dir release windows-build/appGUI_Cluster.exe
 
       - name: Add Postgres DLLs
+        env:
+          MSYS2_LOCATION: ${{ steps.msys2.outputs.msys2-location }}
         run: |
           copy "$env:MSYS2_LOCATION\mingw64\bin\libpq.dll" windows-build/release
           copy "$env:MSYS2_LOCATION\mingw64\bin\libssl-3-x64.dll" windows-build/release
