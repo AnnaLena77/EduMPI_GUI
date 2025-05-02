@@ -45,17 +45,18 @@ jobs:
       - name: Run windeployqt
         run: windeployqt --qmldir .. --dir release windows-build/appGUI_Cluster.exe
 
-      - name: Add Postgres DLLs
+      - name: Move executable and Postgres DLLs into release directory
         env:
           MSYS2_LOCATION: ${{ steps.msys2.outputs.msys2-location }}
         run: |
-          copy "$env:MSYS2_LOCATION\mingw64\bin\libpq.dll" windows-build/release
-          copy "$env:MSYS2_LOCATION\mingw64\bin\libssl-3-x64.dll" windows-build/release
-          copy "$env:MSYS2_LOCATION\mingw64\bin\libcrypto-3-x64.dll" windows-build/release
-          copy "$env:MSYS2_LOCATION\mingw64\bin\libintl-8.dll" windows-build/release
-          copy "$env:MSYS2_LOCATION\mingw64\bin\libiconv-2.dll" windows-build/release
+          move windows-build/appGUI_Cluster.exe release
+          move "$env:MSYS2_LOCATION\mingw64\bin\libpq.dll" windows-build/release
+          move "$env:MSYS2_LOCATION\mingw64\bin\libssl-3-x64.dll" windows-build/release
+          move "$env:MSYS2_LOCATION\mingw64\bin\libcrypto-3-x64.dll" windows-build/release
+          move "$env:MSYS2_LOCATION\mingw64\bin\libintl-8.dll" windows-build/release
+          move "$env:MSYS2_LOCATION\mingw64\bin\libiconv-2.dll" windows-build/release
 
-      - name: Upload artifact
+      - name: Upload release directory as artifact
         uses: actions/upload-artifact@v4
         with:
           path: release/
