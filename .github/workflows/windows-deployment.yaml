@@ -1,0 +1,60 @@
+name: Deploy EduMPI GUI for Windows
+
+env:
+  QT_VERSION: 6.8.1
+
+on:
+  push:
+    branches:
+      - 'master'
+      - 'windows-deployment'
+
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: windows
+          target: desktop
+          arch: win64_mingw
+          dir: ${{ runner.temp }}
+          modules: qtquick3d
+          tools: 'tools_mingw1310 tools_cmake tools_ninja'
+          setup-python: false
+          cache: true
+
+      - name: Install MSYS Postgres
+        uses: msys2/setup-msys2@v2
+        with:
+          install: >-
+            mingw-w64-x86_64-postgresql
+      
+      - name: Create Ninja.build with CMake
+        run: |
+          mkdir windows-build
+          C:\Qt\Tools\CMake_64\bin\cmake.exe -G "Ninja" -S . -B windows-build -DCMAKE_MAKE_PROGRAM="C:\Qt\Tools\Ninja\ninja.exe"
+
+      - name: Build with Ninja
+        run: C:\Qt\Tools\Ninja\ninja.exe -C windows-build
+
+      - name: Run windeployqt
+        run: C:\Qt\6.8.1\mingw_64\bin\windeployqt.exe --qmldir .. --dir release appGUI_Cluster.exe
+
+      - name: Add Postgres DLLs
+        run: |
+          copy "C:\msys64\mingw64\bin\libpq.dll" windows-build/release
+          copy "C:\msys64\mingw64\bin\libssl-3-x64.dll" windows-build/release
+          copy "C:\msys64\mingw64\bin\libcrypto-3-x64.dll" windows-build/release
+          copy "C:\msys64\mingw64\bin\libintl-8.dll" windows-build/release
+          copy "C:\msys64\mingw64\bin\libiconv-2.dll" windows-build/release
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: windows-build/release/
