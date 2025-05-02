@@ -2,6 +2,7 @@ name: Deploy EduMPI GUI for Windows
 
 env:
   QT_VERSION: 6.8.1
+  MSYS2_LOCATION: ${{ steps.msys2.outputs.msys2-location }}
 
 on:
   push:
