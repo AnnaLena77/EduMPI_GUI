@@ -42,7 +42,7 @@ jobs:
         run: ninja -C windows-build
 
       - name: Run windeployqt
-        run: windeployqt --qmldir .. --dir release appGUI_Cluster.exe
+        run: windeployqt --qmldir .. --dir release windows-build/appGUI_Cluster.exe
 
       - name: Add Postgres DLLs
         run: |
