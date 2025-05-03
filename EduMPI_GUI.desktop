@@ -2,7 +2,7 @@
 Type=Application
 Name=EduMPI_GUI
 Exec=appGUI_Cluster
-Icon=EduMPI_GUI_icon
+Icon=EduMPI_GUI_logo
 Comment=GUI for EduMPI
 Terminal=true
 Categories=Utility;
