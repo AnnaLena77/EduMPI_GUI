@@ -32,12 +32,12 @@ jobs:
           sudo apt update && sudo apt install -y postgresql
 
       - name: Configure CMake
-        run: cmake -DCMAKE_INSTALL_PREFIX=/usr
+        run: cmake -S . -B build -DCMAKE_INSTALL_PREFIX=/usr
 
-      - name: Make
+      - name: Run Make
         run: |
           make -j$(nproc)
-          make install
+          make install DESTDIR=AppDir
 
       - name: Install linuxdeploy with plugins
         id: install-linuxdeploy
