@@ -1,0 +1,56 @@
+name: Deploy EduMPI GUI for Linux as AppImage
+
+env:
+  QT_VERSION: 6.8.1
+
+on:
+  push:
+    branches:
+      - 'master'
+      - 'windows-deployment'
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: 'linux'
+          target: 'desktop'
+          arch: 'linux_gcc_64'
+          modules: 'qtquick3d qtshadertools'
+          tools: 'tools_cmake'
+          cache: true
+
+      - name: Install Postgres
+        run: |
+          sudo apt update && sudo apt install -y postgresql
+
+      - name: Configure CMake
+        run: cmake -DCMAKE_INSTALL_PREFIX=/usr
+
+      - name: Make
+        run: |
+          make -j$(nproc)
+          make install
+
+      - name: Install linuxdeploy with plugins
+        id: install-linuxdeploy
+        uses: miurahr/install-linuxdeploy-action@v1
+        with:
+          plugins: qt appimage
+
+      - name: Run linuxdeploy
+        run: |
+          export DEPLOY_PLATFORM_THEMES=true
+          linuxdeploy --appdir AppDir --plugin qt -d EduMPI_GUI.desktop -i EduMPI_GUI_logo.png --output appimage
+
+      - name: Upload release directory as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          path: GUI_Cluster-x86_64.AppImage
