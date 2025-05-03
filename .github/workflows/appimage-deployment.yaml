@@ -50,10 +50,10 @@ jobs:
 
       - name: Run linuxdeploy
         env:
-          DEPLOY_PLATFORM_THEMES=true
-          QML_SOURCES_PATHS=..
-          QT_QPA_PLATFORMTHEME=GTK3
-          GTK_THEME=Adwaita:dark
+          DEPLOY_PLATFORM_THEMES: true
+          QML_SOURCES_PATHS: ..
+          QT_QPA_PLATFORMTHEME: GTK3
+          GTK_THEME: Adwaita:dark
         working-directory:
           build
         run: linuxdeploy --appdir AppDir --plugin qt -d EduMPI_GUI.desktop -i EduMPI_GUI_logo.png --output appimage
