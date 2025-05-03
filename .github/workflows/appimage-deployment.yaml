@@ -54,12 +54,10 @@ jobs:
           QML_SOURCES_PATHS: ..
           QT_QPA_PLATFORMTHEME: GTK3
           GTK_THEME: Adwaita:dark
-        working-directory:
-          build
-        run: linuxdeploy --appdir AppDir --plugin qt -d EduMPI_GUI.desktop -i EduMPI_GUI_logo.png --output appimage
+        working-directory: build
+        run: linuxdeploy --appdir AppDir --plugin qt -d ../EduMPI_GUI.desktop -i ../EduMPI_GUI_logo.png --output appimage
 
       - name: Upload release directory as artifact
         uses: actions/upload-artifact@v4
-        working-directory: build
         with:
-          path: GUI_Cluster-x86_64.AppImage
+          path: EduMPI_GUI-x86_64.AppImage
