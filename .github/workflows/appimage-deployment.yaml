@@ -27,9 +27,6 @@ jobs:
           tools: 'tools_cmake'
           cache: true
 
-      - name: Remove Mimer driver
-        run: rm "${QT_PLUGIN_PATH}/sqldrivers/libqsqlmimer.so"
-
       - name: Install Postgres
         run: |
           sudo apt update && sudo apt install -y postgresql
@@ -44,6 +41,9 @@ jobs:
       - name: Create AppDir with executable
         working-directory: build
         run: make install DESTDIR=AppDir
+
+      - name: Remove Mimer driver
+        run: rm "${QT_PLUGIN_PATH}/sqldrivers/libqsqlmimer.so"
 
       - name: Download and run linuxdeploy
         env:
