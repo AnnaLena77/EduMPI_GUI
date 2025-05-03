@@ -27,6 +27,9 @@ jobs:
           tools: 'tools_cmake'
           cache: true
 
+      - name: Remove Mimer driver
+        run: rm "${QT_PLUGIN_PATH}/sqldrivers/libqsqlmimer.so"
+
       - name: Install Postgres
         run: |
           sudo apt update && sudo apt install -y postgresql
