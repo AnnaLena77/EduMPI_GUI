@@ -55,7 +55,7 @@ jobs:
           QT_QPA_PLATFORMTHEME: GTK3
           GTK_THEME: Adwaita:dark
         working-directory: build
-        run: linuxdeploy --appdir AppDir --plugin qt -d ../EduMPI_GUI.desktop -i ../EduMPI_GUI_logo.png --output appimage
+        run: ${{ steps.install-linuxdeploy.outputs.linuxdeploy }} --appdir AppDir --plugin qt -d ../EduMPI_GUI.desktop -i ../EduMPI_GUI_logo.png --output appimage
 
       - name: Upload release directory as artifact
         uses: actions/upload-artifact@v4
