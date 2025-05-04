@@ -2,10 +2,6 @@ name: Deploy EduMPI GUI for Linux as AppImage
 
 env:
   QT_VERSION: 6.8.1
-#  DEPLOY_PLATFORM_THEMES: true
-#  QML_SOURCES_PATHS: ..
-#  QT_QPA_PLATFORMTHEME: GTK3
-#  GTK_THEME: Adwaita:dark
 
 on:
   push:
@@ -55,9 +51,12 @@ jobs:
           wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
           wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
           chmod +x linuxdeploy*.AppImage
+          export DEPLOY_PLATFORM_THEMES=true
+          export QT_QPA_PLATFORMTHEME=GTK3
+          export GTK_THEME=Adwaita:dark
           ./linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt -d ../EduMPI_GUI.desktop -i ../EduMPI_GUI_logo.png --output appimage
 
-      - name: Upload release directory as artifact
+      - name: Upload AppImage as artifact
         uses: actions/upload-artifact@v4
         with:
           path: build/EduMPI_GUI-x86_64.AppImage
