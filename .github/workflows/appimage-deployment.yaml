@@ -2,10 +2,10 @@ name: Deploy EduMPI GUI for Linux as AppImage
 
 env:
   QT_VERSION: 6.8.1
-  DEPLOY_PLATFORM_THEMES: true
-  QML_SOURCES_PATHS: ..
-  QT_QPA_PLATFORMTHEME: GTK3
-  GTK_THEME: Adwaita:dark
+#  DEPLOY_PLATFORM_THEMES: true
+#  QML_SOURCES_PATHS: ..
+#  QT_QPA_PLATFORMTHEME: GTK3
+#  GTK_THEME: Adwaita:dark
 
 on:
   push:
