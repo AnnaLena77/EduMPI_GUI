@@ -32,15 +32,30 @@ jobs:
           sudo apt update && sudo apt install -y postgresql libvulkan-dev
 
       - name: Configure CMake
-        run: cmake -S . -B build -DCMAKE_INSTALL_PREFIX=/usr
+        run: |
+          export QML_SOURCES_PATHS=${{ github.workspace }}
+          export DEPLOY_PLATFORM_THEMES=true
+          export QT_QPA_PLATFORMTHEME=GTK3
+          export GTK_THEME=Adwaita:dark
+          cmake -S . -B build -DCMAKE_INSTALL_PREFIX=/usr
 
       - name: Compile
         working-directory: build
-        run: make -j$(nproc)
+        run: |
+          export QML_SOURCES_PATHS=${{ github.workspace }}
+          export DEPLOY_PLATFORM_THEMES=true
+          export QT_QPA_PLATFORMTHEME=GTK3
+          export GTK_THEME=Adwaita:dark
+          make -j$(nproc)
 
       - name: Create AppDir with executable
         working-directory: build
-        run: make install DESTDIR=AppDir
+        run: |
+          export QML_SOURCES_PATHS=${{ github.workspace }}
+          export DEPLOY_PLATFORM_THEMES=true
+          export QT_QPA_PLATFORMTHEME=GTK3
+          export GTK_THEME=Adwaita:dark
+          make install DESTDIR=AppDir
 
       - name: Remove Mimer driver
         run: rm "${QT_PLUGIN_PATH}/sqldrivers/libqsqlmimer.so"
