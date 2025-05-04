@@ -40,7 +40,7 @@ Window {
                 //lineHeight: 1.3
                 readOnly: true
                 text: "<ol>" +
-                      "<li>Open a terminal on your local computer.</li><br></br>" +
+                      "<li>Open a terminal (Command Prompt for Windows users) on your local computer.</li><br></br>" +
                       "<li>Generate a new rsa key pair on your local computer (If you already have one, you can use this.):</li>" +
                       "<br><font face='Courier'>$ ssh-keygen -b 4096</font><br>" +
                       "<li>Enter a file in which to save the key. You can confirm the default path specified here with enter. <br>
