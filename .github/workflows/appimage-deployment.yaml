@@ -55,8 +55,7 @@ jobs:
           export DEPLOY_PLATFORM_THEMES=true
           export QT_QPA_PLATFORMTHEME=GTK3
           export GTK_THEME=Adwaita:dark
-          ./linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt -d ../EduMPI_GUI.desktop -i ../EduMPI_GUI_logo.png
-          ./linuxdeploy-plugin-appimage-x86_64.AppImage --appdir=AppDir
+          ./linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt -d ../EduMPI_GUI.desktop -i ../EduMPI_GUI_logo.png --output appimage
 
       - name: Upload AppImage as artifact
         uses: actions/upload-artifact@v4
