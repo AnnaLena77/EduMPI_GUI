@@ -2,6 +2,10 @@ name: Deploy EduMPI GUI for Linux as AppImage
 
 env:
   QT_VERSION: 6.8.1
+  DEPLOY_PLATFORM_THEMES: true
+  QML_SOURCES_PATHS: ..
+  QT_QPA_PLATFORMTHEME: GTK3
+  GTK_THEME: Adwaita:dark
 
 on:
   push:
@@ -29,7 +33,7 @@ jobs:
 
       - name: Install Postgres
         run: |
-          sudo apt update && sudo apt install -y postgresql
+          sudo apt update && sudo apt install -y postgresql vulkan-headers
 
       - name: Configure CMake
         run: cmake -S . -B build -DCMAKE_INSTALL_PREFIX=/usr
@@ -46,11 +50,6 @@ jobs:
         run: rm "${QT_PLUGIN_PATH}/sqldrivers/libqsqlmimer.so"
 
       - name: Download and run linuxdeploy
-        env:
-          DEPLOY_PLATFORM_THEMES: true
-          QML_SOURCES_PATHS: ..
-          QT_QPA_PLATFORMTHEME: GTK3
-          GTK_THEME: Adwaita:dark
         working-directory: build
         run: |
           wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
