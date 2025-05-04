@@ -52,9 +52,10 @@ jobs:
           wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
           chmod +x linuxdeploy*.AppImage
           export QML_SOURCES_PATHS=${{ github.workspace }}
-          export DEPLOY_PLATFORM_THEMES=true
-          export QT_QPA_PLATFORMTHEME=GTK3
-          export GTK_THEME=Adwaita:dark
+          mkdir -p AppDir/apprun-hooks
+          touch AppDir/apprun-hooks/set-adwaita-dark.sh
+          echo $QT_QPA_PLATFORMTHEME
+          echo "export GTK_THEME=Adwaita:dark" > AppDir/apprun-hooks/set-adwaita-dark.sh
           ./linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt -d ../EduMPI_GUI.desktop -i ../EduMPI_GUI_logo.png --output appimage
 
       - name: Upload AppImage as artifact
