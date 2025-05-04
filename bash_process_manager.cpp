@@ -49,7 +49,7 @@ void Bash_Process_Manager::sendSignal(int signal)
 {
     if (process->state() == QProcess::Running) {
         qDebug() << "Kill Signal";
-        process->kill();
+        process->terminate();
     }
 }
 
