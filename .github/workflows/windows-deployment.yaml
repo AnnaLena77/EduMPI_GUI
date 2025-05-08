@@ -33,6 +33,7 @@ jobs:
         with:
           install: >-
             mingw-w64-x86_64-postgresql
+            mingw-w64-x86_64-vulkan-devel
       
       - name: Create Ninja.build with CMake
         env:
