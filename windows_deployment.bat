@@ -1,6 +1,6 @@
 mkdir windows-build
 
-C:\Qt\Tools\CMake_64\bin\cmake.exe -G "Ninja" -S . -B windows-build -DCMAKE_MAKE_PROGRAM="C:\Qt\Tools\Ninja\ninja.exe"
+C:\Qt\Tools\CMake_64\bin\cmake.exe -G "Ninja" -S . -B windows-build -DCMAKE_MAKE_PROGRAM="C:\Qt\Tools\Ninja\ninja.exe" -DPostgreSQL_ROOT="C:\msys64\mingw64"
 
 cd windows-build
 

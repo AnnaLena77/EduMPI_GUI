@@ -18,7 +18,6 @@ if (WIN32)
             "C:/Qt/6.8.1/mingw_64/lib/cmake/Qt6"
             "C:/Qt/6.8.1/mingw_64/lib/cmake"
     )
-    set(PostgreSQL_ROOT "C:/msys64/mingw64")
 else ()
     set(CMAKE_PREFIX_PATH
             "/home/marv/Qt/6.8.1/gcc_64/lib/cmake/Qt6"
