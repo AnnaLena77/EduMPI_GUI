@@ -37,7 +37,7 @@ jobs:
       - name: Create Ninja.build with CMake
         run: |
           mkdir windows-build
-          cmake -G "Ninja" -S . -B windows-build -DCMAKE_MAKE_PROGRAM=ninja
+          cmake -G "Ninja" -S . -B windows-build -DCMAKE_MAKE_PROGRAM=ninja -DPostgreSQL_ROOT="C:\msys64\mingw64"
 
       - name: Build with Ninja
         run: ninja -C windows-build
