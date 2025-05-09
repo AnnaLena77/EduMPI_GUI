@@ -40,7 +40,7 @@ jobs:
           MSYS2_LOCATION: ${{ steps.msys2.outputs.msys2-location }}
         run: |
           mkdir windows-build
-          cmake -G "Ninja" -S . -B windows-build -DCMAKE_MAKE_PROGRAM=ninja -DPostgreSQL_ROOT="$env:MSYS2_LOCATION\mingw64" -DVulkan_INCLUDE_DIR="%MSYS2_LOCATION%\mingw64\include"
+          cmake -G "Ninja" -S . -B windows-build -DCMAKE_MAKE_PROGRAM=ninja -DPostgreSQL_ROOT="$env:MSYS2_LOCATION\mingw64" -DVulkan_INCLUDE_DIR="$env:MSYS2_LOCATION\mingw64\include"
 
       - name: Build with Ninja
         run: ninja -C windows-build
