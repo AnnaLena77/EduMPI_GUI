@@ -1,4 +1,4 @@
-name: Deploy EduMPI GUI for Linux as AppImage
+name: AppImage Deployment
 
 env:
   QT_VERSION: 6.8.1
