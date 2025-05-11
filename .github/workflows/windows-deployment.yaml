@@ -10,8 +10,8 @@ on:
       - 'windows-deployment'
 
 jobs:
-  build:
-    runs-on: windows-2022
+  deploy:
+    runs-on: windows-2025
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
