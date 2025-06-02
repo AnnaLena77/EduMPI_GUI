@@ -15,7 +15,7 @@ $ make install DESTDIR=AppDir
 4. Linux-Deploy mittels QMAKE vorbereiten (Korrekte Version verwenden)
 
 $ export QML_SOURCES_PATHS=/home/anna-lena/GUI_Cluster/
-$ export QMAKE=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/bin/qmake
+$ export QMAKE=/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/bin/qmake
 $ export DEPLOY_PLATFORM_THEMES=true
 
 5. .desktop file und icon erstellen:

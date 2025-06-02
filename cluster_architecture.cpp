@@ -360,8 +360,14 @@ void Cluster_Architecture::handleTimestamp(QDateTime timestamp, bool start){
 }
 
 void Cluster_Architecture::showConditionAt(int timeSecondsA, int timeSecondsB){
-    QDateTime timestampA = m_start_timestamp.addSecs(timeSecondsA);
-    QDateTime timestampB = m_start_timestamp.addSecs(timeSecondsB);
+    QDateTime timestampA, timestampB;
+    if(m_time_display == 0){
+        timestampA = m_start_timestamp.addSecs(timeSecondsA);
+        timestampB = m_start_timestamp.addSecs(timeSecondsB);
+    } else if (m_time_display == 1) {
+        timestampA = m_start_timestamp;
+        timestampB = m_start_timestamp.addSecs(timeSecondsB);
+    }
     //std::cout << "Timestamp A: " << timestampA.toString("hh:mm:ss").toStdString() << std::endl;
     //std::cout << "Timestamp B: " << timestampB.toString("hh:mm:ss").toStdString() << std::endl;
     emit signalToShowTimestampData(timestampA, timestampB);
