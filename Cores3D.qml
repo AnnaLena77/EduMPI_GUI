@@ -269,7 +269,7 @@ Rectangle {
                             DefaultMaterial{
                                 depthDrawMode: Material.AlwaysDepthDraw
                                 //lighting: DefaultMaterial.FragmentLighting
-                                opacity: (coll_lines || p2p_send_lines || p2p_recv_lines) ? 0.75 : 1.0
+                                opacity: (coll_lines || p2p_send_lines || p2p_recv_lines) ? 0.6 : 1.0
                             }
                         ]
                     }
@@ -343,7 +343,7 @@ Rectangle {
             materials: DefaultMaterial {
                 diffuseColor: "#00FF00"
                 emissiveFactor: Qt.vector3d(0.1, 0.1, 0.1)
-                lineWidth: 1.0
+                lineWidth: 2.0
             }
         }
 
@@ -360,7 +360,7 @@ Rectangle {
             materials: DefaultMaterial {
                 diffuseColor: "red"
                 emissiveFactor: Qt.vector3d(0.1, 0.1, 0.1)
-                lineWidth: 1.0
+                lineWidth: 2.0
             }
         }
         Model {

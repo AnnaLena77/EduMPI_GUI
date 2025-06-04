@@ -198,13 +198,8 @@ Item {
                             icon.name= "play"
                             timeline_timer.stop()
                             container_stopPositionX = timeline_container.contentX
-                            /*if(timeline_positionmarker.x >= timeline_endmarker.x){
-                                positionmarker_stopPositionX = 0
-                                nodesList.reset_bottom_bar()
+                            positionmarker_stopPositionX = timeline_positionmarker.x
 
-                            } else {*/
-                                positionmarker_stopPositionX = timeline_positionmarker.x
-                           // }
 
                             timeline_container.interactive=true
                             //nodesList.startAndStop(true);
@@ -382,10 +377,17 @@ Item {
                         onPressed: {
                             // Startpunkt des markierten Bereichs
                             if(playbutton.icon.name==="play"){
+
                                 timeline_container.interactive=false
                                 timeline_positionmarker.width = 2
-                                timeline_positionmarker.x = Math.floor(timeline_mousearea.mouseX/tick)*tick
-                                markerareaStart = Math.floor(timeline_mousearea.mouseX/tick)*tick
+                                if(nodesList.time_display == 0){
+                                    timeline_positionmarker.x = Math.floor(timeline_mousearea.mouseX/tick)*tick
+                                    markerareaStart = Math.floor(timeline_mousearea.mouseX/tick)*tick
+                                }
+                                else if(nodesList.time_display == 1){
+                                    timeline_positionmarker.x = 0
+                                    markerareaStart = 0
+                                }
                             }
 
                         }
