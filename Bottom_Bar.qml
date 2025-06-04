@@ -198,13 +198,8 @@ Item {
                             icon.name= "play"
                             timeline_timer.stop()
                             container_stopPositionX = timeline_container.contentX
-                            /*if(timeline_positionmarker.x >= timeline_endmarker.x){
-                                positionmarker_stopPositionX = 0
-                                nodesList.reset_bottom_bar()
+                            positionmarker_stopPositionX = timeline_positionmarker.x
 
-                            } else {*/
-                                positionmarker_stopPositionX = timeline_positionmarker.x
-                           // }
 
                             timeline_container.interactive=true
                             //nodesList.startAndStop(true);
