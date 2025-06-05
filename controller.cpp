@@ -574,8 +574,36 @@ void Controller::setTimestamp(QTime timestamp){
 }
 
 Table_UserID* Controller::getJobTable(){
+    m_job_table->loadJobs(m_cluster_ident);
     return m_job_table;
 }
+
+QVariantList Controller::open_job_windows() {
+    return m_open_job_windows;
+}
+
+bool Controller::check_open_window(int slurm_id) {
+    if(m_open_job_windows.isEmpty()){
+        return false;
+    }
+    return(m_open_job_windows.contains(slurm_id) ? true : false);
+}
+
+void Controller::append_open_window(int slurm_id){
+    m_open_job_windows.append(slurm_id);
+    std::cout << "append Slurm ID: " << slurm_id << std::endl;
+    emit open_job_windowsChanged();
+}
+
+void Controller::remove_open_window(int slurm_id) {
+    if(m_open_job_windows.isEmpty()){
+        return;
+    }
+    m_open_job_windows.remove(m_open_job_windows.indexOf(slurm_id));
+    std::cout << "removed Slurm ID: " << slurm_id << std::endl;
+    emit open_job_windowsChanged();
+}
+
 
 /*int Controller::count() const{
     return 42;
