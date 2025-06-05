@@ -583,6 +583,9 @@ QVariantList Controller::open_job_windows() {
 }
 
 bool Controller::check_open_window(int slurm_id) {
+    if(m_open_job_windows.isEmpty()){
+        return false;
+    }
     return(m_open_job_windows.contains(slurm_id) ? true : false);
 }
 
@@ -593,7 +596,7 @@ void Controller::append_open_window(int slurm_id){
 }
 
 void Controller::remove_open_window(int slurm_id) {
-    if(m_open_job_windows.empty()){
+    if(m_open_job_windows.isEmpty()){
         return;
     }
     m_open_job_windows.remove(m_open_job_windows.indexOf(slurm_id));

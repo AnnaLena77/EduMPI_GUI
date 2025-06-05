@@ -12,9 +12,6 @@ Window {
     width: 1920
     height: 1080
     visible: true
-    onClosing: {
-        controller.closeApp()
-    }
 
     //property alias actualScreen: actualScreen
     title: qsTr("EduMPI")
@@ -56,7 +53,7 @@ Window {
     property bool coll_lines: false
 
     onRestartsChanged: {
-        if(restarts > 0) {
+        if(restarts > 0 && restarts != null) {
             controller.copyEnvFile();
             controller.remove_open_window(slurmnotifier.sl_id)
             actualScreen.clear();
@@ -68,6 +65,11 @@ Window {
             nodesList.resetCluster_Architecture();
             loaderText = ""
         }
+    }
+
+    onClosing: {
+        controller.remove_open_window(slurmnotifier.sl_id)
+        controller.closeApp()
     }
 
 
@@ -147,7 +149,9 @@ Window {
                 }
                 nodesList.set_slurm_id(slurm_id);
                     slurmnotifier.sl_id = slurm_id
-                    controller.append_open_window(slurm_id)
+                    if(slurm_id > 0){
+                        controller.append_open_window(slurm_id)
+                    }
                 }
 
             onConnectionSignal: (success)=>{

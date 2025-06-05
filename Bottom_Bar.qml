@@ -124,7 +124,7 @@ Item {
                     Layout.preferredWidth: parent.width - runtime.width
                     color: "white"
                     font.pixelSize: 16
-                    text: "MPI functions: " + nodesList.mpi_functions
+                    text: nodesList ? "MPI functions: " + nodesList.mpi_functions : ""
                 }
             }
 
