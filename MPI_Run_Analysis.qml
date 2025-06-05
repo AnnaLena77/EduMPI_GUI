@@ -14,10 +14,17 @@ Window {
     visible: true
 
     onClosing: {
+        controller.remove_open_window(analysis_slurm_id)
         ascreen.clear();
         if(nodesList){
             bottom_main.close = true
             nodesList.destroy();
+        }
+    }
+
+    Component.onCompleted: {
+        if(analysis_slurm_id != 0){
+            controller.append_open_window(analysis_slurm_id);
         }
     }
 

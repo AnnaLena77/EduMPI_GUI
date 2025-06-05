@@ -121,7 +121,8 @@ ApplicationWindow {
                     }
                     onClicked: {
                         console.log("Slurm ID: " + selected_slurm_id)
-                        if(selected_slurm_id != 0){
+                        var disable_opening = controller.check_open_window(selected_slurm_id);
+                        if(selected_slurm_id != 0 && !disable_opening){
                             var component = Qt.createComponent("MPI_Run_Analysis.qml");
                             if(component.status === Component.Ready){
                                 /*if(controller == null){
@@ -132,6 +133,15 @@ ApplicationWindow {
                                 window.y = (root.height - window.height) / 2;
                                 window.show();
                             }
+                        }
+                        else {
+                            component = Qt.createComponent("Error.qml");
+                            var message = "EduMPI window for Slurm Job " + selected_slurm_id + " is already open!"
+                            window = component.createObject(root, {"message": message});
+                            window.x = (root.width - window.width) / 2;
+                            window.y = (root.height - window.height) / 2;
+                            window.show();
+                            //console.log("block window-opening, slurm-ID is already opened")
                         }
                     }
                     Keys.onPressed: (event)=> {

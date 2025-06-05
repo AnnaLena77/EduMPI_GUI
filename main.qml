@@ -58,6 +58,7 @@ Window {
     onRestartsChanged: {
         if(restarts > 0) {
             controller.copyEnvFile();
+            controller.remove_open_window(slurmnotifier.sl_id)
             actualScreen.clear();
             startTime = 0;
             endTime = 0;
@@ -146,6 +147,7 @@ Window {
                 }
                 nodesList.set_slurm_id(slurm_id);
                     slurmnotifier.sl_id = slurm_id
+                    controller.append_open_window(slurm_id)
                 }
 
             onConnectionSignal: (success)=>{
