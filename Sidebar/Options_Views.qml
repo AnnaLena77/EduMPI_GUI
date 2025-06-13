@@ -6,8 +6,8 @@ import QtQuick.Dialogs
 Rectangle {
     id: option_views
     width: 250
-    height: 260
-    implicitHeight: 260
+    height: 300
+    implicitHeight: 300
     color: "#383936"
 
     property StackView view;
@@ -25,6 +25,10 @@ Rectangle {
         border.color: "#00FF00"
         color: "transparent"
 
+        ButtonGroup {
+            id: checkboxgroup
+        }
+
         ColumnLayout{
             width: rectangle.width
             anchors.fill: parent
@@ -41,8 +45,11 @@ Rectangle {
                 //font.pointSize: 12
                 //Layout.alignment: Qt.AlignHCenter
             }
+
+
             CheckBox {
                 id: three_d_check
+                ButtonGroup.group: checkboxgroup
                 HoverHandler {
                     cursorShape: Qt.PointingHandCursor
                 }
@@ -54,12 +61,15 @@ Rectangle {
                 onCheckStateChanged: {
                     if(checked){
                         view.replace("/Cores3D.qml", {listNodes : nodesList})
+                        //three_d_check.checked = false
+                        //cm_check.checked = false
                     }
-                    two_d_check.checked = !three_d_check.checked
+                    //two_d_check.checked = !three_d_check.checked && !cm_check.checked
                 }
             }
             CheckBox {
                 id: two_d_check
+                ButtonGroup.group: checkboxgroup
                 HoverHandler {
                     cursorShape: Qt.PointingHandCursor
                 }
@@ -71,10 +81,33 @@ Rectangle {
                 onCheckStateChanged: {
                     if(checked){
                         view.replace("/Cores2D.qml", {listNodes : nodesList})
+                        //two_d_check.checked = false
+                        //cm_check.checked = false
                     }
-                    three_d_check.checked = !two_d_check.checked
+                    //three_d_check.checked = !two_d_check.checked && !cm_check.checked
                 }
             }
+            CheckBox {
+                id: cm_check
+                ButtonGroup.group: checkboxgroup
+                HoverHandler {
+                    cursorShape: Qt.PointingHandCursor
+                }
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignRight
+                Layout.rightMargin: 40
+                checked: false
+                text: qsTr("Communication Matrix")
+                onCheckStateChanged: {
+                    if(checked){
+                        view.replace("/CoresCommunicationMatrix.qml", {listNodes : nodesList})
+                        //three_d_check.checked = false
+                        //two_d_check.checked = false
+                    }
+                    //cm_check.checked = !two_d_check.checked && !three_d_check.checked
+                }
+            }
+
 
             Rectangle {
                 id: slider_rect
@@ -315,6 +348,73 @@ Rectangle {
                             Layout.fillHeight: true
                         }
 
+                    }
+                }
+            }
+            Rectangle {
+                id: slider_rect_zoom
+                width: parent.width
+                height: 80
+                color: "transparent"
+                Layout.alignment: Qt.AlignHCenter
+                visible: cm_check.checked
+
+                ColumnLayout {
+                    anchors.fill: parent
+                    //anchors.margins: 5
+
+                    Text {
+                        text: "Zoom:   " + mySlider_zoom.value.toFixed(0) + "%"
+                        color: "#999999"
+                        font.pointSize: 12
+                    }
+
+                    Slider {
+                        id: mySlider_zoom
+                        from: 50      // Minimalwert
+                        to: 300       // Maximalwert
+                        stepSize: 10  // Schrittweite
+                        value: 100    // Initialwert
+                        Layout.alignment: Qt.AlignHCenter
+
+                        onValueChanged: {
+                            //view.twoD_columns = value;
+                            view.matrix_zoom = value;
+                        }
+
+                        background: Rectangle {
+                            x: mySlider_zoom.leftPadding
+                            y: mySlider_zoom.topPadding + mySlider_zoom.availableHeight/2 - height/2
+                            implicitWidth: 200
+                            width: mySlider_zoom.availableWidth
+                            implicitHeight: 5
+                            height: 5
+                            color: "#00FF00"
+                        }
+                    }
+
+                    RowLayout {
+                        //spacing: 10
+                        //Layout.leftMargin: mySlider.leftPadding
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.fillWidth: mySlider_zoom.availableWidth
+                        Layout.preferredWidth: mySlider_zoom.width
+
+                        Text {
+                            text: mySlider_zoom.from + "%"
+                            font.pixelSize: 14
+                            color: "#999999"
+                            Layout.alignment: Qt.AlignLeft
+                            //Layout.preferredWidth: mySlider.width / 3
+                        }
+
+                        Text {
+                            text: mySlider_zoom.to + "%"
+                            font.pixelSize: 14
+                            color: "#999999"
+                            Layout.alignment: Qt.AlignRight
+                            //Layout.preferredWidth: mySlider.width / 3
+                        }
                     }
                 }
             }

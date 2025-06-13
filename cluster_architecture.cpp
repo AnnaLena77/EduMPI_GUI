@@ -101,6 +101,11 @@ void Cluster_Architecture::startThread(){
     Database_Thread::connect(m_dbThread, &Database_Thread::updateDetailedColl, &m_detailed_coll, &Detailed_coll_data::queryData);
 
     Database_Thread::connect(m_dbThread, &Database_Thread::setFunctionsString, this, &Cluster_Architecture::set_mpi_functions);
+    Database_Thread::connect(m_dbThread, &Database_Thread::setCommMatrixP2PSend, this, &Cluster_Architecture::set_p2p_send_volume_matrix);
+    Database_Thread::connect(m_dbThread, &Database_Thread::setCommMatrixP2PRecv, this, &Cluster_Architecture::set_p2p_recv_volume_matrix);
+    Database_Thread::connect(m_dbThread, &Database_Thread::setCommMatrixCollSend, this, &Cluster_Architecture::set_coll_send_volume_matrix);
+    Database_Thread::connect(m_dbThread, &Database_Thread::setCommMatrixCollRecv, this, &Cluster_Architecture::set_coll_recv_volume_matrix);
+
 
     //database_thread.start();
     database_thread.start();
@@ -380,3 +385,43 @@ Detailed_p2p_data* Cluster_Architecture::detailedP2P() {
 Detailed_coll_data* Cluster_Architecture::detailedColl() {
     return &m_detailed_coll;
 }
+
+//Methods for detailed matrices
+
+QVector<QVector<long>> Cluster_Architecture::p2p_send_volume_matrix() const{
+    return m_p2p_send_volume_matrix;
+}
+
+void Cluster_Architecture::set_p2p_send_volume_matrix(QVector<QVector<long>> matrix){
+    m_p2p_send_volume_matrix = matrix;
+    emit p2p_send_volume_matrix_changed();
+}
+
+QVector<QVector<long>> Cluster_Architecture::p2p_recv_volume_matrix() const{
+    return m_p2p_recv_volume_matrix;
+}
+
+void Cluster_Architecture::set_p2p_recv_volume_matrix(QVector<QVector<long>> matrix){
+    m_p2p_recv_volume_matrix = matrix;
+    emit p2p_recv_volume_matrix_changed();
+}
+
+QVector<QVector<long>> Cluster_Architecture::coll_send_volume_matrix() const{
+    return m_coll_send_volume_matrix;
+}
+
+void Cluster_Architecture::set_coll_send_volume_matrix(QVector<QVector<long>> matrix){
+    m_coll_send_volume_matrix = matrix;
+    emit coll_send_volume_matrix_changed();
+}
+
+QVector<QVector<long>> Cluster_Architecture::coll_recv_volume_matrix() const{
+    return m_coll_recv_volume_matrix;
+}
+
+void Cluster_Architecture::set_coll_recv_volume_matrix(QVector<QVector<long>> matrix){
+    m_coll_recv_volume_matrix = matrix;
+    emit coll_recv_volume_matrix_changed();
+}
+
+

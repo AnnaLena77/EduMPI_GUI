@@ -149,6 +149,7 @@ Window {
             id: ascreen
             property var map: []
             property int twoD_columns: 10
+            property int matrix_zoom: 100
             property int threeD_depth: 2
             property bool reload: true
 

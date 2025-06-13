@@ -41,6 +41,11 @@ class Cluster_Architecture : public QObject
 
     Q_PROPERTY(QString mpi_functions READ mpi_functions WRITE set_mpi_functions NOTIFY mpi_functions_changed)
 
+    Q_PROPERTY(QVector<QVector<long>> p2p_send_volume_matrix READ p2p_send_volume_matrix WRITE set_p2p_send_volume_matrix NOTIFY p2p_send_volume_matrix_changed)
+    Q_PROPERTY(QVector<QVector<long>> p2p_recv_volume_matrix READ p2p_recv_volume_matrix WRITE set_p2p_recv_volume_matrix NOTIFY p2p_recv_volume_matrix_changed)
+    Q_PROPERTY(QVector<QVector<long>> coll_send_volume_matrix READ coll_send_volume_matrix WRITE set_coll_send_volume_matrix NOTIFY coll_send_volume_matrix_changed)
+    Q_PROPERTY(QVector<QVector<long>> coll_recv_volume_matrix READ coll_recv_volume_matrix WRITE set_coll_recv_volume_matrix NOTIFY coll_recv_volume_matrix_changed)
+
     QThread database_thread;
 
 public:
@@ -50,6 +55,12 @@ public:
 
     Detailed_p2p_data* detailedP2P();
     Detailed_coll_data* detailedColl();
+
+    //detailed matrices
+    QVector<QVector<long>> p2p_send_volume_matrix() const;
+    QVector<QVector<long>> p2p_recv_volume_matrix() const;
+    QVector<QVector<long>> coll_send_volume_matrix() const;
+    QVector<QVector<long>> coll_recv_volume_matrix() const;
 
     int count() const;
     long p2p_send_max();
@@ -122,6 +133,11 @@ signals:
 
     void reset_bottom_bar();
 
+    void p2p_send_volume_matrix_changed();
+    void p2p_recv_volume_matrix_changed();
+    void coll_send_volume_matrix_changed();
+    void coll_recv_volume_matrix_changed();
+
 
 public slots:
     void buildClusterComponents(const QMap<QString, QVector<int>> &);
@@ -130,6 +146,11 @@ public slots:
     //set bool = 1 for start-timestamp and bool = 0 for end-timestamp
     void handleTimestamp(QDateTime timestamp, bool start);
     void set_mpi_functions(QString string);
+
+    void set_p2p_send_volume_matrix(QVector<QVector<long>> matrix);
+    void set_p2p_recv_volume_matrix(QVector<QVector<long>> matrix);
+    void set_coll_send_volume_matrix(QVector<QVector<long>> matrix);
+    void set_coll_recv_volume_matrix(QVector<QVector<long>> matrix);
 
 private:
 
@@ -169,6 +190,12 @@ private:
     Detailed_coll_data m_detailed_coll;
 
     QString m_mpi_functions;
+
+    //Communication matrices
+    QVector<QVector<long>> m_p2p_send_volume_matrix;
+    QVector<QVector<long>> m_p2p_recv_volume_matrix;
+    QVector<QVector<long>> m_coll_send_volume_matrix;
+    QVector<QVector<long>> m_coll_recv_volume_matrix;
 
 protected:
     void timerEvent(QTimerEvent *event);

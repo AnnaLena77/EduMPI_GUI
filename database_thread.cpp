@@ -85,6 +85,11 @@ void Database_Thread::threadbuildClusterComponents(){
             map[actual_name].append(actual_rank);
         }
     }
+    if(m_proc_num == -1234){
+        m_proc_num = query.size();
+    }
+    query.finish();
+    initialize_detailed_matrices();
     emit clusterComponentsReady(map);
 }
 
@@ -201,10 +206,7 @@ void Database_Thread::updateData(const int &time_display){
 }
 
 void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDateTime timestampB){
-    QList<QVariantList> p2p_list;
-    QList<QVariantList> coll_list;
 
-    QString s = "";
 
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     if (!db.isOpen()) {
@@ -212,7 +214,15 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
         return;
     }
 
-    QString queryString = "SELECT function, communicationtype, processrank, partnerrank, coll_algorithm, coll_partnerranks FROM edumpi_detailed_data WHERE edumpi_run_id = :slurm_id AND ((time_end >= :endtime AND time_start <= :starttime) OR (time_end BETWEEN :starttime AND :endtime)) GROUP BY function, communicationtype, processrank, partnerrank, coll_algorithm, coll_partnerranks;";
+    QList<QVariantList> p2p_list;
+    QList<QVariantList> coll_list;
+
+    QString s = "";
+
+
+
+
+    QString queryString = "SELECT function, communicationtype, processrank, partnerrank, coll_algorithm, coll_partnerranks, SUM(send_ds) as send_ds, SUM(recv_ds) as recv_ds, SUM(comm_time) as comm_time FROM edumpi_detailed_data WHERE edumpi_run_id = :slurm_id AND ((time_end >= :endtime AND time_start <= :starttime) OR (time_end BETWEEN :starttime AND :endtime)) GROUP BY function, communicationtype, processrank, partnerrank, coll_algorithm, coll_partnerranks;";
 
     QDateTime a = timestampA.toUTC();
     QDateTime b = timestampB.toUTC();
@@ -226,7 +236,13 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
     //std::cout << "Test Starttime" << a.toString("yyyy-MM-d HH:mm:ss").toStdString() << std::endl;
 
     if (query.exec()) {
+        reset_detailed_matrices();
         while(query.next()){
+            int send_size = query.value(6).toInt();
+            int recv_size = query.value(7).toInt();
+            float time = query.value(8).toFloat();
+            int proc_rank = query.value(2).toInt();
+            int part_rank = query.value(3).toInt();
             if(query.value(1) == "p2p"){
                 QVariantList list;
                 list << query.value(0)  // function
@@ -237,6 +253,14 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
                 if(!s.contains(fun)){
                     s.append(fun);
                 }
+                if(send_size > 0){
+                    m_p2p_send_volume_matrix[proc_rank][part_rank] += send_size;
+                }
+                if(recv_size > 0){
+                    m_p2p_recv_volume_matrix[proc_rank][part_rank] += recv_size;
+                }
+                m_p2p_time_matrix[proc_rank][part_rank] += time;
+
             } else if(query.value(1) == "collective"){
                 QVariantList list;
                 list << query.value(0) // function
@@ -247,6 +271,33 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
                 QString fun = query.value(0).toString() + " (" + query.value(4).toString() + "), ";
                 if(!s.contains(fun)){
                     s.append(fun);
+                }
+
+                if (!query.value(5).toString().isEmpty()) {  // Sicherstellen, dass entry[3] nicht leer ist
+                    QByteArray bitmask = query.value(5).toByteArray();
+                    QList<QVariant> numbers;
+                    int bitIndex = 0;
+
+                    // Jedes Byte der Bitmaske durchgehen
+                    for (char byte : bitmask) {
+                        for (int i = 0; i < 8; i++) {  // 8 Bits pro Byte
+                            if (byte & (1 << i)) {  // Prüfen, ob das Bit gesetzt ist
+                                int value = bitIndex + i;  // Position berechnen
+                                if (value <= 400) {  // Wertebereich beachten
+                                    numbers.append(value);
+                                }
+                            }
+                        }
+                        bitIndex += 8;  // Zum nächsten Byte springen
+                    }
+                    int send = send_size/numbers.size();
+                    for(QVariant partner : numbers){
+                        m_coll_send_volume_matrix[proc_rank][partner.toInt()] += send;
+                        m_coll_recv_volume_matrix[partner.toInt()][proc_rank] += send;
+                    }
+                }
+                for(int i = 0; i< m_proc_num; i++){
+                    m_coll_time_matrix[proc_rank][i] += time;
                 }
             }
         }
@@ -259,6 +310,12 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
     emit setFunctionsString(s);
     emit updateDetailedP2P(p2p_list);
     emit updateDetailedColl(coll_list);
+
+    emit setCommMatrixP2PSend(m_p2p_send_volume_matrix);
+    emit setCommMatrixP2PRecv(m_p2p_recv_volume_matrix);
+    emit setCommMatrixCollSend(m_coll_send_volume_matrix);
+    emit setCommMatrixCollRecv(m_coll_recv_volume_matrix);
+
 }
 
 void Database_Thread::selectEndTimestamp(){
@@ -384,4 +441,38 @@ void Database_Thread::set_thread_running(bool running){
 
 bool Database_Thread::thread_running() const{
     return m_thread_running;
+}
+
+void Database_Thread::initialize_detailed_matrices() {
+
+    m_p2p_send_volume_matrix.resize(m_proc_num);
+    m_p2p_recv_volume_matrix.resize(m_proc_num);
+    m_coll_send_volume_matrix.resize(m_proc_num);
+    m_coll_recv_volume_matrix.resize(m_proc_num);
+    m_p2p_time_matrix.resize(m_proc_num);
+    m_coll_time_matrix.resize(m_proc_num);
+
+    for (int i = 0; i < m_proc_num; ++i) {
+        m_p2p_send_volume_matrix[i] = QVector<long>(m_proc_num, 0);
+        m_p2p_recv_volume_matrix[i] = QVector<long>(m_proc_num, 0);
+        m_coll_send_volume_matrix[i] = QVector<long>(m_proc_num, 0);
+        m_coll_recv_volume_matrix[i] = QVector<long>(m_proc_num, 0);
+        m_p2p_time_matrix[i]       = QVector<float>(m_proc_num, 0.0);
+        m_coll_time_matrix[i]      = QVector<float>(m_proc_num, 0.0);
+    }
+}
+
+void Database_Thread::reset_detailed_matrices() {
+    for (auto& row : m_p2p_send_volume_matrix)
+        row.fill(0);
+    for (auto& row : m_p2p_recv_volume_matrix)
+        row.fill(0);
+    for (auto& row : m_coll_send_volume_matrix)
+        row.fill(0);
+    for (auto& row : m_coll_recv_volume_matrix)
+        row.fill(0);
+    for (auto& row : m_p2p_time_matrix)
+        row.fill(0.0);
+    for (auto& row : m_coll_time_matrix)
+        row.fill(0.0);
 }

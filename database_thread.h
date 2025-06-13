@@ -40,6 +40,10 @@ public:
 
     void detailed_p2p_Query(const QDateTime timestampA, const QDateTime timestampB);
 
+    //detailed matrices
+    void initialize_detailed_matrices();
+    void reset_detailed_matrices();
+
 public slots:
     void connectToDB();
     void threadbuildClusterComponents();
@@ -69,6 +73,10 @@ signals:
     void thread_runningChanged();
 
     void setFunctionsString(QString string);
+    void setCommMatrixP2PSend(QVector<QVector<long>>);
+    void setCommMatrixP2PRecv(QVector<QVector<long>>);
+    void setCommMatrixCollSend(QVector<QVector<long>>);
+    void setCommMatrixCollRecv(QVector<QVector<long>>);
 
 private:
 
@@ -84,6 +92,15 @@ private:
     int m_slurm_id;
     int m_proc_num;
     bool m_live_run;
+
+    //Detailed Communication Matrices
+    QVector<QVector<long>> m_p2p_send_volume_matrix;
+    QVector<QVector<long>> m_p2p_recv_volume_matrix;
+    QVector<QVector<long>> m_coll_send_volume_matrix;
+    QVector<QVector<long>> m_coll_recv_volume_matrix;
+
+    QVector<QVector<float>> m_p2p_time_matrix;
+    QVector<QVector<float>> m_coll_time_matrix;
 };
 
 #endif // DATABASE_THREAD_H
