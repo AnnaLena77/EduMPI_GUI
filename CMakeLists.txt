@@ -88,6 +88,11 @@ qt_add_qml_module(appGUI_Cluster
         customlinegeometry.cpp
         detailed_coll_data.h
         detailed_coll_data.cpp
+        heatmap_matrix.h
+        heatmap_matrix.cpp
+        heatmapmaterial.h
+        heatmapmaterial.cpp
+
 )
 
 add_subdirectory(Sidebar)

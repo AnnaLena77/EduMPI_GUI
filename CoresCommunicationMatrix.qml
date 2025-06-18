@@ -24,11 +24,11 @@ Rectangle {
 
     onZoomChanged: {
         //console.log("Zoom: " + zoom)
-        canvas.requestPaint()
+       // canvas.requestPaint()
     }
 
-    onP2pSendDataChanged: canvas.requestPaint()
-    onCoresCountChanged: canvas.requestPaint()
+    //onP2pSendDataChanged: canvas.requestPaint()
+    //onCoresCountChanged: canvas.requestPaint()
 
     onListNodesChanged: {
         if (listNodes) {
@@ -43,7 +43,37 @@ Rectangle {
         }
     }
 
+
     ScrollView {
+        id: scrollArea
+        anchors.fill: parent
+        clip: true
+
+            // Skaliertes Item innerhalb des ScrollViews
+            Item {
+                id: zoomContainer
+                width: heatmap.width * zoom
+                height: heatmap.height * zoom
+
+                // Die Zoom-Transformation
+                transform: Scale {
+                    origin.x: 0
+                    origin.y: 0
+                    xScale: rectangle_cm.zoom
+                    yScale: rectangle_cm.zoom
+                }
+
+                Heatmap_matrix {
+                    id: heatmap
+                    width: rectangle_cm.coresCount * 10   // z.B. 10 px pro Zelle
+                    height: rectangle_cm.coresCount * 10
+                    gridSize: rectangle_cm.coresCount
+                    matrix: rectangle_cm.p2pSendData
+                }
+            }
+        }
+
+    /*ScrollView {
         id: scroll_area
         anchors.fill: parent
         clip: true
@@ -95,6 +125,6 @@ Rectangle {
                 Component.onCompleted: requestPaint()
             }
         }
-    }
+    }*/
 }
 

@@ -34,7 +34,15 @@
         <file>bash_files/local_bash_skript.sh</file>
         <file>bash_files/remote_scorep_skript.sh</file>
         <file>bash_files/local_bash_skript_scorep.sh</file>
+        
+        <file>shaders/heatmap.vert.qsb</file>
+        <file>shaders/heatmap.frag.qsb</file>
+        <file>shaders/heatmap.vert</file>
+        <file>shaders/heatmap.frag</file>
+
     </qresource>
+   
+
     
     <qresource prefix="/Sidebar">
         <file>Sidebar/MPI_Application_Start.qml</file>
@@ -46,5 +54,6 @@
         <file>Sidebar/Options_Views.qml</file>
         <file>Sidebar/Screenshot.qml</file>
     </qresource>
+    
     
 </RCC>
