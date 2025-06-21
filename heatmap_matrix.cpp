@@ -81,8 +81,8 @@ QSGNode *Heatmap_matrix::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *
                 for (int localCol = 0; localCol < cellsWide; ++localCol) {
                     int col = chunkCol * chunkSize + localCol;
 
-                    float x = col * cellSize + spacing / 2.0f;
-                    float y = row * cellSize + spacing / 2.0f;
+                    float x = (col * cellSize) + (spacing / 2.0f);
+                    float y = (row * cellSize) + (spacing / 2.0f);
                     float value = rowList[col].toDouble();
 
                     QColor color = value > 0 ? QColor("red") : QColor("blue");

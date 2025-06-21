@@ -6,7 +6,7 @@ import GUI_Cluster
 
 Rectangle {
     id: rectangle_cm
-    color: "#5bc2c6"
+    color: "#999999"
 
     property Cluster_Architecture listNodes: null
     property int coresCount: 0
@@ -48,83 +48,170 @@ Rectangle {
         id: scrollArea
         anchors.fill: parent
         clip: true
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOn
+        ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
-            // Skaliertes Item innerhalb des ScrollViews
+        // Feste Basisgröße
+        readonly property real baseSize: rectangle_cm.coresCount * 12
+        // Skalierte Größe
+        readonly property real scaledSize: baseSize * rectangle_cm.zoom
+
+        // Direkte Zuweisung der Content-Größe ohne Abhängigkeit vom contentItem
+        contentWidth: Math.max(width, scaledSize)
+        contentHeight: Math.max(height, scaledSize)
+
+        Item {
+            id: contentItem
+            implicitWidth: scrollArea.contentWidth
+            implicitHeight: scrollArea.contentHeight
+
+            readonly property real cellSize: 8.5
+            readonly property real spacing: 1.5
+            readonly property real totalCellSize: cellSize + spacing
+
             Item {
                 id: zoomContainer
-                width: heatmap.width * zoom
-                height: heatmap.height * zoom
+                width: scrollArea.baseSize + 30  // Extra Platz für Labels
+                height: scrollArea.baseSize + 30  // Extra Platz für Labels
 
-                // Die Zoom-Transformation
+                x: 0
+                y: 0
+
                 transform: Scale {
+                    id: zoomTransform
                     origin.x: 0
                     origin.y: 0
                     xScale: rectangle_cm.zoom
                     yScale: rectangle_cm.zoom
                 }
 
-                Heatmap_matrix {
-                    id: heatmap
-                    width: rectangle_cm.coresCount * 10   // z.B. 10 px pro Zelle
-                    height: rectangle_cm.coresCount * 10
-                    gridSize: rectangle_cm.coresCount
-                    matrix: rectangle_cm.p2pSendData
-                }
-            }
-        }
+                // Vertikale Prozess-Labels (links)
+                Column {
+                    x: 20
+                    y: 30+1
+                    spacing: contentItem.spacing
 
-    /*ScrollView {
-        id: scroll_area
-        anchors.fill: parent
-        clip: true
+                    Repeater {
+                        model: rectangle_cm.coresCount
 
-        Rectangle {
-            id: zoomContainer
+                        Text {
+                            text: index%5 == 0 ? "P" + (index) : " "
+                            //text: "P" + (index)
+                            //anchors.right: parent.right
+                            width: contentItem.cellSize
+                            height: contentItem.cellSize
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignRight
+                            font.pixelSize: 6
 
-            property int canvasWidth: rectangle_cm.coresCount * cellSize
-            property int canvasHeight: rectangle_cm.coresCount * cellSize
-            readonly property int cellSize: 10  // Basisgröße pro Zelle
-
-            width: canvasWidth * rectangle_cm.zoom
-            height: canvasHeight * rectangle_cm.zoom
-            scale: 1.0
-            color: "transparent"
-
-            Canvas {
-                id: canvas
-                anchors.fill: parent
-                renderStrategy: Canvas.Immediate
-
-                onPaint: {
-                    if (!rectangle_cm.p2pSendData || rectangle_cm.coresCount <= 0)
-                        return
-
-                    var ctx = getContext("2d")
-                    ctx.reset()
-                    ctx.clearRect(0, 0, width, height)
-
-                    var gridSize = rectangle_cm.coresCount
-
-                    var cell = zoomContainer.cellSize * rectangle_cm.zoom
-
-                    for (var i = 0; i < rectangle_cm.coresCount; ++i) {
-                        for (var j = 0; j < rectangle_cm.coresCount; ++j) {
-                            var value = rectangle_cm.p2pSendData[i][j]
-                            ctx.fillStyle = value > 0 ? "red" : "blue"
-                            ctx.fillRect(j * cell, i * cell, cell, cell)
-
-                            // Draw visible cell borders
-                            ctx.strokeStyle = "#444"
-                            ctx.lineWidth = 0.5
-                            ctx.strokeRect(j * cell, i * cell, cell, cell)
                         }
                     }
                 }
-                onWidthChanged: requestPaint()
-                onHeightChanged: requestPaint()
-                Component.onCompleted: requestPaint()
+
+                // Horizontale Prozess-Labels (oben)
+                Row {
+                    x: 30 + 1
+                    y: 20
+                    spacing: contentItem.spacing
+
+
+                   /* Repeater {
+                        model: rectangle_cm.coresCount
+
+                        Rectangle {
+                            width: contentItem.cellSize
+                            height: contentItem.cellSize
+                            color: "black"
+                        }
+                    }*/
+
+                    Repeater {
+                        model: rectangle_cm.coresCount
+                        Text {
+                            text: index%5 == 0 ? "P" + (index) : ""
+                            width: contentItem.cellSize
+                            height: contentItem.cellSize
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignBottom
+                            font.pixelSize: 6
+                        }
+                    }
+                }
+
+                // Container für die Heatmap
+                Item {
+                    id: heatmapContainer
+                    x: 30  // Eingerückt nach den vertikalen Labels
+                    y: 30  // Eingerückt nach den horizontalen Labels
+                    //width: rectangle_cm.coresCount * 12
+                    //height: rectangle_cm.coresCount * 12
+
+                    Heatmap_matrix {
+                        id: heatmap
+                        anchors.fill: parent
+                        gridSize: rectangle_cm.coresCount
+                        matrix: rectangle_cm.p2pSendData
+                    }
+
+                }
+                MouseArea {
+                    id: hoverArea
+                    anchors.fill: parent
+                    hoverEnabled: true
+                    acceptedButtons: Qt.NoButton
+
+                    property real zoom: rectangle_cm.zoom
+                    property real cellSize: contentItem.totalCellSize
+                    property int count: rectangle_cm.coresCount
+
+                    onPositionChanged: (mouse) => {
+                        // Rechne Mauskoordinaten in Heatmap-Container um (der ist ungescaled)
+                        let pos = hoverArea.mapToItem(heatmapContainer, mouse.x, mouse.y)
+                        let relX = pos.x
+                        let relY = pos.y
+
+                        let col = Math.floor(relX / cellSize)
+                        let row = Math.floor(relY / cellSize)
+
+                        if (row >= 0 && row < count && col >= 0 && col < count) {
+                            tooltip.visible = true
+                            tooltipText.text = "P" + row + " → P" + col
+
+                            // Tooltip im globalen Kontext verschieben
+                            let global = hoverArea.mapToItem(rectangle_cm, mouse.x + 12, mouse.y + 12)
+                            tooltip.x = global.x
+                            tooltip.y = global.y
+                        } else {
+                            tooltip.visible = false
+                        }
+                    }
+
+
+                    onExited: tooltip.visible = false
+                }
             }
         }
-    }*/
+    }
+    Rectangle {
+        id: tooltip
+        visible: false
+        color: "#333"
+        radius: 4
+        border.color: "white"
+        border.width: 1
+        z: 1000
+        opacity: 0.95
+
+        width: tooltipText.implicitWidth + 10
+        height: tooltipText.implicitHeight + 6
+
+        Text {
+            id: tooltipText
+            color: "white"
+            font.pixelSize: 10
+            anchors.centerIn: parent
+        }
+    }
+
 }
 
