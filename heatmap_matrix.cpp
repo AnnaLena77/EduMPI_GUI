@@ -38,6 +38,7 @@ QSGNode *Heatmap_matrix::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *
     if (m_matrix.isEmpty() || m_gridSize <= 0)
         return oldNode;
 
+
     const float cellSize = 10.0f;
     const float spacing = 2.0f;
     const float adjustedSize = cellSize - spacing;
@@ -85,7 +86,9 @@ QSGNode *Heatmap_matrix::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *
                     float y = (row * cellSize) + (spacing / 2.0f);
                     float value = rowList[col].toDouble();
 
-                    QColor color = value > 0 ? QColor("red") : QColor("blue");
+                    QColor color = getHeatmapColor(value, m_matrix_max);
+
+                    //qDebug() << "Test " << m_combobox;
 
                     vertices[index++].set(x, y, color.red(), color.green(), color.blue(), color.alpha());
                     vertices[index++].set(x + adjustedSize, y, color.red(), color.green(), color.blue(), color.alpha());
@@ -104,5 +107,33 @@ QSGNode *Heatmap_matrix::updatePaintNode(QSGNode *oldNode, UpdatePaintNodeData *
 
     return rootNode;
 }
+QColor Heatmap_matrix::getHeatmapColor(double value, double max) {
+    if (value <= 0.0 || max <= 0.0)
+        return QColor("#eeeeee");  // Hellgrau für genau 0 – deutlich unterscheidbar
+
+    double ratio = value / max;
+    ratio = std::clamp(ratio, 0.0, 1.0);
+
+    // Interpolationsverlauf: Blau → Cyan → Grün → Gelb → Rot
+    if (ratio < 0.25) {
+        // Blau (0,0,255) → Cyan (0,255,255)
+        double t = ratio / 0.25;
+        return QColor(0, int(255 * t), 255);
+    } else if (ratio < 0.5) {
+        // Cyan → Grün
+        double t = (ratio - 0.25) / 0.25;
+        return QColor(0, 255, int(255 * (1 - t)));
+    } else if (ratio < 0.75) {
+        // Grün → Gelb
+        double t = (ratio - 0.5) / 0.25;
+        return QColor(int(255 * t), 255, 0);
+    } else {
+        // Gelb → Rot
+        double t = (ratio - 0.75) / 0.25;
+        return QColor(255, int(255 * (1 - t)), 0);
+    }
+}
+
+
 
 

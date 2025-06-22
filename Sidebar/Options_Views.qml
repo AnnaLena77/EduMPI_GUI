@@ -60,6 +60,7 @@ Rectangle {
                 text: qsTr("3D Nodes (Cube View)")
                 onCheckStateChanged: {
                     if(checked){
+                        selected_screen = "Cores3D"
                         view.replace("/Cores3D.qml", {listNodes : nodesList})
                         //three_d_check.checked = false
                         //cm_check.checked = false
@@ -80,6 +81,7 @@ Rectangle {
                 text: qsTr("2D Nodes (List View)")
                 onCheckStateChanged: {
                     if(checked){
+                        selected_screen = "Cores2D"
                         view.replace("/Cores2D.qml", {listNodes : nodesList})
                         //two_d_check.checked = false
                         //cm_check.checked = false
@@ -100,6 +102,7 @@ Rectangle {
                 text: qsTr("Communication Matrix")
                 onCheckStateChanged: {
                     if(checked){
+                        selected_screen = "CoresMatrix"
                         view.replace("/CoresCommunicationMatrix.qml", {listNodes : nodesList})
                         //three_d_check.checked = false
                         //two_d_check.checked = false
@@ -371,7 +374,7 @@ Rectangle {
 
                     Slider {
                         id: mySlider_zoom
-                        from: 50      // Minimalwert
+                        from: 20      // Minimalwert
                         to: 300       // Maximalwert
                         stepSize: 10  // Schrittweite
                         value: 100    // Initialwert

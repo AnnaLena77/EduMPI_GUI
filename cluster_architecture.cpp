@@ -106,6 +106,8 @@ void Cluster_Architecture::startThread(){
     Database_Thread::connect(m_dbThread, &Database_Thread::setCommMatrixCollSend, this, &Cluster_Architecture::set_coll_send_volume_matrix);
     Database_Thread::connect(m_dbThread, &Database_Thread::setCommMatrixCollRecv, this, &Cluster_Architecture::set_coll_recv_volume_matrix);
 
+    Database_Thread::connect(m_dbThread, &Database_Thread::setCommMatrixTotalSend, this, &Cluster_Architecture::set_total_send_volume_matrix);
+
 
     //database_thread.start();
     database_thread.start();
@@ -169,6 +171,18 @@ long Cluster_Architecture::p2p_recv_max(){
     return m_p2p_recv_max;
 }
 
+long Cluster_Architecture::detailed_p2p_max(){
+    return m_detailed_p2p_max;
+}
+
+long Cluster_Architecture::detailed_coll_max(){
+    return m_detailed_coll_max;
+}
+
+long Cluster_Architecture::detailed_total_max(){
+    return m_detailed_total_max;
+}
+
 int Cluster_Architecture::slurm_id(){
     return m_slurm_id;
 }
@@ -206,6 +220,24 @@ void Cluster_Architecture::set_p2p_recv_max(long max){
     m_p2p_recv_max = max;
     emit p2p_recv_max_changed();
 }
+
+void Cluster_Architecture::set_detailed_coll_max(long max){
+    m_detailed_coll_max = max;
+    emit detailed_coll_max_changed();
+}
+
+
+void Cluster_Architecture::set_detailed_p2p_max(long max){
+    m_detailed_p2p_max = max;
+    emit detailed_p2p_max_changed();
+}
+
+void Cluster_Architecture::set_detailed_total_max(long max){
+    m_detailed_total_max = max;
+    emit detailed_total_max_changed();
+}
+
+
 void Cluster_Architecture::set_slurm_id(int id){
     m_slurm_id = id;
     //qDebug() << "set_slurm_id";
@@ -276,6 +308,9 @@ void Cluster_Architecture::updateDataToUI(const QList<DataColumn> &list){
     set_coll_send_max(0);
     set_coll_recv_max(0);
 
+    set_detailed_coll_max(0);
+    set_detailed_p2p_max(0);
+
     QString name = m_nodes[0]->getName();
     int index = 0;
 
@@ -292,6 +327,7 @@ void Cluster_Architecture::updateDataToUI(const QList<DataColumn> &list){
             }
         }
         if(dc.comm_type=="p2p"){
+            m_detailed_p2p_max += dc.send_datasize;
             if(dc.send_datasize>m_p2p_send_max){
                 set_p2p_send_max(dc.send_datasize);
             }
@@ -304,6 +340,7 @@ void Cluster_Architecture::updateDataToUI(const QList<DataColumn> &list){
             this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_p2p_late_recvr(dc.late_receiver);
             this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_p2p_timediff(dc.time_diff);
         } else if(dc.comm_type=="collective"){
+            m_detailed_coll_max += dc.send_datasize;
             if(dc.send_datasize>m_coll_send_max){
                 set_coll_send_max(dc.send_datasize);
             }
@@ -413,6 +450,8 @@ QVector<QVector<long>> Cluster_Architecture::coll_send_volume_matrix() const{
 void Cluster_Architecture::set_coll_send_volume_matrix(QVector<QVector<long>> matrix){
     m_coll_send_volume_matrix = matrix;
     emit coll_send_volume_matrix_changed();
+
+
 }
 
 QVector<QVector<long>> Cluster_Architecture::coll_recv_volume_matrix() const{
@@ -423,5 +462,40 @@ void Cluster_Architecture::set_coll_recv_volume_matrix(QVector<QVector<long>> ma
     m_coll_recv_volume_matrix = matrix;
     emit coll_recv_volume_matrix_changed();
 }
+
+QVector<QVector<long>> Cluster_Architecture::total_send_volume_matrix() const{
+    return m_total_send_volume_matrix;
+}
+
+void Cluster_Architecture::set_total_send_volume_matrix(QVector<QVector<long>> matrix){
+    m_total_send_volume_matrix = matrix;
+    emit total_send_volume_matrix_changed();
+}
+
+QVector<QVector<long>> addMatrices(const QVector<QVector<long>>& matrixA,
+                                   const QVector<QVector<long>>& matrixB)
+{
+    if (matrixA.size() != matrixB.size())
+        throw std::invalid_argument("Matrix dimensions do not match (rows).");
+
+    QVector<QVector<long>> result;
+    result.reserve(matrixA.size());
+
+    for (int i = 0; i < matrixA.size(); ++i) {
+        if (matrixA[i].size() != matrixB[i].size())
+            throw std::invalid_argument("Matrix dimensions do not match (columns).");
+
+        QVector<long> row;
+        row.reserve(matrixA[i].size());
+
+        for (int j = 0; j < matrixA[i].size(); ++j) {
+            row.append(matrixA[i][j] + matrixB[i][j]);
+        }
+        result.append(std::move(row));
+    }
+
+    return result;
+}
+
 
 

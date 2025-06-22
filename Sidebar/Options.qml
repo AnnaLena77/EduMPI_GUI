@@ -10,7 +10,12 @@ Rectangle {
     implicitHeight: 500
     color: "#383936"
 
-    //property var nodesList : parent.nodesList
+    property string screen: selected_screen;
+
+    onScreenChanged: {
+        combo.updateComboOptions()
+
+    }
 
     Rectangle {
         id: rectangle
@@ -33,14 +38,21 @@ Rectangle {
             Layout.fillWidth: true
             anchors.margins: 5
 
-
             ComboBox {
-                //width: parent
+                id: combo
                 implicitWidth: 230
                 Layout.topMargin: 20
-                // Layout.bottomMargin: 100
                 Layout.alignment: Qt.AlignHCenter
                 font.pointSize: 10
+
+                property bool useMultiColorGradient: false
+                property string gradient1: "white"
+                property string gradient2: "blue"
+                property string gradient3: ""
+                property string gradient4: ""
+                property string gradient_text1: ""
+                property string gradient_text2: ""
+
                 HoverHandler {
                     cursorShape: Qt.PointingHandCursor
                 }
@@ -49,74 +61,106 @@ Rectangle {
                 palette.buttonText: "white"
 
                 model: ListModel {
-                    id: model
-                    ListElement {
-                        text: "send/recv ratio (per proc)"
-
-                    }
-                    ListElement {
-                        text: "max send ratio (across all procs)"
-                        //font.pointSize: 11
-                    }
-                    ListElement {
-                        text: "max recv ratio (across all procs)"
-                        //font.pointSize: 11
-                    }
-                    ListElement {
-                        text: "wait for late sender (per proc)"
-                    }
-                    ListElement {
-                        text: "wait for late recver (per proc)"
-                    }
-
-                    //ListElement { text: "Wait Ratio" }
+                    id: comboModel
                 }
-                onActivated:{
-                    option = currentValue;
-                    if(option == "send/recv ratio (per proc)"){
+
+                Component.onCompleted: updateComboOptions()
+
+                function updateComboOptions() {
+                    comboModel.clear()
+
+                    if (screen === "CoresMatrix") {
+                        comboModel.append({ text: "heatmap - message volume" })
+                        //comboModel.append({ text: "max send ratio (across all procs)" })
+                        //comboModel.append({ text: "max recv ratio (across all procs)" })
+                    } else {
+                        comboModel.append({ text: "send/recv ratio (per proc)" })
+                        comboModel.append({ text: "max send ratio (across all procs)" })
+                        comboModel.append({ text: "max recv ratio (across all procs)" })
+                        comboModel.append({ text: "wait for late sender (per proc)" })
+                        comboModel.append({ text: "wait for late recver (per proc)" })
+                    }
+
+                    combo.currentIndex = 0
+                    option = combo.currentText
+                    setComboColors(option)
+                }
+
+                function setComboColors(value) {
+                    // Standard 2-Farben-Verläufe
+                    if (option === "send/recv ratio (per proc)") {
+                        useMultiColorGradient = false
                         gradient1 = "green"
                         gradient2 = "red"
+                        gradient3 = ""
+                        gradient4 = ""
                         gradient_text1 = "Send"
                         gradient_text2 = "Recv"
-                    }
-                    else if (option == "max send ratio (across all procs)"){
+
+                    } else if (option === "max send ratio (across all procs)") {
+                        useMultiColorGradient = false
                         gradient1 = "green"
                         gradient2 = "white"
+                        gradient3 = ""
+                        gradient4 = ""
                         gradient_text1 = "Max Send"
                         gradient_text2 = "No Send"
-                    }
-                    else if(option == "max recv ratio (across all procs)"){
+
+                    } else if (option === "max recv ratio (across all procs)") {
+                        useMultiColorGradient = false
                         gradient1 = "white"
                         gradient2 = "red"
+                        gradient3 = ""
+                        gradient4 = ""
                         gradient_text1 = "No Recv"
                         gradient_text2 = "Max Recv"
-                    }
-                    else if(option == "wait for late sender (per proc)"){
+
+                    } else if (option === "wait for late sender (per proc)" || option === "wait for late recver (per proc)") {
+                        useMultiColorGradient = false
                         gradient1 = "white"
                         gradient2 = "blue"
+                        gradient3 = ""
+                        gradient4 = ""
                         gradient_text1 = "low (%)"
                         gradient_text2 = "high (%)"
+
+                    } else if (option === "heatmap - message volume") {
+                        // 4-Farben-Verlauf
+                        useMultiColorGradient = true
+                        gradient1 = "blue"
+                        gradient2 = "green"
+                        gradient3 = "yellow"
+                        gradient4 = "red"
+                        gradient_text1 = "0%"
+                        gradient_text2 = "total msg vol. (100%)"
                     }
-                    else if(option == "wait for late recver (per proc)"){
-                        gradient1 = "white"
-                        gradient2 = "blue"
-                        gradient_text1 = "low (%)"
-                        gradient_text2 = "high (%)"
-                    }
+
+                }
+
+                onActivated: {
+                    option = currentValue
+                    setComboColors(currentValue)
+
                 }
             }
-            Rectangle{
+
+
+            Rectangle {
                 width: 10
                 height: 200
                 Layout.bottomMargin: -95
                 rotation: 90
-                gradient: Gradient {
-                    GradientStop { position: 0.0; color: gradient2 }
-                    GradientStop { position: 1.0; color: gradient1 }
-                }
                 Layout.alignment: Qt.AlignCenter
 
+                gradient: Gradient {
+                        GradientStop { position: 0.0; color: combo.gradient4 !== "" ? combo.gradient4 : combo.gradient2 }
+                        GradientStop { position: 0.33; color: combo.useMultiColorGradient ? combo.gradient3 : combo.gradient2 }
+                        GradientStop { position: 0.66; color: combo.useMultiColorGradient ? combo.gradient2 : combo.gradient1 }
+                        GradientStop { position: 1.0; color: combo.gradient1 }
+
+                }
             }
+
             GridLayout{
                 width: parent.width
                 columns: 2
@@ -124,7 +168,7 @@ Rectangle {
                 //Layout.alignment: Qt.AlignHCenter
 
                 Text {
-                    text: gradient_text1
+                    text: combo.gradient_text1
                     color: "white"
                     //anchors.left: parent.left
                     leftPadding: 10
@@ -132,7 +176,7 @@ Rectangle {
                     //horizontalAlignment: Qt.AlignHLeft
                 }
                 Text {
-                    text: gradient_text2
+                    text: combo.gradient_text2
                     color: "white"
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignRight

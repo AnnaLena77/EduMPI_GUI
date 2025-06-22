@@ -77,6 +77,7 @@ signals:
     void setCommMatrixP2PRecv(QVector<QVector<long>>);
     void setCommMatrixCollSend(QVector<QVector<long>>);
     void setCommMatrixCollRecv(QVector<QVector<long>>);
+    void setCommMatrixTotalSend(QVector<QVector<long>>);
 
 private:
 
@@ -98,6 +99,7 @@ private:
     QVector<QVector<long>> m_p2p_recv_volume_matrix;
     QVector<QVector<long>> m_coll_send_volume_matrix;
     QVector<QVector<long>> m_coll_recv_volume_matrix;
+    QVector<QVector<long>> m_total_send_volume_matrix;
 
     QVector<QVector<float>> m_p2p_time_matrix;
     QVector<QVector<float>> m_coll_time_matrix;

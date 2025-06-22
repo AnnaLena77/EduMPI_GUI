@@ -18,6 +18,8 @@ Window {
 
     property bool p2p: true
     property bool collective: true
+
+    property string selected_screen: "Cores3D"
     property string option: "send/recv ratio (per proc)"
     property color gradient1: "green"
     property color gradient2: "red"
@@ -52,6 +54,11 @@ Window {
     property bool p2p_recv_lines: false
     property bool coll_lines: false
 
+    /*onSelected_screenChanged: {
+        console.log("main: " + selected_screen)
+    }*/
+
+
     onRestartsChanged: {
         if(restarts > 0 && restarts != null) {
             controller.copyEnvFile();
@@ -80,6 +87,8 @@ Window {
         height: parent.height
         property int endTime: root.endTime
         property string option: root.option
+        property bool p2p: root.p2p
+        property bool collective: root.collective
 
         function flash() {
             opacityAnimation.start();

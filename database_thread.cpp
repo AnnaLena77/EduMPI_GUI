@@ -254,6 +254,7 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
                     s.append(fun);
                 }
                 if(send_size > 0){
+                    m_total_send_volume_matrix[proc_rank][part_rank] += send_size;
                     m_p2p_send_volume_matrix[proc_rank][part_rank] += send_size;
                 }
                 if(recv_size > 0){
@@ -292,6 +293,7 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
                     }
                     int send = send_size/numbers.size();
                     for(QVariant partner : numbers){
+                        m_total_send_volume_matrix[proc_rank][partner.toInt()] += send;
                         m_coll_send_volume_matrix[proc_rank][partner.toInt()] += send;
                         m_coll_recv_volume_matrix[partner.toInt()][proc_rank] += send;
                     }
@@ -315,6 +317,8 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
     emit setCommMatrixP2PRecv(m_p2p_recv_volume_matrix);
     emit setCommMatrixCollSend(m_coll_send_volume_matrix);
     emit setCommMatrixCollRecv(m_coll_recv_volume_matrix);
+
+    emit setCommMatrixTotalSend(m_total_send_volume_matrix);
 
 }
 
@@ -449,6 +453,7 @@ void Database_Thread::initialize_detailed_matrices() {
     m_p2p_recv_volume_matrix.resize(m_proc_num);
     m_coll_send_volume_matrix.resize(m_proc_num);
     m_coll_recv_volume_matrix.resize(m_proc_num);
+    m_total_send_volume_matrix.resize(m_proc_num);
     m_p2p_time_matrix.resize(m_proc_num);
     m_coll_time_matrix.resize(m_proc_num);
 
@@ -457,6 +462,7 @@ void Database_Thread::initialize_detailed_matrices() {
         m_p2p_recv_volume_matrix[i] = QVector<long>(m_proc_num, 0);
         m_coll_send_volume_matrix[i] = QVector<long>(m_proc_num, 0);
         m_coll_recv_volume_matrix[i] = QVector<long>(m_proc_num, 0);
+        m_total_send_volume_matrix[i] = QVector<long>(m_proc_num, 0);
         m_p2p_time_matrix[i]       = QVector<float>(m_proc_num, 0.0);
         m_coll_time_matrix[i]      = QVector<float>(m_proc_num, 0.0);
     }
@@ -475,4 +481,6 @@ void Database_Thread::reset_detailed_matrices() {
         row.fill(0.0);
     for (auto& row : m_coll_time_matrix)
         row.fill(0.0);
+    for (auto& row : m_total_send_volume_matrix)
+        row.fill(0);
 }
