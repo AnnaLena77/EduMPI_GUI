@@ -58,7 +58,7 @@ void Cluster_Architecture::resetCluster_Architecture(){
 }
 
 void Cluster_Architecture::setOption(int opt){
-    std::cout << "setOption" << std::endl;
+    //std::cout << "setOption" << std::endl;
     m_option = opt;
 }
 
@@ -77,6 +77,8 @@ void Cluster_Architecture::startThread(){
 
     m_dbThread = new Database_Thread(thread_connection_name, m_slurm_id, m_proc_num, m_live_run);
     m_dbThread->moveToThread(&database_thread);
+
+    qDebug() << "m_proc_num: " << m_proc_num;
     //clone_db.moveToThread(&database_thread);
 
     //m_dbThread->moveToThread(dbThread);

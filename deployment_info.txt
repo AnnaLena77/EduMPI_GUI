@@ -5,7 +5,7 @@ $ mkdir build
 $ cd build
 
 2. Darauf achten, dass die QT-Installations-Umgebung im LD-Library-Path vorhanden ist
-$ export LD_LIBRARY_PATH=/home/anna-lena/QtDesignStudio/6.5.0/gcc_64/lib:$LD_LIBRARY_PATH
+$ export LD_LIBRARY_PATH=/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/lib:$LD_LIBRARY_PATH
 
 3. cmake ausfüren, mit richtiger cmake-Version (unter QT)
 $ /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake .. -DCMAKE_INSTALL_PREFIX=/usr -B /home/anna-lena/GUI_Cluster/appImage_Build_Dir/

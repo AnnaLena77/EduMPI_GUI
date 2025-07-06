@@ -44,7 +44,7 @@ void Database_Thread::connectToDB(){
 }
 
 void Database_Thread::threadbuildClusterComponents(){
-    //qDebug() << "Current thread:" << QThread::currentThread();
+    qDebug() << "Current thread:" << QThread::currentThread();
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     if (!db.isOpen()) {
         qDebug() << "Databaseconnection " << m_connectionName << " is not open";
@@ -439,6 +439,7 @@ void Database_Thread::reset_actual_timestamp(){
 }
 
 void Database_Thread::set_thread_running(bool running){
+    qDebug() << "Set thread_running to: " << running;
     m_thread_running = running;
     emit thread_runningChanged();
 }

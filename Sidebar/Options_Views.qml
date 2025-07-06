@@ -339,6 +339,7 @@ Rectangle {
                             onCheckedChanged: {
                                 if(checked){
                                     coll_lines = true
+                                    nodesList.p2pData
                                 } else {
                                     coll_lines = false
                                 }

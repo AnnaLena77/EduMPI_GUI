@@ -13,6 +13,7 @@ Window {
     height: 810
     visible: true
 
+    
     onClosing: {
         controller.remove_open_window(analysis_slurm_id)
         ascreen.clear();

@@ -220,9 +220,10 @@ Window {
                 }
             }
             function outputHandling(output_path){
+                var window
+                var component
                 if(root.visualization && root.startTime == 0){
-                    var window;
-                    var component = Qt.createComponent("Output_File.qml");
+                    component = Qt.createComponent("Output_File.qml");
                     if(component.status === Component.Ready){
                         window = component.createObject(root, {"path": output_path, "success" : false});
                         window.x = (root.width - window.width) / 2;
@@ -234,8 +235,7 @@ Window {
                     root.enable_start = true;
 
                 } else {
-                    var window;
-                    var component = Qt.createComponent("Output_File.qml");
+                    component = Qt.createComponent("Output_File.qml");
                     if(component.status === Component.Ready){
                         window = component.createObject(root, {"path": output_path, "success": true});
                         window.x = (root.width - window.width) / 2;
