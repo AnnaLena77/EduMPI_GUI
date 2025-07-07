@@ -33,6 +33,10 @@ class Cluster_Architecture : public QObject
     Q_PROPERTY(long detailed_coll_max READ detailed_coll_max WRITE set_detailed_coll_max NOTIFY detailed_coll_max_changed)
     Q_PROPERTY(long detailed_total_max READ detailed_total_max WRITE set_detailed_total_max NOTIFY detailed_total_max_changed)
 
+    Q_PROPERTY(long detailed_p2p_avg MEMBER m_detailed_p2p_avg NOTIFY detailed_p2p_max_changed)
+    Q_PROPERTY(long detailed_coll_avg MEMBER m_detailed_coll_avg NOTIFY detailed_coll_max_changed)
+    Q_PROPERTY(long detailed_total_avg MEMBER m_detailed_total_avg NOTIFY detailed_total_max_changed)
+
     Q_PROPERTY(int slurm_id READ slurm_id WRITE set_slurm_id NOTIFY slurm_id_changed)
     Q_PROPERTY(int proc_num READ proc_num WRITE set_proc_num NOTIFY proc_num_changed)
 
@@ -118,6 +122,8 @@ public:
     int timerId;
     QVector<Cluster_Node*> get_nodeList();
 
+    void calculateDetailedMatricesMaxAndAvg();
+
 signals:
     void p2p_send_max_changed();
     void coll_send_max_changed();
@@ -197,6 +203,9 @@ private:
     long m_detailed_p2p_max;
     long m_detailed_coll_max;
     long m_detailed_total_max;
+    long m_detailed_p2p_avg;
+    long m_detailed_coll_avg;
+    long m_detailed_total_avg;
 
     bool m_connection_ready = false;
     bool m_cluster_connection_ready = false;

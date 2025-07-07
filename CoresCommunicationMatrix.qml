@@ -34,7 +34,7 @@ Rectangle {
         if(listNodes){
             if(p2p && collective){
                 matrix = listNodes.total_send_volume_matrix
-                matrix_maximum = listNodes.detailed_p2p_max + listNodes.detailed_coll_max
+                matrix_maximum = listNodes.detailed_total_max
             } else if (p2p) {
                 matrix = listNodes.p2p_send_volume_matrix
                 matrix_maximum = listNodes.detailed_p2p_max
@@ -45,100 +45,29 @@ Rectangle {
         }
     }
 
-
     ColumnLayout {
         anchors.fill: parent
         spacing: 8
-        //padding: 8
-        // ------------------- HEADER + LEGEND -------------------
-        Rectangle {
-            color: Qt.rgba(1, 1, 1, 0.05)
-            border.color: "#aaaaaa"
-            border.width: 1
-            radius: 6
-            Layout.fillWidth: true
-            Layout.preferredHeight: 40
 
-            RowLayout {
-                anchors.fill: parent
-                anchors.margins: 8
-                spacing: 20
+        Detailed_Information_Bar {
+                heading: "Rank-to-Rank Communication Matrix"
+                avgValue: listNodes ? listNodes.detailed_total_avg : 10
+                maxValue: listNodes ? matrix_maximum : 20
+                tooltipText:"This matrix shows the communication between different MPI ranks.\n" +
+                            "• Each cell (i,j) represents the data volume sent from rank i to rank j\n" +
+                            "• Colors: Blue = low volume, Red = high volume\n" +
+                            "• The diagonal indicates intra-rank (self) communication\n" +
+                            "• Cells with zero data are shown in white"
 
-                Text {
-                    text: "Rank-to-Rank Communication Matrix"
-                    font.bold: true
-                    font.pixelSize: 14
-                    color: "white"
-                    Layout.alignment: Qt.AlignVCenter
-                }
 
-                ColumnLayout {
-                    spacing: 4
-
-                    // Farblegende (richtige Heatmapfarben von dunkelblau → rot)
-                    RowLayout {
-                        spacing: 2
-                        Repeater {
-                            model: 14  // 0 = grau, 1–13 = Farbskala
-                            Rectangle {
-                                width: 12
-                                height: 12
-                                radius: 2
-                                border.color: "#222"
-                                border.width: 1
-
-                                property real ratio: (index - 1) / 13.0  // -1 weil Index 0 hellgrau ist
-
-                                color: {
-                                    if (index === 0) {
-                                        return "#eeeeee";  // Hellgrau für genau 0
-                                    }
-
-                                    if (ratio < 0.25) {
-                                        let t = ratio / 0.25;
-                                        return Qt.rgba(0.0, t, 1.0, 1.0); // Blau → Cyan
-                                    } else if (ratio < 0.5) {
-                                        let t = (ratio - 0.25) / 0.25;
-                                        return Qt.rgba(0.0, 1.0, 1.0 - t, 1.0); // Cyan → Grün
-                                    } else if (ratio < 0.75) {
-                                        let t = (ratio - 0.5) / 0.25;
-                                        return Qt.rgba(t, 1.0, 0.0, 1.0); // Grün → Gelb
-                                    } else {
-                                        let t = (ratio - 0.75) / 0.25;
-                                        return Qt.rgba(1.0, 1.0 - t, 0.0, 1.0); // Gelb → Rot
-                                    }
-                                }
-                            }
-                        }
-
-                    }
-
-                    // Skalenwerte
-                    RowLayout {
-                        spacing: 170
-                        Layout.alignment: Qt.AlignLeft
-
-                        Text {
-                            text: "0"
-                            font.pixelSize: 9
-                            color: "white"
-                            horizontalAlignment: Text.AlignHCenter
-                        }
-
-                        Text {
-                            text: "Max: " + (listNodes ? matrix_maximum : 0)
-                            font.pixelSize: 9
-                            color: "white"
-                            horizontalAlignment: Text.AlignHCenter
-                        }
-                    }
-                }
+                colorStops: [
+                        "#0000ff",  // Blau (0.0, 0.0, 1.0)
+                        "#00ffff",  // Cyan (0.0, 1.0, 1.0)
+                        "#00ff00",  // Grün (0.0, 1.0, 0.0)
+                        "#ffff00",  // Gelb (1.0, 1.0, 0.0)
+                        "#ff0000"   // Rot (1.0, 0.0, 0.0)
+                    ]
             }
-        }
-
-
-
-
 
 
         // ------------------- HEATMAP -------------------
@@ -243,6 +172,13 @@ Rectangle {
                             if (row >= 0 && row < count && col >= 0 && col < count) {
                                 tooltip.visible = true
                                 tooltipText.text = "P" + row + " → P" + col
+                                //under toolTip text Average of Data for the cell
+                                let data = rectangle_cm.matrix[row][col];
+                                if (data === undefined) {
+                                    data = 0;
+                                }
+                                tooltipText.text += "\n" + parse_ds(data);
+
                                 let global = hoverArea.mapToItem(rectangle_cm, mouse.x + 10, mouse.y + 10)
                                 tooltip.x = global.x
                                 tooltip.y = global.y
@@ -278,5 +214,22 @@ Rectangle {
             anchors.centerIn: parent
         }
     }
+    function parse_ds(datasize) {
+        function formatValue(value) {
+            // Entferne ".00", wenn keine Nachkommastellen nötig sind
+            return value % 1 === 0 ? value.toString() : value.toFixed(2);
+        }
+
+        if (datasize < 1000) {
+            return datasize + " Byte";
+        } else if (datasize < 1000000) {
+            return formatValue(datasize / 1000) + " KB";
+        } else if (datasize < 1000000000) {
+            return formatValue(datasize / 1000000) + " MB";
+        } else {
+            return formatValue(datasize / 1000000000) + " GB";
+        }
+    }
 }
+
 

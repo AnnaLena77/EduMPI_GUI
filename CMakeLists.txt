@@ -98,6 +98,7 @@ qt_add_qml_module(appGUI_Cluster
         heatmap_matrix.cpp
         heatmapmaterial.h
         heatmapmaterial.cpp
+        QML_FILES Detailed_Information_Bar.qml
 
 )
 

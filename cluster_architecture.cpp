@@ -239,7 +239,6 @@ void Cluster_Architecture::set_detailed_total_max(long max){
     emit detailed_total_max_changed();
 }
 
-
 void Cluster_Architecture::set_slurm_id(int id){
     m_slurm_id = id;
     //qDebug() << "set_slurm_id";
@@ -329,7 +328,6 @@ void Cluster_Architecture::updateDataToUI(const QList<DataColumn> &list){
             }
         }
         if(dc.comm_type=="p2p"){
-            m_detailed_p2p_max += dc.send_datasize;
             if(dc.send_datasize>m_p2p_send_max){
                 set_p2p_send_max(dc.send_datasize);
             }
@@ -342,7 +340,6 @@ void Cluster_Architecture::updateDataToUI(const QList<DataColumn> &list){
             this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_p2p_late_recvr(dc.late_receiver);
             this->m_nodes[index]->rankAt(dc.proc_rank-this->m_nodes[index]->getSmalestRankId())->set_p2p_timediff(dc.time_diff);
         } else if(dc.comm_type=="collective"){
-            m_detailed_coll_max += dc.send_datasize;
             if(dc.send_datasize>m_coll_send_max){
                 set_coll_send_max(dc.send_datasize);
             }
@@ -471,6 +468,7 @@ QVector<QVector<long>> Cluster_Architecture::total_send_volume_matrix() const{
 
 void Cluster_Architecture::set_total_send_volume_matrix(QVector<QVector<long>> matrix){
     m_total_send_volume_matrix = matrix;
+    calculateDetailedMatricesMaxAndAvg();
     emit total_send_volume_matrix_changed();
 }
 
@@ -497,6 +495,61 @@ QVector<QVector<long>> addMatrices(const QVector<QVector<long>>& matrixA,
     }
 
     return result;
+}
+
+//Calculate Maximum and Average of detailed matrices
+void Cluster_Architecture::calculateDetailedMatricesMaxAndAvg() {
+    m_detailed_p2p_max = 0;
+    m_detailed_coll_max = 0;
+    m_detailed_total_max = 0;
+
+    m_detailed_p2p_avg = 0;
+    m_detailed_coll_avg = 0;
+    m_detailed_total_avg = 0;
+
+    for (const auto& row : m_p2p_send_volume_matrix) {
+        for (const auto& value : row) {
+            if (value > m_detailed_p2p_max) {
+                m_detailed_p2p_max = value;
+            }
+            m_detailed_p2p_avg += value;
+        }
+    }
+
+    for (const auto& row : m_coll_send_volume_matrix) {
+        for (const auto& value : row) {
+            if (value > m_detailed_coll_max) {
+                m_detailed_coll_max = value;
+            }
+            m_detailed_coll_avg += value;
+        }
+    }
+
+    for (const auto& row : m_total_send_volume_matrix) {
+        for (const auto& value : row) {
+            if (value > m_detailed_total_max) {
+                m_detailed_total_max = value;
+            }
+            m_detailed_total_avg += value;
+        }
+    }
+
+    int totalElementsP2P = m_proc_num * m_proc_num;
+    int totalElementsColl = m_proc_num * m_proc_num;
+    int totalElementsTotal = m_proc_num * m_proc_num;
+
+    if (totalElementsP2P > 0)
+        m_detailed_p2p_avg /= totalElementsP2P;
+
+    if (totalElementsColl > 0)
+        m_detailed_coll_avg /= totalElementsColl;
+
+    if (totalElementsTotal > 0)
+        m_detailed_total_avg /= totalElementsTotal;
+
+    emit detailed_p2p_max_changed();
+    emit detailed_coll_max_changed();
+    emit detailed_total_max_changed();
 }
 
 
