@@ -53,12 +53,27 @@ Rectangle {
                 var proc = collData.simple_data(row, "processrank")
                 var partner = collData.simple_data(row, "coll_partnerranks")
 
-                if(partner != ""){
+                if(partner !== ""){
                     if (!(partner instanceof Array)) {
                         partner = Object.values(partner);
                     }
                     for(var par of partner){
-                        customGeoColl.addLine(positionMap[proc], positionMap[par])
+                        // *** FIX: Null-Checks vor addLine() ***
+                        var procPosition = positionMap[proc]
+                        var partnerPosition = positionMap[par]
+
+                        // Nur addLine() aufrufen wenn beide Positionen existieren
+                        if(procPosition !== undefined && partnerPosition !== undefined) {
+                            // Zusätzliche Validierung: Sind es gültige Vector3D-Objekte?
+                            if(procPosition.x !== undefined && procPosition.y !== undefined && procPosition.z !== undefined &&
+                               partnerPosition.x !== undefined && partnerPosition.y !== undefined && partnerPosition.z !== undefined) {
+                                customGeoColl.addLine(procPosition, partnerPosition)
+                            } else {
+                                console.log("Invalid position data for proc:", proc, "partner:", par)
+                            }
+                        } else {
+                            console.log("Missing position data for proc:", proc, "or partner:", par)
+                        }
                     }
                 }
             }

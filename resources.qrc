@@ -19,6 +19,7 @@
         <file>Table_Userid_Selection.qml</file>
         <file>MPI_Run_Analysis.qml</file>
         <file>Application_Start_OpenMP.qml</file>
+        <file>Detailed_Information_Bar.qml</file>
         <file>icons/play.png</file>
         <file>icons/pause.png</file>
         <file>icons/backward_step.png</file>

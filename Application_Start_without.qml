@@ -196,6 +196,7 @@ Window {
             }
 
             onClicked:{
+                restarts++;
                 if(checkInput()){
                     //controller.removeClusterComponents();
                     visualization=false;

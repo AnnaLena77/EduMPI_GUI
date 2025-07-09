@@ -168,7 +168,8 @@ Item {
                     enabled: bar_enable_timeline
 
                     onEnabledChanged: {
-                        if (enabled == true){
+                        console.log("--- Enable_Changed" + enabled);
+                        if (enabled === true){
                             currentTime = startTime
                             timeline_timer.start()
                             icon.color = "red"
@@ -177,7 +178,7 @@ Item {
                                 //console.log("enable playbutton clicked")
                                 playbutton.clicked()
                             }
-                        } else if (enabled == false) {
+                        } else if (enabled === false) {
                             currentTime = 0
                             icon.color = "grey"
                             icon.source = "/icons/pause.png"

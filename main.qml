@@ -60,6 +60,7 @@ Window {
 
 
     onRestartsChanged: {
+        console.log("RESTART: " + restarts)
         if(restarts > 0 && restarts != null) {
             controller.copyEnvFile();
             controller.remove_open_window(slurmnotifier.sl_id)

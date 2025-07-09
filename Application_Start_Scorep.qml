@@ -195,6 +195,7 @@ Window {
             }
 
             onClicked:{
+                restarts++;
                 if(checkInput()){
                     //nodesList.removeClusterComponents();
                     visualization=false;

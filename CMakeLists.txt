@@ -81,6 +81,7 @@ qt_add_qml_module(appGUI_Cluster
         Table_Userid_Selection.qml
         MPI_Run_Analysis.qml
         Application_Start_OpenMP.qml
+        Detailed_Information_Bar.qml
     SOURCES
         controller.cpp
         controller.h
@@ -98,7 +99,6 @@ qt_add_qml_module(appGUI_Cluster
         heatmap_matrix.cpp
         heatmapmaterial.h
         heatmapmaterial.cpp
-        QML_FILES Detailed_Information_Bar.qml
 
 )
 
