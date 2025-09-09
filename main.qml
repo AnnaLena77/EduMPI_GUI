@@ -88,6 +88,7 @@ Window {
         height: parent.height
         property int endTime: root.endTime
         property string option: root.option
+        property string selected_screen: root.selected_screen
         property bool p2p: root.p2p
         property bool collective: root.collective
 

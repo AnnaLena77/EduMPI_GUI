@@ -76,6 +76,7 @@ Window {
         anchors.fill: parent
         property int endTime: run_analysis_win.endTime
         property string option: run_analysis_win.option
+        property string selected_screen: run_analysis_win.selected_screen
         //property string selected_screen: run_analysis_win.selected_screen
 
         property string functions: ""

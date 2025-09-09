@@ -238,8 +238,8 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
     if (query.exec()) {
         reset_detailed_matrices();
         while(query.next()){
-            int send_size = query.value(6).toInt();
-            int recv_size = query.value(7).toInt();
+            long send_size = query.value(6).toLongLong();
+            long recv_size = query.value(7).toLongLong();
             float time = query.value(8).toFloat();
             int proc_rank = query.value(2).toInt();
             int part_rank = query.value(3).toInt();
@@ -291,7 +291,10 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
                         }
                         bitIndex += 8;  // Zum nächsten Byte springen
                     }
-                    int send = send_size/numbers.size();
+                    long send;
+                    if(send_size>0){
+                        send = send_size/numbers.size();
+                    }
                     for(QVariant partner : numbers){
                         m_total_send_volume_matrix[proc_rank][partner.toInt()] += send;
                         m_coll_send_volume_matrix[proc_rank][partner.toInt()] += send;

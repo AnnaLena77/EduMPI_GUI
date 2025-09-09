@@ -436,6 +436,7 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
             scriptFile << "done\n";
             scriptFile << "export OMPI_MCA_coll_han_priority=0\n";
         } else if(option == 2){
+            //scriptFile << "export SCOREP_ENABLE_TRACING=true\n";
             scriptFile << "export PATH=\"$PATH:/opt/scalasca/bin\"\n";
             scriptFile << "export PATH=\"$PATH:/opt/scorep/bin\"\n";
         } else if(option == 3){

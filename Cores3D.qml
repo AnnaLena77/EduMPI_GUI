@@ -14,6 +14,9 @@ Rectangle {
     property var positionMap: []
     property bool load: true
 
+    property bool p2p_lines: p2p_send_lines
+    property bool c_lines: coll_lines
+
     onListNodesChanged: {
         updateCheckTimer.start()
         if(listNodes){

@@ -21,6 +21,7 @@ Item {
     property bool bar_enable_timeline : enable_timeline
 
     property string options: parent.option
+    property string selected_screen: parent.selected_screen
 
     property var timestampA: null
     property var timestampB: null
@@ -69,6 +70,9 @@ Item {
         if(bar_enable_timeline &&  playbutton.icon.name==="play"){
             nodesList.showConditionAt(timestampA, timestampB)
         }
+    }
+    onSelected_screenChanged: {
+        console.log(selected_screen)
     }
 
     id: bottom_timeline_bar
@@ -219,27 +223,31 @@ Item {
                 }
                 RoundButton{
                     //icon.name: "backward"
+                    id: backward_button
                     scale: 1.2
                     icon.source: "/icons/backward_step.png"
                     icon.color: "white"
                     onClicked: {
                         if(playbutton.icon.name==="play"){
                             timeline_positionmarker.x -=tick
-                            var timestamp = timeline_positionmarker.x/tick;
-                            nodesList.showConditionAt(timestamp, timestamp)
+                            timestampA = timeline_positionmarker.x/tick;
+                            timestampB = timestampA;
+                            nodesList.showConditionAt(timestampA, timestampB)
                         }
                     }
                 }
                 RoundButton{
                     //icon.name: "forward-step"
+                    id: forward_button
                     scale: 1.2
                     icon.source: "/icons/forward_step.png"
                     icon.color: "white"
                     onClicked: {
                         if(playbutton.icon.name==="play"){
                             timeline_positionmarker.x +=tick
-                            var timestamp = timeline_positionmarker.x/tick;
-                            nodesList.showConditionAt(timestamp, timestamp)
+                            timestampA = timeline_positionmarker.x/tick;
+                            timestampB = timestampA;
+                            nodesList.showConditionAt(timestampA, timestampB)
                         }
                     }
                 }
@@ -425,6 +433,16 @@ Item {
         }
     }
     }
+    //Key area
+    Keys.onPressed: (event) => {
+        if(event.key === Qt.Key_Right && playbutton.icon.name==="play"){
+            forward_button.clicked()
+        } else if(event.key === Qt.Key_Left && playbutton.icon.name==="play"){
+            backward_button.clicked()
+        } else if(event.key === Qt.Key_Space){
+            playbutton.clicked()
+        }
+    }
 
 
     Timer{
@@ -470,6 +488,4 @@ Item {
             }
         }
     }
-
-
 }
