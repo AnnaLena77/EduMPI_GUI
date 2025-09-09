@@ -1,0 +1,66 @@
+#Copyright: Marvin Zein, OVGU
+name: AppImage Deployment
+
+env:
+  QT_VERSION: 6.8.1
+
+on:
+  push:
+    branches:
+      - 'master'
+      - 'deployment'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: 'linux'
+          target: 'desktop'
+          arch: 'linux_gcc_64'
+          modules: 'qtquick3d qtshadertools'
+          tools: 'tools_cmake'
+          cache: true
+
+      - name: Install Postgres
+        run: |
+          sudo apt update && sudo apt install -y postgresql libvulkan-dev
+
+      - name: Configure CMake
+        run: cmake -S . -B build -DCMAKE_INSTALL_PREFIX=/usr
+
+      - name: Compile
+        working-directory: build
+        run: make -j$(nproc)
+
+      - name: Create AppDir with executable
+        working-directory: build
+        run: make install DESTDIR=AppDir
+
+      - name: Remove Mimer driver
+        run: rm "${QT_PLUGIN_PATH}/sqldrivers/libqsqlmimer.so"
+
+      - name: Download and run linuxdeploy
+        working-directory: build
+        run: |
+          wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+          wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
+          chmod +x linuxdeploy*.AppImage
+          export QML_SOURCES_PATHS=${{ github.workspace }}
+          export DEPLOY_PLATFORM_THEMES=true
+          mkdir -p AppDir/apprun-hooks
+          touch AppDir/apprun-hooks/set-adwaita-dark.sh
+          echo "export GTK_THEME=Adwaita:dark" > AppDir/apprun-hooks/set-adwaita-dark.sh
+          ./linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt -d ../EduMPI_GUI.desktop -i ../EduMPI_GUI_logo.png --output appimage
+
+      - name: Upload AppImage as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: EduMPI-GUI-AppImage-Artifact
+          path: build/EduMPI_GUI-x86_64.AppImage
