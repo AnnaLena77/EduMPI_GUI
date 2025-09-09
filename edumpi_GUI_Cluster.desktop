@@ -2,7 +2,7 @@
 Type=Application
 Name=GUI_Cluster
 Exec=appGUI_Cluster
-Icon=user
+Icon=edumpi_logo
 Comment=Edit this comment
 Terminal=true
 Categories=Utility;
