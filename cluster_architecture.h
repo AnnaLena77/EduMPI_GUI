@@ -29,6 +29,14 @@ class Cluster_Architecture : public QObject
     Q_PROPERTY(long p2p_recv_max READ p2p_recv_max WRITE set_p2p_recv_max NOTIFY p2p_recv_max_changed)
     Q_PROPERTY(long coll_recv_max READ coll_recv_max WRITE set_coll_recv_max NOTIFY coll_recv_max_changed)
 
+    Q_PROPERTY(long detailed_p2p_max READ detailed_p2p_max WRITE set_detailed_p2p_max NOTIFY detailed_p2p_max_changed)
+    Q_PROPERTY(long detailed_coll_max READ detailed_coll_max WRITE set_detailed_coll_max NOTIFY detailed_coll_max_changed)
+    Q_PROPERTY(long detailed_total_max READ detailed_total_max WRITE set_detailed_total_max NOTIFY detailed_total_max_changed)
+
+    Q_PROPERTY(long detailed_p2p_avg MEMBER m_detailed_p2p_avg NOTIFY detailed_p2p_max_changed)
+    Q_PROPERTY(long detailed_coll_avg MEMBER m_detailed_coll_avg NOTIFY detailed_coll_max_changed)
+    Q_PROPERTY(long detailed_total_avg MEMBER m_detailed_total_avg NOTIFY detailed_total_max_changed)
+
     Q_PROPERTY(int slurm_id READ slurm_id WRITE set_slurm_id NOTIFY slurm_id_changed)
     Q_PROPERTY(int proc_num READ proc_num WRITE set_proc_num NOTIFY proc_num_changed)
 
@@ -41,6 +49,13 @@ class Cluster_Architecture : public QObject
 
     Q_PROPERTY(QString mpi_functions READ mpi_functions WRITE set_mpi_functions NOTIFY mpi_functions_changed)
 
+    Q_PROPERTY(QVector<QVector<long>> p2p_send_volume_matrix READ p2p_send_volume_matrix WRITE set_p2p_send_volume_matrix NOTIFY p2p_send_volume_matrix_changed)
+    Q_PROPERTY(QVector<QVector<long>> p2p_recv_volume_matrix READ p2p_recv_volume_matrix WRITE set_p2p_recv_volume_matrix NOTIFY p2p_recv_volume_matrix_changed)
+    Q_PROPERTY(QVector<QVector<long>> coll_send_volume_matrix READ coll_send_volume_matrix WRITE set_coll_send_volume_matrix NOTIFY coll_send_volume_matrix_changed)
+    Q_PROPERTY(QVector<QVector<long>> coll_recv_volume_matrix READ coll_recv_volume_matrix WRITE set_coll_recv_volume_matrix NOTIFY coll_recv_volume_matrix_changed)
+
+    Q_PROPERTY(QVector<QVector<long>> total_send_volume_matrix READ total_send_volume_matrix WRITE set_total_send_volume_matrix NOTIFY total_send_volume_matrix_changed)
+
     QThread database_thread;
 
 public:
@@ -51,11 +66,23 @@ public:
     Detailed_p2p_data* detailedP2P();
     Detailed_coll_data* detailedColl();
 
+    //detailed matrices
+    QVector<QVector<long>> p2p_send_volume_matrix() const;
+    QVector<QVector<long>> p2p_recv_volume_matrix() const;
+    QVector<QVector<long>> coll_send_volume_matrix() const;
+    QVector<QVector<long>> coll_recv_volume_matrix() const;
+    QVector<QVector<long>> total_send_volume_matrix() const;
+
     int count() const;
     long p2p_send_max();
     long coll_send_max();
     long p2p_recv_max();
     long coll_recv_max();
+
+    long detailed_p2p_max();
+    long detailed_coll_max();
+    long detailed_total_max();
+
     int slurm_id();
     int proc_num();
     int end_time();
@@ -66,6 +93,10 @@ public:
     void set_coll_send_max(long max);
     void set_p2p_recv_max(long max);
     void set_coll_recv_max(long max);
+
+    void set_detailed_p2p_max(long max);
+    void set_detailed_coll_max(long max);
+    void set_detailed_total_max(long max);
     //void set_slurm_id(int id);
 
     //Initialization
@@ -91,11 +122,18 @@ public:
     int timerId;
     QVector<Cluster_Node*> get_nodeList();
 
+    void calculateDetailedMatricesMaxAndAvg();
+
 signals:
     void p2p_send_max_changed();
     void coll_send_max_changed();
     void p2p_recv_max_changed();
     void coll_recv_max_changed();
+
+    void detailed_p2p_max_changed();
+    void detailed_coll_max_changed();
+    void detailed_total_max_changed();
+
     void slurm_id_changed();
     void proc_num_changed();
     void end_timeChanged(QDateTime time);
@@ -112,6 +150,7 @@ signals:
     void signalToDBConnection();
     void waitForEnd();
 
+
     //Signals for QML
     void componentsBuilt();
     void connectionSignal(bool success);
@@ -122,6 +161,16 @@ signals:
 
     void reset_bottom_bar();
 
+    void p2p_send_volume_matrix_changed();
+    void p2p_recv_volume_matrix_changed();
+    void coll_send_volume_matrix_changed();
+    void coll_recv_volume_matrix_changed();
+    void total_send_volume_matrix_changed();
+
+    QVector<QVector<long>> addMatrices(const QVector<QVector<long>>& matrixA,
+                                       const QVector<QVector<long>>& matrixB);
+
+
 
 public slots:
     void buildClusterComponents(const QMap<QString, QVector<int>> &);
@@ -130,6 +179,13 @@ public slots:
     //set bool = 1 for start-timestamp and bool = 0 for end-timestamp
     void handleTimestamp(QDateTime timestamp, bool start);
     void set_mpi_functions(QString string);
+
+    void set_p2p_send_volume_matrix(QVector<QVector<long>> matrix);
+    void set_p2p_recv_volume_matrix(QVector<QVector<long>> matrix);
+    void set_coll_send_volume_matrix(QVector<QVector<long>> matrix);
+    void set_coll_recv_volume_matrix(QVector<QVector<long>> matrix);
+    void set_total_send_volume_matrix(QVector<QVector<long>> matrix);
+
 
 private:
 
@@ -143,6 +199,14 @@ private:
     long m_coll_send_max = 0;
     long m_p2p_recv_max = 0;
     long m_coll_recv_max = 0;
+
+    long m_detailed_p2p_max;
+    long m_detailed_coll_max;
+    long m_detailed_total_max;
+    long m_detailed_p2p_avg;
+    long m_detailed_coll_avg;
+    long m_detailed_total_avg;
+
     bool m_connection_ready = false;
     bool m_cluster_connection_ready = false;
     int m_time_display = 0;
@@ -169,6 +233,13 @@ private:
     Detailed_coll_data m_detailed_coll;
 
     QString m_mpi_functions;
+
+    //Communication matrices
+    QVector<QVector<long>> m_p2p_send_volume_matrix;
+    QVector<QVector<long>> m_p2p_recv_volume_matrix;
+    QVector<QVector<long>> m_coll_send_volume_matrix;
+    QVector<QVector<long>> m_coll_recv_volume_matrix;
+    QVector<QVector<long>> m_total_send_volume_matrix;
 
 protected:
     void timerEvent(QTimerEvent *event);

@@ -18,6 +18,8 @@ Window {
 
     property bool p2p: true
     property bool collective: true
+
+    property string selected_screen: "Cores3D"
     property string option: "send/recv ratio (per proc)"
     property color gradient1: "green"
     property color gradient2: "red"
@@ -52,7 +54,13 @@ Window {
     property bool p2p_recv_lines: false
     property bool coll_lines: false
 
+    /*onSelected_screenChanged: {
+        console.log("main: " + selected_screen)
+    }*/
+
+
     onRestartsChanged: {
+        console.log("RESTART: " + restarts)
         if(restarts > 0 && restarts != null) {
             controller.copyEnvFile();
             controller.remove_open_window(slurmnotifier.sl_id)
@@ -80,6 +88,9 @@ Window {
         height: parent.height
         property int endTime: root.endTime
         property string option: root.option
+        property string selected_screen: root.selected_screen
+        property bool p2p: root.p2p
+        property bool collective: root.collective
 
         function flash() {
             opacityAnimation.start();
@@ -211,9 +222,10 @@ Window {
                 }
             }
             function outputHandling(output_path){
+                var window
+                var component
                 if(root.visualization && root.startTime == 0){
-                    var window;
-                    var component = Qt.createComponent("Output_File.qml");
+                    component = Qt.createComponent("Output_File.qml");
                     if(component.status === Component.Ready){
                         window = component.createObject(root, {"path": output_path, "success" : false});
                         window.x = (root.width - window.width) / 2;
@@ -225,8 +237,7 @@ Window {
                     root.enable_start = true;
 
                 } else {
-                    var window;
-                    var component = Qt.createComponent("Output_File.qml");
+                    component = Qt.createComponent("Output_File.qml");
                     if(component.status === Component.Ready){
                         window = component.createObject(root, {"path": output_path, "success": true});
                         window.x = (root.width - window.width) / 2;
@@ -280,6 +291,7 @@ Window {
         StackView{
             id: actualScreen
             property int twoD_columns: 10
+            property int matrix_zoom: 100
             property int threeD_depth: 2
             height: parent.height
 

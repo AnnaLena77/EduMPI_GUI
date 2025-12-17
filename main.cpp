@@ -3,6 +3,7 @@
 #include "table_userid.h"
 #include "ranks_instances.h"
 #include "customlinegeometry.h"
+#include "heatmap_matrix.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -14,12 +15,17 @@
 
 #include <QtQuick3D/qquick3d.h>
 
+#include <QLoggingCategory>
+
 
 int main(int argc, char *argv[])
 {
     qputenv("QT_IM_MODULE", QByteArray());
     qputenv("QT_WAYLAND_DISABLE_TEXT_INPUT", "1");
     qputenv("QT_LOGGING_RULES", "qt.qpa.wayland.textinput=false");
+
+    //QLoggingCategory::setFilterRules(QStringLiteral("qt.scenegraph.general=true"));
+
 
     //QScopedPointer<Database_Connection> db(new Database_Connection);
 

@@ -12,7 +12,12 @@ set(CMAKE_AUTORCC ON)
 #set(QT_QMLTYPE_REGISTRATION ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_PREFIX_PATH "/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/lib/cmake/Qt6;/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/lib/cmake")
+
+if(WIN32)
+    set(CMAKE_PREFIX_PATH "C:/Qt/6.8.1/mingw_64/lib/cmake/Qt6;C:/Qt/6.8.1/mingw_64/lib/cmake")
+else ()
+    set(CMAKE_PREFIX_PATH "/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/lib/cmake/Qt6;/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/lib/cmake")
+endif ()
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick QuickControls2 Quick3D Sql)
 find_package(PkgConfig REQUIRED)
@@ -24,8 +29,9 @@ qt_policy(SET QTP0002 NEW)  # Neues Verhalten für Build-/Installationsverzeichn
 qt_policy(SET QTP0003 NEW)  # Für Plugins, wenn benötigt
 qt_policy(SET QTP0004 NEW)  # Module mit mehreren QML-Dateien benötigen ein qmldir
 
-pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
-
+if (LINUX)
+    pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
+endif ()
 
 INCLUDE_DIRECTORIES("/usr/include/postgresql")
 LINK_DIRECTORIES("/usr/lib/postgresql/12/lib")
@@ -59,6 +65,7 @@ qt_add_qml_module(appGUI_Cluster
         main.qml
         Cores2D.qml
         Cores3D.qml
+        CoresCommunicationMatrix.qml
         Menu_Bar.qml
         Bottom_Bar.qml
         Cluster_Connection_Formular.qml
@@ -74,6 +81,7 @@ qt_add_qml_module(appGUI_Cluster
         Table_Userid_Selection.qml
         MPI_Run_Analysis.qml
         Application_Start_OpenMP.qml
+        Detailed_Information_Bar.qml
     SOURCES
         controller.cpp
         controller.h
@@ -87,6 +95,11 @@ qt_add_qml_module(appGUI_Cluster
         customlinegeometry.cpp
         detailed_coll_data.h
         detailed_coll_data.cpp
+        heatmap_matrix.h
+        heatmap_matrix.cpp
+        heatmapmaterial.h
+        heatmapmaterial.cpp
+
 )
 
 add_subdirectory(Sidebar)

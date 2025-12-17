@@ -134,7 +134,13 @@ private:
     QString m_remote_dir_bash;
 
     std::string m_envFilePath;
+    // Program id (slurm)
     int m_slurm_id;
+    // Program name (for Score-P functionlality
+    QString m_program_name;
+    // Program number of processes
+    int m_proc_num = 0;
+
     int m_option;
     bool m_status_running=false;
 

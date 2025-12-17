@@ -124,7 +124,14 @@ void Controller::copyOutputFile(){
         if (!proc.waitForFinished()) {
             proc.kill();
         }
-        QString outputPath = filePath + "/slurm-" + QString::number(m_slurm_id) + ".out";
+        QString outputPath;
+        if(m_option == 2){
+            outputPath = filePath + "/scorep_" + m_program_name + "_" + QString::number(m_proc_num) + "_" + QString::number(m_slurm_id);
+        } else {
+
+            outputPath = filePath + "/slurm-" + QString::number(m_slurm_id) + ".out";
+
+        }
         emit copiedOutputFile(outputPath);
     });
 }
@@ -380,6 +387,8 @@ void Controller::startBash(int proc_num){
 
 void Controller::writeRemoteBashFile(QString program_name, int proc_num, int option){
     m_option = option;
+    m_program_name = program_name;
+    m_proc_num = proc_num;
 
     const char *homeDir = getenv("HOME");
     QString filePath = QString::fromUtf8(homeDir)  + "/remote_bash_eduMPI.sh";
@@ -427,6 +436,7 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
             scriptFile << "done\n";
             scriptFile << "export OMPI_MCA_coll_han_priority=0\n";
         } else if(option == 2){
+            scriptFile << "export SCOREP_ENABLE_TRACING=true\n";
             scriptFile << "export PATH=\"$PATH:/opt/scalasca/bin\"\n";
             scriptFile << "export PATH=\"$PATH:/opt/scorep/bin\"\n";
         } else if(option == 3){
@@ -442,7 +452,7 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
             scriptFile << "time mpirun -n " << proc_num << " ./"+program_name.toStdString();
         } else if(option == 2) {
             scriptFile << "scorep mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << " -lm" << "\n";
-            scriptFile << "scalasca -analyze -e scorep_" << program_name.toStdString() << "_" << proc_num << "_$SLURM_JOB_ID mpiexec -n " << proc_num << " ./"+program_name.toStdString();
+            scriptFile << "scalasca -analyze -t -e scorep_" << program_name.toStdString() << "_" << proc_num << "_$SLURM_JOB_ID mpiexec -n " << proc_num << " ./"+program_name.toStdString();
         } else if(option == 3){
             scriptFile << "gcc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << " -lm -fopenmp" << "\n";
             scriptFile << "./" << program_name.toStdString();
@@ -472,7 +482,7 @@ void Controller::slurm_status_changed(QString status){
         }
     } else {
         if((status == "completed" || status == "cancelled")&& m_status_running){
-            qDebug() << "Call CopyOutputFile\n";
+            //qDebug() << "Call CopyOutputFile\n";
             copyOutputFile();
             //slurm_process->killProcess();
         }

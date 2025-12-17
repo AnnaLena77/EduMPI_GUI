@@ -58,7 +58,7 @@ void Cluster_Architecture::resetCluster_Architecture(){
 }
 
 void Cluster_Architecture::setOption(int opt){
-    std::cout << "setOption" << std::endl;
+    //std::cout << "setOption" << std::endl;
     m_option = opt;
 }
 
@@ -77,6 +77,8 @@ void Cluster_Architecture::startThread(){
 
     m_dbThread = new Database_Thread(thread_connection_name, m_slurm_id, m_proc_num, m_live_run);
     m_dbThread->moveToThread(&database_thread);
+
+    qDebug() << "m_proc_num: " << m_proc_num;
     //clone_db.moveToThread(&database_thread);
 
     //m_dbThread->moveToThread(dbThread);
@@ -101,6 +103,13 @@ void Cluster_Architecture::startThread(){
     Database_Thread::connect(m_dbThread, &Database_Thread::updateDetailedColl, &m_detailed_coll, &Detailed_coll_data::queryData);
 
     Database_Thread::connect(m_dbThread, &Database_Thread::setFunctionsString, this, &Cluster_Architecture::set_mpi_functions);
+    Database_Thread::connect(m_dbThread, &Database_Thread::setCommMatrixP2PSend, this, &Cluster_Architecture::set_p2p_send_volume_matrix);
+    Database_Thread::connect(m_dbThread, &Database_Thread::setCommMatrixP2PRecv, this, &Cluster_Architecture::set_p2p_recv_volume_matrix);
+    Database_Thread::connect(m_dbThread, &Database_Thread::setCommMatrixCollSend, this, &Cluster_Architecture::set_coll_send_volume_matrix);
+    Database_Thread::connect(m_dbThread, &Database_Thread::setCommMatrixCollRecv, this, &Cluster_Architecture::set_coll_recv_volume_matrix);
+
+    Database_Thread::connect(m_dbThread, &Database_Thread::setCommMatrixTotalSend, this, &Cluster_Architecture::set_total_send_volume_matrix);
+
 
     //database_thread.start();
     database_thread.start();
@@ -164,6 +173,18 @@ long Cluster_Architecture::p2p_recv_max(){
     return m_p2p_recv_max;
 }
 
+long Cluster_Architecture::detailed_p2p_max(){
+    return m_detailed_p2p_max;
+}
+
+long Cluster_Architecture::detailed_coll_max(){
+    return m_detailed_coll_max;
+}
+
+long Cluster_Architecture::detailed_total_max(){
+    return m_detailed_total_max;
+}
+
 int Cluster_Architecture::slurm_id(){
     return m_slurm_id;
 }
@@ -201,6 +222,23 @@ void Cluster_Architecture::set_p2p_recv_max(long max){
     m_p2p_recv_max = max;
     emit p2p_recv_max_changed();
 }
+
+void Cluster_Architecture::set_detailed_coll_max(long max){
+    m_detailed_coll_max = max;
+    emit detailed_coll_max_changed();
+}
+
+
+void Cluster_Architecture::set_detailed_p2p_max(long max){
+    m_detailed_p2p_max = max;
+    emit detailed_p2p_max_changed();
+}
+
+void Cluster_Architecture::set_detailed_total_max(long max){
+    m_detailed_total_max = max;
+    emit detailed_total_max_changed();
+}
+
 void Cluster_Architecture::set_slurm_id(int id){
     m_slurm_id = id;
     //qDebug() << "set_slurm_id";
@@ -271,8 +309,12 @@ void Cluster_Architecture::updateDataToUI(const QList<DataColumn> &list){
     set_coll_send_max(0);
     set_coll_recv_max(0);
 
+    set_detailed_coll_max(0);
+    set_detailed_p2p_max(0);
+
     QString name = m_nodes[0]->getName();
     int index = 0;
+
 
     for(int i = 0; i<list.count(); i++){
         DataColumn dc = list[i];
@@ -380,3 +422,136 @@ Detailed_p2p_data* Cluster_Architecture::detailedP2P() {
 Detailed_coll_data* Cluster_Architecture::detailedColl() {
     return &m_detailed_coll;
 }
+
+//Methods for detailed matrices
+
+QVector<QVector<long>> Cluster_Architecture::p2p_send_volume_matrix() const{
+    return m_p2p_send_volume_matrix;
+}
+
+void Cluster_Architecture::set_p2p_send_volume_matrix(QVector<QVector<long>> matrix){
+    m_p2p_send_volume_matrix = matrix;
+    emit p2p_send_volume_matrix_changed();
+}
+
+QVector<QVector<long>> Cluster_Architecture::p2p_recv_volume_matrix() const{
+    return m_p2p_recv_volume_matrix;
+}
+
+void Cluster_Architecture::set_p2p_recv_volume_matrix(QVector<QVector<long>> matrix){
+    m_p2p_recv_volume_matrix = matrix;
+    emit p2p_recv_volume_matrix_changed();
+}
+
+QVector<QVector<long>> Cluster_Architecture::coll_send_volume_matrix() const{
+    return m_coll_send_volume_matrix;
+}
+
+void Cluster_Architecture::set_coll_send_volume_matrix(QVector<QVector<long>> matrix){
+    m_coll_send_volume_matrix = matrix;
+    emit coll_send_volume_matrix_changed();
+
+
+}
+
+QVector<QVector<long>> Cluster_Architecture::coll_recv_volume_matrix() const{
+    return m_coll_recv_volume_matrix;
+}
+
+void Cluster_Architecture::set_coll_recv_volume_matrix(QVector<QVector<long>> matrix){
+    m_coll_recv_volume_matrix = matrix;
+    emit coll_recv_volume_matrix_changed();
+}
+
+QVector<QVector<long>> Cluster_Architecture::total_send_volume_matrix() const{
+    return m_total_send_volume_matrix;
+}
+
+void Cluster_Architecture::set_total_send_volume_matrix(QVector<QVector<long>> matrix){
+    m_total_send_volume_matrix = matrix;
+    calculateDetailedMatricesMaxAndAvg();
+    emit total_send_volume_matrix_changed();
+}
+
+QVector<QVector<long>> addMatrices(const QVector<QVector<long>>& matrixA,
+                                   const QVector<QVector<long>>& matrixB)
+{
+    if (matrixA.size() != matrixB.size())
+        throw std::invalid_argument("Matrix dimensions do not match (rows).");
+
+    QVector<QVector<long>> result;
+    result.reserve(matrixA.size());
+
+    for (int i = 0; i < matrixA.size(); ++i) {
+        if (matrixA[i].size() != matrixB[i].size())
+            throw std::invalid_argument("Matrix dimensions do not match (columns).");
+
+        QVector<long> row;
+        row.reserve(matrixA[i].size());
+
+        for (int j = 0; j < matrixA[i].size(); ++j) {
+            row.append(matrixA[i][j] + matrixB[i][j]);
+        }
+        result.append(std::move(row));
+    }
+
+    return result;
+}
+
+//Calculate Maximum and Average of detailed matrices
+void Cluster_Architecture::calculateDetailedMatricesMaxAndAvg() {
+    m_detailed_p2p_max = 0;
+    m_detailed_coll_max = 0;
+    m_detailed_total_max = 0;
+
+    m_detailed_p2p_avg = 0;
+    m_detailed_coll_avg = 0;
+    m_detailed_total_avg = 0;
+
+    for (const auto& row : m_p2p_send_volume_matrix) {
+        for (const auto& value : row) {
+            if (value > m_detailed_p2p_max) {
+                m_detailed_p2p_max = value;
+            }
+            m_detailed_p2p_avg += value;
+        }
+    }
+
+    for (const auto& row : m_coll_send_volume_matrix) {
+        for (const auto& value : row) {
+            if (value > m_detailed_coll_max) {
+                m_detailed_coll_max = value;
+            }
+            m_detailed_coll_avg += value;
+        }
+    }
+
+    for (const auto& row : m_total_send_volume_matrix) {
+        for (const auto& value : row) {
+            if (value > m_detailed_total_max) {
+                m_detailed_total_max = value;
+            }
+            m_detailed_total_avg += value;
+        }
+    }
+
+    int totalElementsP2P = m_proc_num * m_proc_num;
+    int totalElementsColl = m_proc_num * m_proc_num;
+    int totalElementsTotal = m_proc_num * m_proc_num;
+
+    if (totalElementsP2P > 0)
+        m_detailed_p2p_avg /= totalElementsP2P;
+
+    if (totalElementsColl > 0)
+        m_detailed_coll_avg /= totalElementsColl;
+
+    if (totalElementsTotal > 0)
+        m_detailed_total_avg /= totalElementsTotal;
+
+    emit detailed_p2p_max_changed();
+    emit detailed_coll_max_changed();
+    emit detailed_total_max_changed();
+}
+
+
+

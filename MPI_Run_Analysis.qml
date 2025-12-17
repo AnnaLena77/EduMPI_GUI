@@ -13,6 +13,7 @@ Window {
     height: 810
     visible: true
 
+    
     onClosing: {
         controller.remove_open_window(analysis_slurm_id)
         ascreen.clear();
@@ -36,6 +37,7 @@ Window {
 
     property bool p2p: true
     property bool collective: true
+    property string selected_screen: "Cores3D"
     property string option: "send/recv ratio (per proc)"
     property color gradient1: "green"
     property color gradient2: "red"
@@ -56,6 +58,10 @@ Window {
     property bool p2p_recv_lines: false
     property bool coll_lines: false
 
+    /*onSelected_screenChanged: {
+        console.log("under: " + selected_screen)
+    }*/
+
     onControllerChanged: {
         //console.log("Controller changed")
     }
@@ -70,6 +76,8 @@ Window {
         anchors.fill: parent
         property int endTime: run_analysis_win.endTime
         property string option: run_analysis_win.option
+        property string selected_screen: run_analysis_win.selected_screen
+        //property string selected_screen: run_analysis_win.selected_screen
 
         property string functions: ""
 
@@ -149,6 +157,7 @@ Window {
             id: ascreen
             property var map: []
             property int twoD_columns: 10
+            property int matrix_zoom: 100
             property int threeD_depth: 2
             property bool reload: true
 

@@ -110,7 +110,7 @@ Window {
             onAccepted: {
                 uploadPath.text = selectedFile
                 var fileName = uploadPath.text.split('/').pop()
-                if(fileName.split('.').pop() == "c"){
+                if(fileName.split('.').pop() === "c"){
                     fileName = fileName.split('.').shift()
                     programNameField.text = fileName
                 }
@@ -195,6 +195,7 @@ Window {
             }
 
             onClicked:{
+                restarts++;
                 if(checkInput()){
                     //nodesList.removeClusterComponents();
                     visualization=false;

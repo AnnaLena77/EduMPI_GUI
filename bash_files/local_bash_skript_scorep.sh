@@ -24,6 +24,9 @@ function handle_cancel_signal() {
     echo "Signal empfangen, breche Job $JOB_ID ab..."
     remote_command "scancel $JOB_ID"
     echo "Job $JOB_ID CANCELLED."
+    END_TIME=$(remote_command "scontrol show job $JOB_ID | grep EndTime | cut -d= -f3")
+    echo "$END_TIME EndTime"
+    sleep 1
     ssh ${SSH_OPTIONS} -O exit -p ${SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST}
     echo "SSH-Verbindung geschlossen"
     exit 0
@@ -70,6 +73,9 @@ while true; do
     
      # Überprüfen, ob der Job abgeschlossen ist
     if [[ "$JOB_STATUS" == "COMPLETED" || "$JOB_STATUS" == "FAILED" || "$JOB_STATUS" == "CANCELLED" || -z "$JOB_STATUS" ]]; then
+        sleep 0.5
+        END_TIME=$(remote_command "scontrol show job $JOB_ID | grep EndTime | cut -d= -f3")
+        echo "$END_TIME EndTime"
         break
     fi
 

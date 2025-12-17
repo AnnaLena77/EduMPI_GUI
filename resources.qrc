@@ -3,6 +3,7 @@
         <file>main.qml</file>
         <file>Cores2D.qml</file>
         <file>Cores3D.qml</file>
+        <file>CoresCommunicationMatrix.qml</file>
         <file>Menu_Bar.qml</file>
         <file>Bottom_Bar.qml</file>
         <file>Cluster_Connection_Formular.qml</file>
@@ -18,6 +19,7 @@
         <file>Table_Userid_Selection.qml</file>
         <file>MPI_Run_Analysis.qml</file>
         <file>Application_Start_OpenMP.qml</file>
+        <file>Detailed_Information_Bar.qml</file>
         <file>icons/play.png</file>
         <file>icons/pause.png</file>
         <file>icons/backward_step.png</file>
@@ -33,7 +35,15 @@
         <file>bash_files/local_bash_skript.sh</file>
         <file>bash_files/remote_scorep_skript.sh</file>
         <file>bash_files/local_bash_skript_scorep.sh</file>
+        
+        <file>shaders/heatmap.vert.qsb</file>
+        <file>shaders/heatmap.frag.qsb</file>
+        <file>shaders/heatmap.vert</file>
+        <file>shaders/heatmap.frag</file>
+
     </qresource>
+   
+
     
     <qresource prefix="/Sidebar">
         <file>Sidebar/MPI_Application_Start.qml</file>
@@ -45,5 +55,6 @@
         <file>Sidebar/Options_Views.qml</file>
         <file>Sidebar/Screenshot.qml</file>
     </qresource>
+    
     
 </RCC>
