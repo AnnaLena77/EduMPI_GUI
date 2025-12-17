@@ -20,6 +20,11 @@ Database_Thread::Database_Thread(QString dbConnectionName, int slurm_id, int pro
 }
 
 Database_Thread::~Database_Thread(){
+    double averageTimeMs = totalTimeNs / 1e6 / queryCount; // Durchschnitt in ms
+    qDebug() << "Abfrage wurde" << queryCount << "mal ausgeführt.";
+    qDebug() << "Durchschnittliche Laufzeit:" << averageTimeMs << "ms";
+    qDebug() << "Max Query time: " << maxTimeNs / 1e6 << "ms";
+    qDebug() << "Min Query time: " << minTimeNs / 1e6 << "ms";
 }
 
 void Database_Thread::clearDatabase(){
@@ -169,9 +174,22 @@ void Database_Thread::updateData(const int &time_display){
     }
 
     //std::cout << queryString.toStdString() << std::endl;
-
+    QElapsedTimer timer;
+    timer.start();            // Startzeit
 
     query.exec(queryString);
+
+
+    qint64 duration = timer.nsecsElapsed(); // Dauer der Abfrage
+    totalTimeNs += duration;
+    if(duration < minTimeNs){
+        minTimeNs = duration;
+    }
+    if(duration > maxTimeNs){
+        maxTimeNs = duration;
+    }
+    ++queryCount;
+
     QList<DataColumn> list;
 
 
@@ -220,8 +238,6 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
     QString s = "";
 
 
-
-
     QString queryString = "SELECT function, communicationtype, processrank, partnerrank, coll_algorithm, coll_partnerranks, SUM(send_ds) as send_ds, SUM(recv_ds) as recv_ds, SUM(comm_time) as comm_time FROM edumpi_detailed_data WHERE edumpi_run_id = :slurm_id AND ((time_end >= :endtime AND time_start <= :starttime) OR (time_end BETWEEN :starttime AND :endtime)) GROUP BY function, communicationtype, processrank, partnerrank, coll_algorithm, coll_partnerranks;";
 
     QDateTime a = timestampA.toUTC();
@@ -238,6 +254,7 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
     if (query.exec()) {
         reset_detailed_matrices();
         while(query.next()){
+            //std::cout << "Test 1" << std::endl;
             long send_size = query.value(6).toLongLong();
             long recv_size = query.value(7).toLongLong();
             float time = query.value(8).toFloat();
@@ -249,6 +266,10 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
                      << query.value(2) // processrank
                      << query.value(3) ;// partnerrank
                 p2p_list.append(list);
+                //std::cout << "Test 1: " << query.value(0).toString().toStdString() << std::endl;
+                if(query.value(0).toString() == "MPI_Wait"){
+                    continue;
+                }
                 QString fun = query.value(0).toString() + ", ";
                 if(!s.contains(fun)){
                     s.append(fun);
@@ -263,6 +284,7 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
                 m_p2p_time_matrix[proc_rank][part_rank] += time;
 
             } else if(query.value(1) == "collective"){
+                //std::cout << "Test 1" << std::endl;
                 QVariantList list;
                 list << query.value(0) // function
                      << query.value(2) // processrank

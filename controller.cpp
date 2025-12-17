@@ -436,7 +436,7 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
             scriptFile << "done\n";
             scriptFile << "export OMPI_MCA_coll_han_priority=0\n";
         } else if(option == 2){
-            //scriptFile << "export SCOREP_ENABLE_TRACING=true\n";
+            scriptFile << "export SCOREP_ENABLE_TRACING=true\n";
             scriptFile << "export PATH=\"$PATH:/opt/scalasca/bin\"\n";
             scriptFile << "export PATH=\"$PATH:/opt/scorep/bin\"\n";
         } else if(option == 3){
@@ -452,7 +452,7 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
             scriptFile << "time mpirun -n " << proc_num << " ./"+program_name.toStdString();
         } else if(option == 2) {
             scriptFile << "scorep mpicc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << " -lm" << "\n";
-            scriptFile << "scalasca -analyze -e scorep_" << program_name.toStdString() << "_" << proc_num << "_$SLURM_JOB_ID mpiexec -n " << proc_num << " ./"+program_name.toStdString();
+            scriptFile << "scalasca -analyze -t -e scorep_" << program_name.toStdString() << "_" << proc_num << "_$SLURM_JOB_ID mpiexec -n " << proc_num << " ./"+program_name.toStdString();
         } else if(option == 3){
             scriptFile << "gcc " << program_name.toStdString() << ".c -o " << program_name.toStdString() << " -lm -fopenmp" << "\n";
             scriptFile << "./" << program_name.toStdString();

@@ -315,6 +315,7 @@ void Cluster_Architecture::updateDataToUI(const QList<DataColumn> &list){
     QString name = m_nodes[0]->getName();
     int index = 0;
 
+
     for(int i = 0; i<list.count(); i++){
         DataColumn dc = list[i];
         if(name != dc.proc_name){
