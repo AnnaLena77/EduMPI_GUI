@@ -103,6 +103,15 @@ private:
 
     QVector<QVector<float>> m_p2p_time_matrix;
     QVector<QVector<float>> m_coll_time_matrix;
+
+    qint64 totalTimeNs = 0; // Gesamtdauer in Nanosekunden
+    int queryCount = 0;
+    qint64 maxTimeNs = 0;
+    qint64 minTimeNs = 100;
+    qint64 totalTimeNs2 = 0; // Gesamtdauer in Nanosekunden
+    int queryCount2 = 0;
+    qint64 maxTimeNs2 = 0;
+    qint64 minTimeNs2 = 100;
 };
 
 #endif // DATABASE_THREAD_H
