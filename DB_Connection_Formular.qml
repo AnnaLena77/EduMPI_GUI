@@ -8,7 +8,7 @@ Window {
     visible: true
     width: 400
     height: 300
-    title: "Timescale Database Connection"
+    title: "EduStore connection"
 
     GridLayout {
         anchors.fill: parent
@@ -24,7 +24,7 @@ Window {
             id: hostnameField
             Layout.fillWidth: true
             text: "10.35.8.10"
-            placeholderText: "<Enter host address>"
+            placeholderText: "<enter host address>"
             color: "white"
             background: Rectangle {
                 color: "#4d4d4d"
@@ -40,7 +40,7 @@ Window {
             id: portField
             Layout.fillWidth: true
             text: "5432"
-            placeholderText: "<Enter port>"
+            placeholderText: "<enter port>"
             //inputMethodHints: Qt.ImhDigitsOnly
             color: "white"
             background: Rectangle {
@@ -57,7 +57,7 @@ Window {
             id: nameField
             Layout.fillWidth: true
             text: "edumpi_tsdb"
-            placeholderText: "<Enter database name>"
+            placeholderText: "<enter database name>"
             color: "white"
             background: Rectangle {
                 color: "#4d4d4d"
@@ -73,7 +73,7 @@ Window {
             id: userField
             Layout.fillWidth: true
             text: "edumpi"
-            placeholderText: "<Enter user name>"
+            placeholderText: "<enter user name>"
             color: "white"
             background: Rectangle {
                 color: "#4d4d4d"
@@ -88,7 +88,7 @@ Window {
             id: passwordField
             echoMode: TextInput.Password
             Layout.fillWidth: true
-            placeholderText: "<password>"
+            placeholderText: "<enter password>"
             color: "white"
             background: Rectangle {
                 color: "#4d4d4d"
@@ -100,7 +100,7 @@ Window {
             HoverHandler {
                 cursorShape: Qt.PointingHandCursor
             }
-            text: "confirm"
+            text: "connect"
             Layout.columnSpan: 2
             Layout.fillWidth: true
             palette.button: "#404040"
