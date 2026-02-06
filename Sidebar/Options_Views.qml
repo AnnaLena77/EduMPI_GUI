@@ -192,7 +192,7 @@ Rectangle {
 
                     Text {
                         width: rectangle.width
-                        text: qsTr("Show detailed MPI communication connections:")
+                        text: qsTr("Show detailed MPI communication patterns:")
                         //font.pointSize: 12
                         Layout.alignment: Qt.AlignHCenter
                         Layout.preferredWidth: parent.width
@@ -244,7 +244,7 @@ Rectangle {
                         }
 
                         Text {
-                            text: "P2P - Send lines"
+                            text: "P2P - Send arrows"
                             color: "#999999"
                             Layout.alignment: Qt.AlignBottom
                             Layout.fillHeight: true
@@ -295,7 +295,7 @@ Rectangle {
                             }
                         }
                         Text {
-                            text: "P2P - Recv lines"
+                            text: "P2P - Recv arrows"
                             color: "#999999"
                             Layout.alignment: Qt.AlignVCenter
                             Layout.fillHeight: true
@@ -346,10 +346,10 @@ Rectangle {
                             }
                         }
                         Text {
-                            text: "Collective lines"
+                            text: "Collective arrows"
                             color: "#999999"
                             Layout.alignment: Qt.AlignVCenter
-                            Layout.fillHeight: true
+                            //Layout.fillHeight: true
                         }
 
                     }

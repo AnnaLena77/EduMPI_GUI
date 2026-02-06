@@ -254,7 +254,7 @@ Rectangle {
                 Layout.alignment: Qt.AlignLeft
                 Layout.leftMargin: 40
                 checked: true
-                text: qsTr("Secondly data")
+                text: qsTr("per second")
                 onCheckStateChanged: {
                     if(secondly_check.checked == true) nodesList.set_time_display(0);
                     total_check.checked = !secondly_check.checked

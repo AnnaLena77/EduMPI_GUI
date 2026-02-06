@@ -9,7 +9,7 @@ Window {
     visible: true
     width: 550
     height: 250
-    title: "Login to HPC@HS-Fulda"
+    title: "Cluster connection"
 
         ColumnLayout {
             anchors.fill: parent
@@ -18,7 +18,7 @@ Window {
             spacing: 4
 
             Label {
-                text: "Remote Hostname or IP-Address:" //(Cluster HS Fulda: hpc.informatik.hs-fulda.de):"
+                text: "Hostname/IP address:" //(Cluster HS Fulda: hpc.informatik.hs-fulda.de):"
                 wrapMode: Text.WordWrap
                 color: "#999999"
             }
@@ -27,13 +27,14 @@ Window {
                 id: hostnameField
                 Layout.fillWidth: true
                 text: "10.32.47.10"
+                placeholderText: "<enter host>"
                 background: Rectangle {
                     color: "#4d4d4d"
                 }
             }
 
             Label {
-                text: "Authentication (FDAI authentication key):"
+                text: "user name/identifier:"
                 color: "#999999"
             }
 
@@ -41,7 +42,7 @@ Window {
                 id: authField
                 Layout.fillWidth: true
                 text: ""
-                placeholderText: "<fd number>"
+                placeholderText: "<enter name>"
                 //inputMethodHints: Qt.ImhDigitsOnly
                 background: Rectangle {
                     color: "#4d4d4d"
@@ -57,7 +58,7 @@ Window {
                 id: installpathField
                 text: "/opt/edumpi"
                 Layout.fillWidth: true
-                placeholderText: "<installation path>"
+                placeholderText: "<enter path>"
                 background: Rectangle {
                     color: "#4d4d4d"
                 }
@@ -65,7 +66,7 @@ Window {
 
             Button {
                 id: connectButton
-                text: "Connect to HPC Cluster"
+                text: "connect"
                 HoverHandler {
                         cursorShape: Qt.PointingHandCursor
                 }
