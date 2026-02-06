@@ -184,7 +184,7 @@ Window {
                 if(root.visualization){
                     if(status === "pending"){
                         root.slurm_status = "pending"
-                        root.loaderText = "Job-Status: Pending! \nYour job is in the SLURM queue and is waiting for free resources. Please be patient."
+                        root.loaderText = "Job status: Pending: \nYour job is in the SLURM queue and waiting for available resources. Please be patient."
                     } else if(status === "running"){
                         root.slurm_status = "running"
                         root.loaderText = "Job-Status: Running! \nYour Slurm job is in the start process, waiting for MPI communication... ."

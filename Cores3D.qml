@@ -56,12 +56,15 @@ Rectangle {
                 var proc = collData.simple_data(row, "processrank")
                 var partner = collData.simple_data(row, "coll_partnerranks")
 
+                if(type.includes("Barrier")){
+                    continue;
+                }
+
                 if(partner !== ""){
                     if (!(partner instanceof Array)) {
                         partner = Object.values(partner);
                     }
                     for(var par of partner){
-                        // *** FIX: Null-Checks vor addLine() ***
                         var procPosition = positionMap[proc]
                         var partnerPosition = positionMap[par]
 
@@ -329,9 +332,9 @@ Rectangle {
                 visible: p2p_send_lines
 
                 materials: DefaultMaterial {
-                    diffuseColor: "#00FF00"
-                    emissiveFactor: Qt.vector3d(0.1, 0.1, 0.1)
-                    lineWidth: 2.0
+                    diffuseColor: "#00D500"
+                    emissiveFactor: Qt.vector3d(0.1, 0.5, 0.1)
+                    lineWidth: 1.0
                 }
             }
 

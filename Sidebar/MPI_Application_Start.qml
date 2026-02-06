@@ -55,7 +55,7 @@ Rectangle {
                 Layout.preferredWidth: parent.width
                 Layout.fillWidth: true
                 wrapMode: Text.WordWrap
-                text: "Select a .c file or a full folder that includes your program"
+                text: "Select a .c file or a folder containing your program"
                 color: "#999999"
             }
 
@@ -186,7 +186,7 @@ Rectangle {
                     id: numProcs
                     text: ""
                     Layout.fillWidth: true
-                    placeholderText: "max 400"
+                    placeholderText: "max. 416"
                     background: Rectangle {
                         color: "#4d4d4d"
                     }
@@ -225,7 +225,7 @@ Rectangle {
             }
             Button {
                 id: mpi_cancel_button
-                text: "Abort MPI-Program"
+                text: "Cancel MPI-Program"
                 palette.button: "#666666"
                 palette.buttonText: "white"
                 Layout.alignment: Qt.AlignCenter

@@ -24,12 +24,12 @@ Window {
         }
     }
 
-    title: "Loading"
+    title: "SLURM State"
     visible: true
-    width: 300
+    width: 400
     height: 200
     maximumHeight: 200
-    maximumWidth: 300
+    maximumWidth: 400
 
     ColumnLayout {
         anchors.fill: parent
