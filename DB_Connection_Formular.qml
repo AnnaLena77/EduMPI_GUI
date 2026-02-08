@@ -56,7 +56,7 @@ Window {
         TextField {
             id: nameField
             Layout.fillWidth: true
-            text: "edumpi_tsdb"
+            text: "edumpi_td"
             placeholderText: "<enter database name>"
             color: "white"
             background: Rectangle {
