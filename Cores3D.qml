@@ -38,7 +38,7 @@ Rectangle {
                 if(type.includes("end")){
                     customGeoSend.addLine(positionMap[proc], positionMap[partner])
                 }
-                else if(type.includes("ecv")){
+                if(type.includes("ecv")){
                     customGeoRecv.addLine(positionMap[proc], positionMap[partner])
                 }
             }
