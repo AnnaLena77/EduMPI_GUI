@@ -30,11 +30,17 @@ qt_policy(SET QTP0003 NEW)  # Für Plugins, wenn benötigt
 qt_policy(SET QTP0004 NEW)  # Module mit mehreren QML-Dateien benötigen ein qmldir
 
 if (LINUX)
+    find_package(PkgConfig REQUIRED)
     pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 endif ()
 
-INCLUDE_DIRECTORIES("/usr/include/postgresql")
-LINK_DIRECTORIES("/usr/lib/postgresql/12/lib")
+find_package(PostgreSQL REQUIRED)
+
+#INCLUDE_DIRECTORIES("/usr/include/postgresql")
+#LINK_DIRECTORIES("/usr/lib/postgresql/12/lib")
+
+include_directories(${PostgreSQL_INCLUDE_DIRS})
+link_directories($PostgreSQL_LIBRARY_DIRS})
 
 qt6_add_resources(QML_RESOURCES resources.qrc)
 
