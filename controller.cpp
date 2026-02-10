@@ -293,6 +293,7 @@ void Controller::writeLocalBashFile(QString local_path, bool file, int proc_num)
                     //m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files";
                 }
                 if(m_option == 2){
+                    out << "scp \":/bash_files/scorep.filt\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                     // SCP scorep.filt Datei:
                     out << "scp \"" + QDir::temp().absoluteFilePath("scorep.filt") + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 }
@@ -467,7 +468,7 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
             scriptFile << "export SCOREP_TOPOLOGY_PROCESS=true\n";
             scriptFile << "export SCOREP_TOPOLOGY_MPI=true\n";
             scriptFile << "export SCOREP_MPI_ENABLE_GROUPS=all\n";
-            scriptFile << "export SCOREP_FILTERING_FILE=" << m_remote_dir_bash.toStdString() << "scorep.filt\n";
+            scriptFile << "export SCOREP_FILTERING_FILE=" << "scorep.filt\n";
 
             scriptFile << "export PATH=\"$PATH:/opt/scalasca/bin\"\n";
             scriptFile << "export PATH=\"$PATH:/opt/scorep/bin\"\n";
