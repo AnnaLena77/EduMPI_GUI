@@ -3,15 +3,18 @@ name: macOS Deployment
 env:
   QT_VERSION: 6.8.1
   APP_NAME: appGUI_Cluster
+  BUILD_DIR: build
+  INSTALL_DIR: appdir
 
 on:
   push:
     branches:
-      - 'native'
+      - native
 
 jobs:
   deploy:
     runs-on: macos-14
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -20,126 +23,134 @@ jobs:
         uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
-          host: 'mac'
-          target: 'desktop'
-          arch: 'clang_64'
-          modules: 'qtquick3d qtshadertools'
-          tools: 'tools_cmake'
+          host: mac
+          target: desktop
+          arch: clang_64
+          modules: qtquick3d qtshadertools
+          tools: tools_cmake
           cache: true
 
-      - name: Install libpq (Homebrew)
+      - name: Install build dependencies
         run: |
           brew update
-          brew install libpq
-          brew link --force libpq
+          brew install ninja cmake
+          # Falls du libpq zur Laufzeit brauchst (PostgreSQL client library):
+          brew install postgresql@16
+          echo "$(brew --prefix postgresql@16)/bin" >> $GITHUB_PATH
 
-      - name: Configure CMake
+      - name: Configure (CMake)
         run: |
-          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake -S . -B "${BUILD_DIR}" -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release
 
-      - name: Compile
+      - name: Build
         run: |
-          cmake --build build --config Release -j 3
+          cmake --build "${BUILD_DIR}" --config Release
 
-      - name: Install to staging (optional)
+      # Optional aber sehr hilfreich: "install" Target nutzen, um eine saubere App-Struktur zu bekommen.
+      # Voraussetzung: Dein CMakeLists.txt definiert install(TARGETS ...) usw.
+      - name: Install into staging dir (optional, recommended)
         run: |
-          cmake --install build --prefix build/stage
+          cmake --install "${BUILD_DIR}" --prefix "${INSTALL_DIR}"
 
-      - name: Bundle app with macdeployqt
-        shell: bash
+      # Wenn du KEIN CMake install() hast, musst du stattdessen deine .app aus dem Build holen:
+      # z.B. cp -R build/${APP_NAME}.app appdir/
+
+      - name: Locate .app
+        id: locate
         run: |
-          set -euxo pipefail
+          set -e
+          # 1) bevorzugt aus install dir
+          if [ -d "${INSTALL_DIR}/${APP_NAME}.app" ]; then
+            echo "APP_PATH=${INSTALL_DIR}/${APP_NAME}.app" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          # 2) fallback: direkt im build (passe ggf. Pfad an)
+          if [ -d "${BUILD_DIR}/${APP_NAME}.app" ]; then
+            echo "APP_PATH=${BUILD_DIR}/${APP_NAME}.app" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          # 3) Suche als letzter Ausweg
+          FOUND=$(find . -maxdepth 4 -name "${APP_NAME}.app" -type d | head -n 1)
+          if [ -n "$FOUND" ]; then
+            echo "APP_PATH=$FOUND" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          echo "Could not find ${APP_NAME}.app"; exit 1
 
-          APP_PATH=""
-          if [ -d "build/Release/${{ env.APP_NAME }}.app" ]; then
-            APP_PATH="build/Release/${{ env.APP_NAME }}.app"
-          elif [ -d "build/${{ env.APP_NAME }}.app" ]; then
-            APP_PATH="build/${{ env.APP_NAME }}.app"
-          elif [ -d "build/stage/${{ env.APP_NAME }}.app" ]; then
-            APP_PATH="build/stage/${{ env.APP_NAME }}.app"
+      - name: macdeployqt (bundle Qt frameworks/plugins)
+        run: |
+          set -e
+          APP="${{ steps.locate.outputs.APP_PATH }}"
+          echo "Using app: $APP"
+          # macdeployqt liegt im Qt bin dir; install-qt-action setzt PATH normalerweise passend.
+          macdeployqt "$APP" -qmldir=. -verbose=2
+
+      # PostgreSQL / QPSQL Hinweis:
+      # Wenn du QtSql mit PostgreSQL nutzt, brauchst du das Plugin "qsqlpsql".
+      # macdeployqt nimmt sqldrivers manchmal mit, manchmal nicht (abhängig davon, ob es erkannt wird).
+      # Daher hier eine harte Prüfung + ggf. Nachziehen.
+      - name: Ensure QPSQL driver is bundled
+        run: |
+          set -e
+          APP="${{ steps.locate.outputs.APP_PATH }}"
+          PLUGDIR="$APP/Contents/PlugIns/sqldrivers"
+          mkdir -p "$PLUGDIR"
+
+          # Prüfen, ob qsqlpsql drin ist:
+          if ls "$PLUGDIR"/libqsqlpsql.dylib >/dev/null 2>&1; then
+            echo "QPSQL driver already bundled."
           else
-            echo "ERROR: Could not find ${{ env.APP_NAME }}.app"
-            find build -maxdepth 5 -name "*.app" -print
-            exit 1
+            echo "QPSQL not found in app bundle; trying to locate in Qt installation..."
+            # Suche in Qt-Installationspfaden:
+            QSQLPSQL=$(find "$Qt6_DIR" "$Qt_DIR" "$HOME" -path "*plugins/sqldrivers/libqsqlpsql.dylib" 2>/dev/null | head -n 1 || true)
+            if [ -z "$QSQLPSQL" ]; then
+              echo "Could not locate libqsqlpsql.dylib. Make sure QtSql + PostgreSQL driver are available in your Qt install."
+              exit 1
+            fi
+            cp "$QSQLPSQL" "$PLUGDIR/"
           fi
 
-          if [ -n "${QT_ROOT_DIR:-}" ] && [ -x "${QT_ROOT_DIR}/bin/macdeployqt" ]; then
-            MACDEPLOYQT="${QT_ROOT_DIR}/bin/macdeployqt"
-          else
-            MACDEPLOYQT="$(command -v macdeployqt || true)"
-          fi
+          echo "Bundled sqldrivers:"
+          ls -la "$PLUGDIR"
 
-          if [ -z "$MACDEPLOYQT" ]; then
-            echo "ERROR: macdeployqt not found."
-            exit 1
-          fi
-
-          "$MACDEPLOYQT" "$APP_PATH" \
-            -qmldir="${{ github.workspace }}" \
-            -always-overwrite \
-            -verbose=2
-
-          mkdir -p dist
-          cp -R "$APP_PATH" dist/
-
-      - name: Bundle libpq into .app (QPSQL fix)
-        shell: bash
+      # Optional: falls libpq dynamisch genutzt wird (häufig), musst du libpq mit in die App nehmen.
+      # Das hängt davon ab, wie du linkst. Mit otool siehst du, ob libpq fehlt.
+      - name: Check dynamic libraries (quick sanity)
         run: |
-          set -euxo pipefail
-
-          APP="dist/${{ env.APP_NAME }}.app"
-          FW="$APP/Contents/Frameworks"
-          PLUGIN="$APP/Contents/PlugIns/sqldrivers/libqsqlpsql.dylib"
-
-          mkdir -p "$FW"
-
-          # Homebrew prefix (Apple Silicon vs Intel)
-          if [ -d "/opt/homebrew" ]; then
-            BREW_PREFIX="/opt/homebrew"
+          set -e
+          APP="${{ steps.locate.outputs.APP_PATH }}"
+          BIN="$APP/Contents/MacOS/${APP_NAME}"
+          if [ -f "$BIN" ]; then
+            echo "otool -L:"
+            otool -L "$BIN" || true
           else
-            BREW_PREFIX="/usr/local"
+            echo "Binary not found at $BIN (maybe different executable name inside .app)."
           fi
-
-          LIBPQ="$BREW_PREFIX/opt/libpq/lib/libpq.5.dylib"
-          if [ ! -f "$LIBPQ" ]; then
-            echo "ERROR: libpq.5.dylib not found at $LIBPQ"
-            exit 1
-          fi
-
-          cp -v "$LIBPQ" "$FW/"
-
-          # Patch plugin to use bundled libpq
-          install_name_tool -change \
-            "/Applications/Postgres.app/Contents/Versions/14/lib/libpq.5.dylib" \
-            "@rpath/libpq.5.dylib" \
-            "$PLUGIN" || true
-
-          install_name_tool -change \
-            "$LIBPQ" \
-            "@rpath/libpq.5.dylib" \
-            "$PLUGIN" || true
-
-          echo "Final linkage:"
-          otool -L "$PLUGIN" | grep -i libpq
 
       - name: Create DMG
-        shell: bash
         run: |
-          set -euxo pipefail
-          DMG_NAME="${{ env.APP_NAME }}-macOS.dmg"
-          hdiutil create -volname "${{ env.APP_NAME }}" \
-            -srcfolder "dist/${{ env.APP_NAME }}.app" \
-            -ov -format UDZO "dist/${DMG_NAME}"
+          set -e
+          APP="${{ steps.locate.outputs.APP_PATH }}"
+          OUTDIR=dist
+          mkdir -p "$OUTDIR"
+          # macdeployqt kann DMG bauen, wenn du es auf die .app anwendest:
+          macdeployqt "$APP" -dmg -verbose=2
+          # Das DMG landet i.d.R. neben der .app. Wir verschieben es nach dist:
+          DMG=$(dirname "$APP")/${APP_NAME}.dmg
+          if [ ! -f "$DMG" ]; then
+            # fallback: irgendwo suchen
+            DMG=$(find . -maxdepth 4 -name "${APP_NAME}.dmg" | head -n 1 || true)
+          fi
+          if [ -z "$DMG" ] || [ ! -f "$DMG" ]; then
+            echo "DMG not found"; exit 1
+          fi
+          mv "$DMG" "$OUTDIR/"
 
-      - name: Upload .app artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.APP_NAME }}-macOS-app
-          path: dist/${{ env.APP_NAME }}.app
+          name: ${{ env.APP_NAME }}-macos
+          path: dist/${{ env.APP_NAME }}.dmg
 
-      - name: Upload .dmg artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.APP_NAME }}-macOS-dmg
-          path: dist/${{ env.APP_NAME }}-macOS.dmg
 
