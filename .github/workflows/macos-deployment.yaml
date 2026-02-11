@@ -27,12 +27,12 @@ jobs:
           tools: 'tools_cmake'
           cache: true
 
-      # Wenn du Postgres-Headers/Libraries zum Bauen brauchst:
       - name: Install dependencies (Homebrew)
         run: |
           brew update
-          brew install postgresql@16 || true
-          brew link --force --overwrite postgresql@16 || true
+          # libpq reicht in der Regel; postgresql@16 nur falls du Server/Headers brauchst
+          brew install libpq
+          brew link --force libpq
 
       - name: Configure CMake
         run: |
@@ -43,19 +43,15 @@ jobs:
         run: |
           cmake --build build --config Release -j 3
 
-      # Falls dein CMake ein install() hat und du es brauchst:
       - name: Install to staging (optional)
         run: |
           cmake --install build --prefix build/stage
 
-      # Qt-Bundling: macdeployqt nimmt deine .app und packt Qt Frameworks/Plugins rein.
-      # Für QML-Apps ist -qmldir entscheidend.
       - name: Bundle app with macdeployqt
         shell: bash
         run: |
           set -euxo pipefail
 
-          # Pfad zur .app finden (CMake legt sie je nach Setup in build/Release oder build/)
           APP_PATH=""
           if [ -d "build/Release/${{ env.APP_NAME }}.app" ]; then
             APP_PATH="build/Release/${{ env.APP_NAME }}.app"
@@ -70,8 +66,6 @@ jobs:
 
           echo "Using APP_PATH=$APP_PATH"
 
-          # macdeployqt liegt im Qt bin-Verzeichnis; install-qt-action setzt Qt-Verzeichnisse.
-          # QT_ROOT_DIR ist i. d. R. verfügbar, ansonsten fallback über which.
           if [ -n "${QT_ROOT_DIR:-}" ] && [ -x "${QT_ROOT_DIR}/bin/macdeployqt" ]; then
             MACDEPLOYQT="${QT_ROOT_DIR}/bin/macdeployqt"
           else
@@ -85,17 +79,16 @@ jobs:
 
           echo "Using macdeployqt at: $MACDEPLOYQT"
 
-          # QML-Dir: setze auf Repo-Root; falls QML woanders liegt, ändere -qmldir entsprechend.
           "$MACDEPLOYQT" "$APP_PATH" \
             -qmldir="${{ github.workspace }}" \
             -always-overwrite \
             -verbose=2
 
-          # Output-Ordner für Artefakte
           mkdir -p dist
           cp -R "$APP_PATH" dist/
-          
-      - name: Bundle libpq into app (QPSQL fix)
+
+
+      - name: Bundle PostgreSQL client (libpq) into .app (QPSQL fix)
         shell: bash
         run: |
           set -euxo pipefail
@@ -104,41 +97,46 @@ jobs:
           FW="$APP/Contents/Frameworks"
           PLUGIN="$APP/Contents/PlugIns/sqldrivers/libqsqlpsql.dylib"
 
-          mkdir -p "$FW"
-
-          # libpq finden (Homebrew – Apple Silicon & Intel)
-          LIBPQ=""
-          if [ -f "/opt/homebrew/opt/libpq/lib/libpq.5.dylib" ]; then
-            LIBPQ="/opt/homebrew/opt/libpq/lib/libpq.5.dylib"
-          elif [ -f "/usr/local/opt/libpq/lib/libpq.5.dylib" ]; then
-            LIBPQ="/usr/local/opt/libpq/lib/libpq.5.dylib"
-          else
-            echo "ERROR: libpq.5.dylib not found"
+          if [ ! -f "$PLUGIN" ]; then
+            echo "ERROR: QPSQL plugin not found at $PLUGIN"
+            echo "Available sqldrivers:"
+            find "$APP/Contents/PlugIns" -maxdepth 3 -type f -name "libqsql*.dylib" -print || true
             exit 1
           fi
 
-          echo "Using libpq: $LIBPQ"
+          mkdir -p "$FW"
+
+          # Homebrew prefix (Apple Silicon vs Intel)
+          if [ -d "/opt/homebrew" ]; then
+            BREW_PREFIX="/opt/homebrew"
+          else
+            BREW_PREFIX="/usr/local"
+          fi
+
+          LIBPQ="$BREW_PREFIX/opt/libpq/lib/libpq.5.dylib"
+          if [ ! -f "$LIBPQ" ]; then
+            echo "ERROR: libpq.5.dylib not found at $LIBPQ"
+            echo "Contents of $BREW_PREFIX/opt/libpq/lib:"
+            ls -la "$BREW_PREFIX/opt/libpq/lib" || true
+            exit 1
+          fi
 
           cp -v "$LIBPQ" "$FW/"
 
-          # QPSQL-Plugin auf gebundlete libpq umbiegen
-          install_name_tool -change \
-            "$LIBPQ" \
-            "@rpath/libpq.5.dylib" \
-            "$PLUGIN" || true
-
-          # Fallback für harte Postgres.app-Links
+          # Patch the plugin: replace external paths with rpath (so it uses bundled libpq)
           install_name_tool -change \
             "/Applications/Postgres.app/Contents/Versions/14/lib/libpq.5.dylib" \
             "@rpath/libpq.5.dylib" \
             "$PLUGIN" || true
 
-          echo "Final linkage:"
-          otool -L "$PLUGIN" | grep libpq
+          install_name_tool -change \
+            "$LIBPQ" \
+            "@rpath/libpq.5.dylib" \
+            "$PLUGIN" || true
 
+          echo "Final linkage (should show @rpath/libpq.5.dylib):"
+          otool -L "$PLUGIN" | grep -i libpq
 
-      # Optional: DMG erzeugen (ohne Codesign/Notarization).
-      # Für echte Distribution außerhalb von GitHub brauchst du später Codesign + Notarization.
       - name: Create DMG (optional)
         shell: bash
         run: |
@@ -159,3 +157,4 @@ jobs:
         with:
           name: ${{ env.APP_NAME }}-macOS-dmg
           path: dist/${{ env.APP_NAME }}-macOS.dmg
+
