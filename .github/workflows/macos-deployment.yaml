@@ -1,0 +1,119 @@
+name: macOS Deployment
+
+env:
+  QT_VERSION: 6.8.1
+  APP_NAME: EduMPI_GUI
+
+on:
+  push:
+    branches:
+      - 'native'
+
+jobs:
+  deploy:
+    runs-on: macos-14
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: 'mac'
+          target: 'desktop'
+          arch: 'clang_64'
+          modules: 'qtquick3d qtshadertools'
+          tools: 'tools_cmake'
+          cache: true
+
+      # Wenn du Postgres-Headers/Libraries zum Bauen brauchst:
+      - name: Install dependencies (Homebrew)
+        run: |
+          brew update
+          brew install postgresql@16 || true
+          brew link --force --overwrite postgresql@16 || true
+
+      - name: Configure CMake
+        run: |
+          cmake -S . -B build \
+            -DCMAKE_BUILD_TYPE=Release
+
+      - name: Compile
+        run: |
+          cmake --build build --config Release -j 3
+
+      # Falls dein CMake ein install() hat und du es brauchst:
+      - name: Install to staging (optional)
+        run: |
+          cmake --install build --prefix build/stage
+
+      # Qt-Bundling: macdeployqt nimmt deine .app und packt Qt Frameworks/Plugins rein.
+      # Für QML-Apps ist -qmldir entscheidend.
+      - name: Bundle app with macdeployqt
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          # Pfad zur .app finden (CMake legt sie je nach Setup in build/Release oder build/)
+          APP_PATH=""
+          if [ -d "build/Release/${{ env.APP_NAME }}.app" ]; then
+            APP_PATH="build/Release/${{ env.APP_NAME }}.app"
+          elif [ -d "build/${{ env.APP_NAME }}.app" ]; then
+            APP_PATH="build/${{ env.APP_NAME }}.app"
+          else
+            echo "ERROR: Could not find ${{ env.APP_NAME }}.app in build output."
+            echo "List build dir:"
+            find build -maxdepth 3 -name "*.app" -print
+            exit 1
+          fi
+
+          echo "Using APP_PATH=$APP_PATH"
+
+          # macdeployqt liegt im Qt bin-Verzeichnis; install-qt-action setzt Qt-Verzeichnisse.
+          # QT_ROOT_DIR ist i. d. R. verfügbar, ansonsten fallback über which.
+          if [ -n "${QT_ROOT_DIR:-}" ] && [ -x "${QT_ROOT_DIR}/bin/macdeployqt" ]; then
+            MACDEPLOYQT="${QT_ROOT_DIR}/bin/macdeployqt"
+          else
+            MACDEPLOYQT="$(command -v macdeployqt || true)"
+          fi
+
+          if [ -z "$MACDEPLOYQT" ]; then
+            echo "ERROR: macdeployqt not found."
+            exit 1
+          fi
+
+          echo "Using macdeployqt at: $MACDEPLOYQT"
+
+          # QML-Dir: setze auf Repo-Root; falls QML woanders liegt, ändere -qmldir entsprechend.
+          "$MACDEPLOYQT" "$APP_PATH" \
+            -qmldir="${{ github.workspace }}" \
+            -always-overwrite \
+            -verbose=2
+
+          # Output-Ordner für Artefakte
+          mkdir -p dist
+          cp -R "$APP_PATH" dist/
+
+      # Optional: DMG erzeugen (ohne Codesign/Notarization).
+      # Für echte Distribution außerhalb von GitHub brauchst du später Codesign + Notarization.
+      - name: Create DMG (optional)
+        shell: bash
+        run: |
+          set -euxo pipefail
+          DMG_NAME="${{ env.APP_NAME }}-macOS.dmg"
+          hdiutil create -volname "${{ env.APP_NAME }}" \
+            -srcfolder "dist/${{ env.APP_NAME }}.app" \
+            -ov -format UDZO "dist/${DMG_NAME}"
+
+      - name: Upload .app artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}-macOS-app
+          path: dist/${{ env.APP_NAME }}.app
+
+      - name: Upload .dmg artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}-macOS-dmg
+          path: dist/${{ env.APP_NAME }}-macOS.dmg
