@@ -53,8 +53,8 @@ void Database_Thread::connectToDB(){
 void Database_Thread::threadbuildClusterComponents(){
     qDebug() << "Current thread:" << QThread::currentThread();
     //qDebug() << "Current thread:" << QThread::currentThread();
-    QElapsedTimer timer;
-    timer.start();
+    //QElapsedTimer timer;
+    //timer.start();
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     if (!db.isOpen()) {
         qDebug() << "Databaseconnection " << m_connectionName << " is not open";
@@ -101,14 +101,14 @@ void Database_Thread::threadbuildClusterComponents(){
     query.finish();
     initialize_detailed_matrices();
     emit clusterComponentsReady(map);
-    qDebug() << "threadbuildClusterComponents took " << timer.elapsed() << " ms";
+    //qDebug() << "threadbuildClusterComponents took " << timer.elapsed() << " ms";
 }
 
 //Continuous update of the data in the database for the live view
 void Database_Thread::updateData(const int &time_display){
-    qDebug() << "update data called: " << QTime::currentTime();
-    QElapsedTimer timer;
-    timer.start();
+    //qDebug() << "update data called: " << QTime::currentTime();
+    //QElapsedTimer timer;
+    //timer.start();
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     if (!db.isOpen()) {
         qDebug() << "Databaseconnection " << m_connectionName << " is not open";
@@ -184,26 +184,26 @@ void Database_Thread::updateData(const int &time_display){
 
     //std::cout << queryString.toStdString() << std::endl;
     //QElapsedTimer timer;
-    timer.start();            // Startzeit
+    //timer.start();            // Startzeit
 
     query.exec(queryString);
 
 
-    qint64 duration = timer.nsecsElapsed(); // Dauer der Abfrage
+    /*qint64 duration = timer.nsecsElapsed(); // Dauer der Abfrage
     totalTimeNs += duration;
     if(duration < minTimeNs){
         minTimeNs = duration;
     }
     if(duration > maxTimeNs){
         maxTimeNs = duration;
-    }
+    }*/
     ++queryCount;
 
     QList<DataColumn> list;
 
 
     if(query.next()){
-        qDebug() << "next query";
+        //qDebug() << "next query";
         do {
             DataColumn dc;
             dc.proc_name = query.value("processorname").toString();
@@ -230,7 +230,7 @@ void Database_Thread::updateData(const int &time_display){
     query.finish();
     emit updateDataReady(list);
     detailed_p2p_Query(m_actualDBEntryTime.toUTC(), m_actualDBEntryTime.toUTC());
-    qDebug() << "updateData took " << timer.elapsed() << " ms";
+    //qDebug() << "updateData took " << timer.elapsed() << " ms";
 }
 
 void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDateTime timestampB){
@@ -438,7 +438,7 @@ void Database_Thread::showDataFromTimePeriod(const QDateTime timestampA, const Q
     }
     query.finish();
     detailed_p2p_Query(timestampA, timestampB);
-    qDebug() << "showDataFromTimePeriod took " << timer.elapsed() << " ms";
+    //qDebug() << "showDataFromTimePeriod took " << timer.elapsed() << " ms";
 }
 
 void Database_Thread::getProcNum(const int proc_num){
