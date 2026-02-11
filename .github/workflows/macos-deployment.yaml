@@ -37,11 +37,25 @@ jobs:
           # Falls du libpq zur Laufzeit brauchst (PostgreSQL client library):
           brew install postgresql@16
           echo "$(brew --prefix postgresql@16)/bin" >> $GITHUB_PATH
+        
+      - name: Install PostgreSQL client (libpq)
+        run: |
+          brew update
+          brew install libpq
+          # libpq ist keg-only -> Pfade explizit setzen:
+          echo "$(brew --prefix libpq)/bin" >> $GITHUB_PATH
+          echo "PostgreSQL_ROOT=$(brew --prefix libpq)" >> $GITHUB_ENV
+          echo "PKG_CONFIG_PATH=$(brew --prefix libpq)/lib/pkgconfig" >> $GITHUB_ENV
+
 
       - name: Configure (CMake)
         run: |
           cmake -S . -B "${BUILD_DIR}" -G Ninja \
-            -DCMAKE_BUILD_TYPE=Release
+            -DCMAKE_BUILD_TYPE=Release \
+            -DPostgreSQL_ROOT="${PostgreSQL_ROOT}" \
+            -DPostgreSQL_INCLUDE_DIR="${PostgreSQL_ROOT}/include" \
+            -DPostgreSQL_LIBRARY="${PostgreSQL_ROOT}/lib/libpq.dylib"
+
 
       - name: Build
         run: |
