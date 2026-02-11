@@ -94,6 +94,48 @@ jobs:
           # Output-Ordner für Artefakte
           mkdir -p dist
           cp -R "$APP_PATH" dist/
+          
+      - name: Bundle libpq into app (QPSQL fix)
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          APP="dist/${{ env.APP_NAME }}.app"
+          FW="$APP/Contents/Frameworks"
+          PLUGIN="$APP/Contents/PlugIns/sqldrivers/libqsqlpsql.dylib"
+
+          mkdir -p "$FW"
+
+          # libpq finden (Homebrew – Apple Silicon & Intel)
+          LIBPQ=""
+          if [ -f "/opt/homebrew/opt/libpq/lib/libpq.5.dylib" ]; then
+            LIBPQ="/opt/homebrew/opt/libpq/lib/libpq.5.dylib"
+          elif [ -f "/usr/local/opt/libpq/lib/libpq.5.dylib" ]; then
+            LIBPQ="/usr/local/opt/libpq/lib/libpq.5.dylib"
+          else
+            echo "ERROR: libpq.5.dylib not found"
+            exit 1
+          fi
+
+          echo "Using libpq: $LIBPQ"
+
+          cp -v "$LIBPQ" "$FW/"
+
+          # QPSQL-Plugin auf gebundlete libpq umbiegen
+          install_name_tool -change \
+            "$LIBPQ" \
+            "@rpath/libpq.5.dylib" \
+            "$PLUGIN" || true
+
+          # Fallback für harte Postgres.app-Links
+          install_name_tool -change \
+            "/Applications/Postgres.app/Contents/Versions/14/lib/libpq.5.dylib" \
+            "@rpath/libpq.5.dylib" \
+            "$PLUGIN" || true
+
+          echo "Final linkage:"
+          otool -L "$PLUGIN" | grep libpq
+
 
       # Optional: DMG erzeugen (ohne Codesign/Notarization).
       # Für echte Distribution außerhalb von GitHub brauchst du später Codesign + Notarization.
