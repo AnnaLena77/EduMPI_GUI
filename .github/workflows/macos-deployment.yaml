@@ -2,7 +2,7 @@ name: macOS Deployment
 
 env:
   QT_VERSION: 6.8.1
-  APP_NAME: EduMPI_GUI
+  APP_NAME: appGUI_Cluster
 
 on:
   push:
