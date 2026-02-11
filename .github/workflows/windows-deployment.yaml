@@ -6,8 +6,8 @@ env:
 on:
   push:
     branches:
-      - 'master'
-      - 'windows-deployment'
+      - 'deployment'
+      - 'native'
 
 jobs:
   deploy:
