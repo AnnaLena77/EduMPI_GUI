@@ -28,6 +28,7 @@ Database_Thread::~Database_Thread(){
 }
 
 void Database_Thread::clearDatabase(){
+    qDebug() << "clearDatabase called";
     {
         QSqlDatabase db = QSqlDatabase::database(m_connectionName);
         if (!db.isOpen()) {
@@ -40,6 +41,7 @@ void Database_Thread::clearDatabase(){
 }
 
 void Database_Thread::connectToDB(){
+    qDebug() << "connectToDB called";
     QSqlDatabase db = QSqlDatabase::cloneDatabase("mainConnection", m_connectionName);
     //std::cout << "Slurm_ID ANGEKOMMEN" << std::endl;
     db = QSqlDatabase::database(m_connectionName);
@@ -50,6 +52,9 @@ void Database_Thread::connectToDB(){
 
 void Database_Thread::threadbuildClusterComponents(){
     qDebug() << "Current thread:" << QThread::currentThread();
+    //qDebug() << "Current thread:" << QThread::currentThread();
+    QElapsedTimer timer;
+    timer.start();
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     if (!db.isOpen()) {
         qDebug() << "Databaseconnection " << m_connectionName << " is not open";
@@ -96,11 +101,14 @@ void Database_Thread::threadbuildClusterComponents(){
     query.finish();
     initialize_detailed_matrices();
     emit clusterComponentsReady(map);
+    qDebug() << "threadbuildClusterComponents took " << timer.elapsed() << " ms";
 }
 
 //Continuous update of the data in the database for the live view
 void Database_Thread::updateData(const int &time_display){
-
+    qDebug() << "update data called: " << QTime::currentTime();
+    QElapsedTimer timer;
+    timer.start();
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     if (!db.isOpen()) {
         qDebug() << "Databaseconnection " << m_connectionName << " is not open";
@@ -112,6 +120,7 @@ void Database_Thread::updateData(const int &time_display){
     QDateTime timestamp;
 
     if(m_firstDBEntryTime.isNull()){
+        qDebug() << "firstDBEntryTime is null";
         queryy.prepare("SELECT start_time FROM edumpi_runs WHERE edumpi_run_id = :run_id");
         queryy.bindValue(":run_id", m_slurm_id);
         while(m_thread_running){
@@ -174,7 +183,7 @@ void Database_Thread::updateData(const int &time_display){
     }
 
     //std::cout << queryString.toStdString() << std::endl;
-    QElapsedTimer timer;
+    //QElapsedTimer timer;
     timer.start();            // Startzeit
 
     query.exec(queryString);
@@ -194,6 +203,7 @@ void Database_Thread::updateData(const int &time_display){
 
 
     if(query.next()){
+        qDebug() << "next query";
         do {
             DataColumn dc;
             dc.proc_name = query.value("processorname").toString();
@@ -220,7 +230,7 @@ void Database_Thread::updateData(const int &time_display){
     query.finish();
     emit updateDataReady(list);
     detailed_p2p_Query(m_actualDBEntryTime.toUTC(), m_actualDBEntryTime.toUTC());
-
+    qDebug() << "updateData took " << timer.elapsed() << " ms";
 }
 
 void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDateTime timestampB){
@@ -348,6 +358,7 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
 }
 
 void Database_Thread::selectEndTimestamp(){
+    qDebug() << "selectEndTimestamp called";
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     if (!db.isOpen()) {
         qDebug() << "Databaseconnection " << m_connectionName << " is not open";
@@ -374,6 +385,8 @@ void Database_Thread::selectEndTimestamp(){
 }
 
 void Database_Thread::showDataFromTimePeriod(const QDateTime timestampA, const QDateTime timestampB){
+    QElapsedTimer timer;
+    timer.start();
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     if (!db.isOpen()) {
         qDebug() << "Databaseconnection " << m_connectionName << " is not open";
@@ -425,7 +438,7 @@ void Database_Thread::showDataFromTimePeriod(const QDateTime timestampA, const Q
     }
     query.finish();
     detailed_p2p_Query(timestampA, timestampB);
-
+    qDebug() << "showDataFromTimePeriod took " << timer.elapsed() << " ms";
 }
 
 void Database_Thread::getProcNum(const int proc_num){
@@ -437,6 +450,7 @@ void Database_Thread::fetchEduMPIJobs(const QString &userId){
 }
 
 void Database_Thread::set_end_timestamp_db(QDateTime timestamp){
+    qDebug() << "set_end_timestamp_db called";
     QSqlDatabase db = QSqlDatabase::database(m_connectionName);
     if (!db.isOpen()) {
         qDebug() << "Databaseconnection " << m_connectionName << " is not open";
@@ -460,6 +474,7 @@ void Database_Thread::set_end_timestamp_db(QDateTime timestamp){
 }
 
 void Database_Thread::reset_actual_timestamp(){
+    qDebug() << "reset_actual_timestamp called";
     m_actualDBEntryTime = m_firstDBEntryDate.addMSecs(-1);
 }
 
@@ -470,6 +485,7 @@ void Database_Thread::set_thread_running(bool running){
 }
 
 bool Database_Thread::thread_running() const{
+    qDebug() << "thread_running called";
     return m_thread_running;
 }
 

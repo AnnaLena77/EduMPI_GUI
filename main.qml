@@ -1,3 +1,4 @@
+import QtQuick.Controls.Fusion
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Window
@@ -53,11 +54,6 @@ Window {
     property bool p2p_send_lines: false
     property bool p2p_recv_lines: false
     property bool coll_lines: false
-
-    /*onSelected_screenChanged: {
-        console.log("main: " + selected_screen)
-    }*/
-
 
     onRestartsChanged: {
         console.log("RESTART: " + restarts)
@@ -181,6 +177,12 @@ Window {
                 }
             }
             onSignalSlurmStatusChanged: (status)=>{
+                if(status === "pending" || status === "running") {
+                    root.performanceEndTime = Date.now();
+                    const finishedLoadingDuration = root.performanceEndTime - root.performanceStartTime;
+                    console.log("Loading time until pending took " + finishedLoadingDuration + " ms");
+                }
+
                 if(root.visualization){
                     if(status === "pending"){
                         root.slurm_status = "pending"

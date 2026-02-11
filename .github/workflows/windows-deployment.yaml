@@ -1,0 +1,66 @@
+name: Windows Deployment
+
+env:
+  QT_VERSION: 6.8.1
+
+on:
+  push:
+    branches:
+      - 'master'
+      - 'windows-deployment'
+
+jobs:
+  deploy:
+    runs-on: windows-2025
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: windows
+          target: desktop
+          arch: win64_mingw
+          modules: 'qtshadertools qtquick3d'
+          tools: 'tools_mingw1310 tools_cmake tools_ninja'
+          cache: true
+
+      - name: Install MSYS Postgres
+        id: msys2
+        uses: msys2/setup-msys2@v2
+        with:
+          install: >-
+            mingw-w64-x86_64-postgresql
+            mingw-w64-x86_64-vulkan-headers
+
+      - name: Create Ninja.build with CMake
+        env:
+          MSYS2_LOCATION: ${{ steps.msys2.outputs.msys2-location }}
+        run: |
+          mkdir windows-build
+          cmake -G "Ninja" -S . -B windows-build -DCMAKE_MAKE_PROGRAM=ninja -DPostgreSQL_ROOT="$env:MSYS2_LOCATION\mingw64" -DVulkan_INCLUDE_DIR="$env:MSYS2_LOCATION\mingw64\include"
+
+      - name: Build with Ninja
+        run: ninja -C windows-build
+
+      - name: Run windeployqt
+        run: windeployqt --qmldir .. --dir release windows-build/appGUI_Cluster.exe
+
+      - name: Move executable and Postgres DLLs into release directory
+        env:
+          MSYS2_LOCATION: ${{ steps.msys2.outputs.msys2-location }}
+        run: |
+          move windows-build/appGUI_Cluster.exe release\
+          copy "$env:MSYS2_LOCATION\mingw64\bin\libpq.dll" release
+          copy "$env:MSYS2_LOCATION\mingw64\bin\libssl-3-x64.dll" release
+          copy "$env:MSYS2_LOCATION\mingw64\bin\libcrypto-3-x64.dll" release
+          copy "$env:MSYS2_LOCATION\mingw64\bin\libintl-8.dll" release
+          copy "$env:MSYS2_LOCATION\mingw64\bin\libiconv-2.dll" release
+
+      - name: Upload release directory as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: EduMPI-GUI-Windows-Artifact
+          path: release/

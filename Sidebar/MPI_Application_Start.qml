@@ -67,6 +67,7 @@ Rectangle {
                     text: ".c File"
                     checked: true
                     palette.buttonText: "#999999"
+                    palette.base: "#333333"
                     HoverHandler {
                         cursorShape: Qt.PointingHandCursor
                     }
@@ -76,6 +77,7 @@ Rectangle {
                     text: "Folder"
                     checked: false
                     palette.buttonText: "#999999"
+                    palette.base: "#333333"
                     HoverHandler {
                         cursorShape: Qt.PointingHandCursor
                     }
@@ -215,8 +217,19 @@ Rectangle {
                         visualization = true;
                         enable_start = false;
                         enable_timeline = false;
+
+                        root.performanceStartTime = Date.now();
                         controller.writeRemoteBashFile(programNameField.text, parseInt(numProcs.text), 0)
+                        root.performanceEndTime = Date.now();
+                        const writeRemoteBashFileDuration = root.performanceEndTime - root.performanceStartTime
+                        console.log("writeRemoteBashFile took " + writeRemoteBashFileDuration + " ms");
+
+                        root.performanceStartTime = Date.now();
                         controller.writeLocalBashFile(uploadPath.text, fileButton.checked ? true : false, parseInt(numProcs.text));
+                        root.performanceEndTime = Date.now();
+                        const writeLocalBashFileDuration = root.performanceEndTime - root.performanceStartTime
+                        console.log("writeLocalBashFile took " + writeLocalBashFileDuration + " ms");
+
                         nodesList.set_proc_num(parseInt(numProcs.text))
                         startup();
                         //nodesList.buildClusterComponents(parseInt(numProcs.text))
@@ -245,6 +258,7 @@ Rectangle {
     property Window window
 
     function startup(){
+        root.performanceStartTime = Date.now(); // performanceEndTime is set when job is set to pending or running in main.qml
         var component = Qt.createComponent("/Loading.qml");
         if(component.status === Component.Ready){
             window = component.createObject(root, {"message": "test"});

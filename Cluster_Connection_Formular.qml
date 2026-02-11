@@ -73,6 +73,7 @@ Window {
                 Layout.columnSpan: 1
                 Layout.fillWidth: true
                 onClicked: {
+                    root.performanceStartTime = Date.now();
                     busyindicator.running = true
                     successfield.text = "";
                     controller.connectClusterAsync(hostnameField.text, authField.text, installpathField.text, function(result) {
@@ -84,6 +85,9 @@ Window {
                         } else {
                             successfield.color="red";
                         }
+                        root.performanceEndTime = Date.now();
+                        const sshConnectionDuration = root.performanceEndTime - root.performanceStartTime
+                        console.log("SSH Connection took " + sshConnectionDuration + " ms")
                     });
 
                 }

@@ -44,6 +44,10 @@ int main(int argc, char *argv[])
     // Übergabe des Home-Verzeichnisses an QML
     engine.rootContext()->setContextProperty("homeDirectory", QString(homeDir));
 
+    // Set default pictures path for screenshots
+    engine.rootContext()->setContextProperty("picturesDirectory",
+                                             QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
+
     //qmlRegisterType<CustomLineGeometry>("CustomGeometry", 1, 0, "CustomLineGeometry");
 
 

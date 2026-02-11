@@ -9,10 +9,13 @@ CHECK_INTERVAL=1
 SSH_PORT=22 # Standard ist 22, ändern Sie dies, falls notwendig
 
 # Pfad für die Kontrollsockel-Datei
-CONTROL_PATH="/tmp/ssh-%r@%h:%p"
+#CONTROL_PATH="/tmp/ssh-%r@%h:%p"
 
 # SSH-Optionen für eine persistente Verbindung
-SSH_OPTIONS="-o ControlMaster=auto -o ControlPath=${CONTROL_PATH} -o ControlPersist=600"
+#SSH_OPTIONS="-o ControlMaster=auto -o ControlPath=${CONTROL_PATH} -o ControlPersist=600"
+SSH_OPTIONS=""
+
+echo "SCRIPT_PID=$$"
 
 # Funktion zur Ausführung eines Kommandos auf dem Remote-Host
 function remote_command() {
@@ -93,6 +96,6 @@ done
 #remote_command "ls -l /home/${REMOTE_USER}"
 
 # Optional: Verbindung schließen (wenn Sie sicherstellen möchten, dass die Verbindung sofort beendet wird)
-ssh ${SSH_OPTIONS} -O exit -p ${SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST}
+ssh ${SSH_OPTIONS} exit -p ${SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST}
 
 echo "SSH connection closed"

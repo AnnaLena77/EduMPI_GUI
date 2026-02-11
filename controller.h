@@ -133,8 +133,10 @@ private:
     QString m_remote_bash_path;
     QString m_remote_dir_bash;
 
-    std::string m_envFilePath;
-    // Program id (slurm)
+    //std::string m_envFilePath;
+
+    QString m_envFilePath;
+
     int m_slurm_id;
     // Program name (for Score-P functionlality
     QString m_program_name;

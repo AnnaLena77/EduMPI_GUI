@@ -20,7 +20,7 @@ else ()
 endif ()
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick QuickControls2 Quick3D Sql)
-find_package(PkgConfig REQUIRED)
+find_package(PostgreSQL REQUIRED)
 
 qt_standard_project_setup()
 
@@ -33,8 +33,10 @@ if (LINUX)
     pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 endif ()
 
-INCLUDE_DIRECTORIES("/usr/include/postgresql")
-LINK_DIRECTORIES("/usr/lib/postgresql/12/lib")
+#INCLUDE_DIRECTORIES("/usr/include/postgresql")
+#LINK_DIRECTORIES("/usr/lib/postgresql/12/lib")
+include_directories(${PostgreSQL_INCLUDE_DIRS})
+link_directories(${PostgreSQL_LIBRARY_DIRS})
 
 qt6_add_resources(QML_RESOURCES resources.qrc)
 

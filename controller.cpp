@@ -26,38 +26,29 @@ Controller::Controller(QObject *parent) : QObject(parent)
 }
 
 void Controller::connect(QString hostname, QString databasename, int port, QString username, QString password){
-    char tempFileTemplate[] = "/tmp/XXXXXX.env";
-    std::cout << "Temp file template: " << tempFileTemplate << std::endl;
-    int fd = mkstemps(tempFileTemplate, 4);
-    m_envFilePath = tempFileTemplate;
-    if (fd == -1) {
-        std::cerr << "Failed to create temporary file: " << strerror(errno) << std::endl;
-        return;
-    }
-    close(fd);
+    QTemporaryFile tempFile;
+    tempFile.setAutoRemove(false);
+    tempFile.open();
 
-    std::cout << "Temporary file created: " << m_envFilePath << std::endl;
+    m_envFilePath = tempFile.fileName();
 
-    std::ofstream tempFile(m_envFilePath,  std::ofstream::trunc);
-    if (!tempFile.is_open()) {
-        std::cerr << "Failed to open temporary file for writing: " << strerror(errno) << std::endl;
-        return;
-    }
+    QTextStream textStream(&tempFile);
+    textStream << "DB_HOST=" << hostname << "\n";
+    textStream << "DB_NAME=" << databasename << "\n";
+    textStream << "DB_PORT=" << port << "\n";
+    textStream << "DB_USER=" << username << "\n";
+    textStream << "DB_PW=" << password << "\n";
 
-    tempFile << "DB_HOST=" << hostname.toStdString() << "\n";
-    tempFile << "DB_NAME=" << databasename.toStdString() << "\n";
-    tempFile << "DB_PORT=" << port << "\n";
-    tempFile << "DB_USER=" << username.toStdString() << "\n";
-    tempFile << "DB_PW=" << password.toStdString() << "\n";
+    textStream.flush();
+    tempFile.close();
 
     bool connect = connectToDB(hostname, databasename, port, username, password);
-    //Hier stand vorher nur True, kann sein, dass das gebraucht wird!
+
     m_connection_ready = connect;
     m_job_table = new Table_UserID();
     if(!m_cluster_ident.isEmpty()){
         m_job_table->loadJobs(m_cluster_ident);
     }
-    //m_job_table->setDatabaseConnection(m_dbConnection);
     emit connectionSignal(connect);
 }
 
@@ -67,53 +58,56 @@ Controller::~Controller()
 
 }
 
-bool Controller::copyEnvFile(){
-    char tempFileTemplate[] = "/tmp/XXXXXX.env";
-    int fd = mkstemps(tempFileTemplate, 4);
-    std::string temp_string = tempFileTemplate;
-    if (fd == -1) {
-        std::cerr << "Failed to create temporary file: " << strerror(errno) << std::endl;
-        return false;
-    }
-    close(fd);
-
-    QFile sourceFile(QString::fromStdString(m_envFilePath));
-    QFile destFile(QString::fromStdString(temp_string));
-
-    if (!destFile.open(QIODevice::WriteOnly)) {
-        qWarning() << "Failed to open destination file:" << temp_string;
-        return false;
-    }
-    if (!sourceFile.open(QIODevice::ReadOnly)) {
-        qWarning() << "Failed to open source file:" << m_envFilePath;
-        return false;
-    }
-
-    QByteArray fileData = sourceFile.readAll();
-    destFile.write(fileData);
-
-    if (!m_envFilePath.empty()) {
-        if (unlink(m_envFilePath.c_str()) != 0) {
-            std::cerr << "Failed to delete temporary file" << std::endl;
-        } else {
-            std::cout << "Temporary .env file deleted" << std::endl;
+QString removeFilePrefix(const QString &file_path){
+    QString adjustedPath = file_path;
+    if (adjustedPath.startsWith("file:///")) {
+        if (QOperatingSystemVersion::currentType() == QOperatingSystemVersion::Windows) {
+            adjustedPath.remove(0, 8);
+        }
+        else {
+            adjustedPath.remove(0, 7);
         }
     }
 
-    m_envFilePath = temp_string;
+    return adjustedPath;
+}
+
+bool Controller::copyEnvFile(){
+    QTemporaryFile newTempFile;
+    newTempFile.setAutoRemove(false);
+    newTempFile.open();
+
+    QFile oldTempFile(m_envFilePath);
+    if (!oldTempFile.open(QIODevice::ReadOnly)) {
+        qDebug() << "Failed to open env file";
+        return false;
+    }
+
+    const QByteArray oldTempFileData = oldTempFile.readAll();
+    newTempFile.write(oldTempFileData);
+    newTempFile.close();
+
+    oldTempFile.close();
+
+    if (!oldTempFile.remove()) {
+        std::cerr << "Failed to delete temporary file" << std::endl;
+    } else {
+        std::cout << "Temporary .env file deleted" << std::endl;
+    }
+
+    m_envFilePath = newTempFile.fileName();
     return true;
 }
 
 void Controller::copyOutputFile(){
     QtConcurrent::run([this]() {
         QProcess proc;
-        const char *homeDir = getenv("HOME");
-        QString filePath = QString(homeDir);
+        const QString filePath = QDir::homePath();
 
         QString sshCommand = QString("scp %1@%2:%3/slurm-%4.out %5").arg(m_cluster_ident, m_cluster_address, m_remote_dir_bash, QString::number(m_slurm_id), filePath);
         std::cout << sshCommand.toStdString() << std::endl;
 
-        proc.start("bash", QStringList() << "-c" << sshCommand);
+        proc.start(Bash_Process_Manager::getBashPath(), QStringList() << "-c" << sshCommand);
 
         // Warten, bis der Prozess gestartet ist
         if (!proc.waitForStarted()) {
@@ -149,7 +143,7 @@ QString Controller::connectCluster(const QString &address, const QString &ident,
     QString sshCommand = QString("ssh %1@%2 '[ -d \"%3\" ] && echo \"exists\" || echo \"not exist\"; [ -d \"%4\" ] || mkdir -p \"%4\"'").arg(ident, address, path, filePath);
 
     // Starten des SSH-Befehls
-    process.start("bash", QStringList() << "-c" << sshCommand);
+    process.start(Bash_Process_Manager::getBashPath(), QStringList() << "-c" << sshCommand);
 
     // Warten, bis der Prozess gestartet ist
     if (!process.waitForStarted()) {
@@ -223,9 +217,7 @@ void Controller::writeLocalBashFile(QString local_path, bool file, int proc_num)
     }
     emit setProcNum(proc_num);
 
-    if(local_path.startsWith("file:///")){
-        local_path.remove(0,7);
-    }
+    local_path = removeFilePrefix(local_path);
 
     QProcess bash_proc;
     QString resourcePath;
@@ -289,8 +281,7 @@ void Controller::writeLocalBashFile(QString local_path, bool file, int proc_num)
         if(lineNumber == 9) {
             if(file){
                 if(m_option != 3){
-                    out << "scp \"" + QString::fromStdString(m_envFilePath) + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
-                    //m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files";
+                    out << "scp \"" + m_envFilePath + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
                 }
                 if(m_option == 2){
                     out << "scp \":/bash_files/scorep.filt\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
@@ -301,11 +292,13 @@ void Controller::writeLocalBashFile(QString local_path, bool file, int proc_num)
                 out << "scp \"" + m_remote_bash_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files";
             } else{
-                out << "mkdir " + local_path  + "/tmp\n";
-                out << "rsync -avz \"" + local_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
+                out << "mkdir -p" + local_path  + "/tmp\n";
+                //out << "rsync -avz \"" + local_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 int lastSlashIndex = local_path.lastIndexOf("/");
                 QString dir_name = local_path.mid(lastSlashIndex + 1);
-                out << "scp \"" + QString::fromStdString(m_envFilePath) + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
+                out << "ssh \"$REMOTE_USER@$REMOTE_HOST\" rm -rf \"$REMOTE_DIR/" + dir_name + "\"\n";
+                out << "scp -r \"" + local_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR" + "\"\n";
+                out << "scp \"" + m_envFilePath + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
                 out << "scp \"" + m_remote_bash_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/" + "\"\n";
                 m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files/" + dir_name;
             }
@@ -321,9 +314,8 @@ void Controller::writeLocalBashFile(QString local_path, bool file, int proc_num)
 }
 
 bool Controller::checkFile(QString source, QString program, bool file){
-    if(source.startsWith("file:///")){
-        source.remove(0,7);
-    }
+    source = removeFilePrefix(source);
+
     if(file){
         if(source.endsWith(".c")){
             QFile fileA(source);
@@ -362,8 +354,7 @@ bool Controller::checkFile(QString source, QString program, bool file){
 }
 
 QString Controller::readBash(){
-    const char *homeDir = getenv("HOME");
-    QString filePath = QString(homeDir) + "/skript.sh";
+    const QString filePath = QDir::homePath() + "/skript.sh";
 
     QFile file(filePath);
     if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
@@ -377,8 +368,7 @@ QString Controller::readBash(){
 }
 
 void Controller::writeBash(QString content){
-    const char *homeDir = getenv("HOME");
-    QString filePath = QString(homeDir) + "/skript.sh";
+    const QString filePath = QDir::homePath() + "/skript.sh";
 
     QFile file(filePath);
     if(!file.open(QIODevice::WriteOnly | QIODevice::Text)){
@@ -401,8 +391,7 @@ void Controller::startBash(int proc_num){
     }
     //emit signalToBuildComponents(proc_num);
     std::cout << "StartBash" << std::endl;
-    QString homedir = getenv("HOME");
-    QString dir = homedir + "/skript.sh";
+    const QString dir = QDir::homePath() + "/skript.sh";
     chmod(dir.toStdString().c_str(), S_IRWXU | S_IRWXG | S_IRWXO);
     QProcess process;
 
@@ -417,8 +406,8 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
     m_program_name = program_name;
     m_proc_num = proc_num;
 
-    const char *homeDir = getenv("HOME");
-    QString filePath = QString::fromUtf8(homeDir)  + "/remote_bash_eduMPI.sh";
+    const QString homeDir = QDir::homePath();
+    const QString filePath = homeDir + "/remote_bash_eduMPI.sh";
     m_remote_bash_path = filePath;
 
 
@@ -426,7 +415,7 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
         program_name.chop(2);
     }
 
-    std::ofstream scriptFile(filePath.toStdString());
+    std::ofstream scriptFile(filePath.toStdString(), std::ios::binary);
     if(scriptFile.is_open()){
         scriptFile << "#!/usr/bin/env bash\n";
         scriptFile << "#SBATCH --partition=all\n";
@@ -452,10 +441,13 @@ void Controller::writeRemoteBashFile(QString program_name, int proc_num, int opt
         }
 
         if(option == 0){
+            const QFileInfo fileInfo(m_envFilePath);
+            const std::string fileName = "/tmp/" + fileInfo.fileName().toStdString();
+
             scriptFile << "for i in {1..5}; do\n";
-            scriptFile << "    if source ." << m_envFilePath << " 2>/dev/null; then\n";
-            scriptFile << "        export $(cut -d= -f1 ." << m_envFilePath << ")\n";
-            scriptFile << "        rm ." << m_envFilePath << "\n";
+            scriptFile << "    if source ." << fileName << " 2>/dev/null; then\n";
+            scriptFile << "        export $(cut -d= -f1 ." << fileName << ")\n";
+            scriptFile << "        rm ." << fileName << "\n";
             scriptFile << "        break\n";
             scriptFile << "    else\n";
             scriptFile << "        sleep 1\n";
@@ -540,16 +532,22 @@ void Controller::getSlurmID(const int id){
 
 void Controller::cancelRunningJob(){
     std::cout << "Signal: cancelRunningJob" << std::endl;
-    int signal = SIGTERM;
-    slurm_process->sendSignal(signal);
+
+    if (QOperatingSystemVersion::currentType() == QOperatingSystemVersion::Windows) {
+        QProcess::execute(Bash_Process_Manager::getBashPath(), QStringList{ "-c", QString("kill -s SIGTERM %1").arg(slurm_process->script_pid)});
+    } else {
+        int signal = SIGTERM;
+        slurm_process->sendSignal(signal);
+    }
+
     slurm_process->killProcess();
 }
 
 void Controller::closeApp(){
     qDebug() << "CLOSE APP";
     //removeClusterComponents();
-    if (!m_envFilePath.empty()) {
-        if (unlink(m_envFilePath.c_str()) != 0) {
+    if (!m_envFilePath.isEmpty()) {
+        if (QFile envFile(m_envFilePath); !envFile.remove()) {
             std::cerr << "Failed to delete temporary file" << std::endl;
         } else {
             std::cout << "Temporary .env file deleted" << std::endl;
