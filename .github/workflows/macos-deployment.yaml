@@ -30,23 +30,16 @@ jobs:
           tools: tools_cmake
           cache: true
 
+      # Wichtig:
+      # - Für PostgreSQL runtime brauchst du i.d.R. libpq (+ deps), NICHT postgresql@16.
+      # - dylibbundler kopiert externe dylibs (libpq + Abhängigkeiten) in die .app und fixt install names.
       - name: Install build dependencies
         run: |
           brew update
-          brew install ninja cmake
-          # Falls du libpq zur Laufzeit brauchst (PostgreSQL client library):
-          brew install postgresql@16
-          echo "$(brew --prefix postgresql@16)/bin" >> $GITHUB_PATH
-        
-      - name: Install PostgreSQL client (libpq)
-        run: |
-          brew update
-          brew install libpq
-          # libpq ist keg-only -> Pfade explizit setzen:
+          brew install ninja cmake libpq dylibbundler
           echo "$(brew --prefix libpq)/bin" >> $GITHUB_PATH
           echo "PostgreSQL_ROOT=$(brew --prefix libpq)" >> $GITHUB_ENV
           echo "PKG_CONFIG_PATH=$(brew --prefix libpq)/lib/pkgconfig" >> $GITHUB_ENV
-
 
       - name: Configure (CMake)
         run: |
@@ -56,35 +49,27 @@ jobs:
             -DPostgreSQL_INCLUDE_DIR="${PostgreSQL_ROOT}/include" \
             -DPostgreSQL_LIBRARY="${PostgreSQL_ROOT}/lib/libpq.dylib"
 
-
       - name: Build
         run: |
           cmake --build "${BUILD_DIR}" --config Release
 
-      # Optional aber sehr hilfreich: "install" Target nutzen, um eine saubere App-Struktur zu bekommen.
-      # Voraussetzung: Dein CMakeLists.txt definiert install(TARGETS ...) usw.
+      # Optional aber empfohlen (sauberer App-Bundle Output, falls install() vorhanden)
       - name: Install into staging dir (optional, recommended)
         run: |
           cmake --install "${BUILD_DIR}" --prefix "${INSTALL_DIR}"
-
-      # Wenn du KEIN CMake install() hast, musst du stattdessen deine .app aus dem Build holen:
-      # z.B. cp -R build/${APP_NAME}.app appdir/
 
       - name: Locate .app
         id: locate
         run: |
           set -e
-          # 1) bevorzugt aus install dir
           if [ -d "${INSTALL_DIR}/${APP_NAME}.app" ]; then
             echo "APP_PATH=${INSTALL_DIR}/${APP_NAME}.app" >> $GITHUB_OUTPUT
             exit 0
           fi
-          # 2) fallback: direkt im build (passe ggf. Pfad an)
           if [ -d "${BUILD_DIR}/${APP_NAME}.app" ]; then
             echo "APP_PATH=${BUILD_DIR}/${APP_NAME}.app" >> $GITHUB_OUTPUT
             exit 0
           fi
-          # 3) Suche als letzter Ausweg
           FOUND=$(find . -maxdepth 4 -name "${APP_NAME}.app" -type d | head -n 1)
           if [ -n "$FOUND" ]; then
             echo "APP_PATH=$FOUND" >> $GITHUB_OUTPUT
@@ -97,13 +82,9 @@ jobs:
           set -e
           APP="${{ steps.locate.outputs.APP_PATH }}"
           echo "Using app: $APP"
-          # macdeployqt liegt im Qt bin dir; install-qt-action setzt PATH normalerweise passend.
           macdeployqt "$APP" -qmldir=. -verbose=2
 
-      # PostgreSQL / QPSQL Hinweis:
-      # Wenn du QtSql mit PostgreSQL nutzt, brauchst du das Plugin "qsqlpsql".
-      # macdeployqt nimmt sqldrivers manchmal mit, manchmal nicht (abhängig davon, ob es erkannt wird).
-      # Daher hier eine harte Prüfung + ggf. Nachziehen.
+      # QPSQL Plugin sicherstellen
       - name: Ensure QPSQL driver is bundled
         run: |
           set -e
@@ -111,54 +92,117 @@ jobs:
           PLUGDIR="$APP/Contents/PlugIns/sqldrivers"
           mkdir -p "$PLUGDIR"
 
-          # Prüfen, ob qsqlpsql drin ist:
+          # Schon drin?
           if ls "$PLUGDIR"/libqsqlpsql.dylib >/dev/null 2>&1; then
             echo "QPSQL driver already bundled."
-          else
-            echo "QPSQL not found in app bundle; trying to locate in Qt installation..."
-            # Suche in Qt-Installationspfaden:
-            QSQLPSQL=$(find "$Qt6_DIR" "$Qt_DIR" "$HOME" -path "*plugins/sqldrivers/libqsqlpsql.dylib" 2>/dev/null | head -n 1 || true)
-            if [ -z "$QSQLPSQL" ]; then
-              echo "Could not locate libqsqlpsql.dylib. Make sure QtSql + PostgreSQL driver are available in your Qt install."
-              exit 1
-            fi
-            cp "$QSQLPSQL" "$PLUGDIR/"
+            ls -la "$PLUGDIR"
+            exit 0
           fi
+
+          echo "QPSQL not found in app bundle; locating in Qt installation..."
+
+          # 1) über qtpaths6 (am robustesten)
+          QTPLUGDIR=""
+          if command -v qtpaths6 >/dev/null 2>&1; then
+            QTPLUGDIR="$(qtpaths6 --plugin-dir 2>/dev/null || true)"
+          elif command -v qtpaths >/dev/null 2>&1; then
+            # fallback, falls qtpaths (ohne 6) vorhanden ist
+            QTPLUGDIR="$(qtpaths --plugin-dir 2>/dev/null || true)"
+          fi
+
+          QSQLPSQL=""
+          if [ -n "$QTPLUGDIR" ] && [ -f "$QTPLUGDIR/sqldrivers/libqsqlpsql.dylib" ]; then
+            QSQLPSQL="$QTPLUGDIR/sqldrivers/libqsqlpsql.dylib"
+          fi
+
+          # 2) fallback: find in typischen Action-Env-Variablen
+          if [ -z "$QSQLPSQL" ]; then
+            QSQLPSQL=$(find "${Qt6_DIR:-}" "${Qt_DIR:-}" "$HOME" \
+              -path "*plugins/sqldrivers/libqsqlpsql.dylib" 2>/dev/null | head -n 1 || true)
+          fi
+
+          if [ -z "$QSQLPSQL" ] || [ ! -f "$QSQLPSQL" ]; then
+            echo "Could not locate libqsqlpsql.dylib. Ensure QtSql + PostgreSQL driver are present in your Qt install."
+            exit 1
+          fi
+
+          echo "Found QPSQL: $QSQLPSQL"
+          cp "$QSQLPSQL" "$PLUGDIR/"
 
           echo "Bundled sqldrivers:"
           ls -la "$PLUGDIR"
 
-      # Optional: falls libpq dynamisch genutzt wird (häufig), musst du libpq mit in die App nehmen.
-      # Das hängt davon ab, wie du linkst. Mit otool siehst du, ob libpq fehlt.
-      - name: Check dynamic libraries (quick sanity)
+      # Kritisch: libpq (+ dependencies) in den Bundle kopieren + Install Names fixen.
+      # Das behebt typische Crash/No-Connection Probleme, weil das QPSQL Plugin sonst auf /opt/homebrew/... zeigt.
+      - name: Bundle libpq + dependencies into .app (fix install names/rpaths)
         run: |
           set -e
           APP="${{ steps.locate.outputs.APP_PATH }}"
-          BIN="$APP/Contents/MacOS/${APP_NAME}"
-          if [ -f "$BIN" ]; then
-            echo "otool -L:"
-            otool -L "$BIN" || true
-          else
-            echo "Binary not found at $BIN (maybe different executable name inside .app)."
+          EXE="$APP/Contents/MacOS/${APP_NAME}"
+          PLUGIN="$APP/Contents/PlugIns/sqldrivers/libqsqlpsql.dylib"
+
+          if [ ! -f "$EXE" ]; then
+            echo "Executable not found at $EXE."
+            echo "Contents/MacOS is:"
+            ls -la "$APP/Contents/MacOS" || true
+            exit 1
+          fi
+          if [ ! -f "$PLUGIN" ]; then
+            echo "QPSQL plugin not found at $PLUGIN."
+            ls -la "$APP/Contents/PlugIns/sqldrivers" || true
+            exit 1
           fi
 
+          echo "Before (otool -L plugin):"
+          otool -L "$PLUGIN" || true
+
+          mkdir -p "$APP/Contents/Frameworks"
+
+          # -od: overwrite destination files if exist
+          # -b : bundle dependencies
+          # -x : executable / binary to scan & rewrite (works for plugins too)
+          # -d : destination to copy dylibs into
+          # -p : install-name prefix inside bundle
+          dylibbundler -od -b \
+            -x "$EXE" \
+            -x "$PLUGIN" \
+            -d "$APP/Contents/Frameworks" \
+            -p "@executable_path/../Frameworks"
+
+          echo "After (otool -L plugin):"
+          otool -L "$PLUGIN" || true
+
+          echo "Bundled third-party dylibs (Contents/Frameworks):"
+          ls -la "$APP/Contents/Frameworks"
+
+      # Sanity: zeige Linkage des Plugins (entscheidend für DB)
+      - name: Check QPSQL plugin linkage (sanity)
+        run: |
+          set -e
+          APP="${{ steps.locate.outputs.APP_PATH }}"
+          PLUGIN="$APP/Contents/PlugIns/sqldrivers/libqsqlpsql.dylib"
+          echo "otool -L $PLUGIN"
+          otool -L "$PLUGIN" || true
+
+      # DMG erzeugen (nachdem alles im Bundle ist)
       - name: Create DMG
         run: |
           set -e
           APP="${{ steps.locate.outputs.APP_PATH }}"
           OUTDIR=dist
           mkdir -p "$OUTDIR"
-          # macdeployqt kann DMG bauen, wenn du es auf die .app anwendest:
+
+          # DMG via macdeployqt (Qt-Standardweg)
           macdeployqt "$APP" -dmg -verbose=2
-          # Das DMG landet i.d.R. neben der .app. Wir verschieben es nach dist:
+
           DMG=$(dirname "$APP")/${APP_NAME}.dmg
           if [ ! -f "$DMG" ]; then
-            # fallback: irgendwo suchen
-            DMG=$(find . -maxdepth 4 -name "${APP_NAME}.dmg" | head -n 1 || true)
+            DMG=$(find . -maxdepth 5 -name "${APP_NAME}.dmg" | head -n 1 || true)
           fi
           if [ -z "$DMG" ] || [ ! -f "$DMG" ]; then
             echo "DMG not found"; exit 1
           fi
+
           mv "$DMG" "$OUTDIR/"
 
       - name: Upload artifact
@@ -166,5 +210,6 @@ jobs:
         with:
           name: ${{ env.APP_NAME }}-macos
           path: dist/${{ env.APP_NAME }}.dmg
+
 
 
