@@ -14,6 +14,7 @@ on:
 jobs:
   deploy:
     runs-on: macos-14
+    timeout-minutes: 35
 
     steps:
       - name: Checkout repo
@@ -30,19 +31,25 @@ jobs:
           tools: tools_cmake
           cache: true
 
-      # Wichtig:
-      # - Für PostgreSQL runtime brauchst du i.d.R. libpq (+ deps), NICHT postgresql@16.
-      # - dylibbundler kopiert externe dylibs (libpq + Abhängigkeiten) in die .app und fixt install names.
       - name: Install build dependencies
+        timeout-minutes: 10
         run: |
-          brew update
-          brew install ninja cmake libpq dylibbundler
+          set -e
+          # brew update ist in CI oft langsam/buggy -> weglassen oder "best effort"
+          brew update || true
+          brew install ninja cmake libpq
           echo "$(brew --prefix libpq)/bin" >> $GITHUB_PATH
           echo "PostgreSQL_ROOT=$(brew --prefix libpq)" >> $GITHUB_ENV
           echo "PKG_CONFIG_PATH=$(brew --prefix libpq)/lib/pkgconfig" >> $GITHUB_ENV
+          echo "HOMEBREW_PREFIX=$(brew --prefix)" >> $GITHUB_ENV
+
+          echo "libpq files:"
+          ls -la "$(brew --prefix libpq)/lib/"libpq* || true
 
       - name: Configure (CMake)
+        timeout-minutes: 10
         run: |
+          set -e
           cmake -S . -B "${BUILD_DIR}" -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
             -DPostgreSQL_ROOT="${PostgreSQL_ROOT}" \
@@ -50,12 +57,15 @@ jobs:
             -DPostgreSQL_LIBRARY="${PostgreSQL_ROOT}/lib/libpq.dylib"
 
       - name: Build
+        timeout-minutes: 15
         run: |
+          set -e
           cmake --build "${BUILD_DIR}" --config Release
 
-      # Optional aber empfohlen (sauberer App-Bundle Output, falls install() vorhanden)
       - name: Install into staging dir (optional, recommended)
+        timeout-minutes: 10
         run: |
+          set -e
           cmake --install "${BUILD_DIR}" --prefix "${INSTALL_DIR}"
 
       - name: Locate .app
@@ -78,63 +88,47 @@ jobs:
           echo "Could not find ${APP_NAME}.app"; exit 1
 
       - name: macdeployqt (bundle Qt frameworks/plugins)
+        timeout-minutes: 10
         run: |
           set -e
           APP="${{ steps.locate.outputs.APP_PATH }}"
           echo "Using app: $APP"
           macdeployqt "$APP" -qmldir=. -verbose=2
 
-      # QPSQL Plugin sicherstellen
-      - name: Ensure QPSQL driver is bundled
+      - name: Ensure QPSQL driver is bundled (no risky find)
+        timeout-minutes: 5
         run: |
           set -e
           APP="${{ steps.locate.outputs.APP_PATH }}"
           PLUGDIR="$APP/Contents/PlugIns/sqldrivers"
           mkdir -p "$PLUGDIR"
 
-          # Schon drin?
-          if ls "$PLUGDIR"/libqsqlpsql.dylib >/dev/null 2>&1; then
-            echo "QPSQL driver already bundled."
+          if [ -f "$PLUGDIR/libqsqlpsql.dylib" ]; then
+            echo "QPSQL already bundled."
             ls -la "$PLUGDIR"
             exit 0
           fi
 
-          echo "QPSQL not found in app bundle; locating in Qt installation..."
-
-          # 1) über qtpaths6 (am robustesten)
-          QTPLUGDIR=""
-          if command -v qtpaths6 >/dev/null 2>&1; then
-            QTPLUGDIR="$(qtpaths6 --plugin-dir 2>/dev/null || true)"
-          elif command -v qtpaths >/dev/null 2>&1; then
-            # fallback, falls qtpaths (ohne 6) vorhanden ist
-            QTPLUGDIR="$(qtpaths --plugin-dir 2>/dev/null || true)"
+          # Robust: plugin dir über qtpaths6
+          if ! command -v qtpaths6 >/dev/null 2>&1; then
+            echo "qtpaths6 not found; cannot locate Qt plugin dir."; exit 1
           fi
 
-          QSQLPSQL=""
-          if [ -n "$QTPLUGDIR" ] && [ -f "$QTPLUGDIR/sqldrivers/libqsqlpsql.dylib" ]; then
-            QSQLPSQL="$QTPLUGDIR/sqldrivers/libqsqlpsql.dylib"
+          QTPLUGDIR="$(qtpaths6 --plugin-dir)"
+          echo "Qt plugin dir: $QTPLUGDIR"
+
+          SRC="$QTPLUGDIR/sqldrivers/libqsqlpsql.dylib"
+          if [ ! -f "$SRC" ]; then
+            echo "libqsqlpsql.dylib not found at: $SRC"; exit 1
           fi
 
-          # 2) fallback: find in typischen Action-Env-Variablen
-          if [ -z "$QSQLPSQL" ]; then
-            QSQLPSQL=$(find "${Qt6_DIR:-}" "${Qt_DIR:-}" "$HOME" \
-              -path "*plugins/sqldrivers/libqsqlpsql.dylib" 2>/dev/null | head -n 1 || true)
-          fi
-
-          if [ -z "$QSQLPSQL" ] || [ ! -f "$QSQLPSQL" ]; then
-            echo "Could not locate libqsqlpsql.dylib. Ensure QtSql + PostgreSQL driver are present in your Qt install."
-            exit 1
-          fi
-
-          echo "Found QPSQL: $QSQLPSQL"
-          cp "$QSQLPSQL" "$PLUGDIR/"
-
+          cp "$SRC" "$PLUGDIR/"
           echo "Bundled sqldrivers:"
           ls -la "$PLUGDIR"
 
-      # Kritisch: libpq (+ dependencies) in den Bundle kopieren + Install Names fixen.
-      # Das behebt typische Crash/No-Connection Probleme, weil das QPSQL Plugin sonst auf /opt/homebrew/... zeigt.
-      - name: Bundle libpq + dependencies into .app (fix install names/rpaths)
+      # >>> WICHTIG: Hier ohne dylibbundler. Stattdessen explizit libpq + deps kopieren und Pfade fixen.
+      - name: Bundle libpq and fix linkage (deterministic, no loops)
+        timeout-minutes: 10
         run: |
           set -e
           APP="${{ steps.locate.outputs.APP_PATH }}"
@@ -142,62 +136,96 @@ jobs:
           PLUGIN="$APP/Contents/PlugIns/sqldrivers/libqsqlpsql.dylib"
 
           if [ ! -f "$EXE" ]; then
-            echo "Executable not found at $EXE."
-            echo "Contents/MacOS is:"
+            echo "Executable not found at $EXE"
             ls -la "$APP/Contents/MacOS" || true
             exit 1
           fi
           if [ ! -f "$PLUGIN" ]; then
-            echo "QPSQL plugin not found at $PLUGIN."
+            echo "QPSQL plugin not found at $PLUGIN"
             ls -la "$APP/Contents/PlugIns/sqldrivers" || true
             exit 1
           fi
 
-          echo "Before (otool -L plugin):"
+          DEST="$APP/Contents/Frameworks"
+          mkdir -p "$DEST"
+
+          LIBPQ_PREFIX="$(brew --prefix libpq)"
+          echo "libpq prefix: $LIBPQ_PREFIX"
+
+          # 1) libpq selbst ins Bundle kopieren (alle Varianten)
+          cp -av "$LIBPQ_PREFIX/lib/"libpq*.dylib "$DEST/" || true
+          echo "Frameworks after libpq copy:"
+          ls -la "$DEST" || true
+
+          # 2) Abhängigkeiten von libpq ebenfalls kopieren (nur non-system, aus /opt/homebrew oder /usr/local)
+          #    (SSL/crypto etc. hängen oft dran.)
+          for L in "$DEST"/libpq*.dylib; do
+            [ -f "$L" ] || continue
+            echo "Deps for $L"
+            otool -L "$L" | awk 'NR>1 {print $1}' | while read -r dep; do
+              case "$dep" in
+                /System/*|/usr/lib/*) ;;
+                *)
+                  if [ -f "$dep" ]; then
+                    echo "  copying dep: $dep"
+                    cp -av "$dep" "$DEST/" || true
+                  else
+                    echo "  dep not found on runner: $dep"
+                  fi
+                ;;
+              esac
+            done
+          done
+
+          echo "Frameworks after deps copy:"
+          ls -la "$DEST" || true
+
+          # 3) install_name_tool: IDs setzen + Referenzen umschreiben auf @executable_path/../Frameworks
+          for f in "$DEST"/*.dylib; do
+            [ -f "$f" ] || continue
+            base="$(basename "$f")"
+            install_name_tool -id "@executable_path/../Frameworks/$base" "$f" || true
+          done
+
+          # Rewrite in plugin + exe: alle Homebrew deps -> Bundle
+          rewrite() {
+            local target="$1"
+            echo "Rewriting deps in: $target"
+            otool -L "$target" | awk 'NR>1 {print $1}' | while read -r dep; do
+              case "$dep" in
+                /System/*|/usr/lib/*) ;;
+                *)
+                  base="$(basename "$dep")"
+                  if [ -f "$DEST/$base" ]; then
+                    install_name_tool -change "$dep" "@executable_path/../Frameworks/$base" "$target" || true
+                  fi
+                ;;
+              esac
+            done
+          }
+
+          rewrite "$PLUGIN"
+          rewrite "$EXE"
+
+          echo "Final linkage (plugin):"
           otool -L "$PLUGIN" || true
 
-          mkdir -p "$APP/Contents/Frameworks"
+          echo "Final linkage (exe):"
+          otool -L "$EXE" || true
 
-          # -od: overwrite destination files if exist
-          # -b : bundle dependencies
-          # -x : executable / binary to scan & rewrite (works for plugins too)
-          # -d : destination to copy dylibs into
-          # -p : install-name prefix inside bundle
-          dylibbundler -od -b \
-            -x "$EXE" \
-            -x "$PLUGIN" \
-            -d "$APP/Contents/Frameworks" \
-            -p "@executable_path/../Frameworks"
-
-          echo "After (otool -L plugin):"
-          otool -L "$PLUGIN" || true
-
-          echo "Bundled third-party dylibs (Contents/Frameworks):"
-          ls -la "$APP/Contents/Frameworks"
-
-      # Sanity: zeige Linkage des Plugins (entscheidend für DB)
-      - name: Check QPSQL plugin linkage (sanity)
-        run: |
-          set -e
-          APP="${{ steps.locate.outputs.APP_PATH }}"
-          PLUGIN="$APP/Contents/PlugIns/sqldrivers/libqsqlpsql.dylib"
-          echo "otool -L $PLUGIN"
-          otool -L "$PLUGIN" || true
-
-      # DMG erzeugen (nachdem alles im Bundle ist)
       - name: Create DMG
+        timeout-minutes: 10
         run: |
           set -e
           APP="${{ steps.locate.outputs.APP_PATH }}"
           OUTDIR=dist
           mkdir -p "$OUTDIR"
 
-          # DMG via macdeployqt (Qt-Standardweg)
           macdeployqt "$APP" -dmg -verbose=2
 
-          DMG=$(dirname "$APP")/${APP_NAME}.dmg
+          DMG="$(dirname "$APP")/${APP_NAME}.dmg"
           if [ ! -f "$DMG" ]; then
-            DMG=$(find . -maxdepth 5 -name "${APP_NAME}.dmg" | head -n 1 || true)
+            DMG="$(find . -maxdepth 5 -name "${APP_NAME}.dmg" | head -n 1 || true)"
           fi
           if [ -z "$DMG" ] || [ ! -f "$DMG" ]; then
             echo "DMG not found"; exit 1
@@ -210,6 +238,3 @@ jobs:
         with:
           name: ${{ env.APP_NAME }}-macos
           path: dist/${{ env.APP_NAME }}.dmg
-
-
-
