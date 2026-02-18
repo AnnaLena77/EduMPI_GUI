@@ -24,6 +24,12 @@ int main(int argc, char *argv[])
     qputenv("QT_WAYLAND_DISABLE_TEXT_INPUT", "1");
     qputenv("QT_LOGGING_RULES", "qt.qpa.wayland.textinput=false");
 
+    #ifdef Q_OS_MACOS
+    //Prevent using the macOS global menubar integration
+        qputenv("QT_MAC_DISABLE_NATIVE_MENUBAR", "1");
+    #endif
+
+
     //QLoggingCategory::setFilterRules(QStringLiteral("qt.scenegraph.general=true"));
 
 
