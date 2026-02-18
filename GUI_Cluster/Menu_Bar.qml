@@ -1,35 +1,24 @@
 import QtQuick
-import QtQuick.Layouts 6.3
 import QtQuick.Controls 6.3
+import QtQuick.Layouts 6.3
 
-Item {
-    id: menu_bar_item
-    width: parent ? parent.width : 0
-    height: Qt.platform.os === "osx" ? 0 : 30
+ApplicationWindow {
+    id: root
+    width: 1200
+    height: 800
+    visible: true
+    title: "My App"
 
-    MenuBar {
-        id: menu
-        anchors.fill: parent
-
-        // macOS: use global system menubar (native)
-        // Win/Linux: draw menubar inside the window (non-native) so styling works
-        nativeMenuBar: (Qt.platform.os === "osx")
-
-        // Only relevant for non-native (Win/Linux). On macOS this won't be drawn in-window.
-        background: Rectangle {
-            color: "#383936"
-        }
+    //
+    // macOS: MenuBar muss hierhin, damit sie oben in der System-Menüleiste auftaucht
+    //
+    menuBar: MenuBar {
+        id: macMenuBar
+        visible: Qt.platform.os === "osx"
+        nativeMenuBar: true
 
         Menu {
-            id: settingsMenu
             title: qsTr("Settings")
-
-            // Primarily affects non-native popup menus (Win/Linux). Native menus on macOS are OS-styled.
-            background: Rectangle {
-                implicitWidth: 220
-                color: "#383936"
-                border.color: "black"
-            }
 
             Action {
                 text: qsTr("Cluster Connection")
@@ -39,7 +28,6 @@ Item {
                     window.show()
                 }
             }
-
             Action {
                 text: qsTr("Database Connection")
                 onTriggered: {
@@ -48,15 +36,11 @@ Item {
                     window.show()
                 }
             }
-
             Action {
                 text: qsTr("Load EduMPI-Run from DB")
                 onTriggered: {
                     var component, window
                     if (controller.db_connection && controller.cluster_connection) {
-                        var fd_id = controller.getClusterIdent()
-                        // controller.getJobTable().loadJobs(fd_id);
-
                         component = Qt.createComponent("Table_Userid_Selection.qml")
                         window = component.createObject(root)
                         window.show()
@@ -76,15 +60,7 @@ Item {
         }
 
         Menu {
-            id: helpMenu
             title: qsTr("Help")
-
-            background: Rectangle {
-                implicitWidth: 220
-                color: "#383936"
-                border.color: "black"
-            }
-
             Action {
                 text: qsTr("SSH-Key-Gen Guide")
                 onTriggered: {
@@ -96,15 +72,7 @@ Item {
         }
 
         Menu {
-            id: nonVisMenu
             title: qsTr("Non-Visualization")
-
-            background: Rectangle {
-                implicitWidth: 260
-                color: "#383936"
-                border.color: "black"
-            }
-
             Action {
                 text: qsTr("MPI Program")
                 onTriggered: {
@@ -113,7 +81,6 @@ Item {
                     window.show()
                 }
             }
-
             Action {
                 text: qsTr("MPI Program with Score-P")
                 onTriggered: {
@@ -122,7 +89,6 @@ Item {
                     window.show()
                 }
             }
-
             Action {
                 text: qsTr("OpenMP Program")
                 onTriggered: {
@@ -132,18 +98,88 @@ Item {
                 }
             }
         }
+    }
 
-        // Menubar item styling for Win/Linux (non-native). On macOS nativeMenuBar is true.
-        delegate: MenuBarItem {
-            id: menuBarItem
+    //
+    // Win/Linux: MenuBar im Fenster (z.B. als header), damit du sie stylen kannst
+    //
+    header: Item {
+        height: (Qt.platform.os === "osx") ? 0 : 30
+        visible: Qt.platform.os !== "osx"
 
-            contentItem: Text {
-                text: menuBarItem.text
-                font: menuBarItem.font
-                color: "white"
-                verticalAlignment: Text.AlignVCenter
-                elide: Text.ElideRight
+        MenuBar {
+            id: inWindowMenuBar
+            anchors.fill: parent
+            nativeMenuBar: false
+
+            background: Rectangle { color: "#383936" }
+
+            Menu {
+                title: qsTr("Settings")
+                background: Rectangle {
+                    implicitWidth: 220
+                    color: "#383936"
+                    border.color: "black"
+                }
+
+                // Hier kannst du gern wieder deine RichText-Strings verwenden,
+                // aber sauberer ist Styling über delegate.
+                Action {
+                    text: qsTr("Cluster Connection")
+                    onTriggered: macMenuBar.menus[0].actions[0].trigger() // optional: gleiche Logik nutzen
+                }
+                Action {
+                    text: qsTr("Database Connection")
+                    onTriggered: macMenuBar.menus[0].actions[1].trigger()
+                }
+                Action {
+                    text: qsTr("Load EduMPI-Run from DB")
+                    onTriggered: macMenuBar.menus[0].actions[2].trigger()
+                }
+                MenuSeparator { }
+            }
+
+            Menu {
+                title: qsTr("Help")
+                background: Rectangle {
+                    implicitWidth: 220
+                    color: "#383936"
+                    border.color: "black"
+                }
+                Action {
+                    text: qsTr("SSH-Key-Gen Guide")
+                    onTriggered: macMenuBar.menus[1].actions[0].trigger()
+                }
+            }
+
+            Menu {
+                title: qsTr("Non-Visualization")
+                background: Rectangle {
+                    implicitWidth: 260
+                    color: "#383936"
+                    border.color: "black"
+                }
+                Action { text: qsTr("MPI Program"); onTriggered: macMenuBar.menus[2].actions[0].trigger() }
+                Action { text: qsTr("MPI Program with Score-P"); onTriggered: macMenuBar.menus[2].actions[1].trigger() }
+                Action { text: qsTr("OpenMP Program"); onTriggered: macMenuBar.menus[2].actions[2].trigger() }
+            }
+
+            delegate: MenuBarItem {
+                contentItem: Text {
+                    text: parent.text
+                    font: parent.font
+                    color: "white"
+                    verticalAlignment: Text.AlignVCenter
+                    elide: Text.ElideRight
+                }
             }
         }
     }
+
+    // Dein restlicher Content
+    Rectangle {
+        anchors.fill: parent
+        color: "#202020"
+    }
 }
+
