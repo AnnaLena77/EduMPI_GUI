@@ -5,10 +5,11 @@ import QtQuick.Controls 6.3
 Item {
     id: menu_bar_item
     width: parent.width
-    height: 30
+    height: Qt.platform.os === "osx" ? 0 : 30
 
     MenuBar{
         id: menu
+        visible: Qt.platform.os !== "osx"
         anchors.fill: parent
 
         background: Rectangle{
@@ -28,7 +29,7 @@ Item {
 
             Action {
 
-                text: "<font color=\"white\">Cluster Connection</font>"
+                text: Qt.platform.os === "osx" ? "Cluster Connection" : "<font color=\"white\">Cluster Connection</font>"
                 onTriggered: {
                     var component = Qt.createComponent("Cluster_Connection_Formular.qml");
                     var window = component.createObject(root);
@@ -36,7 +37,7 @@ Item {
                 }
             }
             Action {
-                text: "<font color=\"white\">Database Connection</font>"
+                text: Qt.platform.os === "osx" ? "Database Connection" : "<font color=\"white\">Database Connection</font>"
                 onTriggered: {
                         var component = Qt.createComponent("DB_Connection_Formular.qml");
                         var window = component.createObject(root);
@@ -44,7 +45,7 @@ Item {
                 }
             }
             Action {
-                text: "<font color=\"white\">Load EduMPI-Run from DB</font>"
+                text: Qt.platform.os === "osx" ? "Load EduMPI-Run from DB" : "<font color=\"white\">Load EduMPI-Run from DB</font>"
                 onTriggered: {
                     var component, window;
                     if(controller.db_connection && controller.cluster_connection){

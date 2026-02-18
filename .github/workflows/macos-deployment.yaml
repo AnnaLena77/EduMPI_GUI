@@ -233,6 +233,49 @@ jobs:
 
           mv "$DMG" "$OUTDIR/"
 
+      - name: Fix libpq self-link loop + re-sign (important)
+        timeout-minutes: 5
+        run: |
+          set -e
+          APP="${{ steps.locate.outputs.APP_PATH }}"
+          F="$APP/Contents/Frameworks"
+          PLUGIN="$APP/Contents/PlugIns/sqldrivers/libqsqlpsql.dylib"
+
+          # Guard rails
+          test -f "$F/libpq.5.dylib" || { echo "Missing $F/libpq.5.dylib"; exit 1; }
+
+          echo "Before (libpq.5):"
+          otool -L "$F/libpq.5.dylib" || true
+
+          # 1) Remove libpq.dylib to avoid dyld dependency loop (libpq.5 -> libpq -> libpq.5)
+          #    We'll recreate it as a *pure* symlink afterwards (not used as a dependency).
+          rm -f "$F/libpq.dylib"
+
+          # 2) Ensure libpq.5 has the correct install-id
+          install_name_tool -id "@executable_path/../Frameworks/libpq.5.dylib" "$F/libpq.5.dylib"
+
+          # 3) Ensure the Qt SQL plugin points to libpq.5 (it usually does already)
+          install_name_tool -change "@executable_path/../Frameworks/libpq.dylib" \
+            "@executable_path/../Frameworks/libpq.5.dylib" \
+            "$PLUGIN" 2>/dev/null || true
+
+          # 4) Recreate libpq.dylib as a symlink for compatibility (optional)
+          ln -sf "libpq.5.dylib" "$F/libpq.dylib"
+
+          echo "After (libpq.5):"
+          otool -L "$F/libpq.5.dylib" || true
+
+          # 5) Sanity: fail if libpq.5 still depends on libpq.dylib
+          if otool -L "$F/libpq.5.dylib" | grep -q "@executable_path/../Frameworks/libpq.dylib"; then
+            echo "ERROR: libpq.5.dylib still depends on libpq.dylib (loop)."
+            exit 1
+          fi
+
+          # 6) Ad-hoc codesign after modifying binaries (recommended)
+          codesign --force --deep --sign - "$APP"
+          codesign --verify --deep --strict --verbose=2 "$APP" || true
+
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
