@@ -14,7 +14,7 @@ on:
 jobs:
   deploy:
     runs-on: macos-14
-    timeout-minutes: 35
+    timeout-minutes: 25
 
     steps:
       - name: Checkout repo
@@ -35,10 +35,10 @@ jobs:
         timeout-minutes: 10
         run: |
           set -e
-          # brew update ist in CI oft langsam/buggy -> weglassen oder "best effort"
           brew update || true
           brew install ninja cmake libpq
           echo "$(brew --prefix libpq)/bin" >> $GITHUB_PATH
+
           echo "PostgreSQL_ROOT=$(brew --prefix libpq)" >> $GITHUB_ENV
           echo "PKG_CONFIG_PATH=$(brew --prefix libpq)/lib/pkgconfig" >> $GITHUB_ENV
           echo "HOMEBREW_PREFIX=$(brew --prefix)" >> $GITHUB_ENV
@@ -95,123 +95,82 @@ jobs:
           echo "Using app: $APP"
           macdeployqt "$APP" -qmldir=. -verbose=2
 
-      - name: Ensure QPSQL driver is bundled (no risky find)
-        timeout-minutes: 5
-        run: |
-          set -e
-          APP="${{ steps.locate.outputs.APP_PATH }}"
-          PLUGDIR="$APP/Contents/PlugIns/sqldrivers"
-          mkdir -p "$PLUGDIR"
-
-          if [ -f "$PLUGDIR/libqsqlpsql.dylib" ]; then
-            echo "QPSQL already bundled."
-            ls -la "$PLUGDIR"
-            exit 0
-          fi
-
-          # Robust: plugin dir über qtpaths6
-          if ! command -v qtpaths6 >/dev/null 2>&1; then
-            echo "qtpaths6 not found; cannot locate Qt plugin dir."; exit 1
-          fi
-
-          QTPLUGDIR="$(qtpaths6 --plugin-dir)"
-          echo "Qt plugin dir: $QTPLUGDIR"
-
-          SRC="$QTPLUGDIR/sqldrivers/libqsqlpsql.dylib"
-          if [ ! -f "$SRC" ]; then
-            echo "libqsqlpsql.dylib not found at: $SRC"; exit 1
-          fi
-
-          cp "$SRC" "$PLUGDIR/"
-          echo "Bundled sqldrivers:"
-          ls -la "$PLUGDIR"
-
-      # >>> WICHTIG: Hier ohne dylibbundler. Stattdessen explizit libpq + deps kopieren und Pfade fixen.
-      - name: Bundle libpq and fix linkage (deterministic, no loops)
+      # --- NEU: QPSQL + libpq bundlen, patchen, signieren ---
+      - name: Bundle QPSQL + libpq, patch rpath, codesign
         timeout-minutes: 10
         run: |
           set -e
           APP="${{ steps.locate.outputs.APP_PATH }}"
-          EXE="$APP/Contents/MacOS/${APP_NAME}"
-          PLUGIN="$APP/Contents/PlugIns/sqldrivers/libqsqlpsql.dylib"
+          echo "Using app: $APP"
 
-          if [ ! -f "$EXE" ]; then
-            echo "Executable not found at $EXE"
-            ls -la "$APP/Contents/MacOS" || true
+          # 1) Zielordner im Bundle
+          PLUGDIR="$APP/Contents/PlugIns/sqldrivers"
+          FWKDIR="$APP/Contents/Frameworks"
+          mkdir -p "$PLUGDIR" "$FWKDIR"
+
+          # 2) libpq ins Bundle kopieren (wir wollen libpq.5.dylib im Frameworks dir)
+          #    Homebrew liefert libpq.5.dylib normalerweise im lib/ Ordner.
+          LIBPQ_SRC="${PostgreSQL_ROOT}/lib/libpq.5.dylib"
+          if [ ! -f "$LIBPQ_SRC" ]; then
+            echo "Expected libpq not found at $LIBPQ_SRC"
+            echo "Available:"
+            ls -la "${PostgreSQL_ROOT}/lib/"libpq* || true
             exit 1
           fi
-          if [ ! -f "$PLUGIN" ]; then
-            echo "QPSQL plugin not found at $PLUGIN"
-            ls -la "$APP/Contents/PlugIns/sqldrivers" || true
+          cp -f "$LIBPQ_SRC" "$FWKDIR/libpq.5.dylib"
+
+          # 3) QPSQL Plugin ins Bundle kopieren (über qtpaths6 Plugin-Dir)
+          if ! command -v qtpaths6 >/dev/null 2>&1; then
+            echo "qtpaths6 not found; cannot locate Qt plugin dir."; exit 1
+          fi
+          QTPLUGDIR="$(qtpaths6 --plugin-dir)"
+          echo "Qt plugin dir: $QTPLUGDIR"
+
+          QPSQL_SRC="$QTPLUGDIR/sqldrivers/libqsqlpsql.dylib"
+          if [ ! -f "$QPSQL_SRC" ]; then
+            echo "libqsqlpsql.dylib not found at: $QPSQL_SRC"
+            echo "sqldrivers dir:"
+            ls -la "$QTPLUGDIR/sqldrivers" || true
             exit 1
           fi
+          cp -f "$QPSQL_SRC" "$PLUGDIR/libqsqlpsql.dylib"
 
-          DEST="$APP/Contents/Frameworks"
-          mkdir -p "$DEST"
+          # 4) Plugin-Abhängigkeit auf @rpath umbiegen
+          #    (Falls das Plugin bereits anders gelinkt ist, patchen wir dynamisch anhand otool-Ausgabe.)
+          OLD_LIBPQ="$(otool -L "$PLUGDIR/libqsqlpsql.dylib" | awk '/libpq.*dylib/{print $1; exit 0}')"
+          if [ -z "$OLD_LIBPQ" ]; then
+            echo "Could not detect libpq dependency in libqsqlpsql.dylib"
+            otool -L "$PLUGDIR/libqsqlpsql.dylib" || true
+            exit 1
+          fi
+          echo "Detected libpq dep in plugin: $OLD_LIBPQ"
 
-          LIBPQ_PREFIX="$(brew --prefix libpq)"
-          echo "libpq prefix: $LIBPQ_PREFIX"
+          /usr/bin/install_name_tool -change \
+            "$OLD_LIBPQ" \
+            "@rpath/libpq.5.dylib" \
+            "$PLUGDIR/libqsqlpsql.dylib"
 
-          # 1) libpq selbst ins Bundle kopieren (alle Varianten)
-          cp -av "$LIBPQ_PREFIX/lib/"libpq*.dylib "$DEST/" || true
-          echo "Frameworks after libpq copy:"
-          ls -la "$DEST" || true
+          # 5) RPATH setzen, damit @rpath -> Contents/Frameworks aufgelöst wird
+          #    Falls schon vorhanden, ignorieren.
+          /usr/bin/install_name_tool -add_rpath \
+            "@loader_path/../../Frameworks" \
+            "$PLUGDIR/libqsqlpsql.dylib" 2>/dev/null || true
 
-          # 2) Abhängigkeiten von libpq ebenfalls kopieren (nur non-system, aus /opt/homebrew oder /usr/local)
-          #    (SSL/crypto etc. hängen oft dran.)
-          for L in "$DEST"/libpq*.dylib; do
-            [ -f "$L" ] || continue
-            echo "Deps for $L"
-            otool -L "$L" | awk 'NR>1 {print $1}' | while read -r dep; do
-              case "$dep" in
-                /System/*|/usr/lib/*) ;;
-                *)
-                  if [ -f "$dep" ]; then
-                    echo "  copying dep: $dep"
-                    cp -av "$dep" "$DEST/" || true
-                  else
-                    echo "  dep not found on runner: $dep"
-                  fi
-                ;;
-              esac
-            done
-          done
+          # Optional (hilft generell): App-Binary RPATH (meist schon durch macdeployqt ok)
+          /usr/bin/install_name_tool -add_rpath \
+            "@executable_path/../Frameworks" \
+            "$APP/Contents/MacOS/${APP_NAME}" 2>/dev/null || true
 
-          echo "Frameworks after deps copy:"
-          ls -la "$DEST" || true
+          echo "Verify plugin deps:"
+          otool -L "$PLUGDIR/libqsqlpsql.dylib" | grep -E "libpq|rpath" || true
+          echo "Verify plugin rpaths:"
+          otool -l "$PLUGDIR/libqsqlpsql.dylib" | grep -A2 RPATH || true
 
-          # 3) install_name_tool: IDs setzen + Referenzen umschreiben auf @executable_path/../Frameworks
-          for f in "$DEST"/*.dylib; do
-            [ -f "$f" ] || continue
-            base="$(basename "$f")"
-            install_name_tool -id "@executable_path/../Frameworks/$base" "$f" || true
-          done
+          # 6) Codesign (sonst SIGKILL: Code Signature Invalid beim dlopen)
+          /usr/bin/codesign --force --deep --sign - "$APP"
 
-          # Rewrite in plugin + exe: alle Homebrew deps -> Bundle
-          rewrite() {
-            local target="$1"
-            echo "Rewriting deps in: $target"
-            otool -L "$target" | awk 'NR>1 {print $1}' | while read -r dep; do
-              case "$dep" in
-                /System/*|/usr/lib/*) ;;
-                *)
-                  base="$(basename "$dep")"
-                  if [ -f "$DEST/$base" ]; then
-                    install_name_tool -change "$dep" "@executable_path/../Frameworks/$base" "$target" || true
-                  fi
-                ;;
-              esac
-            done
-          }
-
-          rewrite "$PLUGIN"
-          rewrite "$EXE"
-
-          echo "Final linkage (plugin):"
-          otool -L "$PLUGIN" || true
-
-          echo "Final linkage (exe):"
-          otool -L "$EXE" || true
+          # sanity
+          /usr/bin/codesign --verify --deep --strict "$APP"
 
       - name: Create DMG
         timeout-minutes: 10
@@ -232,49 +191,6 @@ jobs:
           fi
 
           mv "$DMG" "$OUTDIR/"
-
-      - name: Fix libpq self-link loop + re-sign (important)
-        timeout-minutes: 5
-        run: |
-          set -e
-          APP="${{ steps.locate.outputs.APP_PATH }}"
-          F="$APP/Contents/Frameworks"
-          PLUGIN="$APP/Contents/PlugIns/sqldrivers/libqsqlpsql.dylib"
-
-          # Guard rails
-          test -f "$F/libpq.5.dylib" || { echo "Missing $F/libpq.5.dylib"; exit 1; }
-
-          echo "Before (libpq.5):"
-          otool -L "$F/libpq.5.dylib" || true
-
-          # 1) Remove libpq.dylib to avoid dyld dependency loop (libpq.5 -> libpq -> libpq.5)
-          #    We'll recreate it as a *pure* symlink afterwards (not used as a dependency).
-          rm -f "$F/libpq.dylib"
-
-          # 2) Ensure libpq.5 has the correct install-id
-          install_name_tool -id "@executable_path/../Frameworks/libpq.5.dylib" "$F/libpq.5.dylib"
-
-          # 3) Ensure the Qt SQL plugin points to libpq.5 (it usually does already)
-          install_name_tool -change "@executable_path/../Frameworks/libpq.dylib" \
-            "@executable_path/../Frameworks/libpq.5.dylib" \
-            "$PLUGIN" 2>/dev/null || true
-
-          # 4) Recreate libpq.dylib as a symlink for compatibility (optional)
-          ln -sf "libpq.5.dylib" "$F/libpq.dylib"
-
-          echo "After (libpq.5):"
-          otool -L "$F/libpq.5.dylib" || true
-
-          # 5) Sanity: fail if libpq.5 still depends on libpq.dylib
-          if otool -L "$F/libpq.5.dylib" | grep -q "@executable_path/../Frameworks/libpq.dylib"; then
-            echo "ERROR: libpq.5.dylib still depends on libpq.dylib (loop)."
-            exit 1
-          fi
-
-          # 6) Ad-hoc codesign after modifying binaries (recommended)
-          codesign --force --deep --sign - "$APP"
-          codesign --verify --deep --strict --verbose=2 "$APP" || true
-
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

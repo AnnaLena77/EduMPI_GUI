@@ -6,6 +6,8 @@ set(CMAKE_BUILD_TYPE Debug)
 
 set(QT_QML_GENERATE_QMLLS_INI ON)
 
+set(PostgreSQL_ROOT "/opt/homebrew/opt/libpq" CACHE PATH "")
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 #set(CMAKE_AUTOUIC ON)
@@ -15,9 +17,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(WIN32)
     set(CMAKE_PREFIX_PATH "C:/Qt/6.8.1/mingw_64/lib/cmake/Qt6;C:/Qt/6.8.1/mingw_64/lib/cmake")
-else ()
+elseif (LINUX)
     set(CMAKE_PREFIX_PATH "/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/lib/cmake/Qt6;/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/lib/cmake")
 endif ()
+if(APPLE)
+    # AGL existiert auf modernen macOS SDKs nicht mehr
+    set(WrapOpenGL_AGL "WrapOpenGL_AGL-NOTFOUND" CACHE FILEPATH "" FORCE)
+endif()
+
 
 find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick QuickControls2 Quick3D Sql)
 find_package(PostgreSQL REQUIRED)
@@ -139,6 +146,12 @@ add_custom_command(TARGET appGUI_Cluster POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E create_symlink
         "${CMAKE_BINARY_DIR}/GUI_Cluster/appGUI_Cluster.qmltypes"
         "${CMAKE_CURRENT_SOURCE_DIR}/GUI_Cluster/appGUI_Cluster.qmltypes"
+)
+
+add_custom_command(TARGET appGUI_Cluster POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy
+          /opt/homebrew/opt/libpq/lib/libpq.5.dylib
+          $<TARGET_BUNDLE_DIR:appGUI_Cluster>/Contents/Frameworks/libpq.5.dylib
 )
 
 

@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 
     #ifdef Q_OS_MACOS
     //Prevent using the macOS global menubar integration
-        qputenv("QT_MAC_DISABLE_NATIVE_MENUBAR", "1");
+        QCoreApplication::setAttribute(Qt::AA_DontUseNativeMenuBar);
     #endif
 
 

@@ -1,6 +1,6 @@
 <RCC>
   <qresource prefix="/">
-    <file alias="/qt/qml/Sidebar">/home/anna-lena/GUI_Cluster/Sidebar</file>
+    <file alias="/qt/qml/Sidebar">/Users/annalenaroth/Desktop/EduMPI_GUI/Sidebar</file>
 
   </qresource>
 </RCC>
