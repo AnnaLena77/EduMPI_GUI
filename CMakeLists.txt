@@ -37,6 +37,7 @@ qt_policy(SET QTP0003 NEW)  # Für Plugins, wenn benötigt
 qt_policy(SET QTP0004 NEW)  # Module mit mehreren QML-Dateien benötigen ein qmldir
 
 if (LINUX)
+    find_package(PkgConfig REQUIRED)
     pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
 endif ()
 

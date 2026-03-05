@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=EduMPI_GUI
+Exec=appGUI_Cluster
+Icon=edumpi_logo
+Comment=Edit this comment
+Terminal=true
+Categories=Utility;
