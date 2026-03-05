@@ -8,3 +8,5 @@ appImage_Build_Dir/
 *.ini
 
 CMakeCache.txt
+
+windows-build

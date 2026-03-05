@@ -58,10 +58,7 @@ Rectangle {
         }
     }
     function screenshot() {
-        const screen = Screen;
-        const savePath = "EduMPI_Screenshot_" + Date.now() + ".png";
-        const picturesPath = homeDirectory + "/Pictures/";
-        const filePath = picturesPath + "EduMPI_Screenshot_" + Date.now() + ".png"; // Zeitstempel für einzigartigen Namen
+        const filePath = picturesDirectory + "/EduMPI_Screenshot_" + Date.now() + ".png"; // Zeitstempel für einzigartigen Namen
 
         rootScreen.grabToImage(function(result) {
             result.saveToFile(filePath)

@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <iostream>
 #include <QDateTime>
+#include <QOperatingSystemVersion>
 
 /*Bash_Process_Manager::Bash_Process_Manager(QObject *parent) : QObject(parent)
 {
@@ -22,9 +23,21 @@ Bash_Process_Manager::Bash_Process_Manager (QObject *parent)
 
 }
 
+QString Bash_Process_Manager::getBashPath()
+{
+    QOperatingSystemVersion::OSType operatingSystemType = QOperatingSystemVersion::currentType();
+
+    if (operatingSystemType == QOperatingSystemVersion::Windows) {
+        return R"(C:\Program Files\Git\bin\bash.exe)";
+    }
+    else {
+        return "bash";
+    }
+}
+
 void Bash_Process_Manager::startProcess(const QStringList &arguments)
 {
-    process->setProgram("bash");
+    process->setProgram(getBashPath());
     process->setArguments(arguments);
     process->start();
     m_status = "";
@@ -36,13 +49,25 @@ void Bash_Process_Manager::sendSignal(int signal)
 {
     if (process->state() == QProcess::Running) {
         qDebug() << "Kill Signal";
-        ::kill(process->processId(), signal); // Sendet das angegebene Signal an den Prozess
+        process->terminate();
     }
 }
 
 void Bash_Process_Manager::handleOutput()
 {
     QString output = process->readAllStandardOutput();
+
+    if (output.contains("SCRIPT_PID"))
+    {
+        QString scriptPID = output.mid(output.indexOf('=') + 1).trimmed();
+        int scriptPidToInt = scriptPID.toInt();
+
+        if (script_pid != scriptPidToInt)
+        {
+            script_pid = scriptPidToInt;
+            std::cout << "script pid changed: " << script_pid << std::endl;
+        }
+    }
 
     //if(slurm_job_id==0){
     if(output.contains("JOB_ID=")){
