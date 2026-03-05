@@ -9,7 +9,7 @@ env:
 on:
   push:
     branches:
-      - native
+      - 'deployment'
 
 jobs:
   deploy:
@@ -166,11 +166,13 @@ jobs:
           echo "Verify plugin rpaths:"
           otool -l "$PLUGDIR/libqsqlpsql.dylib" | grep -A2 RPATH || true
 
-          # 6) Codesign (sonst SIGKILL: Code Signature Invalid beim dlopen)
-          /usr/bin/codesign --force --deep --sign - "$APP"
+          # 6) Codesign: erst kritische dylibs, dann Bundle
+          /usr/bin/codesign --force --sign - --timestamp=none "$FWKDIR/libpq.5.dylib"
+          /usr/bin/codesign --force --deep --sign - --timestamp=none "$APP"
 
           # sanity
-          /usr/bin/codesign --verify --deep --strict "$APP"
+          /usr/bin/codesign --verify --deep --strict --verbose=4 "$APP"
+
 
       - name: Create DMG
         timeout-minutes: 10
@@ -191,6 +193,9 @@ jobs:
           fi
 
           mv "$DMG" "$OUTDIR/"
+          
+          codesign --force --sign - --timestamp=none "dist/${APP_NAME}.dmg"
+          codesign --verify --verbose=4 "dist/${APP_NAME}.dmg"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
