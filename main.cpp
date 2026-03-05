@@ -24,6 +24,12 @@ int main(int argc, char *argv[])
     qputenv("QT_WAYLAND_DISABLE_TEXT_INPUT", "1");
     qputenv("QT_LOGGING_RULES", "qt.qpa.wayland.textinput=false");
 
+    #ifdef Q_OS_MACOS
+    //Prevent using the macOS global menubar integration
+        QCoreApplication::setAttribute(Qt::AA_DontUseNativeMenuBar);
+    #endif
+
+
     //QLoggingCategory::setFilterRules(QStringLiteral("qt.scenegraph.general=true"));
 
 
@@ -43,6 +49,10 @@ int main(int argc, char *argv[])
 
     // Übergabe des Home-Verzeichnisses an QML
     engine.rootContext()->setContextProperty("homeDirectory", QString(homeDir));
+
+    // Set default pictures path for screenshots
+    engine.rootContext()->setContextProperty("picturesDirectory",
+                                             QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
 
     //qmlRegisterType<CustomLineGeometry>("CustomGeometry", 1, 0, "CustomLineGeometry");
 

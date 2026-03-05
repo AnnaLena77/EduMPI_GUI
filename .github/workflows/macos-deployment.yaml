@@ -1,0 +1,204 @@
+name: macOS Deployment
+
+env:
+  QT_VERSION: 6.8.1
+  APP_NAME: appGUI_Cluster
+  BUILD_DIR: build
+  INSTALL_DIR: appdir
+
+on:
+  push:
+    branches:
+      - 'deployment'
+
+jobs:
+  deploy:
+    runs-on: macos-14
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: mac
+          target: desktop
+          arch: clang_64
+          modules: qtquick3d qtshadertools
+          tools: tools_cmake
+          cache: true
+
+      - name: Install build dependencies
+        timeout-minutes: 10
+        run: |
+          set -e
+          brew update || true
+          brew install ninja cmake libpq
+          echo "$(brew --prefix libpq)/bin" >> $GITHUB_PATH
+
+          echo "PostgreSQL_ROOT=$(brew --prefix libpq)" >> $GITHUB_ENV
+          echo "PKG_CONFIG_PATH=$(brew --prefix libpq)/lib/pkgconfig" >> $GITHUB_ENV
+          echo "HOMEBREW_PREFIX=$(brew --prefix)" >> $GITHUB_ENV
+
+          echo "libpq files:"
+          ls -la "$(brew --prefix libpq)/lib/"libpq* || true
+
+      - name: Configure (CMake)
+        timeout-minutes: 10
+        run: |
+          set -e
+          cmake -S . -B "${BUILD_DIR}" -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DPostgreSQL_ROOT="${PostgreSQL_ROOT}" \
+            -DPostgreSQL_INCLUDE_DIR="${PostgreSQL_ROOT}/include" \
+            -DPostgreSQL_LIBRARY="${PostgreSQL_ROOT}/lib/libpq.dylib"
+
+      - name: Build
+        timeout-minutes: 15
+        run: |
+          set -e
+          cmake --build "${BUILD_DIR}" --config Release
+
+      - name: Install into staging dir (optional, recommended)
+        timeout-minutes: 10
+        run: |
+          set -e
+          cmake --install "${BUILD_DIR}" --prefix "${INSTALL_DIR}"
+
+      - name: Locate .app
+        id: locate
+        run: |
+          set -e
+          if [ -d "${INSTALL_DIR}/${APP_NAME}.app" ]; then
+            echo "APP_PATH=${INSTALL_DIR}/${APP_NAME}.app" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          if [ -d "${BUILD_DIR}/${APP_NAME}.app" ]; then
+            echo "APP_PATH=${BUILD_DIR}/${APP_NAME}.app" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          FOUND=$(find . -maxdepth 4 -name "${APP_NAME}.app" -type d | head -n 1)
+          if [ -n "$FOUND" ]; then
+            echo "APP_PATH=$FOUND" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          echo "Could not find ${APP_NAME}.app"; exit 1
+
+      - name: macdeployqt (bundle Qt frameworks/plugins)
+        timeout-minutes: 10
+        run: |
+          set -e
+          APP="${{ steps.locate.outputs.APP_PATH }}"
+          echo "Using app: $APP"
+          macdeployqt "$APP" -qmldir=. -verbose=2
+
+      # --- NEU: QPSQL + libpq bundlen, patchen, signieren ---
+      - name: Bundle QPSQL + libpq, patch rpath, codesign
+        timeout-minutes: 10
+        run: |
+          set -e
+          APP="${{ steps.locate.outputs.APP_PATH }}"
+          echo "Using app: $APP"
+
+          # 1) Zielordner im Bundle
+          PLUGDIR="$APP/Contents/PlugIns/sqldrivers"
+          FWKDIR="$APP/Contents/Frameworks"
+          mkdir -p "$PLUGDIR" "$FWKDIR"
+
+          # 2) libpq ins Bundle kopieren (wir wollen libpq.5.dylib im Frameworks dir)
+          #    Homebrew liefert libpq.5.dylib normalerweise im lib/ Ordner.
+          LIBPQ_SRC="${PostgreSQL_ROOT}/lib/libpq.5.dylib"
+          if [ ! -f "$LIBPQ_SRC" ]; then
+            echo "Expected libpq not found at $LIBPQ_SRC"
+            echo "Available:"
+            ls -la "${PostgreSQL_ROOT}/lib/"libpq* || true
+            exit 1
+          fi
+          cp -f "$LIBPQ_SRC" "$FWKDIR/libpq.5.dylib"
+
+          # 3) QPSQL Plugin ins Bundle kopieren (über qtpaths6 Plugin-Dir)
+          if ! command -v qtpaths6 >/dev/null 2>&1; then
+            echo "qtpaths6 not found; cannot locate Qt plugin dir."; exit 1
+          fi
+          QTPLUGDIR="$(qtpaths6 --plugin-dir)"
+          echo "Qt plugin dir: $QTPLUGDIR"
+
+          QPSQL_SRC="$QTPLUGDIR/sqldrivers/libqsqlpsql.dylib"
+          if [ ! -f "$QPSQL_SRC" ]; then
+            echo "libqsqlpsql.dylib not found at: $QPSQL_SRC"
+            echo "sqldrivers dir:"
+            ls -la "$QTPLUGDIR/sqldrivers" || true
+            exit 1
+          fi
+          cp -f "$QPSQL_SRC" "$PLUGDIR/libqsqlpsql.dylib"
+
+          # 4) Plugin-Abhängigkeit auf @rpath umbiegen
+          #    (Falls das Plugin bereits anders gelinkt ist, patchen wir dynamisch anhand otool-Ausgabe.)
+          OLD_LIBPQ="$(otool -L "$PLUGDIR/libqsqlpsql.dylib" | awk '/libpq.*dylib/{print $1; exit 0}')"
+          if [ -z "$OLD_LIBPQ" ]; then
+            echo "Could not detect libpq dependency in libqsqlpsql.dylib"
+            otool -L "$PLUGDIR/libqsqlpsql.dylib" || true
+            exit 1
+          fi
+          echo "Detected libpq dep in plugin: $OLD_LIBPQ"
+
+          /usr/bin/install_name_tool -change \
+            "$OLD_LIBPQ" \
+            "@rpath/libpq.5.dylib" \
+            "$PLUGDIR/libqsqlpsql.dylib"
+
+          # 5) RPATH setzen, damit @rpath -> Contents/Frameworks aufgelöst wird
+          #    Falls schon vorhanden, ignorieren.
+          /usr/bin/install_name_tool -add_rpath \
+            "@loader_path/../../Frameworks" \
+            "$PLUGDIR/libqsqlpsql.dylib" 2>/dev/null || true
+
+          # Optional (hilft generell): App-Binary RPATH (meist schon durch macdeployqt ok)
+          /usr/bin/install_name_tool -add_rpath \
+            "@executable_path/../Frameworks" \
+            "$APP/Contents/MacOS/${APP_NAME}" 2>/dev/null || true
+
+          echo "Verify plugin deps:"
+          otool -L "$PLUGDIR/libqsqlpsql.dylib" | grep -E "libpq|rpath" || true
+          echo "Verify plugin rpaths:"
+          otool -l "$PLUGDIR/libqsqlpsql.dylib" | grep -A2 RPATH || true
+
+          # 6) Codesign: erst kritische dylibs, dann Bundle
+          /usr/bin/codesign --force --sign - --timestamp=none "$FWKDIR/libpq.5.dylib"
+          /usr/bin/codesign --force --deep --sign - --timestamp=none "$APP"
+
+          # sanity
+          /usr/bin/codesign --verify --deep --strict --verbose=4 "$APP"
+
+
+      - name: Create DMG
+        timeout-minutes: 10
+        run: |
+          set -e
+          APP="${{ steps.locate.outputs.APP_PATH }}"
+          OUTDIR=dist
+          mkdir -p "$OUTDIR"
+
+          macdeployqt "$APP" -dmg -verbose=2
+
+          DMG="$(dirname "$APP")/${APP_NAME}.dmg"
+          if [ ! -f "$DMG" ]; then
+            DMG="$(find . -maxdepth 5 -name "${APP_NAME}.dmg" | head -n 1 || true)"
+          fi
+          if [ -z "$DMG" ] || [ ! -f "$DMG" ]; then
+            echo "DMG not found"; exit 1
+          fi
+
+          mv "$DMG" "$OUTDIR/"
+          
+          codesign --force --sign - --timestamp=none "dist/${APP_NAME}.dmg"
+          codesign --verify --verbose=4 "dist/${APP_NAME}.dmg"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APP_NAME }}-macos
+          path: dist/${{ env.APP_NAME }}.dmg

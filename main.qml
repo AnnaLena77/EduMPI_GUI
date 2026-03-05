@@ -1,3 +1,4 @@
+import QtQuick.Controls.Fusion
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Window
@@ -57,7 +58,9 @@ Window {
     /*onSelected_screenChanged: {
         console.log("main: " + selected_screen)
     }*/
-
+    // Properties for performance measurement
+    property double performanceStartTime: 0
+    property double performanceEndTime: 0
 
     onRestartsChanged: {
         console.log("RESTART: " + restarts)
@@ -181,6 +184,12 @@ Window {
                 }
             }
             onSignalSlurmStatusChanged: (status)=>{
+                if(status === "pending" || status === "running") {
+                    root.performanceEndTime = Date.now();
+                    //const finishedLoadingDuration = root.performanceEndTime - root.performanceStartTime;
+                    //console.log("Loading time until pending took " + finishedLoadingDuration + " ms");
+                }
+
                 if(root.visualization){
                     if(status === "pending"){
                         root.slurm_status = "pending"

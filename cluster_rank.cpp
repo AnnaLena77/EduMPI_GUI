@@ -1,7 +1,7 @@
 #include "cluster_rank.h"
 #include "qdebug.h"
 #include "controller.h"
-#include <QDebug>>
+#include <QDebug>
 
 
 Cluster_Rank::Cluster_Rank(QObject *parent)
