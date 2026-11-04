@@ -75,7 +75,7 @@ QVariant Detailed_coll_data::data(const QModelIndex &index, int role) const {
 }
 
 QVariant Detailed_coll_data::simple_data(int row, const QString &role) const {
-    if(row >= 0 && m_coll_data.size()) {
+    if(row >= 0 && row < m_coll_data.size()) {
         QVariantList rowindex = m_coll_data.at(row);
         if(role == "function"){
             return rowindex.at(0);

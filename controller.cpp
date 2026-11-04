@@ -640,7 +640,13 @@ void Controller::remove_open_window(int slurm_id) {
     if(m_open_job_windows.isEmpty()){
         return;
     }
-    m_open_job_windows.remove(m_open_job_windows.indexOf(slurm_id));
+    // indexOf() is -1 if the window is not in the list (for example if it is removed twice
+    // when it is closed); QList::remove(-1) would hit an assertion in Qt.
+    const qsizetype pos = m_open_job_windows.indexOf(slurm_id);
+    if(pos < 0){
+        return;
+    }
+    m_open_job_windows.remove(pos);
     std::cout << "removed Slurm ID: " << slurm_id << std::endl;
     emit open_job_windowsChanged();
 }
