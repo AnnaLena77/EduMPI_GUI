@@ -58,6 +58,10 @@ Window {
     property bool p2p_recv_lines: false
     property bool coll_lines: false
 
+    // communicators of the selected second (filled by Cores3D) and the one selected in the sidebar
+    property var communicatorList: []
+    property string selected_comm: ""
+
     /*onSelected_screenChanged: {
         console.log("under: " + selected_screen)
     }*/

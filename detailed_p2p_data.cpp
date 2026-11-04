@@ -77,6 +77,8 @@ QString Detailed_p2p_data::simple_data(int row, const QString &role) const {
             return rowindex.at(3).toString();
         } else if (role == "recv_size" && rowindex.size() > 4){
             return rowindex.at(4).toString();
+        } else if (role == "communicator" && rowindex.size() > 5){
+            return rowindex.at(5).toString();
         }
     }
     return QString();

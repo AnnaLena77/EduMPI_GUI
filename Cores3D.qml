@@ -64,9 +64,88 @@ Rectangle {
         }
     }
 
-    Connections {
-        target: p2pData
-        function onNewDataInsertion() {
+    // *** Communicators ***
+    // The communicators seen in the selected second, with the ranks that take part. The sidebar
+    // lists them (communicatorList, defined in main.qml); selecting one (selected_comm) greys out
+    // the ranks that are not part of it and draws only its arrows.
+    property string commFilter: selected_comm
+    property var commInfo: ({})
+    property var selectedRanks: []
+    property bool selectedActive: false
+
+    onCommFilterChanged: {
+        applyCommunicator()
+        redrawP2P()
+        redrawColl()
+    }
+
+    function applyCommunicator() {
+        if(commFilter === ""){
+            selectedActive = false
+            selectedRanks = []
+            return
+        }
+        var e = commInfo[commFilter]
+        selectedRanks = e ? e.ranks : []
+        selectedActive = true
+    }
+
+    function updateCommunicators() {
+        if(!p2pData || !collData) return
+        var comms = {}
+        function entryFor(name) {
+            if(comms[name] === undefined) comms[name] = {name: name, rankSet: {}, bytes: 0, calls: 0}
+            return comms[name]
+        }
+        for(var row = 0; row < p2pData.rowCount(); row++){
+            var name = p2pData.simple_data(row, "communicator")
+            if(name === "") continue
+            var e = entryFor(name)
+            var proc = Number(p2pData.simple_data(row, "processrank"))
+            var partner = Number(p2pData.simple_data(row, "partnerrank"))
+            var sent = Number(p2pData.simple_data(row, "send_size"))
+            var recvd = Number(p2pData.simple_data(row, "recv_size"))
+            e.calls++
+            e.bytes += sent + recvd
+            e.rankSet[proc] = true
+            if(partner >= 0 && (sent > 0 || recvd > 0)) e.rankSet[partner] = true
+        }
+        for(var crow = 0; crow < collData.rowCount(); crow++){
+            var cname = collData.simple_data(crow, "communicator")
+            if(cname === "") continue
+            var ce = entryFor(cname)
+            ce.calls++
+            ce.rankSet[Number(collData.simple_data(crow, "processrank"))] = true
+            var cpart = collData.simple_data(crow, "coll_partnerranks")
+            if(cpart !== "" && cpart !== undefined){
+                if(!(cpart instanceof Array)) cpart = Object.values(cpart)
+                for(var q of cpart) ce.rankSet[Number(q)] = true
+            }
+        }
+        var list = []
+        for(var n in comms){
+            var ranks = Object.keys(comms[n].rankSet).map(Number).sort(function(x, y){ return x - y })
+            comms[n].ranks = ranks
+            list.push({name: n, size: ranks.length, bytes: comms[n].bytes, calls: comms[n].calls})
+        }
+        // the selected communicator stays in the list in seconds in which it is silent
+        if(commFilter !== "" && comms[commFilter] === undefined){
+            list.push({name: commFilter, size: 0, bytes: 0, calls: 0})
+        }
+        list.sort(function(x, y){ return (y.size - x.size) || (x.name < y.name ? -1 : 1) })
+        commInfo = comms
+        // the sidebar list is replaced only if it changed, so that an open drop-down is not reset
+        var key = JSON.stringify(list.map(function(c){ return [c.name, c.size] }))
+        if(key !== lastCommKey){
+            lastCommKey = key
+            communicatorList = list
+        }
+        applyCommunicator()
+    }
+    property string lastCommKey: ""
+
+    function redrawP2P() {
+            if(!p2pData) return
             customGeoSend.clearLines()
             customGeoRecv.clearLines()
             // bytes per pair of ranks (one arrow per pair, as thick as its data volume)
@@ -86,6 +165,11 @@ Rectangle {
                 // never got a message) has no position. Passing undefined to addLine() is
                 // a TypeError that aborts this handler, so no line would be drawn at all.
                 if(positionMap[proc] === undefined || positionMap[partner] === undefined){
+                    continue
+                }
+
+                // only the communicator selected in the sidebar
+                if(commFilter !== "" && p2pData.simple_data(row, "communicator") !== commFilter){
                     continue
                 }
 
@@ -115,17 +199,23 @@ Rectangle {
             }
             customGeoSend.newFrame()
             customGeoRecv.newFrame()
-        }
     }
 
     Connections {
-        target: collData
+        target: p2pData
         function onNewDataInsertion() {
+            redrawP2P()
+        }
+    }
+
+    function redrawColl() {
+            if(!collData) return
             customGeoColl.clearLines()
             // The collective rows carry no byte volume: one common width (the same as a send
             // arrow of medium volume), reduced for many arrows like the p2p arrows.
             var nColl = 0
             for(var cr=0; cr< collData.rowCount(); cr++){
+                if(commFilter !== "" && collData.simple_data(cr, "communicator") !== commFilter) continue
                 var cp = collData.simple_data(cr, "coll_partnerranks")
                 if(cp === "" || cp === undefined) continue
                 if(!(cp instanceof Array)) cp = Object.values(cp)
@@ -138,6 +228,9 @@ Rectangle {
                 var partner = collData.simple_data(row, "coll_partnerranks")
 
                 if(type.includes("Barrier")){
+                    continue;
+                }
+                if(commFilter !== "" && collData.simple_data(row, "communicator") !== commFilter){
                     continue;
                 }
 
@@ -165,6 +258,13 @@ Rectangle {
                 }
             }
             customGeoColl.newFrame()
+    }
+
+    Connections {
+        target: collData
+        function onNewDataInsertion() {
+            redrawColl()
+            updateCommunicators()
         }
     }
 
@@ -339,6 +439,8 @@ Rectangle {
                                 p2p_show: p2p
                                 coll_show: collective
                                 combobox: option
+                                highlightRanks: rectangle.selectedRanks
+                                highlightActive: rectangle.selectedActive
                                 nodes: listNodes
                                 send_datasize: listNodes.nodeAt(model.index).rankAt(0).p2p_send_datasize;
                                 instanceCount: listNodes.nodeAt(model.index).count

@@ -93,6 +93,10 @@ private:
     int m_slurm_id;
     int m_proc_num;
     bool m_live_run;
+    // The aggregate edumpi_detailed_data has the column communicationarea only after the migration
+    // of EduStore (EduStore/migrations/001_communicator_in_aggregates.sql). -1: not checked yet.
+    int m_has_comm_column = -1;
+    bool detailedHasCommunicator();
 
     //Detailed Communication Matrices
     QVector<QVector<long>> m_p2p_send_volume_matrix;
