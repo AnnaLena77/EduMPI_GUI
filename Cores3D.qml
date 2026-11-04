@@ -14,6 +14,35 @@ Rectangle {
     property var positionMap: []
     property bool load: true
 
+    // Thickness of the P2P arrows (scene units): the thickest arrow is the pair with the most
+    // data. The width grows with the square root of the data volume: a logarithmic scale made a
+    // direction with 6% of the data nearly as thick as the main direction.
+    property real arrowMinWidth: 0.25
+    property real arrowMaxWidth: 1.6
+    // Arrows with less than this fraction of the largest volume are not drawn (0: draw all).
+    // For example 0.1 hides the small requests that go back up the edge of a broadcast.
+    property real arrowMinFraction: 0.0
+    // The arrows end at the surface of the rank cubes. A cube of the 3D view has an edge of 100
+    // units times its scale (the scale of the node cube divided by the cubes per side, times 1 -
+    // the spacing of 0.45), and the rank cubes are children of the node cube, so its scale
+    // applies a second time.
+    property real nodeCubeScale: 1.2
+    property real rankCubeHalfSize: {
+        if(!listNodes || listNodes.count === 0) return 0
+        var perSide = Math.ceil(Math.pow(listNodes.nodeAt(0).count, 1/3))
+        return 50 * (nodeCubeScale / perSide * (1 - 0.45)) * nodeCubeScale
+    }
+    // Send arrows are shifted up and receive arrows down by this distance (world y), so that
+    // both can be seen. Within each type the two directions of a pair get their own lane, this
+    // far above and below: four arrows of one pair do not overlap.
+    property real arrowLateralOffset: 4.5
+    property real arrowDirectionOffset: 2.0
+    function arrowWidth(volume, maxVolume) {
+        if (maxVolume <= 0) return arrowMinWidth
+        var f = Math.sqrt(volume / maxVolume)
+        return arrowMinWidth + (arrowMaxWidth - arrowMinWidth) * f
+    }
+
     property bool p2p_lines: p2p_send_lines
     property bool c_lines: coll_lines
 
@@ -30,17 +59,47 @@ Rectangle {
         function onNewDataInsertion() {
             customGeoSend.clearLines()
             customGeoRecv.clearLines()
+            // bytes per pair of ranks (one arrow per pair, as thick as its data volume)
+            var sendPairs = {}
+            var recvPairs = {}
+            var maxSend = 0
+            var maxRecv = 0
             for(var row=0; row< p2pData.rowCount(); row++){
                 var type = p2pData.simple_data(row, "function")
                 var proc = p2pData.simple_data(row, "processrank")
                 var partner = p2pData.simple_data(row, "partnerrank")
+                // Arrows only for communication that moved data
+                var sendSize = Number(p2pData.simple_data(row, "send_size"))
+                var recvSize = Number(p2pData.simple_data(row, "recv_size"))
 
-                if(type.includes("end")){
-                    customGeoSend.addLine(positionMap[proc], positionMap[partner])
+                // A row without a partner rank (-1: e.g. a receive that was cancelled and
+                // never got a message) has no position. Passing undefined to addLine() is
+                // a TypeError that aborts this handler, so no line would be drawn at all.
+                if(positionMap[proc] === undefined || positionMap[partner] === undefined){
+                    continue
                 }
-                if(type.includes("ecv")){
-                    customGeoRecv.addLine(positionMap[proc], positionMap[partner])
+
+                var key = proc + "," + partner
+                if(type.includes("end") && sendSize > 0){
+                    if(sendPairs[key] === undefined) sendPairs[key] = {proc: proc, partner: partner, bytes: 0}
+                    sendPairs[key].bytes += sendSize
+                    maxSend = Math.max(maxSend, sendPairs[key].bytes)
                 }
+                if(type.includes("ecv") && recvSize > 0){
+                    if(recvPairs[key] === undefined) recvPairs[key] = {proc: proc, partner: partner, bytes: 0}
+                    recvPairs[key].bytes += recvSize
+                    maxRecv = Math.max(maxRecv, recvPairs[key].bytes)
+                }
+            }
+            for(var sk in sendPairs){
+                var sp = sendPairs[sk]
+                if(sp.bytes < arrowMinFraction * maxSend) continue
+                customGeoSend.addLine(positionMap[sp.proc], positionMap[sp.partner], arrowWidth(sp.bytes, maxSend))
+            }
+            for(var rk in recvPairs){
+                var rp = recvPairs[rk]
+                if(rp.bytes < arrowMinFraction * maxRecv) continue
+                customGeoRecv.addLine(positionMap[rp.proc], positionMap[rp.partner], arrowWidth(rp.bytes, maxRecv))
             }
             customGeoSend.newFrame()
             customGeoRecv.newFrame()
@@ -312,8 +371,10 @@ Rectangle {
                                     if(position != Qt.vector3d(0.0, 0.0, 0.0)){
                                         var id = listNodes.nodeAt(outerCubeId).rankAt(index).getId()
                                         var pos = Qt.vector3d(position.x, position.y, position.z)
-                                        var testPos = mapPositionToNode(cubes, position);
-                                        var globalPos = outerCube.position.plus(testPos);
+                                        // position of the rank cube in the scene: its position inside
+                                        // the node cube, scaled with the node cube, plus the
+                                        // position of the node cube
+                                        var globalPos = outerCube.position.plus(position.times(outerCube.scale.x));
                                         var halfSize = sc / 2;
                                         var mappedPos = mapPositionToScene(position);
                                         positionMap[id] = globalPos
@@ -328,6 +389,9 @@ Rectangle {
                 id: lineModelSend
                 geometry: CustomLineGeometry{
                     id: customGeoSend
+                    cubeHalfSize: rectangle.rankCubeHalfSize
+                    lateralOffset: rectangle.arrowLateralOffset      // up
+                    directionOffset: rectangle.arrowDirectionOffset
                 }
                 visible: p2p_send_lines
 
@@ -335,6 +399,7 @@ Rectangle {
                     diffuseColor: "#00D500"
                     emissiveFactor: Qt.vector3d(0.1, 0.5, 0.1)
                     lineWidth: 1.0
+                    cullMode: Material.NoCulling
                 }
             }
 
@@ -342,15 +407,18 @@ Rectangle {
                 id: lineModelRecv
                 geometry: CustomLineGeometry{
                     id: customGeoRecv
+                    cubeHalfSize: rectangle.rankCubeHalfSize
+                    lateralOffset: -rectangle.arrowLateralOffset     // down
+                    directionOffset: rectangle.arrowDirectionOffset
                 }
 
                 visible: p2p_recv_lines
-                position: Qt.vector3d(0,2,0);
 
                 materials: DefaultMaterial {
                     diffuseColor: "red"
                     emissiveFactor: Qt.vector3d(0.1, 0.1, 0.1)
                     lineWidth: 2.0
+                    cullMode: Material.NoCulling
                 }
             }
             Model {

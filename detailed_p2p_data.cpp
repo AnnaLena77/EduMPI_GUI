@@ -65,7 +65,7 @@ QVariant Detailed_p2p_data::data(const QModelIndex &index, int role) const {
 }
 
 QString Detailed_p2p_data::simple_data(int row, const QString &role) const {
-    if(row >= 0 && m_p2p_data.size()) {
+    if(row >= 0 && row < m_p2p_data.size()) {
         QVariantList rowindex = m_p2p_data.at(row);
         if(role == "function"){
             return rowindex.at(0).toString();
@@ -73,6 +73,10 @@ QString Detailed_p2p_data::simple_data(int row, const QString &role) const {
             return rowindex.at(1).toString();
         } else if (role == "partnerrank"){
             return rowindex.at(2).toString();
+        } else if (role == "send_size" && rowindex.size() > 3){
+            return rowindex.at(3).toString();
+        } else if (role == "recv_size" && rowindex.size() > 4){
+            return rowindex.at(4).toString();
         }
     }
     return QString();
