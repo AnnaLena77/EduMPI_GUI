@@ -6,8 +6,9 @@ import QtQuick.Dialogs
 Rectangle {
     id: option_views
     width: 250
-    height: 300
-    implicitHeight: 300
+    // the 3D view has the additional communicator selector
+    implicitHeight: three_d_check.checked ? 440 : 300
+    height: implicitHeight
     color: "#383936"
 
     property StackView view;
@@ -359,8 +360,17 @@ Rectangle {
             }
             Rectangle {
                 id: communicator_selector
+
+                function selectedSize() {
+                    for(var i = 0; i < communicatorList.length; i++){
+                        if(communicatorList[i].name === selected_comm) return communicatorList[i].size
+                    }
+                    return 0
+                }
                 width: parent.width
-                height: 120
+                height: 130
+                Layout.preferredHeight: 130
+                Layout.fillWidth: true
                 color: "transparent"
                 Layout.alignment: Qt.AlignHCenter
                 visible: three_d_check.checked
@@ -377,6 +387,7 @@ Rectangle {
 
                     ComboBox {
                         id: commBox
+                        objectName: "commBox"
                         implicitWidth: 230
                         Layout.alignment: Qt.AlignHCenter
                         font.pointSize: 10
@@ -422,7 +433,7 @@ Rectangle {
                               ? qsTr("No communicator data for this time (needs EduMPI with communicator labels and the migrated EduStore).")
                               : (selected_comm === ""
                                  ? qsTr("Select a communicator to see which processes take part.")
-                                 : qsTr("Grey cubes do not take part. Only the arrows of this communicator are shown."))
+                                 : qsTr("%1 processes take part in it; the other cubes are grey. Turn on the arrow switches to see its messages.").arg(communicator_selector.selectedSize()))
                     }
                 }
             }

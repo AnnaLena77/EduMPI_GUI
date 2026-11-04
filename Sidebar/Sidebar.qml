@@ -196,6 +196,17 @@ Item {
                     NumberAnimation { duration: 200 }
                 }
 
+                // a panel whose content size changes (the 3D view of the Views panel is taller)
+                Connections {
+                    target: menuItem.item
+                    ignoreUnknownSignals: true
+                    function onImplicitHeightChanged() {
+                        if(menuItem.visible && menuItem.item){
+                            menuItem.height = menuItem.item.implicitHeight
+                        }
+                    }
+                }
+
                 onVisibleChanged: {
                     if(visible){
                         height = item.implicitHeight

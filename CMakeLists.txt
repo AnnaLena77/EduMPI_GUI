@@ -77,6 +77,7 @@ qt_add_qml_module(appGUI_Cluster
         main.qml
         Cores2D.qml
         Cores3D.qml
+        CommunicatorState.qml
         CoresCommunicationMatrix.qml
         Menu_Bar.qml
         Bottom_Bar.qml
