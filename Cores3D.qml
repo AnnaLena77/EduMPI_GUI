@@ -552,8 +552,8 @@ Rectangle {
             case "max recv ratio (across all procs)": return "3D Cluster Overview: Max Recv Ratio (All Processes)"
             case "wait for late sender (per proc)": return "3D Cluster Overview: Wait for Late Sender"
             case "wait for late recver (per proc)": return "3D Cluster Overview: Wait for Late Receiver"
-            case "fan-out: distinct receivers (per proc)": return "3D Cluster Overview: Fan-out (number of distinct receivers)"
-            case "fan-in: distinct senders (per proc)": return "3D Cluster Overview: Fan-in (number of distinct senders)"
+            case "fan-out: sends to how many procs (per proc)": return "3D Cluster Overview: Fan-out (to how many different processes a process sends)"
+            case "fan-in: receives from how many procs (per proc)": return "3D Cluster Overview: Fan-in (from how many different processes a process receives)"
             default: return "3D Process Communication View"
         }
     }
@@ -570,9 +570,9 @@ Rectangle {
                 return ["#ffffff", "#0000ff"]  // Weiß zu Blau
             case "wait for late recver (per proc)":
                 return ["#ffffff", "#0000ff"]  // Weiß zu Blau
-            case "fan-out: distinct receivers (per proc)":
+            case "fan-out: sends to how many procs (per proc)":
                 return ["#ffffff", "#00ff00"]
-            case "fan-in: distinct senders (per proc)":
+            case "fan-in: receives from how many procs (per proc)":
                 return ["#ffffff", "#ff0000"]
             default:
                 return ["#ffffff", "#000000"]  // Weiß zu Schwarz
@@ -595,8 +595,8 @@ Rectangle {
 
         switch(option) {
             case "send/recv ratio (per proc)": return calculateMaxSendRecv()
-            case "fan-out: distinct receivers (per proc)": return listNodes.fanMax(true, p2p, collective)
-            case "fan-in: distinct senders (per proc)": return listNodes.fanMax(false, p2p, collective)
+            case "fan-out: sends to how many procs (per proc)": return listNodes.fanMax(true, p2p, collective)
+            case "fan-in: receives from how many procs (per proc)": return listNodes.fanMax(false, p2p, collective)
             case "max send ratio (across all procs)":
                 if(p2p && collective) return Number(listNodes.coll_send_max) + Number(listNodes.p2p_send_max)
                 else if(p2p) return Number(listNodes.p2p_send_max)
@@ -627,11 +627,11 @@ Rectangle {
         case "wait for late recver (per proc)":
             return "3D Cluster view: Wait time for late receivers per process.\n- White = No wait time\n- Blue = High wait time"
 
-        case "fan-out: distinct receivers (per proc)":
-            return "3D Cluster view: Number of different processes a process sent data to.\n- White = none\n- Green = most receivers (a hot spot of a flat broadcast)\nPairs below the size set in the Views panel are ignored."
+        case "fan-out: sends to how many procs (per proc)":
+            return "3D Cluster view: Number of different processes a process sent data to (green, like sending).\n- White = none\n- Green = sends to the most processes (the hot spot of a flat broadcast)\nPairs below the size set in the Views panel are ignored."
 
-        case "fan-in: distinct senders (per proc)":
-            return "3D Cluster view: Number of different processes a process received data from.\n- White = none\n- Red = most senders\nPairs below the size set in the Views panel are ignored."
+        case "fan-in: receives from how many procs (per proc)":
+            return "3D Cluster view: Number of different processes a process received data from (red, like receiving).\n- White = none\n- Red = receives from the most processes\nPairs below the size set in the Views panel are ignored."
 
         default:
             return "3D Process Communication Visualization\n- Mouse wheel = Zoom\n- Drag = Rotate view\n- Click on cube = Focus on process"

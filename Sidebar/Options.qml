@@ -79,8 +79,8 @@ Rectangle {
                         comboModel.append({ text: "max recv ratio (across all procs)" })
                         comboModel.append({ text: "wait for late sender (per proc)" })
                         comboModel.append({ text: "wait for late recver (per proc)" })
-                        comboModel.append({ text: "fan-out: distinct receivers (per proc)" })
-                        comboModel.append({ text: "fan-in: distinct senders (per proc)" })
+                        comboModel.append({ text: "fan-out: sends to how many procs (per proc)" })
+                        comboModel.append({ text: "fan-in: receives from how many procs (per proc)" })
                     }
 
                     combo.currentIndex = 0
@@ -126,23 +126,23 @@ Rectangle {
                         gradient_text1 = "low (%)"
                         gradient_text2 = "high (%)"
 
-                    } else if (option === "fan-out: distinct receivers (per proc)") {
+                    } else if (option === "fan-out: sends to how many procs (per proc)") {
                         useMultiColorGradient = false
                         gradient1 = "green"
                         gradient2 = "white"
                         gradient3 = ""
                         gradient4 = ""
-                        gradient_text1 = "Most receivers"
+                        gradient_text1 = "Sends to most"
                         gradient_text2 = "None"
 
-                    } else if (option === "fan-in: distinct senders (per proc)") {
+                    } else if (option === "fan-in: receives from how many procs (per proc)") {
                         useMultiColorGradient = false
                         gradient1 = "white"
                         gradient2 = "red"
                         gradient3 = ""
                         gradient4 = ""
                         gradient_text1 = "None"
-                        gradient_text2 = "Most senders"
+                        gradient_text2 = "Receives from most"
 
                     } else if (option === "heatmap - message volume") {
                         // 4-Farben-Verlauf

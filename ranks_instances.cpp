@@ -142,8 +142,8 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
     m_instanceData.resize(0);
 
     int fanMaxValue = 0;
-    if(m_nodes && (m_combobox == "fan-out: distinct receivers (per proc)" || m_combobox == "fan-in: distinct senders (per proc)")){
-        fanMaxValue = m_nodes->fanMax(m_combobox == "fan-out: distinct receivers (per proc)", m_p2p_show, m_coll_show);
+    if(m_nodes && (m_combobox == "fan-out: sends to how many procs (per proc)" || m_combobox == "fan-in: receives from how many procs (per proc)")){
+        fanMaxValue = m_nodes->fanMax(m_combobox == "fan-out: sends to how many procs (per proc)", m_p2p_show, m_coll_show);
     }
 
     int instanceNumber = 0;
@@ -304,9 +304,9 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
             }
         }
 
-        if(m_combobox == "fan-out: distinct receivers (per proc)" || m_combobox == "fan-in: distinct senders (per proc)"){
+        if(m_combobox == "fan-out: sends to how many procs (per proc)" || m_combobox == "fan-in: receives from how many procs (per proc)"){
             // number of distinct partners, relative to the rank with the most partners
-            const bool out = (m_combobox == "fan-out: distinct receivers (per proc)");
+            const bool out = (m_combobox == "fan-out: sends to how many procs (per proc)");
             const int rankId = m_instanceRanks->rankAt(i)->getId();
             const int degree = out ? m_nodes->fanOut(rankId, m_p2p_show, m_coll_show)
                                    : m_nodes->fanIn(rankId, m_p2p_show, m_coll_show);
