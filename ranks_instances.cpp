@@ -141,6 +141,11 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
 
     m_instanceData.resize(0);
 
+    int fanMaxValue = 0;
+    if(m_nodes && (m_combobox == "fan-out: distinct receivers (per proc)" || m_combobox == "fan-in: distinct senders (per proc)")){
+        fanMaxValue = m_nodes->fanMax(m_combobox == "fan-out: distinct receivers (per proc)", m_p2p_show, m_coll_show);
+    }
+
     int instanceNumber = 0;
     for (int i = 0; i < m_instanceCount; ++i)
     {
@@ -296,6 +301,22 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
 
             if(qIsNaN(lateRecvrData)){
                 blue = red = green = 224;
+            }
+        }
+
+        if(m_combobox == "fan-out: distinct receivers (per proc)" || m_combobox == "fan-in: distinct senders (per proc)"){
+            // number of distinct partners, relative to the rank with the most partners
+            const bool out = (m_combobox == "fan-out: distinct receivers (per proc)");
+            const int rankId = m_instanceRanks->rankAt(i)->getId();
+            const int degree = out ? m_nodes->fanOut(rankId, m_p2p_show, m_coll_show)
+                                   : m_nodes->fanIn(rankId, m_p2p_show, m_coll_show);
+            const double part = (fanMaxValue > 0) ? static_cast<double>(degree) / fanMaxValue : 0.0;
+            if(out){          // white -> green
+                green = 255;
+                red = blue = 255 - part * 255;
+            } else {          // white -> red
+                red = 255;
+                green = blue = 255 - part * 255;
             }
         }
 

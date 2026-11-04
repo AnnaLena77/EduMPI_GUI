@@ -76,6 +76,11 @@ Rectangle {
         filter: selected_comm
         onListChanged: communicatorList = comm.list
     }
+    // pairs that exchanged less than this are hidden (point-to-point arrows) and ignored by the fan modes
+    property double minPairBytes: min_pair_bytes
+    onMinPairBytesChanged: redrawP2P()
+    Binding { target: listNodes; property: "minPairBytes"; value: rectangle.minPairBytes; when: listNodes !== null }
+
     property var selectedRanks: comm.selectedRanks
     property bool selectedActive: comm.selectedActive
 
@@ -130,11 +135,13 @@ Rectangle {
             for(var sk in sendPairs){
                 var sp = sendPairs[sk]
                 if(sp.bytes < arrowMinFraction * maxSend) continue
+                if(sp.bytes < min_pair_bytes) continue
                 customGeoSend.addLine(positionMap[sp.proc], positionMap[sp.partner], arrowWidth(sp.bytes, maxSend, nSend))
             }
             for(var rk in recvPairs){
                 var rp = recvPairs[rk]
                 if(rp.bytes < arrowMinFraction * maxRecv) continue
+                if(rp.bytes < min_pair_bytes) continue
                 customGeoRecv.addLine(positionMap[rp.proc], positionMap[rp.partner], arrowWidth(rp.bytes, maxRecv, nRecv))
             }
             customGeoSend.newFrame()
@@ -374,6 +381,15 @@ Rectangle {
                             source: "#Cube"
                             depthBias: 0.01
 
+                            Connections {
+                                target: listNodes
+                                function onP2p_send_volume_matrix_changed() { instanceDatas.timerRanksChanged() }
+                                function onP2p_recv_volume_matrix_changed() { instanceDatas.timerRanksChanged() }
+                                function onColl_send_volume_matrix_changed() { instanceDatas.timerRanksChanged() }
+                                function onColl_recv_volume_matrix_changed() { instanceDatas.timerRanksChanged() }
+                                function onMinPairBytesChanged() { instanceDatas.timerRanksChanged() }
+                            }
+
                             instancing: Ranks_Instances {
                                 id: instanceDatas
                                 p2p_show: p2p
@@ -536,6 +552,8 @@ Rectangle {
             case "max recv ratio (across all procs)": return "3D Cluster Overview: Max Recv Ratio (All Processes)"
             case "wait for late sender (per proc)": return "3D Cluster Overview: Wait for Late Sender"
             case "wait for late recver (per proc)": return "3D Cluster Overview: Wait for Late Receiver"
+            case "fan-out: distinct receivers (per proc)": return "3D Cluster Overview: Fan-out (number of distinct receivers)"
+            case "fan-in: distinct senders (per proc)": return "3D Cluster Overview: Fan-in (number of distinct senders)"
             default: return "3D Process Communication View"
         }
     }
@@ -552,6 +570,10 @@ Rectangle {
                 return ["#ffffff", "#0000ff"]  // Weiß zu Blau
             case "wait for late recver (per proc)":
                 return ["#ffffff", "#0000ff"]  // Weiß zu Blau
+            case "fan-out: distinct receivers (per proc)":
+                return ["#ffffff", "#00ff00"]
+            case "fan-in: distinct senders (per proc)":
+                return ["#ffffff", "#ff0000"]
             default:
                 return ["#ffffff", "#000000"]  // Weiß zu Schwarz
         }
@@ -573,6 +595,8 @@ Rectangle {
 
         switch(option) {
             case "send/recv ratio (per proc)": return calculateMaxSendRecv()
+            case "fan-out: distinct receivers (per proc)": return listNodes.fanMax(true, p2p, collective)
+            case "fan-in: distinct senders (per proc)": return listNodes.fanMax(false, p2p, collective)
             case "max send ratio (across all procs)":
                 if(p2p && collective) return Number(listNodes.coll_send_max) + Number(listNodes.p2p_send_max)
                 else if(p2p) return Number(listNodes.p2p_send_max)
@@ -602,6 +626,12 @@ Rectangle {
 
         case "wait for late recver (per proc)":
             return "3D Cluster view: Wait time for late receivers per process.\n- White = No wait time\n- Blue = High wait time"
+
+        case "fan-out: distinct receivers (per proc)":
+            return "3D Cluster view: Number of different processes a process sent data to.\n- White = none\n- Green = most receivers (a hot spot of a flat broadcast)\nPairs below the size set in the Views panel are ignored."
+
+        case "fan-in: distinct senders (per proc)":
+            return "3D Cluster view: Number of different processes a process received data from.\n- White = none\n- Red = most senders\nPairs below the size set in the Views panel are ignored."
 
         default:
             return "3D Process Communication Visualization\n- Mouse wheel = Zoom\n- Drag = Rotate view\n- Click on cube = Focus on process"

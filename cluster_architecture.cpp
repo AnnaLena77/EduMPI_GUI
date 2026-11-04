@@ -555,3 +555,70 @@ void Cluster_Architecture::calculateDetailedMatricesMaxAndAvg() {
 
 
 
+
+
+static long matrixAt(const QVector<QVector<long>> &m, int i, int j){
+    if(i < 0 || i >= m.size() || j < 0 || j >= m.at(i).size()){
+        return 0;
+    }
+    return m.at(i).at(j);
+}
+
+qlonglong Cluster_Architecture::minPairBytes() const{
+    return m_minPairBytes;
+}
+
+void Cluster_Architecture::setMinPairBytes(qlonglong bytes){
+    if(bytes < 0){
+        bytes = 0;
+    }
+    if(bytes == m_minPairBytes){
+        return;
+    }
+    m_minPairBytes = bytes;
+    emit minPairBytesChanged();
+}
+
+// A pair counts if it exchanged at least minPairBytes (and always more than 0 bytes).
+int Cluster_Architecture::fanOut(int rank, bool p2p, bool coll) const{
+    const long limit = qMax<qlonglong>(1, m_minPairBytes);
+    int n = 0;
+    const int size = m_p2p_send_volume_matrix.size();
+    for(int j = 0; j < size; j++){
+        if(j == rank){
+            continue;
+        }
+        long v = (p2p ? matrixAt(m_p2p_send_volume_matrix, rank, j) : 0)
+               + (coll ? matrixAt(m_coll_send_volume_matrix, rank, j) : 0);
+        if(v >= limit){
+            n++;
+        }
+    }
+    return n;
+}
+
+int Cluster_Architecture::fanIn(int rank, bool p2p, bool coll) const{
+    const long limit = qMax<qlonglong>(1, m_minPairBytes);
+    int n = 0;
+    const int size = m_p2p_recv_volume_matrix.size();
+    for(int j = 0; j < size; j++){
+        if(j == rank){
+            continue;
+        }
+        long v = (p2p ? matrixAt(m_p2p_recv_volume_matrix, rank, j) : 0)
+               + (coll ? matrixAt(m_coll_recv_volume_matrix, rank, j) : 0);
+        if(v >= limit){
+            n++;
+        }
+    }
+    return n;
+}
+
+int Cluster_Architecture::fanMax(bool out, bool p2p, bool coll) const{
+    int best = 0;
+    const int size = out ? m_p2p_send_volume_matrix.size() : m_p2p_recv_volume_matrix.size();
+    for(int r = 0; r < size; r++){
+        best = qMax(best, out ? fanOut(r, p2p, coll) : fanIn(r, p2p, coll));
+    }
+    return best;
+}

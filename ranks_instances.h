@@ -49,7 +49,7 @@ public:
     //QByteArray outerInstanceData();
     //QVector<Cluster_Rank *> instanceRanks();
     Cluster_Node* instanceRanks();
-    void timerRanksChanged();
+    Q_INVOKABLE void timerRanksChanged();
     long send_datasize();
     bool p2p_show();
     bool coll_show();
@@ -116,7 +116,7 @@ private:
     double m_innerCubeScale = 0.0; // Berechnung der Skalierung des inneren Würfel
     //QVector<Cluster_Rank *> m_instanceRanks;
     Cluster_Node* m_instanceRanks;
-    Cluster_Architecture* m_nodes;
+    Cluster_Architecture* m_nodes = nullptr;
 
     bool m_p2p_show;
     bool m_coll_show;

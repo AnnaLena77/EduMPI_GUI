@@ -7,7 +7,7 @@ Rectangle {
     id: option_views
     width: 250
     // the 3D view has the additional communicator selector
-    implicitHeight: three_d_check.checked ? 440 : 300
+    implicitHeight: three_d_check.checked ? 570 : 300
     height: implicitHeight
     color: "#383936"
 
@@ -358,6 +358,66 @@ Rectangle {
                     }
                 }
             }
+            Rectangle {
+                id: pair_filter
+                width: parent.width
+                height: 120
+                Layout.preferredHeight: 120
+                Layout.fillWidth: true
+                color: "transparent"
+                visible: three_d_check.checked
+
+                // steps of the limit in bytes; the labels use powers of 1000
+                property var steps: [0, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000]
+                function label(b) {
+                    if(b === 0) return qsTr("all pairs")
+                    if(b < 1000) return qsTr("%1 B").arg(b)
+                    if(b < 1000000) return qsTr("%1 KB").arg(b / 1000)
+                    return qsTr("%1 MB").arg(b / 1000000)
+                }
+
+                ColumnLayout {
+                    anchors.fill: parent
+                    spacing: 4
+
+                    Text {
+                        Layout.alignment: Qt.AlignHCenter
+                        color: "#999999"
+                        text: qsTr("Hide pairs that exchanged less than:") + "  " + pair_filter.label(min_pair_bytes)
+                    }
+
+                    Slider {
+                        id: pairSlider
+                        objectName: "pairSlider"
+                        Layout.alignment: Qt.AlignHCenter
+                        implicitWidth: 200
+                        from: 0
+                        to: pair_filter.steps.length - 1
+                        stepSize: 1
+                        snapMode: Slider.SnapAlways
+                        value: 0
+                        onMoved: min_pair_bytes = pair_filter.steps[Math.round(value)]
+
+                        background: Rectangle {
+                            x: pairSlider.leftPadding
+                            y: pairSlider.topPadding + pairSlider.availableHeight / 2 - height / 2
+                            width: pairSlider.availableWidth
+                            height: 5
+                            color: "#00FF00"
+                        }
+                    }
+
+                    Text {
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.preferredWidth: parent.width - 20
+                        wrapMode: Text.WordWrap
+                        color: "#999999"
+                        font.pointSize: 10
+                        text: qsTr("Total per pair. Hides e.g. the small requests of an HPX broadcast (P2P arrows, fan-in/fan-out).")
+                    }
+                }
+            }
+
             Rectangle {
                 id: communicator_selector
 

@@ -58,6 +58,8 @@ Window {
     // communicators of the selected second (filled by Cores3D) and the one selected in the sidebar
     property var communicatorList: []
     property string selected_comm: ""
+    // point-to-point pairs that exchanged fewer bytes than this are hidden / ignored (0: show all)
+    property double min_pair_bytes: 0
 
     /*onSelected_screenChanged: {
         console.log("main: " + selected_screen)

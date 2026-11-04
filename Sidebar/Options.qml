@@ -79,6 +79,8 @@ Rectangle {
                         comboModel.append({ text: "max recv ratio (across all procs)" })
                         comboModel.append({ text: "wait for late sender (per proc)" })
                         comboModel.append({ text: "wait for late recver (per proc)" })
+                        comboModel.append({ text: "fan-out: distinct receivers (per proc)" })
+                        comboModel.append({ text: "fan-in: distinct senders (per proc)" })
                     }
 
                     combo.currentIndex = 0
@@ -123,6 +125,24 @@ Rectangle {
                         gradient4 = ""
                         gradient_text1 = "low (%)"
                         gradient_text2 = "high (%)"
+
+                    } else if (option === "fan-out: distinct receivers (per proc)") {
+                        useMultiColorGradient = false
+                        gradient1 = "green"
+                        gradient2 = "white"
+                        gradient3 = ""
+                        gradient4 = ""
+                        gradient_text1 = "Most receivers"
+                        gradient_text2 = "None"
+
+                    } else if (option === "fan-in: distinct senders (per proc)") {
+                        useMultiColorGradient = false
+                        gradient1 = "white"
+                        gradient2 = "red"
+                        gradient3 = ""
+                        gradient4 = ""
+                        gradient_text1 = "None"
+                        gradient_text2 = "Most senders"
 
                     } else if (option === "heatmap - message volume") {
                         // 4-Farben-Verlauf

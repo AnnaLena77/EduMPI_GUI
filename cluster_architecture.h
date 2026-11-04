@@ -54,6 +54,9 @@ class Cluster_Architecture : public QObject
     Q_PROPERTY(QVector<QVector<long>> coll_send_volume_matrix READ coll_send_volume_matrix WRITE set_coll_send_volume_matrix NOTIFY coll_send_volume_matrix_changed)
     Q_PROPERTY(QVector<QVector<long>> coll_recv_volume_matrix READ coll_recv_volume_matrix WRITE set_coll_recv_volume_matrix NOTIFY coll_recv_volume_matrix_changed)
 
+    // Pairs of ranks that exchanged less than this many bytes in the selected time are ignored by the
+    // fan-in / fan-out colour modes and the point-to-point arrows.
+    Q_PROPERTY(qlonglong minPairBytes READ minPairBytes WRITE setMinPairBytes NOTIFY minPairBytesChanged)
     Q_PROPERTY(QVector<QVector<long>> total_send_volume_matrix READ total_send_volume_matrix WRITE set_total_send_volume_matrix NOTIFY total_send_volume_matrix_changed)
 
     QThread database_thread;
@@ -67,6 +70,13 @@ public:
     Detailed_coll_data* detailedColl();
 
     //detailed matrices
+    qlonglong minPairBytes() const;
+    void setMinPairBytes(qlonglong bytes);
+    // Number of distinct partners of a rank (receivers it sent to / senders it received from) in the
+    // selected time, and the largest such number over all ranks.
+    Q_INVOKABLE int fanOut(int rank, bool p2p, bool coll) const;
+    Q_INVOKABLE int fanIn(int rank, bool p2p, bool coll) const;
+    Q_INVOKABLE int fanMax(bool out, bool p2p, bool coll) const;
     QVector<QVector<long>> p2p_send_volume_matrix() const;
     QVector<QVector<long>> p2p_recv_volume_matrix() const;
     QVector<QVector<long>> coll_send_volume_matrix() const;
@@ -161,6 +171,7 @@ signals:
 
     void reset_bottom_bar();
 
+    void minPairBytesChanged();
     void p2p_send_volume_matrix_changed();
     void p2p_recv_volume_matrix_changed();
     void coll_send_volume_matrix_changed();
@@ -235,6 +246,7 @@ private:
     QString m_mpi_functions;
 
     //Communication matrices
+    qlonglong m_minPairBytes = 0;
     QVector<QVector<long>> m_p2p_send_volume_matrix;
     QVector<QVector<long>> m_p2p_recv_volume_matrix;
     QVector<QVector<long>> m_coll_send_volume_matrix;
