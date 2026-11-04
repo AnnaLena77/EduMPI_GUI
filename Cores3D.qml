@@ -37,10 +37,20 @@ Rectangle {
     // far above and below: four arrows of one pair do not overlap.
     property real arrowLateralOffset: 4.5
     property real arrowDirectionOffset: 2.0
-    function arrowWidth(volume, maxVolume) {
-        if (maxVolume <= 0) return arrowMinWidth
+    // With many arrows (many ranks) the same width fills the picture. Up to this many arrows per
+    // direction the widths stay as they are, above it they shrink with the square root of the
+    // count; they are also capped by the size of the rank cubes.
+    property int arrowCountFull: 64
+    property real arrowMaxCubeFraction: 0.12
+    function arrowWidth(volume, maxVolume, count) {
+        var density = count > arrowCountFull ? Math.sqrt(arrowCountFull / count) : 1.0
+        var maxW = arrowMaxWidth
+        if (rankCubeHalfSize > 0) maxW = Math.min(maxW, arrowMaxCubeFraction * rankCubeHalfSize)
+        maxW *= density
+        var minW = Math.min(arrowMinWidth, maxW) * density
+        if (maxVolume <= 0) return minW
         var f = Math.sqrt(volume / maxVolume)
-        return arrowMinWidth + (arrowMaxWidth - arrowMinWidth) * f
+        return minW + (maxW - minW) * f
     }
 
     property bool p2p_lines: p2p_send_lines
@@ -91,15 +101,17 @@ Rectangle {
                     maxRecv = Math.max(maxRecv, recvPairs[key].bytes)
                 }
             }
+            var nSend = Object.keys(sendPairs).length
+            var nRecv = Object.keys(recvPairs).length
             for(var sk in sendPairs){
                 var sp = sendPairs[sk]
                 if(sp.bytes < arrowMinFraction * maxSend) continue
-                customGeoSend.addLine(positionMap[sp.proc], positionMap[sp.partner], arrowWidth(sp.bytes, maxSend))
+                customGeoSend.addLine(positionMap[sp.proc], positionMap[sp.partner], arrowWidth(sp.bytes, maxSend, nSend))
             }
             for(var rk in recvPairs){
                 var rp = recvPairs[rk]
                 if(rp.bytes < arrowMinFraction * maxRecv) continue
-                customGeoRecv.addLine(positionMap[rp.proc], positionMap[rp.partner], arrowWidth(rp.bytes, maxRecv))
+                customGeoRecv.addLine(positionMap[rp.proc], positionMap[rp.partner], arrowWidth(rp.bytes, maxRecv, nRecv))
             }
             customGeoSend.newFrame()
             customGeoRecv.newFrame()
@@ -110,6 +122,16 @@ Rectangle {
         target: collData
         function onNewDataInsertion() {
             customGeoColl.clearLines()
+            // The collective rows carry no byte volume: one common width (the same as a send
+            // arrow of medium volume), reduced for many arrows like the p2p arrows.
+            var nColl = 0
+            for(var cr=0; cr< collData.rowCount(); cr++){
+                var cp = collData.simple_data(cr, "coll_partnerranks")
+                if(cp === "" || cp === undefined) continue
+                if(!(cp instanceof Array)) cp = Object.values(cp)
+                nColl += cp.length
+            }
+            var collWidth = arrowWidth(0.25, 1.0, nColl)
             for(var row=0; row< collData.rowCount(); row++){
                 var type = collData.simple_data(row, "function")
                 var proc = collData.simple_data(row, "processrank")
@@ -132,7 +154,7 @@ Rectangle {
                             // Zusätzliche Validierung: Sind es gültige Vector3D-Objekte?
                             if(procPosition.x !== undefined && procPosition.y !== undefined && procPosition.z !== undefined &&
                                partnerPosition.x !== undefined && partnerPosition.y !== undefined && partnerPosition.z !== undefined) {
-                                customGeoColl.addLine(procPosition, partnerPosition)
+                                customGeoColl.addLine(procPosition, partnerPosition, collWidth)
                             } else {
                                 console.log("Invalid position data for proc:", proc, "partner:", par)
                             }
@@ -425,6 +447,9 @@ Rectangle {
                 id: lineModelColl
                 geometry: CustomLineGeometry{
                     id: customGeoColl
+                    cubeHalfSize: rectangle.rankCubeHalfSize
+                    lateralOffset: 0
+                    directionOffset: rectangle.arrowDirectionOffset
                 }
                 visible: coll_lines
                 materials: DefaultMaterial {
@@ -432,6 +457,7 @@ Rectangle {
                     diffuseColor: "black"
                     emissiveFactor: Qt.vector3d(0.05, 0.05, 0.05)
                     lineWidth: 1.2
+                    cullMode: Material.NoCulling
                 }
             }
 
