@@ -249,7 +249,10 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
     QString s = "";
 
 
-    QString queryString = "SELECT function, communicationtype, processrank, partnerrank, coll_algorithm, coll_partnerranks, SUM(send_ds) as send_ds, SUM(recv_ds) as recv_ds, SUM(comm_time) as comm_time FROM edumpi_detailed_data WHERE edumpi_run_id = :slurm_id AND ((time_end >= :endtime AND time_start <= :starttime) OR (time_end BETWEEN :starttime AND :endtime)) GROUP BY function, communicationtype, processrank, partnerrank, coll_algorithm, coll_partnerranks;";
+    // communicationarea (the communicator) is column 9, if the aggregate has it
+    const bool hasComm = detailedHasCommunicator();
+    QString queryString = QString("SELECT function, communicationtype, processrank, partnerrank, coll_algorithm, coll_partnerranks, SUM(send_ds) as send_ds, SUM(recv_ds) as recv_ds, SUM(comm_time) as comm_time%1 FROM edumpi_detailed_data WHERE edumpi_run_id = :slurm_id AND ((time_end >= :endtime AND time_start <= :starttime) OR (time_end BETWEEN :starttime AND :endtime)) GROUP BY function, communicationtype, processrank, partnerrank, coll_algorithm, coll_partnerranks%2;")
+            .arg(hasComm ? ", communicationarea" : "", hasComm ? ", communicationarea" : "");
 
     QDateTime a = timestampA.toUTC();
     QDateTime b = timestampB.toUTC();
@@ -276,13 +279,15 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
             // matrices. Such an entry cannot be placed in a communication matrix.
             const bool valid_proc = proc_rank >= 0 && proc_rank < m_proc_num;
             const bool valid_part = part_rank >= 0 && part_rank < m_proc_num;
+            const QString communicator = hasComm ? query.value(9).toString() : QString();
             if(query.value(1) == "p2p"){
                 QVariantList list;
                 list << query.value(0)  // function
                      << query.value(2) // processrank
                      << query.value(3) // partnerrank
                      << QVariant::fromValue<qlonglong>(send_size)  // bytes sent (the 3D view draws arrows only for data)
-                     << QVariant::fromValue<qlonglong>(recv_size); // bytes received
+                     << QVariant::fromValue<qlonglong>(recv_size) // bytes received
+                     << communicator;
                 p2p_list.append(list);
                 //std::cout << "Test 1: " << query.value(0).toString().toStdString() << std::endl;
                 if(query.value(0).toString() == "MPI_Wait"){
@@ -310,7 +315,8 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
                 list << query.value(0) // function
                      << query.value(2) // processrank
                      << query.value(4) // coll algorithm
-                     << query.value(5); //coll_partnerranks
+                     << query.value(5) //coll_partnerranks
+                     << communicator;
                 coll_list.append(list);
                 QString fun = query.value(0).toString() + " (" + query.value(4).toString() + "), ";
                 if(!s.contains(fun)){
@@ -372,6 +378,24 @@ void Database_Thread::detailed_p2p_Query(const QDateTime timestampA, const QDate
 
     emit setCommMatrixTotalSend(m_total_send_volume_matrix);
 
+}
+
+bool Database_Thread::detailedHasCommunicator(){
+    if(m_has_comm_column >= 0){
+        return m_has_comm_column == 1;
+    }
+    QSqlDatabase db = QSqlDatabase::database(m_connectionName);
+    if(!db.isOpen()){
+        return false;
+    }
+    QSqlQuery q(db);
+    q.prepare("SELECT 1 FROM information_schema.columns WHERE table_name = 'edumpi_detailed_data' AND column_name = 'communicationarea'");
+    if(!q.exec()){
+        return false;
+    }
+    m_has_comm_column = q.next() ? 1 : 0;
+    qDebug() << "edumpi_detailed_data has a communicator column:" << (m_has_comm_column == 1);
+    return m_has_comm_column == 1;
 }
 
 void Database_Thread::selectEndTimestamp(){

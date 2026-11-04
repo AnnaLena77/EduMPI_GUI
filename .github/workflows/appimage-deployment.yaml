@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
@@ -60,7 +60,7 @@ jobs:
           ./linuxdeploy-x86_64.AppImage --appdir AppDir --plugin qt -d ../EduMPI_GUI.desktop -i ../EduMPI_GUI_logo.png --output appimage
 
       - name: Upload AppImage as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: EduMPI-GUI-AppImage-Artifact
           path: build/EduMPI_GUI-x86_64.AppImage

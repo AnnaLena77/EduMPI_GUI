@@ -64,9 +64,28 @@ Rectangle {
         }
     }
 
-    Connections {
-        target: p2pData
-        function onNewDataInsertion() {
+    // *** Communicators ***
+    // The communicators of the selected second and the ranks that take part in them. The sidebar
+    // lists them (communicatorList, defined in main.qml); selecting one (selected_comm) greys out
+    // the ranks that are not part of it and draws only its arrows.
+    property string commFilter: comm.filter
+    CommunicatorState {
+        id: comm
+        p2pData: rectangle.p2pData
+        collData: rectangle.collData
+        filter: selected_comm
+        onListChanged: communicatorList = comm.list
+    }
+    property var selectedRanks: comm.selectedRanks
+    property bool selectedActive: comm.selectedActive
+
+    onCommFilterChanged: {
+        redrawP2P()
+        redrawColl()
+    }
+
+    function redrawP2P() {
+            if(!p2pData) return
             customGeoSend.clearLines()
             customGeoRecv.clearLines()
             // bytes per pair of ranks (one arrow per pair, as thick as its data volume)
@@ -86,6 +105,11 @@ Rectangle {
                 // never got a message) has no position. Passing undefined to addLine() is
                 // a TypeError that aborts this handler, so no line would be drawn at all.
                 if(positionMap[proc] === undefined || positionMap[partner] === undefined){
+                    continue
+                }
+
+                // only the communicator selected in the sidebar
+                if(commFilter !== "" && p2pData.simple_data(row, "communicator") !== commFilter){
                     continue
                 }
 
@@ -115,17 +139,23 @@ Rectangle {
             }
             customGeoSend.newFrame()
             customGeoRecv.newFrame()
-        }
     }
 
     Connections {
-        target: collData
+        target: p2pData
         function onNewDataInsertion() {
+            redrawP2P()
+        }
+    }
+
+    function redrawColl() {
+            if(!collData) return
             customGeoColl.clearLines()
             // The collective rows carry no byte volume: one common width (the same as a send
             // arrow of medium volume), reduced for many arrows like the p2p arrows.
             var nColl = 0
             for(var cr=0; cr< collData.rowCount(); cr++){
+                if(commFilter !== "" && collData.simple_data(cr, "communicator") !== commFilter) continue
                 var cp = collData.simple_data(cr, "coll_partnerranks")
                 if(cp === "" || cp === undefined) continue
                 if(!(cp instanceof Array)) cp = Object.values(cp)
@@ -138,6 +168,9 @@ Rectangle {
                 var partner = collData.simple_data(row, "coll_partnerranks")
 
                 if(type.includes("Barrier")){
+                    continue;
+                }
+                if(commFilter !== "" && collData.simple_data(row, "communicator") !== commFilter){
                     continue;
                 }
 
@@ -165,6 +198,13 @@ Rectangle {
                 }
             }
             customGeoColl.newFrame()
+    }
+
+    Connections {
+        target: collData
+        function onNewDataInsertion() {
+            redrawColl()
+            comm.update()
         }
     }
 
@@ -339,6 +379,8 @@ Rectangle {
                                 p2p_show: p2p
                                 coll_show: collective
                                 combobox: option
+                                highlightRanks: rectangle.selectedRanks
+                                highlightActive: rectangle.selectedActive
                                 nodes: listNodes
                                 send_datasize: listNodes.nodeAt(model.index).rankAt(0).p2p_send_datasize;
                                 instanceCount: listNodes.nodeAt(model.index).count

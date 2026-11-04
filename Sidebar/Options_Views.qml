@@ -6,8 +6,9 @@ import QtQuick.Dialogs
 Rectangle {
     id: option_views
     width: 250
-    height: 300
-    implicitHeight: 300
+    // the 3D view has the additional communicator selector
+    implicitHeight: three_d_check.checked ? 440 : 300
+    height: implicitHeight
     color: "#383936"
 
     property StackView view;
@@ -354,6 +355,85 @@ Rectangle {
                             //Layout.fillHeight: true
                         }
 
+                    }
+                }
+            }
+            Rectangle {
+                id: communicator_selector
+
+                function selectedSize() {
+                    for(var i = 0; i < communicatorList.length; i++){
+                        if(communicatorList[i].name === selected_comm) return communicatorList[i].size
+                    }
+                    return 0
+                }
+                width: parent.width
+                height: 130
+                Layout.preferredHeight: 130
+                Layout.fillWidth: true
+                color: "transparent"
+                Layout.alignment: Qt.AlignHCenter
+                visible: three_d_check.checked
+
+                ColumnLayout {
+                    anchors.fill: parent
+                    spacing: 6
+
+                    Text {
+                        text: qsTr("Communicator:")
+                        color: "#999999"
+                        Layout.alignment: Qt.AlignHCenter
+                    }
+
+                    ComboBox {
+                        id: commBox
+                        objectName: "commBox"
+                        implicitWidth: 230
+                        Layout.alignment: Qt.AlignHCenter
+                        font.pointSize: 10
+                        palette.button: "#666666"
+                        palette.buttonText: "white"
+                        textRole: "label"
+                        enabled: communicatorList.length > 0
+
+                        HoverHandler {
+                            cursorShape: Qt.PointingHandCursor
+                        }
+
+                        // "All communicators" and one entry per communicator seen in the selected second
+                        model: {
+                            var m = [{label: "All communicators", name: ""}]
+                            for(var i = 0; i < communicatorList.length; i++){
+                                m.push({label: communicatorList[i].name + "  (" + communicatorList[i].size + " procs)",
+                                        name: communicatorList[i].name})
+                            }
+                            return m
+                        }
+
+                        function syncIndex() {
+                            for(var i = 0; i < model.length; i++){
+                                if(model[i].name === selected_comm){
+                                    currentIndex = i
+                                    return
+                                }
+                            }
+                            currentIndex = 0
+                        }
+                        onModelChanged: syncIndex()
+                        onActivated: selected_comm = model[currentIndex].name
+                    }
+
+                    Text {
+                        Layout.alignment: Qt.AlignHCenter
+                        Layout.preferredWidth: parent.width - 20
+                        wrapMode: Text.WordWrap
+                        color: "#999999"
+                        font.pointSize: 10
+                        text: communicatorList.length === 0
+                              ? qsTr("No communicator data for this time (needs EduMPI with communicator labels and the migrated EduStore).")
+                              : (selected_comm === ""
+                                 ? qsTr("Select a communicator to see which processes take part.")
+                                 : qsTr("%1 processes take part in it; the other cubes are grey. Turn on the arrow switches to see its messages.").arg(communicator_selector.selectedSize()))
                     }
                 }
             }

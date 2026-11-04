@@ -13,7 +13,7 @@ jobs:
     runs-on: windows-2025
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
@@ -30,6 +30,9 @@ jobs:
         id: msys2
         uses: msys2/setup-msys2@v2
         with:
+          # Qt for win64_mingw is built against the MINGW64 runtime, so the Postgres DLLs have to
+          # come from the same environment. Only the deprecation notice is silenced.
+          suppress-deprecation-warnings: msystem-mingw64
           install: >-
             mingw-w64-x86_64-postgresql
             mingw-w64-x86_64-vulkan-headers
@@ -59,7 +62,7 @@ jobs:
           copy "$env:MSYS2_LOCATION\mingw64\bin\libiconv-2.dll" release
 
       - name: Upload release directory as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: EduMPI-GUI-Windows-Artifact
           path: release/

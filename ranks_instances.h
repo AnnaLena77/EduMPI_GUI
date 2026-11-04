@@ -1,3 +1,5 @@
+#include <QSet>
+#include <QVariantList>
 #include "cluster_node.h"
 #include "cluster_architecture.h"
 #include <QQuick3DInstancing>
@@ -21,6 +23,10 @@ class Ranks_Instances : public QQuick3DInstancing
     Q_PROPERTY(QString combobox MEMBER m_combobox NOTIFY combobox_optionChanged)
 
     Q_PROPERTY(bool components_build READ components_build WRITE setComponents_build NOTIFY components_buildChanged)
+    // Ranks that take part in the selected communicator. With highlightActive set, all other
+    // ranks are drawn in light grey.
+    Q_PROPERTY(QVariantList highlightRanks READ highlightRanks WRITE set_highlightRanks NOTIFY highlightChanged)
+    Q_PROPERTY(bool highlightActive READ highlightActive WRITE set_highlightActive NOTIFY highlightChanged)
 
     Q_PROPERTY(Cluster_Architecture* nodes MEMBER m_nodes NOTIFY nodesChanged)
     Q_PROPERTY(Cluster_Node* instanceRanks READ instanceRanks WRITE setInstanceRanks NOTIFY instanceRanksChanged)
@@ -48,6 +54,8 @@ public:
     bool p2p_show();
     bool coll_show();
     bool components_build();
+    QVariantList highlightRanks() const { return m_highlightRanksList; }
+    bool highlightActive() const { return m_highlightActive; }
 
     QByteArray instanceData();
 
@@ -65,8 +73,11 @@ public slots:
     void set_p2pBool(bool show);
     void set_collBool(bool show);
     void setComponents_build(bool comp);
+    void set_highlightRanks(const QVariantList &ranks);
+    void set_highlightActive(bool active);
 
 signals:
+    void highlightChanged();
     void instanceCountChanged();
     void outerCubeLengthChanged();
     void innerCubeCountChanged();
@@ -90,6 +101,10 @@ protected:
     QByteArray getInstanceBuffer(int *instanceCount) override;
 
 private:
+    QVariantList m_highlightRanksList;
+    QSet<int> m_highlightRanks;
+    bool m_highlightActive = false;
+
     long m_send_datasize = 0;
     int m_instanceCount = 0;
     QByteArray m_outerInstanceData;

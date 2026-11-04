@@ -85,6 +85,8 @@ QVariant Detailed_coll_data::simple_data(int row, const QString &role) const {
             return rowindex.at(2);
         } else if(role == "coll_partnerranks"){
             return rowindex.at(3);
+        } else if(role == "communicator" && rowindex.size() > 4){
+            return rowindex.at(4);
         }
     }
     return QVariant();
