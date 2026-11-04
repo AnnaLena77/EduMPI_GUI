@@ -382,15 +382,18 @@ Rectangle {
 
                     Text {
                         Layout.alignment: Qt.AlignHCenter
+                        Layout.preferredWidth: parent.width - 20
+                        horizontalAlignment: Text.AlignHCenter
+                        wrapMode: Text.WordWrap
                         color: "#999999"
-                        text: qsTr("Hide pairs that exchanged less than:") + "  " + pair_filter.label(min_pair_bytes)
+                        text: qsTr("Hide pairs below: %1").arg(pair_filter.label(min_pair_bytes))
                     }
 
                     Slider {
                         id: pairSlider
                         objectName: "pairSlider"
                         Layout.alignment: Qt.AlignHCenter
-                        implicitWidth: 200
+                        Layout.preferredWidth: parent.width - 30
                         from: 0
                         to: pair_filter.steps.length - 1
                         stepSize: 1
