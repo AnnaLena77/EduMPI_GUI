@@ -3,6 +3,7 @@
 
 #include "cluster_node.h"
 #include <QJSValue>
+#include <QVariantMap>
 #include <QtConcurrent/QtConcurrent>
 #include <bash_process_manager.h>
 #include "table_userid.h"
@@ -35,6 +36,9 @@ public:
     QVariantList open_job_windows();
 
     Q_INVOKABLE void connect(QString hostname, QString databasename, int port, QString UserName, QString password);
+    // last successful logins (see login_store.h)
+    Q_INVOKABLE QVariantMap savedDbLogin();
+    Q_INVOKABLE QVariantMap savedClusterLogin();
     //Q_INVOKABLE void buildClusterComponents(int proc_num);
     Q_INVOKABLE void writeLocalBashFile(QString local_path, bool file, int proc_num);//QString local_path, QString local_name, bool file);
     Q_INVOKABLE void closeApp();

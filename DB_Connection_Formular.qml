@@ -10,6 +10,18 @@ Window {
     height: 300
     title: "EduStore connection"
 
+    // fill the form with the last successful login (the password comes from the keychain of the OS)
+    Component.onCompleted: {
+        var saved = controller.savedDbLogin()
+        if(saved.host !== undefined){
+            hostnameField.text = saved.host
+            portField.text = saved.port
+            nameField.text = saved.name
+            userField.text = saved.user
+            passwordField.text = saved.password
+        }
+    }
+
     GridLayout {
         anchors.fill: parent
         anchors.margins: 10

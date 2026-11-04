@@ -33,6 +33,30 @@ find_package(PostgreSQL REQUIRED)
 
 qt_standard_project_setup()
 
+# Remember the database password in the keychain of the operating system (QtKeychain).
+# An installed QtKeychain (Qt6Keychain) is used if there is one. With -DEDUMPI_FETCH_KEYCHAIN=ON it is
+# downloaded and built instead (source: github.com/frankosterfeld/qtkeychain, fixed tag). Without
+# either the GUI still works, the password is just not remembered.
+option(EDUMPI_FETCH_KEYCHAIN "Download and build QtKeychain if it is not installed" OFF)
+find_package(Qt6Keychain CONFIG QUIET)
+if(NOT Qt6Keychain_FOUND AND EDUMPI_FETCH_KEYCHAIN)
+    include(FetchContent)
+    set(BUILD_WITH_QT6 ON CACHE BOOL "" FORCE)
+    set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+    set(BUILD_TEST_APPLICATION OFF CACHE BOOL "" FORCE)
+    set(BUILD_TRANSLATIONS OFF CACHE BOOL "" FORCE)
+    FetchContent_Declare(qtkeychain
+        GIT_REPOSITORY https://github.com/frankosterfeld/qtkeychain.git
+        GIT_TAG 0.14.3)
+    FetchContent_MakeAvailable(qtkeychain)
+    set(EDUMPI_KEYCHAIN_FETCHED ON)
+endif()
+if(Qt6Keychain_FOUND OR EDUMPI_KEYCHAIN_FETCHED)
+    set(EDUMPI_KEYCHAIN ON)
+else()
+    message(STATUS "QtKeychain not found: the database password will not be remembered")
+endif()
+
 qt_policy(SET QTP0001 NEW)  # Automatisches Generieren von qmldir und qmltypes
 qt_policy(SET QTP0002 NEW)  # Neues Verhalten für Build-/Installationsverzeichnis
 qt_policy(SET QTP0003 NEW)  # Für Plugins, wenn benötigt
@@ -65,6 +89,7 @@ qt_add_executable(appGUI_Cluster
     table_userid.h table_userid.cpp
     #cluster_architecture.h cluster_architecture.cpp
     database_connection.h database_connection.cpp
+    login_store.h login_store.cpp
     ${QML_RESOURCES}
 )
 
@@ -145,6 +170,15 @@ install(TARGETS appGUI_Cluster
 target_link_libraries(appGUI_Cluster PRIVATE
     sidebarplugin
 )
+
+if(EDUMPI_KEYCHAIN)
+    target_link_libraries(appGUI_Cluster PRIVATE qt6keychain)
+    target_compile_definitions(appGUI_Cluster PRIVATE EDUMPI_HAVE_KEYCHAIN)
+    if(EDUMPI_KEYCHAIN_FETCHED)
+        # keychain.h is included as <qt6keychain/keychain.h>
+        target_include_directories(appGUI_Cluster PRIVATE ${qtkeychain_BINARY_DIR}/.. ${qtkeychain_SOURCE_DIR}/..)
+    endif()
+endif()
 
 add_custom_command(TARGET appGUI_Cluster POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E create_symlink

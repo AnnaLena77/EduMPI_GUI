@@ -11,6 +11,16 @@ Window {
     height: 250
     title: "Cluster connection"
 
+    // fill the form with the last successful connection
+    Component.onCompleted: {
+        var saved = controller.savedClusterLogin()
+        if(saved.ident !== undefined){
+            hostnameField.text = saved.address
+            authField.text = saved.ident
+            installpathField.text = saved.path
+        }
+    }
+
         ColumnLayout {
             anchors.fill: parent
             Layout.fillWidth: true

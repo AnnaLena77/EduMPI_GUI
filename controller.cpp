@@ -1,4 +1,5 @@
 #include "controller.h"
+#include "login_store.h"
 #include "bash_process_manager.h"
 #include "table_userid.h"
 #include "qevent.h"
@@ -25,6 +26,14 @@ Controller::Controller(QObject *parent) : QObject(parent)
     m_connectionName = "mainConnection";
 }
 
+QVariantMap Controller::savedDbLogin(){
+    return Login_Store::loadDb();
+}
+
+QVariantMap Controller::savedClusterLogin(){
+    return Login_Store::loadCluster();
+}
+
 void Controller::connect(QString hostname, QString databasename, int port, QString username, QString password){
     QTemporaryFile tempFile;
     tempFile.setAutoRemove(false);
@@ -45,6 +54,9 @@ void Controller::connect(QString hostname, QString databasename, int port, QStri
     bool connect = connectToDB(hostname, databasename, port, username, password);
 
     m_connection_ready = connect;
+    if(connect){
+        Login_Store::saveDb(hostname, databasename, port, username, password);
+    }
     m_job_table = new Table_UserID();
     if(!m_cluster_ident.isEmpty()){
         m_job_table->loadJobs(m_cluster_ident);
@@ -165,6 +177,7 @@ QString Controller::connectCluster(const QString &address, const QString &ident,
     if (output == "exists") {
         process.kill();
         m_cluster_connection_ready = true;
+        Login_Store::saveCluster(address, ident, path);
         return "Success! An SSH connection could be established and an EduMPI version exists under the specified path.";
     } else if (output == "not exist") {
         process.kill();
