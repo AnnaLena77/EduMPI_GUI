@@ -172,7 +172,12 @@ target_link_libraries(appGUI_Cluster PRIVATE
 )
 
 if(EDUMPI_KEYCHAIN)
-    target_link_libraries(appGUI_Cluster PRIVATE qt6keychain)
+    # the installed package and the downloaded sources name their target differently
+    if(TARGET Qt6Keychain::Qt6Keychain)
+        target_link_libraries(appGUI_Cluster PRIVATE Qt6Keychain::Qt6Keychain)
+    else()
+        target_link_libraries(appGUI_Cluster PRIVATE qt6keychain)
+    endif()
     target_compile_definitions(appGUI_Cluster PRIVATE EDUMPI_HAVE_KEYCHAIN)
     if(EDUMPI_KEYCHAIN_FETCHED)
         # keychain.h is included as <qt6keychain/keychain.h>
