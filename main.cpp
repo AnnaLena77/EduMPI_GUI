@@ -17,41 +17,10 @@
 #include <QtQuick3D/qquick3d.h>
 
 #include <QLoggingCategory>
-#include <QFile>
-#include <QStandardPaths>
-#include <QVariantMap>
+#include <QSqlDatabase>
+#include <QTimer>
 
-// Dev-Modus (CMake-Option EDUMPI_DEV_MODE): Verbindungswerte des lokalen Dev-Clusters aus der
-// Datei in EDUMPI_DEV_ENV (EduMPI/dev/gui.env). Ohne Flag oder Datei: enabled = false.
-static QVariantMap loadDevConfig()
-{
-    QVariantMap config{{"enabled", false}};
-#ifdef EDUMPI_DEV_MODE
-    const QString path = qEnvironmentVariable("EDUMPI_DEV_ENV");
-    QFile file(path);
-    if (path.isEmpty() || !file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        qWarning() << "[DEV] EDUMPI_DEV_ENV nicht gesetzt oder nicht lesbar - Dev-Modus aus"
-                   << "(vorher 'source EduMPI/dev/ssh/activate')";
-        return config;
-    }
-    while (!file.atEnd()) {
-        const QString line = QString::fromUtf8(file.readLine()).trimmed();
-        const qsizetype eq = line.indexOf('=');
-        if (line.startsWith('#') || eq <= 0)
-            continue;
-        const QString key = line.left(eq);
-        // Gesetzte Umgebungsvariablen haben Vorrang, wie bei dev/compose.sh
-        config[key] = qEnvironmentVariable(key.toUtf8().constData(), line.mid(eq + 1));
-    }
-    // Die GUI ruft ssh fest mit -p 22 auf; nur der Wrapper leitet auf den Dev-Cluster um
-    const QString ssh = QStandardPaths::findExecutable("ssh");
-    config["sshWrapper"] = ssh.contains("/dev/ssh/bin/");
-    if (!config["sshWrapper"].toBool())
-        qWarning() << "[DEV] ssh ist nicht der Wrapper aus EduMPI/dev/ssh/bin:" << ssh;
-    config["enabled"] = true;
-#endif
-    return config;
-}
+#include "app_mode.h"
 
 int main(int argc, char *argv[])
 {
@@ -89,7 +58,34 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("picturesDirectory",
                                              QStandardPaths::writableLocation(QStandardPaths::PicturesLocation));
 
-    engine.rootContext()->setContextProperty("devConfig", loadDevConfig());
+    // Dev-/Demo-Modus (app_mode.h): Auto-Connect-Werte, "" bzw. enabled=false ohne Modus
+    engine.rootContext()->setContextProperty("appMode", AppMode::config());
+
+    // --selftest (Demo-Workflow, headless mit QT_QPA_PLATFORM=offscreen): prüft, ob die GUI samt
+    // PostgreSQL-Treiber startet; im Demo-Modus zusätzlich, ob DB- und Cluster-Verbindung
+    // zustande kommen (main.qml beendet dann mit 0 bzw. 1).
+    const bool selftest = app.arguments().contains("--selftest");
+    engine.rootContext()->setContextProperty("selftest", selftest);
+    if (selftest) {
+        qInfo() << "[SELFTEST] Qt" << qVersion() << "- Modus:" << AppMode::config().value("mode").toString()
+                << "- QPSQL-Treiber:" << QSqlDatabase::isDriverAvailable("QPSQL");
+        if (!QSqlDatabase::isDriverAvailable("QPSQL")) {
+            qCritical() << "[SELFTEST] QPSQL-Treiber fehlt";
+            return 2;
+        }
+        QObject::connect(&engine, &QQmlApplicationEngine::objectCreated, &app,
+                         [](QObject *obj, const QUrl &) {
+            if (!obj) {
+                qCritical() << "[SELFTEST] main.qml konnte nicht geladen werden";
+                QCoreApplication::exit(1);
+            }
+        }, Qt::QueuedConnection);
+        // Obergrenze, falls QML nie zum Ende kommt
+        QTimer::singleShot(90000, [] {
+            qCritical() << "[SELFTEST] Zeitüberschreitung";
+            QCoreApplication::exit(1);
+        });
+    }
 
     //qmlRegisterType<CustomLineGeometry>("CustomGeometry", 1, 0, "CustomLineGeometry");
 

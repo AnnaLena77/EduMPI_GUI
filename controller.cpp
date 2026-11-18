@@ -1,4 +1,5 @@
 #include "controller.h"
+#include "app_mode.h"
 #include "bash_process_manager.h"
 #include "table_userid.h"
 #include "qevent.h"
@@ -10,6 +11,7 @@
 #include <qdatetime.h>
 #include <QMetaObject>
 #include <QThreadPool>
+#include <QPointer>
 
 #include <unistd.h>
 #include <csignal>
@@ -113,7 +115,7 @@ void Controller::copyOutputFile(){
         QProcess proc;
         const QString filePath = QDir::homePath();
 
-        QString sshCommand = QString("scp %1@%2:%3/slurm-%4.out %5").arg(m_cluster_ident, m_cluster_address, m_remote_dir_bash, QString::number(m_slurm_id), filePath);
+        QString sshCommand = QString("scp %1 %2@%3:%4/slurm-%5.out %6").arg(AppMode::scpOptions(), m_cluster_ident, m_cluster_address, m_remote_dir_bash, QString::number(m_slurm_id), filePath);
         std::cout << sshCommand.toStdString() << std::endl;
 
         proc.start(Bash_Process_Manager::getBashPath(), QStringList() << "-c" << sshCommand);
@@ -149,7 +151,8 @@ QString Controller::connectCluster(const QString &address, const QString &ident,
 
     QProcess process;
 
-    QString sshCommand = QString("ssh %1@%2 '[ -d \"%3\" ] && echo \"exists\" || echo \"not exist\"; [ -d \"%4\" ] || mkdir -p \"%4\"'").arg(ident, address, path, filePath);
+    // Demo-Modus: Port, Key und known_hosts des Demo-Clusters (app_mode.h), sonst leer
+    QString sshCommand = QString("ssh %1 %2@%3 '[ -d \"%4\" ] && echo \"exists\" || echo \"not exist\"; [ -d \"%5\" ] || mkdir -p \"%5\"'").arg(AppMode::sshOptions(), ident, address, path, filePath);
 
     // Starten des SSH-Befehls
     process.start(Bash_Process_Manager::getBashPath(), QStringList() << "-c" << sshCommand);
@@ -191,6 +194,8 @@ QString Controller::connectCluster(const QString &address, const QString &ident,
                 return "Error! There seems to be something wrong with your host information. Please check the name or IP address.";
             }
             m_cluster_connection_ready = false;
+            if (AppMode::demo())
+                return "Error! SSH login to the demo cluster failed. Is the demo running (start.sh / start.cmd)? Details: " + errorOutput;
             return "Error! There seems to be a problem with your ID. Before you can start an MPI application, you must generate an SSH key once for passwordless communication. Follow the instructions under: \nHelp > SSH-Key-Gen Guide.";
         }
         process.kill();
@@ -202,13 +207,18 @@ QString Controller::connectCluster(const QString &address, const QString &ident,
 }
 
 void Controller::connectClusterAsync(const QString &address, const QString &ident, const QString &path, QJSValue callback){
+    // QPointer: wird die GUI beendet, während ssh noch läuft, ist der Controller schon
+    // zerstört, wenn der Worker fertig wird - dann darf nichts mehr aufgerufen werden
+    QPointer<Controller> self(this);
     QThreadPool::globalInstance()->start([=]() {
         QString result = connectCluster(address, ident, path);
 
         // Ensure the callback is invoked in the main thread
-        QMetaObject::invokeMethod(this, [=]() {
+        if (self) {
+            QMetaObject::invokeMethod(self.data(), [=]() {
                 callback.call(QJSValueList() << result);
             }, Qt::QueuedConnection);
+        }
     });
     if(m_connection_ready){
         m_job_table->loadJobs(m_cluster_ident);
@@ -279,36 +289,39 @@ void Controller::writeLocalBashFile(QString local_path, bool file, int proc_num)
 
     }
 
-    int lineNumber = 0;
-
+    // Hinter der Markierung in der Vorlage: im Demo-Modus zuerst die SSH-Optionen (Port, Key,
+    // known_hosts), dann die scp-Zeilen für die Dateiübertragung. ssh/scp nutzen die Arrays
+    // SSH_OPTIONS/SCP_OPTIONS der Vorlage (Standard: Port 22).
+    const QString scp = "scp \"${SCP_OPTIONS[@]}\" ";
     QTextStream in(&f);
     QTextStream out(&tempFile);
     while (!in.atEnd()) {
         QString line = in.readLine();
-        lineNumber++;
         out << line << "\n";
-        if(lineNumber == 9) {
+        if(line.trimmed().startsWith("# EDUMPI_GUI_TRANSFER")) {
+            if(AppMode::demo()){
+                out << "SSH_OPTIONS=(" + AppMode::sshOptions() + ")\n";
+                out << "SCP_OPTIONS=(" + AppMode::scpOptions() + ")\n";
+            }
             if(file){
                 if(m_option != 3){
-                    out << "scp \"" + m_envFilePath + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
+                    out << scp + "\"" + m_envFilePath + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
                 }
                 if(m_option == 2){
-                    out << "scp \":/bash_files/scorep.filt\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
-                    // SCP scorep.filt Datei:
-                    out << "scp \"" + QDir::temp().absoluteFilePath("scorep.filt") + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
+                    // scorep.filt aus dem temporären Verzeichnis
+                    out << scp + "\"" + QDir::temp().absoluteFilePath("scorep.filt") + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 }
-                out << "scp \"" + local_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
-                out << "scp \"" + m_remote_bash_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
+                out << scp + "\"" + local_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
+                out << scp + "\"" + m_remote_bash_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
                 m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files";
             } else{
-                out << "mkdir -p" + local_path  + "/tmp\n";
-                //out << "rsync -avz \"" + local_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/\"\n";
+                out << "mkdir -p \"" + local_path  + "/tmp\"\n";
                 int lastSlashIndex = local_path.lastIndexOf("/");
                 QString dir_name = local_path.mid(lastSlashIndex + 1);
-                out << "ssh \"$REMOTE_USER@$REMOTE_HOST\" rm -rf \"$REMOTE_DIR/" + dir_name + "\"\n";
-                out << "scp -r \"" + local_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR" + "\"\n";
-                out << "scp \"" + m_envFilePath + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
-                out << "scp \"" + m_remote_bash_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/" + "\"\n";
+                out << "ssh \"${SSH_OPTIONS[@]}\" \"$REMOTE_USER@$REMOTE_HOST\" rm -rf \"$REMOTE_DIR/" + dir_name + "\"\n";
+                out << scp + "-r \"" + local_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR" + "\"\n";
+                out << scp + "\"" + m_envFilePath + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/tmp/\"\n";
+                out << scp + "\"" + m_remote_bash_path + "\" \"$REMOTE_USER@$REMOTE_HOST:$REMOTE_DIR/" + "\"\n";
                 m_remote_dir_bash = "/home/" + m_cluster_ident + "/eduMPI_files/" + dir_name;
             }
         }

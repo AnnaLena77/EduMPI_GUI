@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 3.19)
 
 project(GUI_Cluster VERSION 1.0.0 LANGUAGES CXX)
 
-set(CMAKE_BUILD_TYPE Debug)
+# Debug, solange nichts anderes übergeben wird (-DCMAKE_BUILD_TYPE=Release für Pakete)
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug)
+endif()
 
 set(QT_QML_GENERATE_QMLLS_INI ON)
 
@@ -58,6 +61,7 @@ qt_add_executable(appGUI_Cluster
     table_userid.h table_userid.cpp
     #cluster_architecture.h cluster_architecture.cpp
     database_connection.h database_connection.cpp
+    app_mode.h app_mode.cpp
     ${QML_RESOURCES}
 )
 
@@ -132,11 +136,21 @@ target_link_libraries(appGUI_Cluster PRIVATE
     Qt6::OpenGL
 )
 
-# Dev-Modus für den lokalen Dev-Cluster (EduMPI/dev): Verbindungswerte aus EDUMPI_DEV_ENV,
-# Auto-Connect. Nie in Release-Builds; aktiv erst, wenn EDUMPI_DEV_ENV gesetzt ist.
+# Auto-Connect-Modi (siehe app_mode.h), nie in normalen Release-Builds:
+#  - Dev-Modus für den lokalen Dev-Cluster (EduMPI/dev): Werte aus EDUMPI_DEV_ENV
+#  - Demo-Modus für das Demo-Repo tool-edumpi-docker: Werte aus EDUMPI_DEMO_ENV, ssh/scp mit
+#    Demo-Port und -Key, ohne Verbindungsdialoge und ohne das Menü "Non-Visualization"
+# Beide sind erst aktiv, wenn die jeweilige Umgebungsvariable gesetzt ist.
 option(EDUMPI_DEV_MODE "Dev-Modus: Auto-Connect gegen den lokalen Dev-Cluster" OFF)
+option(EDUMPI_DEMO_MODE "Demo-Modus: Auto-Connect gegen den Demo-Cluster aus tool-edumpi-docker" OFF)
+if(EDUMPI_DEV_MODE AND EDUMPI_DEMO_MODE)
+    message(FATAL_ERROR "EDUMPI_DEV_MODE und EDUMPI_DEMO_MODE schließen sich aus")
+endif()
 if(EDUMPI_DEV_MODE)
     target_compile_definitions(appGUI_Cluster PRIVATE EDUMPI_DEV_MODE)
+endif()
+if(EDUMPI_DEMO_MODE)
+    target_compile_definitions(appGUI_Cluster PRIVATE EDUMPI_DEMO_MODE)
 endif()
 
 install(TARGETS appGUI_Cluster

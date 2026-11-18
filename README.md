@@ -85,6 +85,21 @@ For development against the local container cluster in the EduMPI repo (`dev/`),
 after a restart of the dev cluster, and shows "[DEV]" in the window title. Without the flag or without
 `EDUMPI_DEV_ENV` the GUI behaves as before. Details: `dev/README.md` in the EduMPI repo.
 
+### Demo mode (tool-edumpi-docker)
+The demo repository [tool-edumpi-docker](https://github.com/Sithies/tool-edumpi-docker) ships a
+GUI built with `-DEDUMPI_DEMO_MODE=ON -DCMAKE_BUILD_TYPE=Release` together with a containerised
+EduMPI cluster. Its start script writes `.run/demo.env` and launches the GUI with `EDUMPI_DEMO_ENV`
+pointing to it. The GUI then connects to the database and the cluster automatically (retrying every
+5 s), calls `ssh`/`scp` with the demo port, key and `known_hosts` from that file, shows "[DEMO]" in the
+title and a status line, limits the rank count to what the demo cluster offers, and hides the
+connection dialogs, the SSH key guide and the "Non-Visualization" menu (Score-P and OpenMP are not part
+of the demo cluster). Without `EDUMPI_DEMO_ENV` a demo build behaves like the normal GUI.
+`EDUMPI_DEV_MODE` and `EDUMPI_DEMO_MODE` cannot be combined.
+
+`appGUI_Cluster --selftest` (used by the demo workflow with `QT_QPA_PLATFORM=offscreen`) checks that
+the GUI and the PostgreSQL driver load; in dev or demo mode it also waits for the database and cluster
+connection and exits with 0 on success, 1 on failure or 2 if the `QPSQL` driver is missing.
+
 ## 📚 References
 
 EduMPI is described in:
