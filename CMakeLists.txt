@@ -143,12 +143,6 @@ target_link_libraries(appGUI_Cluster PRIVATE
     sidebarplugin
 )
 
-add_custom_command(TARGET appGUI_Cluster POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E create_symlink
-        "${CMAKE_BINARY_DIR}/GUI_Cluster/appGUI_Cluster.qmltypes"
-        "${CMAKE_CURRENT_SOURCE_DIR}/GUI_Cluster/appGUI_Cluster.qmltypes"
-)
-
 if(APPLE)
     add_custom_command(TARGET appGUI_Cluster POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy
