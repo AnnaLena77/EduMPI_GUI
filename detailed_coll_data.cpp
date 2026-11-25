@@ -75,7 +75,7 @@ QVariant Detailed_coll_data::data(const QModelIndex &index, int role) const {
 }
 
 QVariant Detailed_coll_data::simple_data(int row, const QString &role) const {
-    if(row >= 0 && m_coll_data.size()) {
+    if(row >= 0 && row < m_coll_data.size()) {
         QVariantList rowindex = m_coll_data.at(row);
         if(role == "function"){
             return rowindex.at(0);
@@ -85,6 +85,8 @@ QVariant Detailed_coll_data::simple_data(int row, const QString &role) const {
             return rowindex.at(2);
         } else if(role == "coll_partnerranks"){
             return rowindex.at(3);
+        } else if(role == "communicator" && rowindex.size() > 4){
+            return rowindex.at(4);
         }
     }
     return QVariant();

@@ -64,14 +64,19 @@ ApplicationWindow {
                         onClicked: {
                             selected_slurm_id = model.jobID
 
+                            // a run that did not end regularly (or is still running) has no end time
                             var timestamp = model.endTime
-                            var hours = timestamp.getHours();
-                            var minutes = timestamp.getMinutes();
-                            var seconds = timestamp.getSeconds();
+                            if(timestamp && typeof timestamp.getHours === "function" && !isNaN(timestamp.getTime())){
+                                var hours = timestamp.getHours();
+                                var minutes = timestamp.getMinutes();
+                                var seconds = timestamp.getSeconds();
 
-                            var secondsSinceMidnight = hours * 3600 + minutes * 60 + seconds;
+                                var secondsSinceMidnight = hours * 3600 + minutes * 60 + seconds;
 
-                            selected_end_time = secondsSinceMidnight
+                                selected_end_time = secondsSinceMidnight
+                            } else {
+                                selected_end_time = 0
+                            }
                         }
                         onDoubleClicked: {
                             eduMPIButton.click()
@@ -136,7 +141,9 @@ ApplicationWindow {
                         }
                         else {
                             component = Qt.createComponent("Error.qml");
-                            var message = "EduMPI window for Slurm Job " + selected_slurm_id + " is already open!"
+                            var message = (selected_slurm_id == 0)
+                                    ? "No EduMPI run is selected. Please click a run in the list first."
+                                    : "EduMPI window for Slurm Job " + selected_slurm_id + " is already open!"
                             window = component.createObject(root, {"message": message});
                             window.x = (root.width - window.width) / 2;
                             window.y = (root.height - window.height) / 2;
