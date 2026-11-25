@@ -6,7 +6,9 @@ set(CMAKE_BUILD_TYPE Debug)
 
 set(QT_QML_GENERATE_QMLLS_INI ON)
 
-set(PostgreSQL_ROOT "/opt/homebrew/opt/libpq" CACHE PATH "")
+if(APPLE)
+    set(PostgreSQL_ROOT "/opt/homebrew/opt/libpq" CACHE PATH "")
+endif()
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
@@ -70,6 +72,7 @@ qt_add_qml_module(appGUI_Cluster
         main.qml
         Cores2D.qml
         Cores3D.qml
+        CommunicatorState.qml
         CoresCommunicationMatrix.qml
         Menu_Bar.qml
         Bottom_Bar.qml
@@ -140,11 +143,17 @@ target_link_libraries(appGUI_Cluster PRIVATE
     sidebarplugin
 )
 
+add_custom_command(TARGET appGUI_Cluster POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E create_symlink
+        "${CMAKE_BINARY_DIR}/GUI_Cluster/appGUI_Cluster.qmltypes"
+        "${CMAKE_CURRENT_SOURCE_DIR}/GUI_Cluster/appGUI_Cluster.qmltypes"
+)
+
 if(APPLE)
     add_custom_command(TARGET appGUI_Cluster POST_BUILD
-      COMMAND ${CMAKE_COMMAND} -E copy
-              /opt/homebrew/opt/libpq/lib/libpq.5.dylib
-              $<TARGET_BUNDLE_DIR:appGUI_Cluster>/Contents/Frameworks/libpq.5.dylib
+        COMMAND ${CMAKE_COMMAND} -E copy
+            /opt/homebrew/opt/libpq/lib/libpq.5.dylib
+            $<TARGET_BUNDLE_DIR:appGUI_Cluster>/Contents/Frameworks/libpq.5.dylib
     )
 endif()
 

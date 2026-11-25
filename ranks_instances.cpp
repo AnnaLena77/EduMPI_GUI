@@ -107,6 +107,21 @@ void Ranks_Instances::setComponents_build(bool comp){
     emit outerInstanceDataChanged();
 }*/
 
+void Ranks_Instances::set_highlightRanks(const QVariantList &ranks){
+    m_highlightRanksList = ranks;
+    m_highlightRanks.clear();
+    for(const QVariant &r : ranks){
+        m_highlightRanks.insert(r.toInt());
+    }
+    emit highlightChanged();
+    markDirty();
+}
+void Ranks_Instances::set_highlightActive(bool active){
+    m_highlightActive = active;
+    emit highlightChanged();
+    markDirty();
+}
+
 void Ranks_Instances::timerRanksChanged(){
     markDirty();
 }
@@ -285,6 +300,9 @@ QByteArray Ranks_Instances::getInstanceBuffer(int* instanceCount)
         }
 
         QColor col(red, green, blue);
+        if(m_highlightActive && !m_highlightRanks.contains(m_instanceRanks->rankAt(i)->getId())){
+            col = QColor(228, 228, 228);   // not part of the selected communicator
+        }
 
         float index = i;
 
