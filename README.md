@@ -86,7 +86,7 @@ after a restart of the dev cluster, and shows "[DEV]" in the window title. Witho
 `EDUMPI_DEV_ENV` the GUI behaves as before. Details: `dev/README.md` in the EduMPI repo.
 
 ### Demo mode (tool-edumpi-docker)
-The demo repository [tool-edumpi-docker](https://github.com/Sithies/tool-edumpi-docker) ships a
+The demo repository [tool-edumpi-docker](https://github.com/FuldaHPC/tool-edumpi-docker) ships a
 GUI built with `-DEDUMPI_DEMO_MODE=ON -DCMAKE_BUILD_TYPE=Release` together with a containerised
 EduMPI cluster. Its start script writes `.run/demo.env` and launches the GUI with `EDUMPI_DEMO_ENV`
 pointing to it. The GUI then connects to the database and the cluster automatically (retrying every
