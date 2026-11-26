@@ -1,21 +1,28 @@
 Deploy Application with AppImage/linuxdeploy
 
+Platzhalter: <QT_DIR> = Qt-Installation, z. B. ~/Qt/6.12.0/gcc_64;
+<QT_TOOLS_DIR> = Qt-Tools, z. B. ~/Qt/Tools; <REPO_DIR> = Repo-Checkout.
+
+macOS: macdeployqt mit vollem Pfad aufrufen, z. B.
+/Applications/Qt/6.12.0/macos/bin/macdeployqt – nicht die Homebrew-Version
+aus dem PATH (kann eine andere Qt-Version sein).
+
 1. Build Directory innerhalb der App-Directory erstellen
 $ mkdir build
 $ cd build
 
 2. Darauf achten, dass die QT-Installations-Umgebung im LD-Library-Path vorhanden ist
-$ export LD_LIBRARY_PATH=/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/lib:$LD_LIBRARY_PATH
+$ export LD_LIBRARY_PATH=<QT_DIR>/lib:$LD_LIBRARY_PATH
 
 3. cmake ausfüren, mit richtiger cmake-Version (unter QT)
-$ /home/anna-lena/QtDesignStudio/Tools/CMake/bin/cmake .. -DCMAKE_INSTALL_PREFIX=/usr -B /home/anna-lena/GUI_Cluster/appImage_Build_Dir/
+$ <QT_TOOLS_DIR>/CMake/bin/cmake .. -DCMAKE_INSTALL_PREFIX=/usr -B <REPO_DIR>/build/appimage
 $ make -j 4
 $ make install DESTDIR=AppDir
 
 4. Linux-Deploy mittels QMAKE vorbereiten (Korrekte Version verwenden)
 
-$ export QML_SOURCES_PATHS=/home/anna-lena/GUI_Cluster/
-$ export QMAKE=/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/bin/qmake
+$ export QML_SOURCES_PATHS=<REPO_DIR>/
+$ export QMAKE=<QT_DIR>/bin/qmake
 $ export DEPLOY_PLATFORM_THEMES=true
 
 5. .desktop file und icon erstellen:

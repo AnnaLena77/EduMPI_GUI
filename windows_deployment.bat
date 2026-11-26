@@ -1,12 +1,14 @@
+if "%QT_DIR%"=="" set QT_DIR=C:\Qt\6.12.0\mingw_64
+
 mkdir windows-build
 
-C:\Qt\Tools\CMake_64\bin\cmake.exe -G "Ninja" -S . -B windows-build -DCMAKE_MAKE_PROGRAM="C:\Qt\Tools\Ninja\ninja.exe" -DPostgreSQL_ROOT="C:\msys64\mingw64"
+C:\Qt\Tools\CMake_64\bin\cmake.exe -G "Ninja" -S . -B windows-build -DCMAKE_MAKE_PROGRAM="C:\Qt\Tools\Ninja\ninja.exe" -DPostgreSQL_ROOT="C:\msys64\mingw64" -DCMAKE_PREFIX_PATH="%QT_DIR%"
 
 cd windows-build
 
 C:\Qt\Tools\Ninja\ninja.exe
 
-C:\Qt\6.8.1\mingw_64\bin\windeployqt.exe --qmldir .. --dir release appGUI_Cluster.exe
+"%QT_DIR%\bin\windeployqt.exe" --qmldir .. --dir release appGUI_Cluster.exe
 
 copy appGUI_Cluster.exe release
 copy "C:\msys64\mingw64\bin\libpq.dll" release

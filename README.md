@@ -73,7 +73,7 @@ The GUI acts as the **frontend client** in the EduMPI ecosystem:
     git clone git@github.com:AnnaLena77/EduMPI_GUI.git
     cd EduMPI_GUI
     ```
-2. Install dependencies (Qt ≥ 6 recommended)
+2. Install dependencies: Qt 6.12 (Quick3D, ShaderTools, Sql)
 3. Build using CMake
 4. Run the resulting binary
 

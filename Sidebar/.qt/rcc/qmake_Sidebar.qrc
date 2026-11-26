@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/qt/qml/Sidebar">
-    <file alias="qmldir">/home/anna-lena/GUI_Cluster/Sidebar/qmldir</file>
-  </qresource>
-</RCC>
-

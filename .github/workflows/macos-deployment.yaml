@@ -1,7 +1,7 @@
 name: macOS Deployment
 
 env:
-  QT_VERSION: 6.8.1
+  QT_VERSION: 6.12.0
   APP_NAME: appGUI_Cluster
   BUILD_DIR: build
   INSTALL_DIR: appdir

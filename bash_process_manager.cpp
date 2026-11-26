@@ -138,6 +138,12 @@ void Bash_Process_Manager::handleProcessFinished(int exitCode, QProcess::ExitSta
 {
     Q_UNUSED(exitStatus);
     qDebug() << "Process finished with exit code" << exitCode;
+    // Skript endete ohne Abschluss-Status (z. B. Cluster nicht erreichbar, Abbruch vor der
+    // Job-ID): sonst bliebe die GUI im Warten hängen und "Start" gesperrt
+    if (m_status != "completed" && m_status != "cancelled") {
+        m_status = "failed";
+        emit slurm_status_changed(m_status);
+    }
 }
 
 void Bash_Process_Manager::killProcess(){

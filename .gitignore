@@ -1,12 +1,43 @@
 deploy_*/
 build/
 appImage_Build_Dir/
+windows-build
 
 *.log
 *.tmp
 *.bak
 *.ini
 
+# Build-Ausgaben (CMake/Qt), falls doch im Quellordner gebaut wird
 CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+*.qrc.depends
+.qt/
+.rcc/
+.qt_plugins/
+/qmltypes/
+/nodes.qmltypes
+/GUI_Cluster/
+/Sidebar/qmltypes/
+/Sidebar/qmldir
+/Sidebar/*.qmltypes
+/Sidebar/*_qml_module_dir_map.qrc
+/Sidebar/sidebarplugin_*.cpp
+*.a
 
-windows-build
+# Lokale IDE-Dateien
+.vscode/
+.qtcreator/
+.qtc_clangd/
+CMakeLists.txt.user*
+*.creator
+*.creator.user*
+*.cflags
+*.cxxflags
+*.config
+*.files
+*.includes
+.DS_Store

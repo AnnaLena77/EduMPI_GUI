@@ -10,6 +10,7 @@
 #include <QQmlContext>
 #include <QObject>
 #include <QQuickWindow>
+#include <QStandardPaths>
 
 #include <QQuickView>
 

@@ -209,6 +209,10 @@ Window {
                         nodesList.waitForEnd()
                         root.slurm_status = "completed"
                         root.loaderText = "Job-Status: Completed! \nYour Slurm job ended unexpectedly. Check the output to analyze possible errors."
+                    } else if(status === "failed"){
+                        root.slurm_status = "failed"
+                        root.loaderText = "Job-Status: Failed! \nThe job could not be submitted or its status could not be read. Check the cluster connection and start again."
+                        root.enable_start = true
                     }
                 } else {
                     if(status === "pending"){
@@ -223,6 +227,10 @@ Window {
                     } else if(status === "completed"){
                         root.slurm_status = "completed"
                         root.loaderText = "Job-Status: Completed!"
+                    } else if(status === "failed"){
+                        root.slurm_status = "failed"
+                        root.loaderText = "Job-Status: Failed! \nThe job could not be submitted or its status could not be read. Check the cluster connection and start again."
+                        root.enable_start = true
                     }
                 }
             }

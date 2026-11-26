@@ -17,18 +17,13 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if(WIN32)
-    set(CMAKE_PREFIX_PATH "C:/Qt/6.8.1/mingw_64/lib/cmake/Qt6;C:/Qt/6.8.1/mingw_64/lib/cmake")
-elseif (LINUX)
-    set(CMAKE_PREFIX_PATH "/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/lib/cmake/Qt6;/home/anna-lena/QtDesignStudio/6.8.1/gcc_64/lib/cmake")
-endif ()
 if(APPLE)
     # AGL existiert auf modernen macOS SDKs nicht mehr
     set(WrapOpenGL_AGL "WrapOpenGL_AGL-NOTFOUND" CACHE FILEPATH "" FORCE)
 endif()
 
 
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick QuickControls2 Quick3D Sql)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Quick QuickControls2 Quick3D Sql Concurrent OpenGL)
 find_package(PostgreSQL REQUIRED)
 
 qt_standard_project_setup()
@@ -136,6 +131,8 @@ target_link_libraries(appGUI_Cluster PRIVATE
     Qt6::QuickControls2
     Qt6::Quick3D
     Qt6::Sql
+    Qt6::Concurrent
+    Qt6::OpenGL
 )
 
 install(TARGETS appGUI_Cluster
@@ -144,12 +141,6 @@ install(TARGETS appGUI_Cluster
 
 target_link_libraries(appGUI_Cluster PRIVATE
     sidebarplugin
-)
-
-add_custom_command(TARGET appGUI_Cluster POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E create_symlink
-        "${CMAKE_BINARY_DIR}/GUI_Cluster/appGUI_Cluster.qmltypes"
-        "${CMAKE_CURRENT_SOURCE_DIR}/GUI_Cluster/appGUI_Cluster.qmltypes"
 )
 
 if(APPLE)

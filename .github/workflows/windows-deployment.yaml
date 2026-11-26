@@ -1,7 +1,7 @@
 name: Windows Deployment
 
 env:
-  QT_VERSION: 6.8.1
+  QT_VERSION: 6.12.0
 
 on:
   push:
@@ -25,6 +25,10 @@ jobs:
           modules: 'qtshadertools qtquick3d'
           tools: 'tools_mingw1310 tools_cmake tools_ninja'
           cache: true
+          # Qt >= 6.11 on Windows uses a per-arch repo layout that aqtinstall
+          # 3.3.0 (latest release) can't read; pin the upstream fix (PR #1000)
+          # until a release containing it is out.
+          aqtsource: 'git+https://github.com/miurahr/aqtinstall.git@8c3695d4a4e1ceabf6a74dc6c79681656dc6b74b'
 
       - name: Install MSYS Postgres
         id: msys2

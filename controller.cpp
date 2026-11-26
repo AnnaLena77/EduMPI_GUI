@@ -8,6 +8,7 @@
 #include <QFile>
 #include <qdatetime.h>
 #include <QMetaObject>
+#include <QThreadPool>
 
 #include <unistd.h>
 #include <csignal>
@@ -28,7 +29,11 @@ Controller::Controller(QObject *parent) : QObject(parent)
 void Controller::connect(QString hostname, QString databasename, int port, QString username, QString password){
     QTemporaryFile tempFile;
     tempFile.setAutoRemove(false);
-    tempFile.open();
+    if (!tempFile.open()) {
+        qWarning() << "Failed to create env file:" << tempFile.errorString();
+        emit connectionSignal(false);
+        return;
+    }
 
     m_envFilePath = tempFile.fileName();
 
@@ -75,7 +80,10 @@ QString removeFilePrefix(const QString &file_path){
 bool Controller::copyEnvFile(){
     QTemporaryFile newTempFile;
     newTempFile.setAutoRemove(false);
-    newTempFile.open();
+    if (!newTempFile.open()) {
+        qWarning() << "Failed to create env file:" << newTempFile.errorString();
+        return false;
+    }
 
     QFile oldTempFile(m_envFilePath);
     if (!oldTempFile.open(QIODevice::ReadOnly)) {
@@ -100,7 +108,7 @@ bool Controller::copyEnvFile(){
 }
 
 void Controller::copyOutputFile(){
-    QtConcurrent::run([this]() {
+    QThreadPool::globalInstance()->start([this]() {
         QProcess proc;
         const QString filePath = QDir::homePath();
 
@@ -193,7 +201,7 @@ QString Controller::connectCluster(const QString &address, const QString &ident,
 }
 
 void Controller::connectClusterAsync(const QString &address, const QString &ident, const QString &path, QJSValue callback){
-    QtConcurrent::run([=]() {
+    QThreadPool::globalInstance()->start([=]() {
         QString result = connectCluster(address, ident, path);
 
         // Ensure the callback is invoked in the main thread
