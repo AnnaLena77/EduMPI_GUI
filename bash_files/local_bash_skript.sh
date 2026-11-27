@@ -6,21 +6,19 @@ REMOTE_HOST=$2
 REMOTE_DIR=$3
 JOB_SCRIPT=$4
 CHECK_INTERVAL=1
-SSH_PORT=22 # Standard ist 22, ändern Sie dies, falls notwendig
 
-# Pfad für die Kontrollsockel-Datei
-#CONTROL_PATH="/tmp/ssh-%r@%h:%p"
-
-# SSH-Optionen für eine persistente Verbindung
-#SSH_OPTIONS="-o ControlMaster=auto -o ControlPath=${CONTROL_PATH} -o ControlPersist=600"
-SSH_OPTIONS=""
+# SSH-Optionen für ssh bzw. scp (scp nimmt -P für den Port). Standard: Port 22, sonst nichts.
+# Im Demo-Modus setzt die GUI hinter der Markierung eigene Optionen (Port, Key, known_hosts).
+SSH_OPTIONS=(-p 22)
+SCP_OPTIONS=(-P 22)
+# EDUMPI_GUI_TRANSFER <- nicht ändern: hier fügt die GUI Optionen und die scp-Zeilen ein
 
 echo "SCRIPT_PID=$$"
 
 # Funktion zur Ausführung eines Kommandos auf dem Remote-Host
 function remote_command() {
     local COMMAND=$1
-    ssh ${SSH_OPTIONS} -p ${SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST} "${COMMAND}"
+    ssh "${SSH_OPTIONS[@]}" ${REMOTE_USER}@${REMOTE_HOST} "${COMMAND}"
 }
 
 function handle_cancel_signal() {
@@ -29,7 +27,7 @@ function handle_cancel_signal() {
     END_TIME=$(remote_command "scontrol show job $JOB_ID | grep EndTime | cut -d= -f3")
     echo "$END_TIME EndTime"
     sleep 1
-    ssh ${SSH_OPTIONS} -O exit -p ${SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST}
+    ssh "${SSH_OPTIONS[@]}" -O exit ${REMOTE_USER}@${REMOTE_HOST}
     echo "SSH Connection closed"
     exit 0
 }
@@ -96,6 +94,6 @@ done
 #remote_command "ls -l /home/${REMOTE_USER}"
 
 # Optional: Verbindung schließen (wenn Sie sicherstellen möchten, dass die Verbindung sofort beendet wird)
-ssh ${SSH_OPTIONS} exit -p ${SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST}
+ssh "${SSH_OPTIONS[@]}" -O exit ${REMOTE_USER}@${REMOTE_HOST}
 
 echo "SSH connection closed"

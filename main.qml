@@ -15,7 +15,14 @@ Window {
     visible: true
 
     //property alias actualScreen: actualScreen
-    title: qsTr("EduMPI")
+    title: qsTr("EduMPI") + (appMode.mode === "dev" ? (appMode.sshWrapper ? " [DEV]" : " [DEV – SSH-Wrapper fehlt]")
+                             : appMode.mode === "demo" ? " [DEMO]" : "")
+
+    // Dev-/Demo-Modus (app_mode.h): Verbindungswert aus der Modus-Datei, sonst der normale Standardwert
+    readonly property bool demo: appMode.mode === "demo"
+    function modeValue(key, fallback) {
+        return appMode.enabled && appMode[key] !== undefined ? appMode[key] : fallback
+    }
 
     property bool p2p: true
     property bool collective: true
@@ -291,6 +298,21 @@ Window {
                 height: parent.height
                 color: "#00FF00"
             }
+            // Demo-Modus: Hinweis mit Demo-Name, Verbindungsstatus und Rank-Obergrenze
+            // (links neben der Sidebar; Status aus dem Auto-Connect-Timer, weil der Controller
+            // für db_connection/cluster_connection keine Änderungssignale sendet)
+            Text {
+                visible: root.demo
+                anchors.right: parent.right
+                anchors.rightMargin: options.width + 8
+                height: parent.height
+                verticalAlignment: Text.AlignVCenter
+                color: root.autoDbConnected && root.autoClusterConnected ? "#00FF00" : "#FFB000"
+                text: "DEMO: " + appMode.name
+                      + (root.autoDbConnected ? "  |  DB: connected" : "  |  DB: connecting ...")
+                      + (root.autoClusterConnected ? "  |  Cluster: connected" : "  |  Cluster: connecting ...")
+                      + (appMode.maxRanks > 0 ? "  |  max. " + appMode.maxRanks + " ranks" : "")
+            }
         }
 
         /*Sidebar {
@@ -362,6 +384,67 @@ Window {
         onTriggered: {
             controller.outputHandling(path);
                 // Hier kommt die Logik, die nach der Verzögerung ausgeführt werden soll
+        }
+    }
+
+    // Dev-/Demo-Modus: beim Start mit DB und Cluster verbinden und neu verbinden, wenn der
+    // Cluster neu gestartet wurde. Erst DB (synchron), dann Cluster – die Job-Liste wird
+    // nur bei bestehender DB-Verbindung geladen.
+    property bool autoClusterConnecting: false
+    property bool autoDbConnected: false
+    property bool autoClusterConnected: false
+    readonly property string modeTag: appMode.mode === "demo" ? "[DEMO] " : "[DEV] "
+    Timer {
+        id: autoConnect
+        interval: 5000
+        repeat: true
+        triggeredOnStart: true
+        running: appMode.enabled
+        onTriggered: {
+            if (!controller.db_connection || !controller.checkDatabase()) {
+                root.db_host = appMode.dbHost
+                root.db_port = appMode.dbPort
+                root.db_name = appMode.dbName
+                root.db_user = appMode.dbUser
+                root.db_password = appMode.dbPassword
+                controller.connect(root.db_host, root.db_name, parseInt(root.db_port), root.db_user, root.db_password)
+                root.autoDbConnected = controller.db_connection
+                console.log(root.modeTag + "Datenbank " + root.db_host + ":" + root.db_port + ": "
+                            + (controller.db_connection ? "verbunden" : "nicht erreichbar, neuer Versuch in 5 s"))
+                if (!controller.db_connection)
+                    return
+            }
+            root.autoClusterConnected = controller.cluster_connection
+            if (!controller.cluster_connection && !root.autoClusterConnecting) {
+                root.autoClusterConnecting = true
+                controller.connectClusterAsync(appMode.clusterHost, appMode.clusterUser, appMode.edumpiPath,
+                                               function(result) {
+                    root.autoClusterConnecting = false
+                    root.autoClusterConnected = controller.cluster_connection
+                    console.log(root.modeTag + "Cluster " + appMode.clusterHost + ": " + result)
+                })
+            }
+        }
+    }
+
+    // --selftest (siehe main.cpp): ohne Modus reicht es, dass die Oberfläche geladen wurde;
+    // im Dev-/Demo-Modus müssen zusätzlich DB und Cluster verbunden sein (max. 60 s).
+    Timer {
+        id: selftestTimer
+        property int elapsed: 0
+        interval: 1000
+        repeat: true
+        running: selftest
+        onTriggered: {
+            elapsed += interval
+            if (!appMode.enabled || (controller.db_connection && controller.cluster_connection)) {
+                console.log("[SELFTEST] ok" + (appMode.enabled ? " (DB und Cluster verbunden)" : ""))
+                Qt.exit(0)
+            } else if (elapsed >= 60000) {
+                console.log("[SELFTEST] fehlgeschlagen: DB " + controller.db_connection
+                            + ", Cluster " + controller.cluster_connection)
+                Qt.exit(1)
+            }
         }
     }
 }

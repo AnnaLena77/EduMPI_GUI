@@ -23,7 +23,7 @@ Window {
         TextField {
             id: hostnameField
             Layout.fillWidth: true
-            text: "10.35.8.10"
+            text: root.modeValue("dbHost", "10.35.8.10")
             placeholderText: "<enter host address>"
             color: "white"
             background: Rectangle {
@@ -39,7 +39,7 @@ Window {
         TextField {
             id: portField
             Layout.fillWidth: true
-            text: "5432"
+            text: root.modeValue("dbPort", "5432")
             placeholderText: "<enter port>"
             //inputMethodHints: Qt.ImhDigitsOnly
             color: "white"
@@ -56,7 +56,7 @@ Window {
         TextField {
             id: nameField
             Layout.fillWidth: true
-            text: "edumpi_td"
+            text: root.modeValue("dbName", "edumpi_td")
             placeholderText: "<enter database name>"
             color: "white"
             background: Rectangle {
@@ -72,7 +72,7 @@ Window {
         TextField {
             id: userField
             Layout.fillWidth: true
-            text: "edumpi"
+            text: root.modeValue("dbUser", "edumpi")
             placeholderText: "<enter user name>"
             color: "white"
             background: Rectangle {
@@ -87,6 +87,7 @@ Window {
         TextField {
             id: passwordField
             echoMode: TextInput.Password
+            text: root.modeValue("dbPassword", "")
             Layout.fillWidth: true
             placeholderText: "<enter password>"
             color: "white"

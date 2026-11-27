@@ -15,6 +15,17 @@ Item {
             color: "#383936"
         }
 
+        // Demo-Modus: Verbindungen stellt die GUI selbst her, Score-P/OpenMP gibt es im
+        // Demo-Cluster nicht – die Einträge und das Menü "Non-Visualization" entfallen.
+        Component.onCompleted: {
+            if (root.demo) {
+                menu1.removeAction(clusterConnectionAction)
+                menu1.removeAction(dbConnectionAction)
+                menu.removeMenu(helpMenu)
+                menu.removeMenu(nonVisualizationMenu)
+            }
+        }
+
         Menu {
             id: menu1
             title: qsTr("Settings")
@@ -27,7 +38,7 @@ Item {
             }
 
             Action {
-
+                id: clusterConnectionAction
                 text: "<font color=\"white\">Cluster Connection</font>"
                 onTriggered: {
                     var component = Qt.createComponent("Cluster_Connection_Formular.qml");
@@ -36,6 +47,7 @@ Item {
                 }
             }
             Action {
+                id: dbConnectionAction
                 text: "<font color=\"white\">Database Connection</font>"
                 onTriggered: {
                         var component = Qt.createComponent("DB_Connection_Formular.qml");
@@ -111,6 +123,7 @@ Item {
         }*/
 
         Menu {
+            id: helpMenu
             title: qsTr("Help")
 
             background: Rectangle {
@@ -131,6 +144,7 @@ Item {
         }
 
         Menu {
+            id: nonVisualizationMenu
             title: qsTr("Non-Visualization")
 
             Action {

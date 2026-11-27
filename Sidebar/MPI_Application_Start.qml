@@ -188,7 +188,11 @@ Rectangle {
                     id: numProcs
                     text: ""
                     Layout.fillWidth: true
-                    placeholderText: "max. 416"
+                    // Demo-Modus: so viele Ranks, wie der Demo-Cluster auf diesem Rechner hat
+                    readonly property bool limited: appMode.enabled && appMode.maxRanks > 0
+                    placeholderText: "max. " + (limited ? appMode.maxRanks : 416)
+                    validator: limited ? demoRanksValidator : null
+                    IntValidator { id: demoRanksValidator; bottom: 1; top: numProcs.limited ? appMode.maxRanks : 999999 }
                     background: Rectangle {
                         color: "#4d4d4d"
                     }

@@ -73,6 +73,7 @@ public:
     Q_INVOKABLE void setTimestamp(QTime timestamp);
     Q_INVOKABLE Table_UserID *getJobTable();
     Q_INVOKABLE QString getClusterIdent();
+    Q_INVOKABLE bool checkDatabase();
 
     Q_INVOKABLE bool copyEnvFile();
 
